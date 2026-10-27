@@ -426,6 +426,7 @@
 /* A complete enquiry is visible first. Watch replays only the causal changes. */
 #chatbot-enquiry {
   scroll-margin-top: 70px;
+  padding-top: 30px;
 }
 .cr-enquiry-stage {
   display: grid;
@@ -462,13 +463,33 @@
   font-size: 11px;
   color: #5b6860;
 }
-.cr-crm-workspace {
+.cr-enquiry-result-stage {
+  position: relative;
   align-self: center;
+  min-width: 0;
+}
+.cr-enquiry-working {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  object-fit: cover;
+  object-position: 69% center;
+}
+.cr-crm-workspace {
+  position: relative;
   overflow: hidden;
   border: 1px solid #dce1e4;
   border-radius: 14px;
   background: #fff;
   box-shadow: 0 10px 30px #18252c08;
+  transition: opacity 400ms ease;
+}
+.cr-result-pending {
+  opacity: 0;
+  visibility: hidden;
 }
 .cr-workspace-header {
   display: flex;
@@ -568,7 +589,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 14px 20px;
-  margin-top: 15px;
+  margin-bottom: 16px;
 }
 .cr-watch {
   display: inline-flex;

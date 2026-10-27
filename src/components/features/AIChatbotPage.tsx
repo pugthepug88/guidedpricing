@@ -187,6 +187,9 @@ function EnquiryFlow() {
       elapsed.current = 0;
       setStep(0);
     }
+    if (scene.current && scene.current.getBoundingClientRect().height + 130 < window.innerHeight) {
+      scene.current.scrollIntoView({ block: "center", behavior: "smooth" });
+    }
     setPlayed(true);
     setPlaying(true);
   };
@@ -203,65 +206,6 @@ function EnquiryFlow() {
           <h2 id="chatbot-enquiry-title">Know what they need before you reply.</h2>
           <p>Ask useful questions, capture the contact and start the follow-up you’ve agreed.</p>
         </header>
-        <div
-          className="cr-enquiry-stage"
-          ref={scene}
-          data-step={step}
-          id="chatbot-enquiry-sequence"
-        >
-          <div
-            className="cr-enquiry-thread"
-            aria-label="Daniel shares his enquiry and contact details"
-          >
-            <ChatHeader business="Inner West Air" />
-            <div className="cr-thread">
-              <Bubble cell={5}>Do you replace ducted air conditioning in Marrickville?</Bubble>
-              <Bubble ai>Yes. Is it for your home or a business, and when do you need it?</Bubble>
-              <div className={reveal(1)} aria-hidden={step < 1}>
-                <Bubble cell={5}>Home. Ideally next week.</Bubble>
-              </div>
-              <div className={reveal(2)} aria-hidden={step < 2}>
-                <Bubble ai>What’s your name and email so our team can get in touch?</Bubble>
-              </div>
-              <div className={reveal(3)} aria-hidden={step < 3}>
-                <Bubble cell={5}>
-                  Daniel.<span className="cr-shared-detail">Email address shared</span>
-                </Bubble>
-              </div>
-            </div>
-          </div>
-          <div className="cr-crm-workspace" id="chatbot-enquiry-result">
-            <div className="cr-workspace-header">
-              <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="88" height="30" />
-              <span>Website enquiry</span>
-            </div>
-            <div className={reveal(4)} aria-hidden={step < 4}>
-              <div className="cr-flow-contact">
-                <Avatar cell={5} />
-                <div>
-                  <h3>Daniel</h3>
-                  <p>Name and email captured</p>
-                </div>
-              </div>
-              <div className="cr-flow-stage">
-                <span>Pipeline stage</span>
-                <strong>New enquiry</strong>
-              </div>
-              <div className="cr-flow-request">
-                <h4>Customer’s original request</h4>
-                <p>“Do you replace ducted air conditioning in Marrickville?”</p>
-                <p>“Home. Ideally next week.”</p>
-              </div>
-            </div>
-            <div className={`${reveal(5)} cr-flow-email`} aria-hidden={step < 5}>
-              <p>Configured acknowledgement email · To Daniel</p>
-              <h4>Thanks for your enquiry, Daniel.</h4>
-              <p>
-                We’ve received your request. Our team will get in touch to discuss the replacement.
-              </p>
-            </div>
-          </div>
-        </div>
         <div className="cr-enquiry-controls">
           <button
             className="cr-watch"
@@ -290,6 +234,81 @@ function EnquiryFlow() {
           <a className="cr-link" href="/features/automation-builder">
             Explore Automation Builder
           </a>
+        </div>
+        <div
+          className="cr-enquiry-stage"
+          ref={scene}
+          data-step={step}
+          id="chatbot-enquiry-sequence"
+        >
+          <div
+            className="cr-enquiry-thread"
+            aria-label="Daniel shares his enquiry and contact details"
+          >
+            <ChatHeader business="Inner West Air" />
+            <div className="cr-thread">
+              <Bubble cell={5}>Do you replace ducted air conditioning in Marrickville?</Bubble>
+              <Bubble ai>Yes. Is it for your home or a business, and when do you need it?</Bubble>
+              <div className={reveal(1)} aria-hidden={step < 1}>
+                <Bubble cell={5}>Home. Ideally next week.</Bubble>
+              </div>
+              <div className={reveal(2)} aria-hidden={step < 2}>
+                <Bubble ai>What’s your name and email so our team can get in touch?</Bubble>
+              </div>
+              <div className={reveal(3)} aria-hidden={step < 3}>
+                <Bubble cell={5}>
+                  Daniel.<span className="cr-shared-detail">Email address shared</span>
+                </Bubble>
+              </div>
+            </div>
+          </div>
+          <div className="cr-enquiry-result-stage">
+            {played && step < 4 && (
+              <img
+                className="cr-enquiry-working"
+                src="/concept/features/chatbot-team-review-v3.webp"
+                alt="A service team focused on an installation plan while the chatbot collects an enquiry"
+                width="2020"
+                height="778"
+              />
+            )}
+            <div
+              className={`cr-crm-workspace${step < 4 ? " cr-result-pending" : ""}`}
+              id="chatbot-enquiry-result"
+              aria-hidden={step < 4}
+            >
+              <div className="cr-workspace-header">
+                <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="88" height="30" />
+                <span>Website enquiry</span>
+              </div>
+              <div className={reveal(4)} aria-hidden={step < 4}>
+                <div className="cr-flow-contact">
+                  <Avatar cell={5} />
+                  <div>
+                    <h3>Daniel</h3>
+                    <p>Name and email captured</p>
+                  </div>
+                </div>
+                <div className="cr-flow-stage">
+                  <span>Pipeline stage</span>
+                  <strong>New enquiry</strong>
+                </div>
+                <div className="cr-flow-request">
+                  <h4>Customer’s original request</h4>
+                  <p>“Do you replace ducted air conditioning in Marrickville?”</p>
+                  <p>“Home. Ideally next week.”</p>
+                </div>
+              </div>
+              <div className={`${reveal(5)} cr-flow-email`} aria-hidden={step < 5}>
+                <p>Configured acknowledgement email · To Daniel</p>
+                <h4>Thanks for your enquiry, Daniel.</h4>
+                <p>
+                  We’ve received your request. Our team will get in touch to discuss the
+                  replacement.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
