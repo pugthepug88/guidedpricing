@@ -73,3 +73,11 @@ Website/document/written-instruction knowledge, widget greeting/colour/placement
 ## Answer value correction, 26 October 2026
 
 The owner rejected widget colour as a sales-page topic. The appearance interaction is removed, including its local state and swatch styles. The section now concerns answers based on business information; its short prepared exchange and supported knowledge sources remain. This supersedes the appearance-demo description above, without changing documented product capabilities. No new product claim, private-account access, asset or live API is introduced.
+
+## Enquiry proof revision, 27 October 2026
+
+Rechecked the public AI Agents page and help-content/en.json. The agents/create and agents/[id] sourceHash values above are unchanged. Qualification, knowledge from URL/document/text, contact creation, allowed tools/resources and booking remain the documented scope; chosen pipeline and configured acknowledgement retain the owner's earlier confirmation. No live private account was inspected.
+
+New fixed trades case: Daniel asks about ducted replacement in Marrickville, supplies home/next-week timing, then gives his name and shares an email before the contact and New enquiry stage appear. The resulting record quotes his original words. A separately configured acknowledgement names Daniel; no actual address, inferred custom-field mapping, AI summary, task, assignment or dispatch is represented. The practice's initial/follow-up booking rules are fictional business information, visibly supplied before the matching prepared answer; no clinical advice is shown.
+
+The Watch control only replays prepared local content. It is not an application recording, AI response test or customer result. The complete story is visible by default and no visitor data is collected. No usable recording or sales-calendar embed was obtained, so those remain explicit delivery limits.

@@ -117,7 +117,7 @@ function PipelineFitTools() {
                   </span>
                   <span className="pf-shortcut pf-shortcut-workflow">
                     <Workflow size={15} aria-hidden="true" />
-                    Follow-up
+                    Follow up
                   </span>
                   <span className="pf-shortcut pf-shortcut-tag">
                     <Tag size={15} aria-hidden="true" />
