@@ -519,6 +519,12 @@ The owner rejected the availability block as basic configuration given too much 
 
 Meeting Rooms and saved CRM context now flow directly into existing Guided Launch/FAQs. Preserve the hero, five formats, meeting visual and owner-confirmed recording/transcript scope, final CTA, shared shell, route/indexing and `/booking`. The code removes obsolete styles, reuses local assets and adds no motion or live behaviour. Reference decisions, scoped role judgements, rendered coverage and limits are recorded in `CALENDARS-CONTENT-PRIORITY-20261027.md`. GitHub owns changes; Lovable stays read-only, with no separate Publish action.
 
+### Booking automation follow-up, 27 October 2026
+
+The owner subsequently reopened the available space and approved a compact configured booking-confirmation/reminder explanation. This supersedes the no-replacement direction for that specific purpose; do not restore the large availability panel or promote a generic form as a new headline benefit. Keep the new scene inside the existing business chapter before Meeting Rooms. The visible booking event leads to a confirmation email and a reminder SMS before the selected appointment. Messages and timing are configured, not universal defaults. Move the opening's duplicate reminder into this sequence and show the source of Emma's kitchen/benchtop information as her booking-form answer.
+
+The live Automation audit supplies Appointment Booked, email, appointment-relative wait and SMS evidence. Existing CRM history and custom-form mapping remain supporting context. No automatic chatbot summary, cross-channel identity match, customer self-service Reschedule button, or automatic queued-reminder recalculation/cancellation is added. Keep the five formats, native meetings/saved record, H1/final CTA, native calendar row, FAQ availability, shared architecture and `/booking`. Current verification and scoped role judgements are in `CALENDARS-BOOKING-AUTOMATIONS-20261027.md`. GitHub owns changes; Lovable remains read-only.
+
 ## Quotes, Invoices & Signatures selective-detail reset, 27 October 2026
 
 The owner rejected the page’s word and number burden and supplied a selectively detailed illustration. This supersedes the original document specimens and unmerged PR #207’s narrated signing/payment players. Preserve the H1, final CTA, verified capabilities, shared architecture, route/indexing and /booking.
