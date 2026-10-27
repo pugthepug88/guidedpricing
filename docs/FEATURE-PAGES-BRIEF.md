@@ -535,6 +535,11 @@ Show the same filled enquiry being submitted before Mia's CRM record, mapped pro
 
 Condense the website service choice, Guided Launch and FAQ wording. Retain separately quoted custom design and required, separately priced Guided Launch. Actual image provenance, role review, rendered desktop/phone coverage, tablet limitation and retained proof are appended to WEBSITES-PRODUCT-DESIGN-REVIEW-20261027.md. GitHub owns changes; Lovable stays read-only and no separate Publish action is used.
 
+
+## Chatbot compact conversation correction, 27 October 2026
+
+The owner rejected the enlarged open quotations and wordy result after the rhythm revision, while explicitly retaining chat containers as useful. Restore small readable bubbles and selective product detail: enquiry widget beside a compact dark contact/pipeline/configured-email record, photo-led booking beside a smaller widget containing consent and its appointment, and a contained guide/answer panel. Remove the oversized record quotation, full email body and open question typography. This supersedes the prior one-widget/open-typography presentation, while preserving distinct consecutive compositions, complete static content and the rejected-playback decision. H1, final CTA, supported scope, shared shell/indexing and /booking remain. Source/render review: `AI-CHATBOT-COMPACT-VISUALS-20261027.md`.
+
 ## Form QR sharing, 27 October 2026
 
 The owner supplied the form settings screen showing Embed & QR and requested one small supporting container. Add a compact QR-sharing card directly beneath the Forms & CRM demonstration, with a recognisable QR graphic and one short use line. Keep it subordinate to the enquiry handoff; do not recreate the settings screen, embed code, download controls or tenant-specific QR payload. Preserve the current form flow, AI, funnel, tracking, setup and shared architecture.
