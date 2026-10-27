@@ -15,37 +15,37 @@ const FAQS = [
   {
     question: "Can I keep my existing website?",
     answer:
-      "Yes. Embed a Zapla form on your existing website or share its standalone link. That gives you a way to bring enquiries into Zapla without rebuilding the whole site. We review the connection and field mapping during setup.",
+      "Yes. Embed a Zapla form on your current website or share a standalone form link. Enquiries can reach your CRM without rebuilding your site.",
   },
   {
     question: "What is the difference between a website and a funnel?",
     answer:
-      "A website gives visitors several ways to explore your business, such as services, work and contact pages. A funnel connects pages around a particular action, such as enquiring about an offer and then choosing a consultation. Both can use your forms and link to a booking page.",
+      "A website lets people explore your business. A funnel connects pages around one action, such as submitting an enquiry. Both can use Zapla forms.",
   },
   {
     question: "Can AI help me build?",
     answer:
-      "Yes. Describe a new website for Zapla AI to build, or clone an existing page by URL with its styles and images. You can then refine it in the visual editor. The form builder can also use a written request to add fields, pages, styling and settings. You can edit the result, check the content and connections, then publish when it is ready.",
+      "Yes. Describe a website for Zapla AI to build, or clone an existing page by URL, including styles and images. Refine the result in the visual editor, then review and publish.",
   },
   {
     question: "What happens when someone submits a form?",
     answer:
-      "A submission can create or update a contact. You can view the submitted answers alongside the contact and map custom answers to contact fields. A configured Form Submitted workflow can send an acknowledgement email or carry out other agreed follow-up. You choose and activate that workflow during setup.",
+      "A submission can create or update a contact. Map custom answers to contact fields and configure a Form Submitted workflow for acknowledgements or other follow-up.",
   },
   {
     question: "Can I use several pages in a form?",
     answer:
-      "Yes. Split a form into pages, choose field types such as text, dropdowns and checkboxes, and make key answers required. You can style the form and configure where the customer goes after submitting it, including a booking page. The customer still chooses their appointment through the booking process.",
+      "Yes. Use multiple pages, different field types and required answers. Choose a confirmation message or redirect after submission.",
   },
   {
     question: "Can I use my own domain and edit after publishing?",
     answer:
-      "Yes. Connect your domain, configure the required DNS settings and verify the connection. Custom domains and SSL are supported; domain registration is separate. Saving page changes keeps your work in a draft. Publish after reviewing to update what visitors see.",
+      "Yes. Connect and verify your domain with DNS settings. Custom domains and SSL are supported; domain registration is separate. Save edits as a draft, then publish when ready.",
   },
   {
     question: "Is a custom-designed website included?",
     answer:
-      "The platform provides tools for you to build and manage pages and forms. A website designed and built by Zapla is a separate paid project with an agreed scope. It is not automatically included in the subscription or Guided Launch. Guided Launch covers your agreed initial platform setup and is separately priced.",
+      "Website tools are part of your subscription. A website designed and built by Zapla is a separately quoted project. Guided Launch covers agreed initial platform setup and is priced separately.",
   },
 ] as const;
 
@@ -62,65 +62,24 @@ function LaunchAndQuestions() {
       <div className="wff-shell">
         <div className="wff-launch-layout">
           <div className="wff-launch-copy">
-            <p className="wff-eyebrow">A practical starting point</p>
+            <p className="wff-eyebrow">Build it your way</p>
             <h2 id="wff-build-title">
               Build it yourself.
               <br />
               Or have it designed for you.
             </h2>
-            <div className="wff-service-choice">
-              <h3>The tools to build your own.</h3>
-              <p>
-                Create and manage pages, funnels and forms in your Zapla subscription. You choose
-                the content, questions and customer journey.
-              </p>
-            </div>
-            <div className="wff-service-choice">
-              <h3>A website designed by Zapla.</h3>
-              <p>
-                Want us to handle the design and build? We’ll agree the pages, content and
-                connections, then quote for that scope.
-              </p>
-              <p className="wff-service-scope">
-                Custom website design is a separate paid service, outside your subscription and
-                Guided Launch.
-              </p>
-              <SalesLink>Discuss your website</SalesLink>
-            </div>
+            <p>Use Zapla’s website tools, or have our team design and build it for you.</p>
+            <p className="wff-service-scope">Custom website design is quoted separately.</p>
+            <SalesLink>Discuss your website</SalesLink>
           </div>
           <aside className="wff-launch-plan" aria-labelledby="wff-launch-title">
-            <ZaplaPetal size={39} />
-            <p className="wff-eyebrow">Guided Launch</p>
-            <h3 id="wff-launch-title">
-              Connect the journey.
-              <br />
-              Check every handoff.
-            </h3>
-            <dl>
-              <div>
-                <dt>Your starting point</dt>
-                <dd>Existing website, new pages or a focused offer.</dd>
-              </div>
-              <div>
-                <dt>Your customer information</dt>
-                <dd>Questions, required answers and contact-field mapping.</dd>
-              </div>
-              <div>
-                <dt>Your follow-up</dt>
-                <dd>Acknowledgement, team process and the next step.</dd>
-              </div>
-              <div>
-                <dt>Your checks</dt>
-                <dd>Form, contact record and agreed workflow tested together.</dd>
-              </div>
-            </dl>
-            <p>
-              Guided Launch is required for new standard accounts and priced separately from your
-              subscription.
+            <h3 id="wff-launch-title">Guided Launch</h3>
+            <p>We connect and test your forms, customer fields and agreed follow-up.</p>
+            <p className="wff-setup-scope">
+              Required for new standard accounts. Priced separately from your subscription.
             </p>
             <a href="/Pricing-v3">
-              See plans and Guided Launch
-              <ArrowRight size={16} aria-hidden="true" />
+              Plans and setup <ArrowRight size={16} aria-hidden="true" />
             </a>
           </aside>
         </div>
@@ -151,7 +110,7 @@ export function WebsitesFunnelsFormsPage() {
       <noscript>
         <style>
           {
-            ".wff-ai-watch, .wff-reset, .wff-column-handle, .wff-tracking-control { display: none !important; }"
+            ".wff-scene-control, .wff-ai-send, .wff-reset, .wff-column-handle, .wff-tracking-control { display: none !important; }"
           }
         </style>
       </noscript>
