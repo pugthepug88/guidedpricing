@@ -24,7 +24,7 @@ function Brand() {
     />
   );
 }
-function Avatar({ cell = 16 }: { cell?: number }) {
+function Avatar({ cell = 19 }: { cell?: number }) {
   return (
     <span
       className="bc-avatar"
@@ -83,10 +83,10 @@ function Opening() {
       <div className="bc-hero">
         <img
           className="bc-hero-image"
-          src="/concept/features/chatbot-property-viewing-v2-20261027.webp"
+          src="/concept/features/chatbot-property-viewing-cast-20261027.webp"
           alt="A real estate agent showing buyers through a home"
-          width="1870"
-          height="841"
+          width="1869"
+          height="842"
           fetchPriority="high"
         />
         <div className="bc-hero-shade" aria-hidden="true" />
@@ -140,7 +140,7 @@ function LeadCapture() {
         <div className="bc-stage bc-lead-stage">
           <div className="bc-lead-photo">
             <img
-              src="/concept/features/chatbot-plumber-enquiries-20261027.webp"
+              src="/concept/features/chatbot-plumber-enquiries-cast-20261027.webp"
               alt="A plumber focused on a hot-water installation while website enquiries are handled"
               width="1448"
               height="1086"
@@ -216,7 +216,7 @@ function Booking() {
         <div className="bc-stage bc-booking-stage">
           <img
             className="bc-dental-photo"
-            src="/concept/features/chatbot-dental-appointment-v2-20261027.webp"
+            src="/concept/features/chatbot-dental-appointment-cast-20261027.webp"
             alt="A dentist occupied with a patient while another visitor arranges an appointment"
             width="1448"
             height="1086"
@@ -369,21 +369,21 @@ function Handoff() {
                   Conversations
                 </p>
                 <div className="bc-inbox-person bc-inbox-selected">
-                  <Avatar cell={6} />
+                  <Avatar cell={1} />
                   <div>
                     <strong>Noah Williams</strong>
                     <span>Can I supply my own system?</span>
                   </div>
                 </div>
                 <div className="bc-inbox-person">
-                  <Avatar cell={14} />
+                  <Avatar cell={7} />
                   <div>
                     <strong>Harper Reed</strong>
                     <span>Thanks for confirming.</span>
                   </div>
                 </div>
                 <div className="bc-inbox-person">
-                  <Avatar cell={5} />
+                  <Avatar cell={16} />
                   <div>
                     <strong>Alex Chen</strong>
                     <span>I’d like to arrange an appraisal.</span>
@@ -395,7 +395,7 @@ function Handoff() {
                 aria-label="Noah’s conditional question, AI handover and subsequent reply from Leah"
               >
                 <div className="bc-thread-person">
-                  <Avatar cell={6} />
+                  <Avatar cell={1} />
                   <div>
                     <strong>Noah Williams</strong>
                     <span>Live web chat</span>

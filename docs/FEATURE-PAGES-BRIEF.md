@@ -619,6 +619,10 @@ The owner rejected the previous photographic continuation as visually empty and 
 
 This supersedes the prior minimal continuation and cast, not supported capability limits. Reject repeated stock male archetypes, giant quotations, overlapping panels, broad green, fake controls or metrics. All scenes remain complete/static and phone reading order places explanation before visual and consent before booking. Provenance, source hashes, role judgements and exact rendered coverage: AI-CHATBOT-PRODUCT-STORY-20261027.md. GitHub only; Lovable read-only and no separate Publish action.
 
+### Chatbot composition approved; casting-only correction, 27 October 2026
+
+The owner likes the grouped product-story composition and requested only a younger mix of white and Asian adults aged 25–35. Preserve the approved layout, wording, product surfaces and scene framing. Update the three editorial photographs and page-local portrait selections, retaining distinct people and wardrobe. This is a page-specific casting request, not a new site-wide demographic rule. Edit briefs, asset provenance and verification are in `AI-CHATBOT-CAST-20261027.md`.
+
 ### Business Phone: concise owner correction, 27 October 2026
 
 The owner found the first page too wordy and confirmed recording/transcription options, number purchasing in Australia, UK, US, Canada, Singapore, Hong Kong, Germany and France, and A2P/10DLC. This supersedes the initial market/option uncertainty, while stock, local requirements and rates remain conditional. The page is shortened by about 39% in source-text inventory: concise hero; one clear manual Power Dialler sequence and optional Auto Dial; photo with person-selected tag/workflow quick actions; compact purchasing-market and recording/transcript panels; six brief practical FAQs. Required/separately priced Guided Launch remains visible. A2P/10DLC is supporting US SMS setup, not a voice promise.
