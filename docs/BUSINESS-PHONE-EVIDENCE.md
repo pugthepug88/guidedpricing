@@ -2,6 +2,10 @@
 
 Date: 27 October 2026. Scope: human calling. This is documentary and public-client verification, not a completed live telephony acceptance test or a promise of inclusion in every plan.
 
+## Current composition correction, 28 October 2026
+
+The owner rejected flat, stretched calling panels and oversized support cards, then supported a generated browser-phone/keypad and surrounding-shortcut concept with a visible add/customise cue. The native page now uses a compact queue/calling dock for Power Dialler, a separate phone-and-enlarged-shortcuts composition, and smaller number/recording information. No capability boundaries change. The shortened transcript remains fictional prepared dialogue. The generated visual is a reference, not a rendered screenshot or raster UI asset. Source decisions, independent concept/source reviews, exact build limits and the owner-support distinction are in BUSINESS-PHONE-COMPACT-CALLING-20261028.md. This supersedes earlier layout descriptions where they conflict.
+
 ## Current correction: show the work after the call
 
 The owner rejected the configuration-table demonstration as hard to understand. It is superseded by a completed Mia call and three configurable business choices: Add to pipeline, Start follow-up and Book a visit. The new full action-selector screenshot confirms pipeline/automation/URL types; the deployed phone handler was re-read to preserve manual pipeline saving, explicit workflow triggering and URL opening. No automatic post-call result is depicted. The navigation audit also confirmed the header link and found/fixed the missing global footer link. Exact sources, current design, independent reviews and rendered-verification limits are in BUSINESS-PHONE-AFTER-CALL-20261027.md. Earlier sections describe superseded versions where they conflict.

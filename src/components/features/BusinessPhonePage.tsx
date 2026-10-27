@@ -4,6 +4,7 @@ import {
   CalendarDays,
   Check,
   Columns3,
+  FileText,
   Mic,
   Plus,
   Zap,
@@ -50,53 +51,91 @@ function BookCall() {
   );
 }
 
-// Prepared after-call choices. A person selects a configured action; the call
-// ending does not trigger these. No live lead, workflow or booking is created.
+const SHORTCUTS = [
+  {
+    key: "pipeline",
+    label: "Pipeline",
+    name: "Add to pipeline",
+    detail: "Review and save the lead.",
+    icon: Columns3,
+  },
+  {
+    key: "followup",
+    label: "Follow-up",
+    name: "Start follow-up",
+    detail: "Run your chosen workflow.",
+    icon: Zap,
+  },
+  {
+    key: "booking",
+    label: "Booking",
+    name: "Book a visit",
+    detail: "Open your booking page.",
+    icon: CalendarDays,
+  },
+];
+
+// Static explanatory webphone and enlarged shortcut callouts. No telephony or
+// account operation is connected. The keypad supplies recognition, not input.
 function AfterCallActions() {
   return (
-    <article
-      className="bp-after-call"
-      aria-label="Mia’s completed call and your team’s custom quick actions"
+    <div
+      className="bp-shortcut-scene"
+      role="group"
+      aria-label="Browser phone with your custom after-call shortcuts"
     >
-      <header className="bp-product-header">
-        <Wordmark />
-        <span>Business Phone</span>
-      </header>
-      <div className="bp-after-person">
-        <Portrait />
-        <div>
+      <svg
+        className="bp-shortcut-connections"
+        viewBox="0 0 800 600"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path d="M260 514 C205 514 192 455 224 390" stroke="#2563ff" />
+        <path d="M540 500 C690 440 680 240 570 188" stroke="#d46a54" />
+        <path d="M540 555 C670 555 690 470 570 425" stroke="#202c3c" />
+      </svg>
+      <article className="bp-shortcut-phone">
+        <header className="bp-product-header">
+          <Wordmark />
+          <span>Browser phone</span>
+        </header>
+        <div className="bp-shortcut-caller">
+          <Portrait />
           <h3>Mia Thompson</h3>
           <p>Call completed</p>
         </div>
-        <p className="bp-after-note">Asked for warm-white pendant options.</p>
-      </div>
-      <div className="bp-after-action-area">
-        <p>Your custom shortcuts. Choose what happens next.</p>
-        <ul className="bp-after-action-list">
-          <li>
-            <div className="bp-after-action">
-              <Columns3 size={20} aria-hidden="true" />
-              <span>Add to pipeline</span>
-            </div>
-            <p>Review and save the lead.</p>
-          </li>
-          <li>
-            <div className="bp-after-action">
-              <Zap size={20} aria-hidden="true" />
-              <span>Start follow-up</span>
-            </div>
-            <p>Run your chosen workflow.</p>
-          </li>
-          <li>
-            <div className="bp-after-action">
-              <CalendarDays size={20} aria-hidden="true" />
-              <span>Book a visit</span>
-            </div>
-            <p>Open your booking page.</p>
-          </li>
-        </ul>
-      </div>
-    </article>
+        <div className="bp-keypad" aria-hidden="true">
+          {["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"].map((key) => (
+            <span key={key}>{key}</span>
+          ))}
+        </div>
+        <div className="bp-shortcut-dock">
+          <p>Your shortcuts</p>
+          <ul>
+            {SHORTCUTS.map(({ key, label, icon: Icon }) => (
+              <li key={key}>
+                <span className={`bp-shortcut-key bp-shortcut-${key}`}>
+                  <Icon size={23} aria-hidden="true" />
+                </span>
+                <strong>{label}</strong>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </article>
+      {SHORTCUTS.map(({ key, name, detail, icon: Icon }) => (
+        <div className={`bp-shortcut-callout bp-callout-${key}`} key={key}>
+          <div>
+            <span className={`bp-shortcut-key bp-shortcut-${key}`}>
+              <Icon size={21} aria-hidden="true" />
+            </span>
+            <strong>{name}</strong>
+          </div>
+          <p>{detail}</p>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -144,71 +183,63 @@ const CONTACTS = [
 
 function PowerDialler() {
   return (
-    <article
+    <div
       className="bp-dialler"
+      role="group"
       aria-label="A manual Power Dialler sequence: selected contacts, Mia’s completed call and your team’s saved note, then Daniel next"
     >
-      <header className="bp-product-header">
-        <Wordmark />
-        <span>Power Dialler</span>
-      </header>
-      <div className="bp-dialler-body">
-        <div className="bp-contact-list">
-          <div className="bp-list-intro">
-            <span>From your CRM contacts</span>
-            <p>Selected for a callback</p>
-          </div>
-          <ul>
-            {CONTACTS.map((contact) => (
-              <li key={contact.name} className={contact.current ? "bp-contact-current" : ""}>
-                <Portrait cell={contact.cell} />
-                <div>
-                  <strong>{contact.name}</strong>
-                  <span>{contact.reason}</span>
-                </div>
-                {contact.current && <span className="bp-list-position">Current</span>}
-              </li>
-            ))}
-          </ul>
+      <div className="bp-contact-list">
+        <div className="bp-list-intro">
+          <span>From your CRM contacts</span>
+          <p>Selected for a callback</p>
         </div>
-        <div className="bp-current-work">
-          <div className="bp-current-customer">
-            <Portrait />
-            <div>
-              <span>Current contact</span>
-              <h3>Mia Thompson</h3>
-            </div>
-            <span className="bp-completed">
-              <Check size={15} aria-hidden="true" /> Call completed
-            </span>
-          </div>
-          <div className="bp-saved-note">
-            <div>
-              <span>Contact note</span>
-              <span>Saved by your team</span>
-            </div>
-            <p>Warm-white pendants. I’ll email Mia a shortlist.</p>
-          </div>
-          <div className="bp-next-contact">
-            <div className="bp-next-identity">
-              <Portrait cell={17} />
+        <ul>
+          {CONTACTS.map((contact) => (
+            <li key={contact.name} className={contact.current ? "bp-contact-current" : ""}>
+              <Portrait cell={contact.cell} />
               <div>
-                <span>Next contact</span>
-                <strong>Daniel Ross</strong>
+                <strong>{contact.name}</strong>
+                <span>{contact.reason}</span>
               </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <article className="bp-current-work">
+        <header className="bp-product-header">
+          <Wordmark />
+          <span>Power Dialler</span>
+        </header>
+        <div className="bp-current-customer">
+          <Portrait />
+          <h3>Mia Thompson</h3>
+          <span className="bp-completed">
+            <Check size={15} aria-hidden="true" /> Call completed
+          </span>
+        </div>
+        <div className="bp-saved-note">
+          <span>Your saved note</span>
+          <p>Warm-white pendants. I’ll email Mia a shortlist.</p>
+        </div>
+        <div className="bp-next-contact">
+          <div className="bp-next-identity">
+            <Portrait cell={17} />
+            <div>
+              <span>Next contact</span>
+              <strong>Daniel Ross</strong>
             </div>
-            <p>
-              Choose <strong>Next</strong>, then <strong>Call now</strong>.
-            </p>
-            <ArrowRight size={23} aria-hidden="true" />
           </div>
         </div>
-      </div>
-      <div className="bp-manual-mode">
-        <span>Click-to-call mode</span>
-        <p>Call now → speak → save your note → Next.</p>
-      </div>
-    </article>
+        <div className="bp-manual-mode">
+          <p>You choose when to continue</p>
+          <div>
+            <span>Next</span>
+            <ArrowRight size={17} aria-hidden="true" />
+            <span>Call now</span>
+          </div>
+        </div>
+      </article>
+    </div>
   );
 }
 
@@ -217,26 +248,28 @@ function NumbersAndRecordings() {
     <div className="bp-phone-tools">
       <article className="bp-number-markets">
         <h2>Buy a business number.</h2>
-        <p>Choose a number for the markets you work in.</p>
         <ul className="bp-market-list" aria-label="Phone number purchasing markets">
           {[
-            "Australia",
-            "United Kingdom",
-            "United States",
-            "Canada",
-            "Singapore",
-            "Hong Kong",
-            "Germany",
-            "France",
-          ].map((market) => (
-            <li key={market}>{market}</li>
+            ["AU", "Australia"],
+            ["UK", "United Kingdom"],
+            ["US", "United States"],
+            ["CA", "Canada"],
+            ["SG", "Singapore"],
+            ["HK", "Hong Kong"],
+            ["DE", "Germany"],
+            ["FR", "France"],
+          ].map(([code, market]) => (
+            <li key={market}>
+              <span className="bp-market-code">{code}</span>
+              {market}
+            </li>
           ))}
         </ul>
         <p className="bp-market-terms">Availability, local requirements and rates vary.</p>
       </article>
       <article className="bp-history">
         <h2>Record. Transcribe. Revisit.</h2>
-        <p>Enable recording and transcription to come back to what was said.</p>
+        <p>Enable recording and transcription.</p>
         <div
           className="bp-history-record"
           aria-label="Mia’s completed call with recording and transcription enabled"
@@ -244,20 +277,16 @@ function NumbersAndRecordings() {
           <div>
             <Portrait />
             <span>Mia Thompson</span>
-            <strong>Completed</strong>
-          </div>
-          <div className="bp-record-assets">
-            <span>Recording on</span>
-            <span>Transcription on</span>
+            <span className="bp-history-label">Call history</span>
           </div>
           <div className="bp-recording-file">
             <Mic size={18} aria-hidden="true" />
-            <span>Call recording</span>
-            <Check size={16} aria-hidden="true" />
+            <span>Recording</span>
+            <FileText size={17} aria-hidden="true" />
+            <span>Transcript</span>
           </div>
           <div className="bp-transcript">
-            <span>Transcript · Mia</span>
-            <p>“Warm-white pendants would suit the kitchen. Could you email me the options?”</p>
+            <p>“Could you email the warm-white options?”</p>
           </div>
         </div>
       </article>
@@ -320,24 +349,26 @@ export function BusinessPhonePage() {
 
       <section className="bp-power-section" id="power-dialler" aria-labelledby="bp-power-title">
         <div className="bp-wrap bp-power-stage">
-          <div className="bp-power-intro">
-            <div>
-              <p className="bp-eyebrow">Power Dialler</p>
-              <h2 id="bp-power-title">
-                Work through the list.
-                <br />
-                One conversation at a time.
-              </h2>
+          <div className="bp-power-grid">
+            <div className="bp-power-intro">
+              <div>
+                <p className="bp-eyebrow">Power Dialler</p>
+                <h2 id="bp-power-title">
+                  One list.
+                  <br />
+                  One call at a time.
+                </h2>
+              </div>
+              <p>
+                Select CRM contacts and push them to Power Dialler. Save what was agreed, then
+                continue when you’re ready.
+              </p>
+              <p className="bp-auto-option">
+                Optional Auto Dial: advance and call after a delay you set.
+              </p>
             </div>
-            <p>
-              Select CRM contacts and push them to Power Dialler. Call, save what was agreed and
-              move on when you’re ready.
-            </p>
+            <PowerDialler />
           </div>
-          <PowerDialler />
-          <p className="bp-auto-option">
-            Optional Auto Dial: advance and call after a delay you set.
-          </p>
         </div>
       </section>
 
@@ -345,11 +376,15 @@ export function BusinessPhonePage() {
         <div className="bp-wrap bp-quick-layout">
           <div className="bp-context-copy">
             <p className="bp-eyebrow">Phone quick actions</p>
-            <h2 id="bp-context-title">Keep the next step on your dialler.</h2>
-            <p>
-              Choose your own shortcuts for pipeline leads, configured follow-up workflows and
-              booking pages.
-            </p>
+            <h2 id="bp-context-title">Your next step. Right on the phone.</h2>
+            <p>Build the shortcuts your team uses after a call.</p>
+            <div className="bp-customise-cue">
+              <Plus size={19} aria-hidden="true" />
+              <div>
+                <strong>Add your own shortcut</strong>
+                <p>Choose the name, icon, colours and action.</p>
+              </div>
+            </div>
           </div>
           <AfterCallActions />
         </div>
@@ -363,15 +398,15 @@ export function BusinessPhonePage() {
           <NumbersAndRecordings />
           <div className="bp-connected-links">
             <div>
-              <span>When you want AI to answer</span>
+              <span>For AI-handled calls</span>
               <a href="/ai-receptionist">
-                Explore AI Receptionist <ArrowRight size={16} aria-hidden="true" />
+                AI Receptionist <ArrowRight size={16} aria-hidden="true" />
               </a>
             </div>
             <div>
-              <span>For your team’s written conversations</span>
+              <span>For shared messaging</span>
               <a href="/features/unified-inbox">
-                Explore Unified Inbox <ArrowRight size={16} aria-hidden="true" />
+                Unified Inbox <ArrowRight size={16} aria-hidden="true" />
               </a>
             </div>
           </div>

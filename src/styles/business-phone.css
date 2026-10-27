@@ -109,423 +109,14 @@
 .zapla-phone .bp-power-section {
   padding: 25px 0 0;
 }
-.zapla-phone .bp-power-stage {
-  width: min(1360px, calc(100% - 48px));
-  background: #20242e;
-  padding: 54px 48px 34px;
-  border-radius: 32px;
-}
-.zapla-phone .bp-power-intro {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  align-items: end;
-  gap: 60px;
-  margin-bottom: 35px;
-}
-.zapla-phone .bp-power-intro .bp-eyebrow {
-  color: #d5b28d;
-  margin-bottom: 16px;
-}
-.zapla-phone .bp-power-intro h2 {
-  color: #fff;
-  font-size: clamp(36px, 3.1vw, 45px);
-}
-.zapla-phone .bp-power-intro > p {
-  color: #c8d0d4;
-  max-width: 380px;
-  font-size: 15px;
-}
-.zapla-phone .bp-dialler {
-  border-radius: 17px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 10px 25px #00000018;
-}
-.zapla-phone .bp-dialler-body {
-  display: grid;
-  grid-template-columns: 0.86fr 1.14fr;
-}
-.zapla-phone .bp-contact-list {
-  padding: 27px 22px;
-  background: #f2f3f6;
-  border-right: 1px solid var(--bp-line);
-}
-.zapla-phone .bp-list-intro {
-  padding: 0 10px 20px;
-}
-.zapla-phone .bp-list-intro > span {
-  font-size: 11px;
-  color: #6b7280;
-}
-.zapla-phone .bp-list-intro p {
-  font-size: 15px;
-  font-weight: 600;
-  margin-top: 4px;
-  color: #2b303b;
-}
-.zapla-phone .bp-contact-list ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.zapla-phone .bp-contact-list li {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 18px 12px;
-  border-radius: 12px;
-}
-.zapla-phone .bp-contact-list li + li {
-  margin-top: 4px;
-}
-.zapla-phone .bp-contact-list .bp-contact-current {
-  background: #fff;
-  border: 1px solid #c7cfd3;
-  box-shadow: 0 3px 7px #22313c07;
-}
-.zapla-phone .bp-contact-list li > div {
-  min-width: 0;
-}
-.zapla-phone .bp-contact-list strong {
-  font-size: 13px;
-  font-weight: 650;
-  display: block;
-}
-.zapla-phone .bp-contact-list li > div span {
-  display: block;
-  color: #6c7280;
-  font-size: 11px;
-  line-height: 1.5;
-  margin-top: 4px;
-}
-.zapla-phone .bp-list-position {
-  margin-left: auto;
-  color: #2452ca;
-  font-size: 10px;
-}
-.zapla-phone .bp-current-work {
-  padding: 30px;
-  min-width: 0;
-}
-.zapla-phone .bp-current-customer {
-  display: flex;
-  gap: 13px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.zapla-phone .bp-current-customer > .bp-portrait {
-  width: 49px;
-  height: 49px;
-  flex-basis: 49px;
-}
-.zapla-phone .bp-current-customer > div > span {
-  color: #717987;
-  font-size: 11px;
-}
-.zapla-phone .bp-current-customer h3 {
-  font-size: 26px;
-  margin-top: 5px;
-}
-.zapla-phone .bp-completed {
-  display: inline-flex;
-  gap: 5px;
-  align-items: center;
-  margin-left: auto;
-  font-size: 11px;
-  color: #3b465a;
-}
-.zapla-phone .bp-saved-note {
-  margin-top: 26px;
-  padding: 21px 0 24px;
-  border-block: 1px solid var(--bp-line);
-}
-.zapla-phone .bp-saved-note > div {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  font-size: 11px;
-  line-height: 1.6;
-  color: #6e7480;
-}
-.zapla-phone .bp-saved-note > div > span:first-child {
-  color: #303846;
-  font-weight: 650;
-}
-.zapla-phone .bp-saved-note p {
-  font-size: 16px;
-  line-height: 1.65;
-  color: #262d3b;
-  margin-top: 13px;
-  max-width: 400px;
-}
-.zapla-phone .bp-next-contact {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 24px;
-}
-.zapla-phone .bp-next-identity {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-}
-.zapla-phone .bp-next-identity span:not(.bp-portrait) {
-  color: #717987;
-  font-size: 11px;
-  display: block;
-}
-.zapla-phone .bp-next-identity strong {
-  font-size: 14px;
-  font-weight: 650;
-  display: block;
-  margin-top: 4px;
-}
-.zapla-phone .bp-next-contact > p {
-  font-size: 11px;
-  line-height: 1.6;
-  margin-left: auto;
-}
-.zapla-phone .bp-next-contact > svg {
-  color: #2563ff;
-  flex-shrink: 0;
-}
-.zapla-phone .bp-manual-mode {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 29px;
-  background: #f7f8fa;
-  border-top: 1px solid var(--bp-line);
-}
-.zapla-phone .bp-manual-mode > span {
-  font-size: 12px;
-  font-weight: 650;
-}
-.zapla-phone .bp-manual-mode p {
-  font-size: 12px;
-}
-.zapla-phone .bp-auto-option {
-  color: #c8d0d4;
-  font-size: 12px;
-  line-height: 1.7;
-  margin: 23px 0 0;
-  text-align: center;
-}
 .zapla-phone .bp-context-section {
   padding-block: 105px;
 }
 .zapla-phone .bp-context-copy h2 {
   font-size: clamp(36px, 3.2vw, 46px);
 }
-.zapla-phone .bp-context-copy > p:not(.bp-eyebrow) {
+.zapla-phone .bp-context-copy > p:not(.bp-eyebrow, .bp-auto-option) {
   margin-top: 23px;
-}
-.zapla-phone .bp-incoming-section {
-  padding-block: 10px 95px;
-}
-.zapla-phone .bp-phone-tools {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 32px;
-}
-.zapla-phone .bp-phone-tools > article {
-  padding: 36px;
-  background: #fff;
-  border: 1px solid var(--bp-line);
-  border-radius: 20px;
-  min-width: 0;
-}
-.zapla-phone .bp-phone-tools h2 {
-  font-size: clamp(30px, 2.8vw, 39px);
-}
-.zapla-phone .bp-phone-tools article > p {
-  margin-top: 17px;
-  font-size: 14px;
-  line-height: 1.8;
-}
-.zapla-phone .bp-history-record {
-  margin-top: 24px;
-  padding-top: 20px;
-  border-top: 1px solid var(--bp-line);
-}
-.zapla-phone .bp-history-record > div:first-child {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 12px;
-}
-.zapla-phone .bp-history-record strong {
-  margin-left: auto;
-  color: #3b465a;
-  font-weight: 600;
-}
-.zapla-phone .bp-record-assets {
-  display: flex;
-  gap: 16px;
-  margin-top: 17px;
-  font-size: 11px;
-  color: #646d7d;
-}
-.zapla-phone .bp-record-assets span + span {
-  padding-left: 16px;
-  border-left: 1px solid var(--bp-line);
-}
-.zapla-phone .bp-quick-layout {
-  display: block;
-}
-.zapla-phone .bp-quick-layout .bp-context-copy {
-  max-width: 780px;
-  margin-bottom: 32px;
-}
-.zapla-phone .bp-after-call {
-  overflow: hidden;
-  border: 1px solid var(--bp-line);
-  border-radius: 20px;
-  background: #fff;
-}
-.zapla-phone .bp-after-person {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 28px;
-}
-.zapla-phone .bp-after-person .bp-portrait {
-  width: 48px;
-  height: 48px;
-  flex-basis: 48px;
-}
-.zapla-phone .bp-after-person h3 {
-  font-size: 24px;
-}
-.zapla-phone .bp-after-person > div p {
-  font-size: 12px;
-  margin-top: 5px;
-}
-.zapla-phone .bp-after-person .bp-after-note {
-  margin-left: auto;
-  font-size: 14px;
-}
-.zapla-phone .bp-after-action-area {
-  padding: 22px 28px 27px;
-  border-top: 1px solid var(--bp-line);
-  background: #f4f5f8;
-}
-.zapla-phone .bp-after-action-area > p {
-  font-size: 13px;
-  line-height: 1.6;
-  color: #454d5d;
-  margin-bottom: 16px;
-}
-.zapla-phone .bp-after-action-list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-.zapla-phone .bp-after-action {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 54px;
-  padding: 14px 16px;
-  border: 1px solid #cbd3e0;
-  border-radius: 11px;
-  background: #fff;
-  color: #252e3e;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.55;
-}
-.zapla-phone .bp-after-action svg {
-  flex-shrink: 0;
-  color: #2563ff;
-}
-.zapla-phone .bp-after-action-list li > p {
-  font-size: 13px;
-  line-height: 1.6;
-  margin-top: 9px;
-}
-.zapla-phone .bp-market-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 22px;
-  list-style: none;
-  padding: 0;
-  margin: 25px 0 0;
-}
-.zapla-phone .bp-market-list li {
-  border-bottom: 1px solid var(--bp-line);
-  padding-block: 14px;
-  font-size: 15px;
-  font-weight: 550;
-}
-.zapla-phone .bp-phone-tools .bp-market-terms {
-  font-size: 12px;
-  line-height: 1.65;
-  margin-top: 20px;
-}
-.zapla-phone .bp-phone-tools > .bp-history {
-  background: linear-gradient(130deg, #fff, #f1f3f4);
-}
-.zapla-phone .bp-history-record .bp-portrait {
-  width: 34px;
-  height: 34px;
-  flex-basis: 34px;
-  margin-right: 4px;
-}
-.zapla-phone .bp-recording-file {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  padding: 17px 0;
-  margin-top: 18px;
-  border-block: 1px solid var(--bp-line);
-}
-.zapla-phone .bp-recording-file svg:last-child {
-  margin-left: auto;
-  color: #3b465a;
-}
-.zapla-phone .bp-transcript {
-  padding-top: 18px;
-}
-.zapla-phone .bp-transcript > span {
-  font-size: 11px;
-  color: var(--bp-muted);
-}
-.zapla-phone .bp-transcript p {
-  font-size: 16px;
-  color: #262d3b;
-  line-height: 1.65;
-  margin-top: 9px;
-  max-width: 400px;
-}
-.zapla-phone .bp-connected-links {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 45px;
-  margin-top: 32px;
-  padding-inline: 30px;
-}
-.zapla-phone .bp-connected-links > div > span {
-  display: block;
-  color: #6d7582;
-  font-size: 12px;
-}
-.zapla-phone .bp-connected-links a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  color: #2452ca;
-  font-size: 13px;
-  font-weight: 650;
-  text-decoration: underline;
-  text-underline-offset: 5px;
-  text-decoration-color: #bdcaf0;
 }
 .zapla-phone .bp-setup-section {
   padding-bottom: 18px;
@@ -538,7 +129,7 @@
   border-radius: 28px;
   padding: 52px 46px;
 }
-.zapla-phone .bp-setup-copy > p:not(.bp-eyebrow) {
+.zapla-phone .bp-setup-copy > p:not(.bp-eyebrow, .bp-auto-option) {
   margin-top: 22px;
 }
 .zapla-phone .bp-setup-copy .bp-text-link {
@@ -610,7 +201,7 @@
   font-size: 64px;
   line-height: 0.99;
 }
-.zapla-phone .bp-final p:not(.bp-eyebrow) {
+.zapla-phone .bp-final p:not(.bp-eyebrow, .bp-auto-option) {
   max-width: 690px;
   margin: 18px auto 0;
   font-size: 16px;
@@ -620,24 +211,6 @@
   margin-top: 28px;
 }
 @media (max-width: 1200px) {
-  .zapla-phone .bp-power-stage {
-    padding: 42px 30px 30px;
-  }
-  .zapla-phone .bp-power-intro {
-    gap: 40px;
-  }
-  .zapla-phone .bp-contact-list {
-    padding: 24px 13px;
-  }
-  .zapla-phone .bp-current-work {
-    padding: 27px 24px;
-  }
-  .zapla-phone .bp-completed {
-    margin: 8px 0 0 62px;
-  }
-  .zapla-phone .bp-list-position {
-    display: none;
-  }
   .zapla-phone .bp-setup-panel {
     gap: 40px;
     padding: 42px 32px;
@@ -659,84 +232,15 @@
   .zapla-phone .bp-wordmark {
     width: 76px;
   }
-  .zapla-phone .bp-power-stage {
-    width: calc(100% - 32px);
-    padding: 36px 24px 28px;
-  }
-  .zapla-phone .bp-power-intro {
-    gap: 26px;
-    grid-template-columns: 1.1fr 0.9fr;
-  }
-  .zapla-phone .bp-power-intro h2 {
-    font-size: 34px;
-  }
-  .zapla-phone .bp-power-intro > p {
-    font-size: 14px;
-  }
-  .zapla-phone .bp-dialler-body {
-    grid-template-columns: 0.82fr 1.18fr;
-  }
-  .zapla-phone .bp-contact-list {
-    padding: 23px 10px;
-  }
-  .zapla-phone .bp-contact-list .bp-portrait {
-    width: 30px;
-    height: 30px;
-    flex-basis: 30px;
-  }
-  .zapla-phone .bp-contact-list li {
-    padding: 15px 8px;
-    gap: 9px;
-  }
-  .zapla-phone .bp-contact-list strong {
-    font-size: 12px;
-  }
-  .zapla-phone .bp-contact-list li > div span {
-    font-size: 10px;
-  }
-  .zapla-phone .bp-current-work {
-    padding: 24px 20px;
-  }
-  .zapla-phone .bp-current-customer h3 {
-    font-size: 24px;
-  }
-  .zapla-phone .bp-saved-note > div {
-    flex-wrap: wrap;
-    gap: 2px 12px;
-  }
-  .zapla-phone .bp-next-contact {
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .zapla-phone .bp-next-contact > p {
-    margin-left: 0;
-  }
   .zapla-phone .bp-context-section {
     padding-block: 75px;
   }
   .zapla-phone .bp-context-copy h2 {
     font-size: 35px;
   }
-  .zapla-phone .bp-context-copy > p:not(.bp-eyebrow) {
+  .zapla-phone .bp-context-copy > p:not(.bp-eyebrow, .bp-auto-option) {
     font-size: 14px;
     margin-top: 19px;
-  }
-  .zapla-phone .bp-phone-tools {
-    gap: 20px;
-  }
-  .zapla-phone .bp-phone-tools > article {
-    padding: 24px;
-  }
-  .zapla-phone .bp-record-assets {
-    gap: 9px;
-    flex-wrap: wrap;
-  }
-  .zapla-phone .bp-record-assets span + span {
-    padding-left: 9px;
-  }
-  .zapla-phone .bp-connected-links {
-    gap: 20px;
-    padding-inline: 24px;
   }
   .zapla-phone .bp-setup-panel {
     grid-template-columns: 1fr;
@@ -769,107 +273,6 @@
   .zapla-phone .bp-power-section {
     padding-top: 12px;
   }
-  .zapla-phone .bp-power-stage {
-    width: calc(100% - 24px);
-    padding: 30px 18px 24px;
-    border-radius: 25px;
-  }
-  .zapla-phone .bp-power-intro {
-    display: block;
-    margin-bottom: 27px;
-  }
-  .zapla-phone .bp-power-intro h2 {
-    font-size: 35px;
-  }
-  .zapla-phone .bp-power-intro > p {
-    font-size: 15px;
-    margin-top: 23px;
-  }
-  .zapla-phone .bp-dialler {
-    border-radius: 14px;
-  }
-  .zapla-phone .bp-dialler-body {
-    display: block;
-  }
-  .zapla-phone .bp-contact-list {
-    padding: 20px 14px 18px;
-    border-right: 0;
-    border-bottom: 1px solid var(--bp-line);
-  }
-  .zapla-phone .bp-list-intro {
-    padding: 0 5px 12px;
-  }
-  .zapla-phone .bp-list-intro p {
-    font-size: 14px;
-  }
-  .zapla-phone .bp-contact-list li {
-    padding: 12px 9px;
-    gap: 11px;
-  }
-  .zapla-phone .bp-contact-list strong {
-    font-size: 13px;
-  }
-  .zapla-phone .bp-contact-list li > div span {
-    font-size: 11px;
-    margin-top: 2px;
-  }
-  .zapla-phone .bp-contact-list .bp-portrait {
-    width: 32px;
-    height: 32px;
-    flex-basis: 32px;
-  }
-  .zapla-phone .bp-current-work {
-    padding: 23px 19px;
-  }
-  .zapla-phone .bp-current-customer {
-    gap: 11px;
-  }
-  .zapla-phone .bp-current-customer > .bp-portrait {
-    width: 44px;
-    height: 44px;
-    flex-basis: 44px;
-  }
-  .zapla-phone .bp-current-customer h3 {
-    font-size: 25px;
-  }
-  .zapla-phone .bp-completed {
-    margin: 6px 0 0 55px;
-    font-size: 11px;
-  }
-  .zapla-phone .bp-saved-note p {
-    font-size: 15px;
-  }
-  .zapla-phone .bp-saved-note > div {
-    font-size: 10px;
-  }
-  .zapla-phone .bp-next-contact {
-    margin-top: 22px;
-  }
-  .zapla-phone .bp-next-identity {
-    width: 100%;
-  }
-  .zapla-phone .bp-next-contact > p {
-    font-size: 12px;
-  }
-  .zapla-phone .bp-next-contact > p br {
-    display: none;
-  }
-  .zapla-phone .bp-next-contact > svg {
-    margin-left: auto;
-  }
-  .zapla-phone .bp-manual-mode {
-    display: block;
-    padding: 16px 19px;
-  }
-  .zapla-phone .bp-manual-mode p {
-    font-size: 12px;
-    margin-top: 5px;
-  }
-  .zapla-phone .bp-auto-option {
-    font-size: 12px;
-    margin-top: 19px;
-    text-align: left;
-  }
   .zapla-phone .bp-context-section {
     padding-block: 65px;
   }
@@ -877,28 +280,9 @@
     font-size: 36px;
     max-width: 450px;
   }
-  .zapla-phone .bp-context-copy > p:not(.bp-eyebrow) {
+  .zapla-phone .bp-context-copy > p:not(.bp-eyebrow, .bp-auto-option) {
     font-size: 16px;
     margin-top: 22px;
-  }
-  .zapla-phone .bp-incoming-section {
-    padding-block: 0 62px;
-  }
-  .zapla-phone .bp-phone-tools {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .zapla-phone .bp-phone-tools > article {
-    padding: 25px 23px;
-  }
-  .zapla-phone .bp-phone-tools article > p {
-    font-size: 15px;
-  }
-  .zapla-phone .bp-connected-links {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    margin-top: 27px;
-    padding-inline: 5px;
   }
   .zapla-phone .bp-setup-panel {
     padding: 31px 23px;
@@ -908,7 +292,7 @@
   .zapla-phone .bp-setup-copy h2 {
     font-size: 36px;
   }
-  .zapla-phone .bp-setup-copy > p:not(.bp-eyebrow) {
+  .zapla-phone .bp-setup-copy > p:not(.bp-eyebrow, .bp-auto-option) {
     font-size: 15px;
   }
   .zapla-phone .bp-setup-copy .bp-setup-terms {
@@ -931,14 +315,11 @@
   .zapla-phone .bp-final .bp-eyebrow {
     font-size: 9px;
   }
-  .zapla-phone .bp-final p:not(.bp-eyebrow) {
+  .zapla-phone .bp-final p:not(.bp-eyebrow, .bp-auto-option) {
     font-size: 15px;
   }
 }
 @media (max-width: 360px) {
-  .zapla-phone .bp-next-contact > svg {
-    display: none;
-  }
   .zapla-phone .bp-wrap {
     width: calc(100% - 32px);
   }
@@ -947,22 +328,6 @@
   }
   .zapla-phone .bp-text-link {
     font-size: 12px;
-  }
-  .zapla-phone .bp-power-stage {
-    padding-inline: 14px;
-  }
-  .zapla-phone .bp-current-customer h3 {
-    font-size: 23px;
-  }
-  .zapla-phone .bp-record-assets {
-    display: block;
-  }
-  .zapla-phone .bp-record-assets span {
-    display: block;
-  }
-  .zapla-phone .bp-record-assets span + span {
-    border: 0;
-    padding: 8px 0 0;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1191,20 +556,689 @@
   }
 }
 
-@media (max-width: 760px) {
-  .zapla-phone .bp-after-person {
-    flex-wrap: wrap;
-    padding: 23px;
+/* A compact queue and a single calling dock establish the Power Dialler focus. */
+.zapla-phone .bp-power-stage {
+  width: min(1240px, calc(100% - 48px));
+  padding: 46px;
+  border-radius: 30px;
+  background: radial-gradient(ellipse at 78% 45%, #30394a, #1c202a 70%);
+}
+.zapla-phone .bp-power-grid {
+  display: grid;
+  grid-template-columns: minmax(510px, 1.28fr) minmax(270px, 0.72fr);
+  gap: 32px;
+  align-items: center;
+}
+.zapla-phone .bp-power-intro {
+  grid-column: 2;
+  grid-row: 1;
+}
+.zapla-phone .bp-power-intro .bp-eyebrow {
+  color: #d5b28d;
+}
+.zapla-phone .bp-power-intro h2 {
+  color: #fff;
+  font-size: 46px;
+}
+.zapla-phone .bp-power-intro > p:not(.bp-eyebrow, .bp-auto-option) {
+  color: #d0d6e0;
+  font-size: 15px;
+  margin-top: 24px;
+  max-width: 360px;
+}
+.zapla-phone .bp-power-intro .bp-auto-option {
+  font-size: 12px;
+  line-height: 1.65;
+  color: #b6bfce;
+  margin-top: 28px;
+}
+.zapla-phone .bp-dialler {
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: minmax(195px, 0.8fr) minmax(275px, 1fr);
+  gap: 18px;
+  align-items: center;
+  width: min(610px, 100%);
+  justify-self: end;
+}
+.zapla-phone .bp-contact-list {
+  background: #eef1f6;
+  border: 1px solid #ffffff8c;
+  padding: 20px 12px;
+  border-radius: 18px;
+  box-shadow: 0 14px 40px #00000014;
+}
+.zapla-phone .bp-list-intro {
+  padding: 0 8px 15px;
+}
+.zapla-phone .bp-list-intro > span {
+  font-size: 11px;
+  color: #6b7382;
+}
+.zapla-phone .bp-list-intro p {
+  font-size: 14px;
+  font-weight: 600;
+  color: #27303f;
+  margin-top: 4px;
+}
+.zapla-phone .bp-contact-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.zapla-phone .bp-contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 8px;
+  border-radius: 11px;
+}
+.zapla-phone .bp-contact-list .bp-contact-current {
+  background: #fff;
+  box-shadow: 0 2px 8px #1d2d4510;
+  border: 1px solid #b8c9f0;
+}
+.zapla-phone .bp-contact-list .bp-portrait {
+  width: 32px;
+  height: 32px;
+  flex-basis: 32px;
+}
+.zapla-phone .bp-contact-list li > div {
+  min-width: 0;
+}
+.zapla-phone .bp-contact-list strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 650;
+}
+.zapla-phone .bp-contact-list li > div span {
+  display: block;
+  color: #687384;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 3px;
+}
+.zapla-phone .bp-current-work {
+  overflow: hidden;
+  border: 5px solid #e3e7ed;
+  border-radius: 25px;
+  background: #fff;
+  box-shadow:
+    0 24px 48px #050a1740,
+    inset 0 0 0 1px #fff;
+  min-width: 0;
+}
+.zapla-phone .bp-current-work .bp-product-header {
+  padding: 15px;
+  min-height: 56px;
+  gap: 10px;
+}
+.zapla-phone .bp-current-work .bp-wordmark {
+  width: 70px;
+}
+.zapla-phone .bp-current-work .bp-product-header > span {
+  font-size: 11px;
+}
+.zapla-phone .bp-current-customer {
+  padding: 22px 16px 19px;
+  text-align: center;
+}
+.zapla-phone .bp-current-customer > .bp-portrait {
+  width: 66px;
+  height: 66px;
+}
+.zapla-phone .bp-current-customer h3 {
+  font-size: 24px;
+  margin-top: 13px;
+}
+.zapla-phone .bp-completed {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #646e7e;
+  margin-top: 8px;
+}
+.zapla-phone .bp-saved-note {
+  margin: 0 17px;
+  padding: 16px 0;
+  border-block: 1px solid #dfe3eb;
+}
+.zapla-phone .bp-saved-note > span {
+  font-size: 11px;
+  color: #667182;
+}
+.zapla-phone .bp-saved-note p {
+  color: #263143;
+  font-size: 14px;
+  line-height: 1.65;
+  margin-top: 8px;
+}
+.zapla-phone .bp-next-contact {
+  padding: 17px;
+}
+.zapla-phone .bp-next-identity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.zapla-phone .bp-next-identity .bp-portrait {
+  width: 32px;
+  height: 32px;
+  flex-basis: 32px;
+}
+.zapla-phone .bp-next-identity div > span {
+  display: block;
+  color: #6b7484;
+  font-size: 11px;
+}
+.zapla-phone .bp-next-identity strong {
+  display: block;
+  font-size: 13px;
+  margin-top: 4px;
+}
+.zapla-phone .bp-manual-mode {
+  padding: 14px 17px 17px;
+  border-top: 1px solid #e0e5ed;
+  background: #f4f6f9;
+}
+.zapla-phone .bp-manual-mode > p {
+  font-size: 11px;
+  line-height: 1.5;
+  margin-bottom: 11px;
+}
+.zapla-phone .bp-manual-mode > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+}
+.zapla-phone .bp-manual-mode > div > span {
+  padding: 10px 17px;
+  border-radius: 20px;
+  color: #fff;
+  background: #2563ff;
+  font-size: 12px;
+  font-weight: 650;
+}
+.zapla-phone .bp-manual-mode > div > span:last-child {
+  background: #fff;
+  color: #2b3c56;
+  border: 1px solid #ced6e2;
+}
+.zapla-phone .bp-manual-mode svg {
+  color: #6c7b91;
+  flex-shrink: 0;
+}
+/* Phone-shaped browser widget with enlarged, named shortcut callouts. */
+.zapla-phone .bp-context-section {
+  padding-block: 78px;
+}
+.zapla-phone .bp-quick-layout {
+  display: grid;
+  grid-template-columns: minmax(290px, 0.7fr) minmax(760px, 1.3fr);
+  gap: 34px;
+  align-items: center;
+}
+.zapla-phone .bp-quick-layout .bp-context-copy {
+  max-width: 420px;
+}
+.zapla-phone .bp-customise-cue {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 30px;
+}
+.zapla-phone .bp-customise-cue > svg {
+  color: #2563ff;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.zapla-phone .bp-customise-cue strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 650;
+}
+.zapla-phone .bp-customise-cue p {
+  font-size: 12px;
+  line-height: 1.65;
+  margin-top: 6px;
+}
+.zapla-phone .bp-shortcut-scene {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 280px minmax(220px, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 14px;
+  align-items: center;
+  min-height: 600px;
+  max-width: 800px;
+  width: 100%;
+  margin-inline: auto;
+}
+.zapla-phone .bp-shortcut-scene::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 10% 8% 0;
+  background: radial-gradient(ellipse, #dfe5ef9c, transparent 68%);
+  pointer-events: none;
+}
+.zapla-phone .bp-shortcut-connections {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  fill: none;
+  stroke-width: 1.5;
+  opacity: 0.7;
+}
+.zapla-phone .bp-shortcut-phone {
+  grid-column: 2;
+  grid-row: 1 / 4;
+  width: 280px;
+  overflow: hidden;
+  border: 6px solid transparent;
+  border-radius: 31px;
+  background:
+    linear-gradient(#fff, #fafbfe) padding-box,
+    linear-gradient(130deg, #f8f9fc, #b4bfcd 65%, #f4f6fa) border-box;
+  box-shadow:
+    0 20px 45px #27395824,
+    0 2px 4px #36445c1a,
+    inset 0 0 0 1px #aab5c48c;
+}
+.zapla-phone .bp-shortcut-phone .bp-product-header {
+  min-height: 55px;
+  padding: 15px;
+  gap: 10px;
+  background: transparent;
+}
+.zapla-phone .bp-shortcut-phone .bp-wordmark {
+  width: 70px;
+}
+.zapla-phone .bp-shortcut-phone .bp-product-header > span {
+  font-size: 11px;
+}
+.zapla-phone .bp-shortcut-caller {
+  padding: 20px 16px 16px;
+  text-align: center;
+}
+.zapla-phone .bp-shortcut-caller .bp-portrait {
+  width: 56px;
+  height: 56px;
+}
+.zapla-phone .bp-shortcut-caller h3 {
+  font-size: 22px;
+  margin-top: 12px;
+}
+.zapla-phone .bp-shortcut-caller p {
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 6px;
+}
+.zapla-phone .bp-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px 12px;
+  justify-items: center;
+  padding: 4px 20px 20px;
+}
+.zapla-phone .bp-keypad > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: #202938;
+  background: linear-gradient(#f5f6f8, #e9edf2);
+  box-shadow: 0 2px 3px #2c3a4f0f;
+  font-size: 20px;
+  font-weight: 600;
+}
+.zapla-phone .bp-shortcut-dock {
+  padding: 12px 13px 18px;
+  border-top: 1px solid #dfe5ef;
+}
+.zapla-phone .bp-shortcut-dock > p {
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.zapla-phone .bp-shortcut-dock ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.zapla-phone .bp-shortcut-dock li {
+  text-align: center;
+}
+.zapla-phone .bp-shortcut-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: #fff;
+  box-shadow: 0 3px 7px #20304919;
+}
+.zapla-phone .bp-shortcut-pipeline {
+  background: #2563ff;
+}
+.zapla-phone .bp-shortcut-followup {
+  background: #d46a54;
+}
+.zapla-phone .bp-shortcut-booking {
+  background: #202c3c;
+}
+.zapla-phone .bp-shortcut-dock strong {
+  display: block;
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: 550;
+  margin-top: 7px;
+}
+.zapla-phone .bp-shortcut-callout {
+  width: 100%;
+  max-width: 240px;
+  padding: 17px;
+  border: 1px solid #e5e9f1;
+  border-radius: 17px;
+  background: #ffffffed;
+  box-shadow: 0 12px 30px #20304912;
+}
+.zapla-phone .bp-shortcut-callout > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.zapla-phone .bp-shortcut-callout .bp-shortcut-key {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+}
+.zapla-phone .bp-shortcut-callout strong {
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 650;
+}
+.zapla-phone .bp-shortcut-callout p {
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+.zapla-phone .bp-callout-pipeline {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+}
+.zapla-phone .bp-callout-followup {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: end;
+}
+.zapla-phone .bp-callout-booking {
+  grid-column: 3;
+  grid-row: 3;
+  align-self: start;
+}
+/* Supporting phone breadth is compact, rather than two large empty cards. */
+.zapla-phone .bp-incoming-section {
+  padding-block: 0 70px;
+}
+.zapla-phone .bp-phone-tools {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 72px;
+  align-items: start;
+  width: min(1100px, 100%);
+  margin-inline: auto;
+}
+.zapla-phone .bp-phone-tools > article {
+  min-width: 0;
+}
+.zapla-phone .bp-phone-tools h2 {
+  font-size: clamp(28px, 2.3vw, 32px);
+}
+.zapla-phone .bp-phone-tools article > p {
+  font-size: 13px;
+  line-height: 1.65;
+  margin-top: 13px;
+}
+.zapla-phone .bp-market-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 20px;
+  list-style: none;
+  padding: 0;
+  margin: 21px 0 0;
+}
+.zapla-phone .bp-market-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.zapla-phone .bp-market-code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  min-height: 24px;
+  flex: 0 0 28px;
+  border: 1px solid #d7dde6;
+  border-radius: 5px;
+  background: #eef1f5;
+  color: #526074;
+  font-size: 10px;
+  font-weight: 650;
+}
+.zapla-phone .bp-phone-tools .bp-market-terms {
+  font-size: 12px;
+  line-height: 1.65;
+  margin-top: 17px;
+  max-width: 360px;
+}
+.zapla-phone .bp-history-record {
+  margin-top: 18px;
+  padding: 17px 19px;
+  border: 1px solid #dce2ec;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 4px 14px #24364e07;
+}
+.zapla-phone .bp-history-record > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+}
+.zapla-phone .bp-history-record .bp-portrait {
+  width: 30px;
+  height: 30px;
+  flex-basis: 30px;
+}
+.zapla-phone .bp-history-label {
+  margin-left: auto;
+  font-size: 11px;
+  color: #778192;
+}
+.zapla-phone .bp-recording-file {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-block: 13px;
+  margin-top: 13px;
+  border-block: 1px solid #e3e7ee;
+  color: #536177;
+  font-size: 12px;
+}
+.zapla-phone .bp-recording-file svg:nth-of-type(2) {
+  margin-left: 12px;
+}
+.zapla-phone .bp-transcript p {
+  color: #263349;
+  font-size: 14px;
+  line-height: 1.65;
+  margin-top: 13px;
+}
+.zapla-phone .bp-connected-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin: 23px auto 0;
+  width: min(1100px, 100%);
+}
+.zapla-phone .bp-connected-links > div > span {
+  display: block;
+  color: #6d7582;
+  font-size: 11px;
+}
+.zapla-phone .bp-connected-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: #2452ca;
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: #bdcaf0;
+}
+@media (max-width: 1100px) {
+  .zapla-phone .bp-power-stage {
+    padding: 36px;
   }
-  .zapla-phone .bp-after-person .bp-after-note {
-    width: 100%;
-    margin: 4px 0 0;
-  }
-  .zapla-phone .bp-after-action-area {
-    padding: 21px 23px 25px;
-  }
-  .zapla-phone .bp-after-action-list {
+  .zapla-phone .bp-power-grid {
     grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .zapla-phone .bp-power-intro {
+    grid-column: auto;
+    grid-row: auto;
+    max-width: 680px;
+  }
+  .zapla-phone .bp-power-intro h2 {
+    font-size: 42px;
+  }
+  .zapla-phone .bp-power-intro > p:not(.bp-eyebrow, .bp-auto-option) {
+    max-width: 570px;
+    margin-top: 18px;
+  }
+  .zapla-phone .bp-power-intro .bp-auto-option {
+    margin-top: 14px;
+  }
+  .zapla-phone .bp-dialler {
+    grid-column: auto;
+    grid-row: auto;
+    justify-self: center;
+  }
+  .zapla-phone .bp-quick-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .zapla-phone .bp-quick-layout .bp-context-copy {
+    max-width: 680px;
+  }
+  .zapla-phone .bp-phone-tools {
+    gap: 44px;
+  }
+}
+@media (max-width: 1200px) {
+  .zapla-phone .bp-quick-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .zapla-phone .bp-quick-layout .bp-context-copy {
+    max-width: 680px;
+  }
+}
+@media (max-width: 800px) {
+  .zapla-phone .bp-power-stage {
+    width: calc(100% - 24px);
+    padding: 30px 20px;
+    border-radius: 24px;
+  }
+  .zapla-phone .bp-power-intro h2 {
+    font-size: 36px;
+  }
+  .zapla-phone .bp-power-intro > p:not(.bp-eyebrow, .bp-auto-option) {
+    font-size: 14px;
+  }
+  .zapla-phone .bp-dialler {
+    grid-template-columns: 1fr;
+    max-width: 350px;
+    gap: 20px;
+  }
+  .zapla-phone .bp-contact-list {
+    padding: 17px 12px;
+  }
+  .zapla-phone .bp-contact-list li {
+    padding-block: 10px;
+  }
+  .zapla-phone .bp-current-work {
+    width: 100%;
+  }
+  .zapla-phone .bp-context-section {
+    padding-block: 60px;
+  }
+  .zapla-phone .bp-customise-cue {
+    margin-top: 24px;
+  }
+  .zapla-phone .bp-shortcut-connections {
+    display: none;
+  }
+  .zapla-phone .bp-shortcut-scene {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    width: min(360px, 100%);
+    gap: 0;
+  }
+  .zapla-phone .bp-shortcut-phone {
+    width: min(280px, 100%);
+    margin-bottom: 24px;
+  }
+  .zapla-phone .bp-shortcut-callout {
+    max-width: 100%;
+    box-shadow: none;
+    border: 0;
+    border-top: 1px solid #dfe5ed;
+    border-radius: 0;
+    background: transparent;
+    padding: 15px 0;
+  }
+  .zapla-phone .bp-shortcut-callout .bp-shortcut-key {
+    width: 32px;
+    height: 32px;
+  }
+  .zapla-phone .bp-shortcut-callout p {
+    margin: 5px 0 0 41px;
+  }
+  .zapla-phone .bp-incoming-section {
+    padding-bottom: 55px;
+  }
+  .zapla-phone .bp-phone-tools {
+    grid-template-columns: 1fr;
+    width: min(440px, 100%);
+    gap: 32px;
+  }
+  .zapla-phone .bp-connected-links {
     gap: 18px;
   }
 }
