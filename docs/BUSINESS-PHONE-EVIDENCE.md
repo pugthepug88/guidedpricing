@@ -46,7 +46,7 @@ Mia's kitchen-lighting enquiry, Ben's call and the outcome note, Daniel's callba
 
 The meaningful result is Ben's note: Mia wants warm-white pendant options; Ben will email a shortlist before a visit. It records a commitment, not a completed email send or booking. Daniel is visibly next, but a person chooses Next and Call Now. The page has no telephony SDK, network/contact API, input collection, dial button, real audio player, timers or automatic playback.
 
-Recurring portrait identities follow current Inbox/Pipeline: Mia cell 9, Ben 13, Alex 8. Daniel uses cell 4; Priya follows the recently revised Quotes page's cell 19. All come from the approved local portrait sheet.
+Recurring portrait identities follow current Inbox/Pipeline: Mia cell 9, Ben 13, Alex 8. Daniel uses cell 17; Priya follows the recently revised Quotes page's cell 19. All come from the approved local portrait sheet.
 
 ## Fresh editorial asset
 

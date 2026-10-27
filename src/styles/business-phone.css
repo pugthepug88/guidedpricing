@@ -1150,6 +1150,9 @@
   }
 }
 @media (max-width: 360px) {
+  .zapla-phone .bp-next-contact > svg {
+    display: none;
+  }
   .zapla-phone .bp-wrap {
     width: calc(100% - 32px);
   }

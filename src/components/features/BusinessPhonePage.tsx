@@ -77,7 +77,7 @@ function BrowserCall() {
 
 const CONTACTS = [
   { name: "Mia Thompson", reason: "Kitchen lighting enquiry", cell: 9, current: true },
-  { name: "Daniel Ross", reason: "Requested a quote callback", cell: 4, current: false },
+  { name: "Daniel Ross", reason: "Requested a quote callback", cell: 17, current: false },
   { name: "Priya Shah", reason: "Discuss showroom visit", cell: 19, current: false },
 ];
 
@@ -141,7 +141,7 @@ function PowerDialler() {
           </div>
           <div className="bp-next-contact">
             <div className="bp-next-identity">
-              <Portrait cell={4} />
+              <Portrait cell={17} />
               <div>
                 <span>Next contact</span>
                 <strong>Daniel Ross</strong>
@@ -262,7 +262,7 @@ export function BusinessPhonePage() {
             </h1>
             <p className="bp-lead">
               Return a requested call. Talk through an open enquiry. Make and receive customer calls
-              in Zapla, with contact notes close at hand.
+              from your browser, with contact notes close at hand.
             </p>
             <div className="bp-hero-actions">
               <BookCall />
