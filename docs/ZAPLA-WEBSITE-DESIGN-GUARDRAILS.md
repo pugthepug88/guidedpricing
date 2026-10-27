@@ -271,3 +271,9 @@ The owner rejected the latest rebuild and explicitly requested the first iterati
 ## Ticketing withdrawn and page deleted, 27 October 2026
 
 The owner decided not to offer Ticketing and explicitly requested deletion of the whole page. This supersedes all preceding Ticketing build, redesign and first-iteration restoration instructions. Delete its route, implementation, stylesheet and page-specific photos; remove its offering claims across current website pages/comparisons. The old URL uses the existing not-found response. Do not restore Ticketing or advertise it as included unless the owner explicitly reopens the offer. Scope and verification: `TICKETING-REMOVAL-20261027.md`. GitHub owns changes; Lovable remains read only, with no separate Publish action.
+
+## Chatbot photographic hierarchy and separated surfaces, 27 October 2026
+
+The owner approved the large photographic hero and simplified final continuation after rejecting repeated people/workwear, green surfaces, crowded three-column layouts and overlapping panels. For Chatbot, the main photograph and promise now lead; the compact complete widget follows below. This supersedes earlier requirements for a widget or application window in the opening itself. Keep text clear of faces, and separate the image from the copy on smaller screens. Product UI never overlaps the photographs.
+
+Use neutral contact and booking surfaces, a concise original enquiry, explicit customer consent before the appointment, and one distinct conditional exception. Do not reintroduce giant rules tables, duplicate app headers, fake visitor icons, enlarged quotations or playback. Professional wardrobe and distinct editorial working moments vary the imagery without presenting generated people as customers. Keep source and visual reading order coherent, native readable HTML, actual wordmark/petal assets and the shared site architecture.
