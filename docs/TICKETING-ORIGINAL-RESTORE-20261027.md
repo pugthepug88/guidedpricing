@@ -23,4 +23,14 @@ The route, page foundations, logo, portrait sheet and original photograph alread
 - The 393-pixel phone frame (378-pixel content area after its scrollbar) shows the original stacked heading/request card with no document overflow. Its sales destinations remain `/booking`.
 - This is targeted rollback verification, not a new aesthetic approval or a repeat of every historical browser/motion scenario. Earlier numeric scores remain historical. The latest owner request authorizes restoring this version, not assuming its final acceptance.
 
-The production build passes with the original Vite configuration restored. Existing dependency directive/chunk warnings are non-blocking. The temporary responsive fixture and preview-only configuration were removed. Hosted sync evidence is appended after verification.
+The production build passes with the original Vite configuration restored. Existing dependency directive/chunk warnings are non-blocking. The temporary responsive fixture and preview-only configuration were removed.
+
+## Hosted verification
+
+PR #220 merged the restoration at `75a41d5f4b1f52d6bab1418db21d2b99ad5c8173`. Vercel reports success for the restoration commit. Read-only Lovable metadata reports that merge as ready, and the actual hosted page subsequently shows the restored `.tk-hero` instead of the rejected `.tk2-opening`.
+
+Verified URL: `https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/ticketing`.
+
+On the hosted desktop at 1707 × 769, verified the original stone/glass hero, six tickets across four stages, working High & urgent filter and table with two matching records, then restored All priorities/Board. `noindex, nofollow` remains present, with no document overflow. This viewport uses the original complete static hero because it is shorter than the animation's 860-pixel minimum. The original copy, including the pressure-fault story, is intentionally restored under the latest explicit rollback request.
+
+Current hosted screenshot: `docs/proof/ticketing-original-restored-hosted-20261027.jpg`. This records the restoration, not an aesthetic acceptance. The preview tab is returned to the opening.
