@@ -1776,8 +1776,42 @@
   font-size: 12px;
   line-height: 1.8;
 }
-.wff-enquiry-followup {
-  margin-top: 17px;
+.wff-enquiry-sharing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 20px;
+}
+.wff-form-qr {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 370px;
+  padding: 14px 18px 14px 14px;
+  border: 1px solid #d7dfe7;
+  border-radius: 9px;
+  background: #fff;
+}
+.wff-form-qr-graphic {
+  display: flex;
+  flex: 0 0 auto;
+  padding: 7px;
+  border: 1px solid #e3e7ed;
+  border-radius: 5px;
+  color: #202a37;
+  background: #fff;
+}
+.wff-form-qr h3 {
+  color: #2e4056;
+  font-size: 16px;
+  line-height: 1.25;
+}
+.wff-form-qr p {
+  margin-top: 6px;
+  color: #68788b;
+  font-size: 12px;
+  line-height: 1.7;
 }
 @media (max-width: 1100px) and (min-width: 761px) {
   .wff-enquiry-flow {
@@ -1815,6 +1849,17 @@
   }
 }
 @media (max-width: 760px) {
+  .wff-enquiry-sharing {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .wff-form-qr {
+    max-width: none;
+  }
+  .wff-enquiry-followup {
+    align-self: flex-start;
+  }
   .wff-enquiry-flow {
     display: flex;
     flex-direction: column;

@@ -237,3 +237,8 @@ The owner rejected making working-hour blocking, duration and minimum notice a m
 ## Document illustration density, 27 October 2026
 
 The owner rejected excessive document words/numbers on Quotes, Invoices & Signatures. For this page, use selective fidelity: keep readable tool names, Signature/Initials/Date and the meaningful signed/payment result, while secondary document text and amounts may become quiet static lines. Remove repeated records and arithmetic rather than shrinking all text. These lines represent suppressed document content, not loading placeholders or decorative accent bars; hide them from assistive technology and never shimmer them. Keep quote, signing and invoice roles distinct and preserve the separate customer/staff actions in capability claims. This is not permission to turn every feature into anonymous skeleton UI.
+
+
+## Chatbot message scale and containers, 27 October 2026
+
+The owner found the open, enlarged conversation quotations wordy and visually weaker. Chat bubbles and containers were not the rejected element; repeated oversized compositions were. Use compact readable conversation UI, concise result detail and varied photo/interface relationships. Do not respond to visual repetition by enlarging dialogue into editorial quotations. This supersedes the Chatbot one-widget/open-answer presentation only. Keep playback removed and the whole story visible without interaction.
