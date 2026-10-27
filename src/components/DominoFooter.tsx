@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "motion/react";
 import { INDUSTRY_LINKS } from "@/lib/industries";
+import { FEATURE_LINKS } from "@/lib/features";
 
 const FOOTER_GROUPS = [
   {
@@ -12,7 +13,6 @@ const FOOTER_GROUPS = [
       ["AI Receptionist", "/ai-receptionist"],
       ["Compare Zapla", "/comparison"],
     ],
-    features: [["Business Phone", "/features/business-phone"]],
   },
   {
     label: "Solutions",
@@ -148,29 +148,28 @@ export function DominoFooter() {
                       </a>
                     ))}
                   </div>
-                  {"features" in group && (
-                    <div className="mt-6">
-                      <div className="text-[10px] font-black uppercase tracking-[0.16em] text-[#20241F]">
-                        Features
-                      </div>
-                      <div className="mt-4 grid gap-2.5">
-                        {group.features.map(([label, href]) => (
-                          <a
-                            key={label}
-                            href={href}
-                            className="text-[13px] font-medium text-[#676B65] transition-colors hover:text-[#2563FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF]/40 focus-visible:ring-offset-4 focus-visible:ring-offset-[#F8F5EF]"
-                          >
-                            {label}
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
               ))}
             </div>
 
-            <div className="mt-9 border-t border-[#DED8CF] pt-5 text-[12px] text-[#888C85]">
+            <nav aria-label="Feature pages" className="mt-8 border-t border-[#DED8CF] pt-6">
+              <div className="text-[10px] font-black uppercase tracking-[0.16em] text-[#20241F]">
+                Features
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-1 sm:grid-cols-4 lg:gap-x-8">
+                {FEATURE_LINKS.map(({ name, href }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    className="flex min-h-11 items-center py-1.5 text-[13px] font-medium leading-relaxed text-[#676B65] transition-colors hover:text-[#2563FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF]/40 focus-visible:ring-offset-4 focus-visible:ring-offset-[#F8F5EF]"
+                  >
+                    {name}
+                  </a>
+                ))}
+              </div>
+            </nav>
+
+            <div className="mt-6 border-t border-[#DED8CF] pt-5 text-[12px] text-[#888C85]">
               © {new Date().getFullYear()} Zapla. All rights reserved.
             </div>
           </div>

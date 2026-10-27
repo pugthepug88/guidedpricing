@@ -625,6 +625,10 @@ The owner likes the grouped product-story composition and requested a younger mi
 
 The owner subsequently approved a small two-message property-inspection cue in the hero, while asking to protect its clean appearance. Keep the approved composition and place only two light bubbles below faces on desktop; use normal flow after copy on smaller screens. Preserve the full chat scene below. This scoped approval does not reopen large overlaid widgets or other scene changes. Rendered comparison, width checks and rollback reference: `AI-CHATBOT-HERO-DIALOGUE-20261027.md`.
 
+### Feature navigation completion, 27 October 2026
+
+The owner asked to verify Chatbot's Lovable sync, preview selector and header/footer links. The page was synced and routed, but missing from the header and footer. Use one shared completed-feature catalog: include AI Chatbot in the existing header Features group and a compact footer Features row. Keep Platform's group and all existing footer columns/video intact. Route registration follows the other feature pages; do not claim the private Lovable editor dropdown was visually checked when login blocks it. Verification: `AI-CHATBOT-NAVIGATION-20261027.md`.
+
 ### Business Phone: concise owner correction, 27 October 2026
 
 The owner found the first page too wordy and confirmed recording/transcription options, number purchasing in Australia, UK, US, Canada, Singapore, Hong Kong, Germany and France, and A2P/10DLC. This supersedes the initial market/option uncertainty, while stock, local requirements and rates remain conditional. The page is shortened by about 39% in source-text inventory: concise hero; one clear manual Power Dialler sequence and optional Auto Dial; photo with person-selected tag/workflow quick actions; compact purchasing-market and recording/transcript panels; six brief practical FAQs. Required/separately priced Guided Launch remains visible. A2P/10DLC is supporting US SMS setup, not a voice promise.
