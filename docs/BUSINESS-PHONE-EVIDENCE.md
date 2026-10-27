@@ -2,6 +2,10 @@
 
 Date: 27 October 2026. Scope: human calling. This is documentary and public-client verification, not a completed live telephony acceptance test or a promise of inclusion in every plan.
 
+## Latest correction: samples are not a fixed quick-action set
+
+The owner clarifies that the configured samples were random and asks for the customisable nature to be explained in the Phone quick actions chapter without adding sample shortcuts to the main calling/dialler scenes. The later website screenshot also rejects the isolated, unlabelled microphone and handset glyphs. These glyphs and both sample shortcut footers are removed. A single chosen name/action/icon/colour configuration now leads to a labelled Open enquiry form shortcut in the supporting chapter. Forms, configured workflows and tags are documented action categories; unrestricted “anything” behaviour is not claimed. This supersedes earlier evidence notes that describe repeated Hot lead/Follow-up buttons. Current review and verification limits are at the top of BUSINESS-PHONE-QUICK-ACTIONS-COLOUR-20261027.md.
+
 ## Later custom quick-action clarification
 
 Four further owner screenshots directly show customisable action buttons at the bottom of both the keypad and Power Dialler queue, plus configuration of name, icon, foreground/background colours and action type. The bottom button bars now appear in both prepared calling panels. Open Form, Trigger Automation and Add Tag are directly visible options; obscured options are not inferred. The earlier plain tag/workflow rows did not explain this placement and have been superseded. Source file references, colour correction, review and verification limits: BUSINESS-PHONE-QUICK-ACTIONS-COLOUR-20261027.md.

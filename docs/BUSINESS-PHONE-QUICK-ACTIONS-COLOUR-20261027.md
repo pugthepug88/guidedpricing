@@ -1,5 +1,19 @@
 # Business Phone — custom quick actions and colour correction
 
+## Superseding owner correction: custom choice belongs in its own chapter
+
+The later owner message clarifies that Hot lead/Follow-up were randomly created samples, not a fixed feature set. The owner asks to convey customisation in Phone quick actions and says the extra shortcuts do not need to be added to the dialler section. The supplied current page screenshot `image(20261027-115923).png` was visually inspected. Its isolated, unlabelled microphone/phone glyphs are also rejected; the owner permits their removal or a fuller control treatment.
+
+The current revision removes both injected sample shortcut footers and the two isolated hero control glyphs. The photographic opening retains the customer, active outgoing call and saved context. The Power Dialler retains its small list, human note, next person and manual sequence. No keypad or replacement controls are added.
+
+The dedicated Phone quick actions chapter now says “Make the buttons your own.” One compact native configuration shows the chosen button name “Open enquiry form”, the supported Open form action, document icon and blue/white appearance leading to the corresponding labelled shortcut. Copy explicitly covers chosen names, icons, colours and documented forms/configured workflows/tags. This is a prepared configuration, not a preset list or a promise that arbitrary code/actions are available. It remains static and performs no account or service operation. “Browser phone” prevents a mobile-app implication.
+
+The existing neutral ink/silver/blue direction, photograph, final CTA, route, indexing, global shell and unrelated pages are preserved. The new source is based on current main `b18011fe543c7a7d32acf3558b9628c6be2108c2`, including the concurrent Chatbot casting/caption revision; the latest brief is extended rather than replaced.
+
+Independent Product Marketing/Conversion/SME/buyer source review found no material blocker and recommended the browser-phone wording, which was applied. Separate independent Brand/UI/Motion source review found no material layout issue: the corrected name/status grid, naturally wrapping configuration values and labelled result retain the story without fixed heights. It recommended making browser phone/Power Dialler locations explicit without a smartphone implication; support copy now names both, and the result identifies its position at the bottom of the dialler. Build, TypeScript, scoped ESLint, SEO policy and whitespace checks passed; final formatting is checked before commit. The owner-supplied screenshot verifies the prior problem, not this new layout. Connected browser access remains unavailable, so fresh desktop/tablet/mobile crops, wrapping, clipping and keyboard checks are not claimed. Earlier screenshots and source analysis are not fresh rendered proof.
+
+## Historical preceding implementation, superseded where described above
+
 27 October 2026. This supersedes the earlier generic tag/workflow rows and page-owned green tint. It does not reopen the supported phone behaviour or shared website architecture.
 
 ## Owner evidence and implementation

@@ -374,77 +374,74 @@
   padding-left: 16px;
   border-left: 1px solid var(--bp-line);
 }
-.zapla-phone .bp-phone-shortcuts {
-  border-top: 1px solid var(--bp-line);
-  padding: 16px 22px;
+.zapla-phone .bp-shortcut-settings {
+  overflow: hidden;
+  border: 1px solid var(--bp-line);
+  border-radius: 18px;
   background: #fff;
 }
-.zapla-phone .bp-phone-shortcuts > p {
-  font-size: 11px;
-  line-height: 1.5;
+.zapla-phone .bp-shortcut-settings .bp-product-header {
+  padding-inline: 24px;
+}
+.zapla-phone .bp-shortcut-fields {
+  margin: 0;
+  padding: 6px 24px;
+}
+.zapla-phone .bp-shortcut-fields > div {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 16px;
+  padding-block: 17px;
+}
+.zapla-phone .bp-shortcut-fields > div + div {
+  border-top: 1px solid var(--bp-line);
+}
+.zapla-phone .bp-shortcut-fields dt {
+  color: var(--bp-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.zapla-phone .bp-shortcut-fields dd {
+  margin: 0;
+  color: #262d3b;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 550;
+}
+.zapla-phone .bp-shortcut-appearance {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.zapla-phone .bp-shortcut-appearance svg {
+  color: #2563ff;
+  flex-shrink: 0;
+}
+.zapla-phone .bp-shortcut-footer {
+  padding: 20px 24px 24px;
+  background: #f4f5f8;
+  border-top: 1px solid var(--bp-line);
+}
+.zapla-phone .bp-shortcut-footer > p {
+  font-size: 12px;
+  line-height: 1.6;
   margin-bottom: 12px;
 }
-.zapla-phone .bp-shortcut-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px 24px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.zapla-phone .bp-shortcut-buttons li {
+.zapla-phone .bp-shortcut-result {
   display: flex;
   align-items: center;
-  gap: 9px;
-}
-.zapla-phone .bp-shortcut-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  flex: 0 0 38px;
+  gap: 10px;
+  padding: 13px 16px;
   border-radius: 11px;
-  color: #fff;
-  box-shadow: 0 2px 4px #11131814;
-}
-.zapla-phone .bp-shortcut-tag {
   background: #2563ff;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.55;
 }
-.zapla-phone .bp-shortcut-workflow {
-  background: #b6533a;
-}
-.zapla-phone .bp-shortcut-buttons strong {
-  display: block;
-  font-size: 12px;
-  line-height: 1.5;
-  font-weight: 650;
-}
-.zapla-phone .bp-shortcut-buttons small {
-  display: block;
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--bp-muted);
-  margin-top: 3px;
-}
-.zapla-phone .bp-shortcut-settings {
-  padding: 24px;
-  border: 1px solid var(--bp-line);
-  border-radius: 17px;
-  background: #fff;
-}
-.zapla-phone .bp-shortcut-settings > p {
-  font-size: 12px;
-  margin-bottom: 19px;
-}
-.zapla-phone .bp-shortcut-settings .bp-shortcut-buttons {
-  gap: 22px 30px;
-}
-.zapla-phone .bp-browser-call .bp-shortcut-buttons {
-  gap: 14px 20px;
-}
-.zapla-phone .bp-browser-call .bp-shortcut-buttons li {
-  gap: 8px;
+.zapla-phone .bp-shortcut-result svg {
+  flex-shrink: 0;
 }
 .zapla-phone .bp-market-list {
   display: grid;
@@ -1078,23 +1075,6 @@
   color: #697384;
   margin-top: 5px;
 }
-.zapla-phone .bp-call-recognition {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 22px;
-  grid-column: 1 / -1;
-  margin-top: 23px;
-  color: #616b7b;
-}
-.zapla-phone .bp-call-recognition > span {
-  width: 1px;
-  height: 18px;
-  background: #d8dee7;
-}
-.zapla-phone .bp-call-recognition > svg:last-child {
-  color: #b65a47;
-}
 .zapla-phone .bp-call-context {
   margin-inline: 22px;
   padding: 18px 0 23px;
@@ -1158,15 +1138,6 @@
     backdrop-filter: none;
     background: #fff;
   }
-  .zapla-phone .bp-call-person {
-    grid-template-columns: 52px 1fr auto;
-  }
-  .zapla-phone .bp-call-recognition {
-    grid-column: 3;
-    grid-row: 2 / 4;
-    margin: 0 0 0 10px;
-    gap: 14px;
-  }
   .zapla-phone .bp-call-context {
     padding-block: 16px 21px;
   }
@@ -1223,16 +1194,17 @@
   .zapla-phone .bp-call-person h2 {
     font-size: 23px;
   }
-  .zapla-phone .bp-call-recognition {
-    grid-column: 1 / -1;
-    grid-row: auto;
-    margin: 19px 0 0;
-    gap: 24px;
-  }
   .zapla-phone .bp-browser-call .bp-product-header {
     padding-inline: 20px;
   }
   .zapla-phone .bp-call-context {
     margin-inline: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .zapla-phone .bp-shortcut-fields > div {
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: 12px;
   }
 }
