@@ -183,6 +183,16 @@ function BusinessAnswers() {
   return (
     <section className="cb-section cb-answers" aria-labelledby="chatbot-answers-title">
       <div className="cb-wrap cb-answers-layout">
+        <div className="cb-answer-copy">
+          <h2 id="chatbot-answers-title">Useful answers. Clear limits.</h2>
+          <p>
+            Use your service information for routine questions. Bring your team into the exceptions.
+          </p>
+          <p className="cb-knowledge-sources">Website pages, documents and written instructions.</p>
+          <a className="cb-link" href="/features/unified-inbox">
+            Explore Unified Inbox
+          </a>
+        </div>
         <div className="cb-answer-visual">
           <img
             className="cb-answer-image"
@@ -196,16 +206,6 @@ function BusinessAnswers() {
             <Bubble>Could you remove a structural wall?</Bubble>
             <Bubble ai>That needs a site assessment. I’ll pass your question to our team.</Bubble>
           </div>
-        </div>
-        <div className="cb-answer-copy">
-          <h2 id="chatbot-answers-title">Useful answers. Clear limits.</h2>
-          <p>
-            Use your service information for routine questions. Bring your team into the exceptions.
-          </p>
-          <p className="cb-knowledge-sources">Website pages, documents and written instructions.</p>
-          <a className="cb-link" href="/features/unified-inbox">
-            Explore Unified Inbox
-          </a>
         </div>
       </div>
     </section>

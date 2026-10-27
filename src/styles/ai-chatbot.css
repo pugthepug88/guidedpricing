@@ -435,10 +435,12 @@
 .zapla-chatbot .cb-answers-layout {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
+  grid-template-areas: "visual copy";
   align-items: center;
   gap: 94px;
 }
 .zapla-chatbot .cb-answer-visual {
+  grid-area: visual;
   overflow: hidden;
   border: 1px solid var(--cb-line);
   border-radius: 19px;
@@ -462,6 +464,9 @@
 }
 .zapla-chatbot .cb-answer-exchange .cb-message:not(.cb-message-ai) {
   justify-self: end;
+}
+.zapla-chatbot .cb-answer-copy {
+  grid-area: copy;
 }
 .zapla-chatbot .cb-answer-copy h2 {
   max-width: 390px;
@@ -802,8 +807,8 @@
     font-size: 12px;
   }
   .zapla-chatbot .cb-answers-layout {
-    display: flex;
-    flex-direction: column-reverse;
+    grid-template-columns: 1fr;
+    grid-template-areas: "copy" "visual";
     align-items: stretch;
     gap: 25px;
   }
