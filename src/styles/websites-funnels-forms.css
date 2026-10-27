@@ -977,7 +977,7 @@
   display: block;
   field-sizing: content;
   width: 100%;
-  min-height: 2.95em;
+  min-height: 1.1em;
   margin: 0;
   padding: 0;
   border: 0;
@@ -1234,7 +1234,7 @@
   }
   .wff-preview-heading textarea {
     font-size: 38px;
-    min-height: 2.05em;
+    min-height: 1.1em;
   }
   .wff-site-preview-hero > img {
     min-height: 0;
