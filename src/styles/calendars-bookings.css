@@ -308,6 +308,18 @@
   font-size: 12px;
   font-weight: 600;
 }
+.cal-booking-answer {
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.cal-booking-answer > span {
+  color: var(--feature-muted);
+  font-size: 11px;
+}
+.cal-booking-answer > p {
+  margin-top: 3px;
+}
 .cal-booking-outcome {
   padding: 20px 26px 22px;
   border-radius: 0 0 14px 14px;
@@ -334,21 +346,6 @@
   margin-top: 9px !important;
   font-size: 12px;
   color: #d9dfd7;
-}
-.cal-reminder {
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid #ffffff2e;
-}
-.cal-reminder > span {
-  color: #bfcac3;
-  font-size: 10px;
-}
-.cal-reminder p {
-  margin-top: 6px;
-  max-width: 420px;
-  font-size: 12px;
-  line-height: 1.75;
 }
 .cal-follow-copy {
   grid-column: 1;
@@ -495,7 +492,167 @@
   font-size: 11px;
 }
 
-/* The human meeting and business-side working view form one chapter. */
+/* Before and during the same meeting: configured messages, then the saved call. */
+.cal-automation {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  align-items: center;
+  gap: 64px;
+  margin-bottom: 100px;
+  scroll-margin-top: 100px;
+}
+.cal-automation-copy h2 {
+  font-size: clamp(36px, 3.6vw, 49px);
+  line-height: 1.07;
+}
+.cal-automation-copy > p {
+  max-width: 390px;
+  margin-top: 22px;
+  color: var(--feature-muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+.cal-automation-copy > a {
+  margin-top: 20px;
+}
+.cal-message-sequence {
+  min-width: 0;
+  padding: 25px;
+  border: 1px solid #dce0e4;
+  border-radius: 24px;
+  background: #f0f1f3;
+  box-shadow: inset 0 1px #ffffff;
+}
+.cal-message-booking {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cal-message-booking > div {
+  min-width: 0;
+}
+.cal-message-booking strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+.cal-message-booking p {
+  margin-top: 4px;
+  color: var(--feature-muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+.cal-message-timing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 23px 0 20px;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+  line-height: 1.65;
+}
+.cal-message-timing li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cal-message-timing li:not(:last-child)::after {
+  content: "→";
+  color: #7c828b;
+  font-size: 16px;
+}
+.cal-message-delivery {
+  display: grid;
+  grid-template-columns: 1.06fr 0.94fr;
+  align-items: start;
+  gap: 22px;
+}
+.cal-message-delivery article {
+  min-width: 0;
+}
+.cal-message-delivery h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: Manrope, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+.cal-message-delivery h3 svg {
+  flex: 0 0 auto;
+}
+.cal-message-body {
+  margin-top: 15px;
+  transition:
+    opacity 380ms ease,
+    transform 380ms ease;
+}
+.cal-message-email {
+  padding: 19px;
+  border: 1px solid #d8dce1;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 6px 18px #21263107;
+}
+.cal-message-email .cal-message-body > strong {
+  display: block;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.cal-message-email p {
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.cal-message-email .cal-message-appointment {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+.cal-message-email .cal-message-body > p:last-child {
+  color: var(--feature-muted);
+  font-size: 11px;
+}
+.cal-message-sms {
+  padding-top: 19px;
+}
+.cal-message-sender {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+}
+.cal-message-sender .cal-avatar {
+  width: 26px;
+  height: 26px;
+}
+.cal-message-bubble {
+  margin-top: 13px !important;
+  padding: 18px;
+  border-radius: 16px 16px 16px 4px;
+  background: #2563ff;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.cal-message-sequence[data-enhanced="true"][data-phase="0"] .cal-message-body,
+.cal-message-sequence[data-enhanced="true"][data-phase="1"] .cal-message-sms .cal-message-body {
+  opacity: 0;
+  transform: translateY(7px);
+}
+.cal-message-pending {
+  padding: 55px 18px;
+  font-size: 16px;
+  line-height: 1.8;
+}
+.cal-message-pending a {
+  color: inherit;
+  text-underline-offset: 4px;
+}
 .cal-business {
   padding: 80px 0 60px;
   scroll-margin-top: 90px;
@@ -848,6 +1005,19 @@
   }
 }
 @media (max-width: 1099px) {
+  .cal-automation {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-bottom: 75px;
+  }
+  .cal-automation-copy > p {
+    max-width: 600px;
+    font-size: 15px;
+  }
+  .cal-message-sequence {
+    max-width: 760px;
+    width: 100%;
+  }
   .cal-opening {
     padding-top: 112px;
   }
@@ -1054,13 +1224,6 @@
     font-size: 12px;
     line-height: 1.7;
   }
-  .cal-reminder > span {
-    font-size: 11px;
-  }
-  .cal-reminder p {
-    font-size: 13px;
-    line-height: 1.8;
-  }
   .cal-follow-copy {
     display: block;
     margin-top: 0;
@@ -1129,6 +1292,47 @@
   }
   .cal-business {
     padding: 55px 0 30px;
+  }
+  .cal-automation {
+    margin-bottom: 65px;
+  }
+  .cal-automation-copy h2 {
+    font-size: 38px;
+  }
+  .cal-message-sequence {
+    padding: 20px 16px;
+    border-radius: 20px;
+  }
+  .cal-message-booking p {
+    font-size: 12px;
+  }
+  .cal-message-timing {
+    align-items: start;
+    gap: 9px;
+  }
+  .cal-message-timing li {
+    flex: 1;
+    gap: 6px;
+    align-items: start;
+  }
+  .cal-message-delivery {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .cal-message-delivery h3 {
+    font-size: 12px;
+  }
+  .cal-message-email p {
+    font-size: 14px;
+  }
+  .cal-message-email .cal-message-body > p:last-child {
+    font-size: 12px;
+  }
+  .cal-message-sms {
+    padding: 0 3px;
+  }
+  .cal-message-bubble {
+    font-size: 15px;
   }
   .cal-business-meet {
     gap: 28px;
@@ -1325,10 +1529,6 @@
   .cal-confirmed-date {
     font-size: 14px;
   }
-  .cal-reminder p {
-    font-size: 13px;
-    line-height: 1.65;
-  }
   .cal-people .cal-avatar {
     width: 42px;
     height: 42px;
@@ -1406,11 +1606,6 @@
   .cal-booking-outcome {
     padding: 18px 22px;
   }
-  .cal-outcome-content {
-    display: grid;
-    grid-template-columns: 1fr 1.12fr;
-    gap: 0 22px;
-  }
   .cal-booked-line {
     grid-column: 1;
     grid-row: 1;
@@ -1429,18 +1624,6 @@
     grid-row: 2;
     font-size: 12px;
     line-height: 1.7;
-  }
-  .cal-reminder {
-    grid-column: 2;
-    grid-row: 1 / 3;
-    margin: 0;
-    padding: 0 0 0 20px;
-    border-top: 0;
-    border-left: 1px solid #ffffff2e;
-  }
-  .cal-reminder p {
-    font-size: 12px;
-    line-height: 1.65;
   }
 }
 

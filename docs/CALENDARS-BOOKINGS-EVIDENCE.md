@@ -4,6 +4,16 @@ Checked **23 October 2026 (Australia/Sydney)** for `/features/calendars-bookings
 
 This is a documentation review, not live product acceptance testing. No appointment was created, no calendar account was connected, and no sales calendar embed was installed or tested.
 
+## Booking automations and information sources, 27 October 2026
+
+The owner reopened the removed availability space and approved a compact booking-to-message explanation. The later live Automation audit in `AUTOMATION-BUILDER-EVIDENCE.md` supersedes this document's original help-only uncertainty about configured confirmation messages. That audit inspected Appointment Booked filtered to a chosen Confirmed status, Send Email, Wait Before Calendar Booking and Send SMS, including a one-day offset. These are inspected configuration capabilities, not a successful message-delivery test or universal calendar default.
+
+The current scene therefore shows one configured calendar/status event sending a confirmation email, followed by an SMS one day before the appointment. Message copy and timing are business choices. The selected illustration date/time updates the booking, email and reminder together; clearing the time shows a pending explanation. No real booking, automation or message service is called. No automatic cancellation, reminder recalculation after rescheduling, timezone guarantee or self-service reschedule link is established.
+
+The official English help bundle was retrieved again on 27 October. `p/b/[id]` and `calendar` document a linked custom form in the public booking flow; current Form Builder documentation and the Automation evidence support mapping form values to contact fields. `contacts/[id]` separately documents messages, notes, forms and bookings on an existing contact profile. The added kitchen/benchtop answer is explicitly sourced from Emma's booking form. Her history is not invented and no automatic chatbot-to-booking summary or cross-channel identity match is shown. The proposal to make an isolated form the main selling point was rejected in favour of the useful configured communication sequence.
+
+The current public booking help still directs customers to contact the business to change/cancel, while `bookings` documents staff rescheduling and status changes. The confirmation therefore asks the customer to contact the team to rearrange. Customer self-service links and the effect of changes/cancellation on queued reminders still require account testing before being marketed. Recording/transcript claims retain their earlier owner-confirmed provenance below.
+
 ## Current builder correction, 23 October 2026
 
 This update supersedes the original omission of round robin and the older four-format inventory below. The owner supplied a current Calendar Builder screenshot, `image(20261023-024547).png`, and explicitly confirmed five calendar types. The displayed descriptions establish the following scope:
