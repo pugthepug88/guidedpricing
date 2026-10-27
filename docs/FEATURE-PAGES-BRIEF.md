@@ -621,7 +621,7 @@ This supersedes the prior minimal continuation and cast, not supported capabilit
 
 ### Chatbot composition approved; casting-only correction, 27 October 2026
 
-The owner likes the grouped product-story composition and requested only a younger mix of white and Asian adults aged 25–35. Preserve the approved layout, wording, product surfaces and scene framing. Update the three editorial photographs and page-local portrait selections, retaining distinct people and wardrobe. This is a page-specific casting request, not a new site-wide demographic rule. Edit briefs, asset provenance and verification are in `AI-CHATBOT-CAST-20261027.md`.
+The owner likes the grouped product-story composition and requested a younger mix of white and Asian adults aged 25–35. Preserve the approved layout, product surfaces and scene framing. Update the three editorial photographs and page-local portrait selections, retaining distinct people and wardrobe. The subsequent owner request removes “Works on your existing website.” and similarly redundant captions beneath capture/knowledge; retain meaningful product conditions and setup pricing. This is a page-specific casting and copy cleanup, not a new site-wide demographic rule. Edit briefs, asset provenance and verification are in `AI-CHATBOT-CAST-20261027.md`.
 
 ### Business Phone: concise owner correction, 27 October 2026
 

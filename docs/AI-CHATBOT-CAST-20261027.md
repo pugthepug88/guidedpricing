@@ -1,6 +1,6 @@
 # AI Chatbot casting update — 27 October 2026
 
-The owner approved the current composition and requested a mix of white and Asian adults aged 25–35. This revision changes only the three editorial photographs and page-local selections from the approved portrait sheet. It does not reopen the layout, wording, product scenes, capability claims, motion, shared shell or other pages. The reference is the approved page at merge `166d9166a8db7f12b78f4f04eae4e7b2b1658e4a`; implementation starts from main `3193e64490d92a47f9d19371305246bde3c74a18`, preserving the subsequent Business Phone work.
+The owner approved the current composition and requested a mix of white and Asian adults aged 25–35. This revision changes the three editorial photographs and page-local selections from the approved portrait sheet. During review the owner also requested removal of “Works on your existing website.” and similar unnecessary remarks. Three redundant captions are removed; the layout, remaining wording, product scenes, capability claims, motion, shared shell and other pages stay unchanged. The reference is the approved page at merge `166d9166a8db7f12b78f4f04eae4e7b2b1658e4a`; implementation starts from main `3193e64490d92a47f9d19371305246bde3c74a18`, preserving the subsequent Business Phone work.
 
 ## Assets and edit briefs
 
@@ -42,6 +42,8 @@ Keep `/concept/revenue/soft-autumn-portraits-v1.webp`, the existing size and cro
 
 ## Verification
 
-Source review: only photo paths, intrinsic hero dimensions and portrait cell indices change in the component. The stylesheet, native wording and product structure are unchanged. Fresh image inspection confirms distinct subjects and retained scene roles. Production build, TypeScript, targeted ESLint, Prettier, all 17 SEO policy checks and `git diff --check` pass. The three WebP assets are 113,930 / 110,842 / 165,148 bytes (hero / dental / plumbing). Hosted render results are recorded after verification.
+Caption cleanup removes the hero’s “Works on your existing website.”, the capture scene’s “Choose your pipeline and follow-up during setup.” and the repeated knowledge instruction “Choose what it can answer and when your team should step in.” Those subjects remain covered in the relevant explanation/FAQ. Contact-supplied details, calendar consent, notification configuration and separately priced Guided Launch still explain meaningful product behaviour or a purchase condition.
+
+Source review: changes are limited to photo paths, intrinsic hero dimensions, portrait cell indices and those three deletions. The stylesheet and remaining product structure are unchanged. Fresh image inspection confirms distinct subjects and retained scene roles. Production build, TypeScript, targeted ESLint, Prettier, all 17 SEO policy checks and `git diff --check` passed for the casting revision; caption cleanup is checked again before delivery. The three WebP assets are 113,930 / 110,842 / 165,148 bytes (hero / dental / plumbing). Hosted render results are recorded after verification.
 
 GitHub owns source updates. Lovable remains read only; no builder prompt or separate Publish action.

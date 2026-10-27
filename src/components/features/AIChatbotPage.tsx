@@ -100,7 +100,6 @@ function Opening() {
             appointments, even after hours.
           </p>
           <Cta />
-          <p className="bc-existing-site">Works on your existing website.</p>
         </header>
       </div>
       <div className="bc-wrap bc-intro-benefits" aria-label="What your chatbot can help with">
@@ -190,7 +189,6 @@ function LeadCapture() {
               <strong>New enquiry</strong>
             </div>
           </div>
-          <p className="bc-stage-note">Choose your pipeline and follow-up during setup.</p>
         </div>
       </div>
     </section>
@@ -273,9 +271,6 @@ function Knowledge() {
           <p>
             Use your website pages, documents and written instructions to prepare answers about your
             services. Test the responses before customers use them.
-          </p>
-          <p className="bc-copy-secondary">
-            Choose what it can answer and when your team should step in.
           </p>
         </SectionCopy>
         <div className="bc-stage bc-knowledge-stage">
