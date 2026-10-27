@@ -145,3 +145,5 @@ Retained proof:
 - `docs/qa/websites-form-phone-result-20261027.jpg`
 
 Review address: `https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/websites-funnels-forms`.
+
+Final entry adjustment: the new AI and submission players wait until 85% of their canvas is visible before starting or continuing. This brings the depicted send/submit action into view before construction or CRM capture. Completed phone/static content and explicit replay remain unchanged. The completed layouts in the retained proof are unaffected.

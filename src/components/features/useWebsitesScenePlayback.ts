@@ -37,8 +37,8 @@ export function useScenePlayback(duration: number) {
     const element = ref.current;
     if (!element) return;
     const observer = new IntersectionObserver(
-      ([entry]) => setVisible(entry.intersectionRatio >= 0.65),
-      { threshold: 0.65 },
+      ([entry]) => setVisible(entry.intersectionRatio >= 0.85),
+      { threshold: 0.85 },
     );
     observer.observe(element);
     return () => observer.disconnect();
