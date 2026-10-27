@@ -538,3 +538,9 @@ Condense the website service choice, Guided Launch and FAQ wording. Retain separ
 ## Form QR sharing, 27 October 2026
 
 The owner supplied the form settings screen showing Embed & QR and requested one small supporting container. Add a compact QR-sharing card directly beneath the Forms & CRM demonstration, with a recognisable QR graphic and one short use line. Keep it subordinate to the enquiry handoff; do not recreate the settings screen, embed code, download controls or tenant-specific QR payload. Preserve the current form flow, AI, funnel, tracking, setup and shared architecture.
+
+## Signature value and multiple signers, 27 October 2026
+
+The owner supplied Manage Signers and Signatures help and identified multiple signers as a meaningful feature hidden by the simplification. Bring one document/multiple people, assigned fields and individual Signed/Pending progress into the existing signature chapter. Retain the selective-detail treatment; do not restore admin forms, registers, calculators or tutorial controls. PDF/builder reuse and personal no-account signing remain concise support.
+
+Show Priya's completed fields with Priya Signed and Alex (Your team) Pending inside the same document. Do not call that overall request complete or label its lower customer-context reference Signed scope. The quote and invoice stay distinct with no automatic conversion/charge implication. Evidence, prioritisation, scoped review and exact rendered checks are in SIGNATURES-MULTIPLE-SIGNERS-20261027.md. GitHub remains authoritative, Lovable read-only, with no separate Publish action.

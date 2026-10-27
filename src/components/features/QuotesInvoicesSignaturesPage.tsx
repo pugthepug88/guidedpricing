@@ -5,7 +5,7 @@ import "@/styles/quotes-invoices-signatures.css";
 
 // Prepared document illustrations, not live records or payment controls.
 // Secondary document text is deliberately abstracted. No service is called.
-function Portrait() {
+function Portrait({ cell = 19 }: { cell?: number }) {
   return (
     <span
       className="qi-portrait"
@@ -13,7 +13,7 @@ function Portrait() {
       style={{
         backgroundImage: "url('/concept/revenue/soft-autumn-portraits-v1.webp')",
         backgroundSize: "600% 400%",
-        backgroundPosition: "20% 100%",
+        backgroundPosition: `${((cell % 6) / 5) * 100}% ${(Math.floor(cell / 6) / 3) * 100}%`,
       }}
     />
   );
@@ -86,15 +86,36 @@ function QuoteIllustration() {
 
 function SigningIllustration() {
   return (
-    <article className="qi-sign-paper" aria-label="Priya’s signed scope of work">
+    <article className="qi-sign-paper" aria-label="Reception signage scope with two signers">
       <header className="qi-paper-brand">
         <Logo />
         <span>Scope of work</span>
       </header>
-      <DocumentLines />
+      <div className="qi-signers" aria-label="Signers and their progress">
+        <p className="qi-signers-title">Signers</p>
+        <ul>
+          <li>
+            <Portrait />
+            <div>
+              <strong>Priya Shah</strong>
+              <span>Customer</span>
+            </div>
+            <span className="qi-person-signed">Signed</span>
+          </li>
+          <li>
+            <Portrait cell={8} />
+            <div>
+              <strong>Alex Chen</strong>
+              <span>Your team</span>
+            </div>
+            <span className="qi-person-pending">Pending</span>
+          </li>
+        </ul>
+      </div>
+      <DocumentLines short />
       <dl className="qi-signature-fields">
         <div className="qi-signature">
-          <dt>Signature</dt>
+          <dt>Signature · Priya Shah</dt>
           <dd>Priya Shah</dd>
         </div>
         <div>
@@ -106,10 +127,6 @@ function SigningIllustration() {
           <dd>27 Oct 2026</dd>
         </div>
       </dl>
-      <p className="qi-signed-result">
-        <Check size={20} aria-hidden="true" />
-        <span>Signed and submitted by Priya</span>
-      </p>
     </article>
   );
 }
@@ -160,7 +177,7 @@ const FAQS = [
   ],
   [
     "Can I use PDFs and add more than one signer?",
-    "Yes. Upload a PDF or build a document, then assign signature, initials and date fields to the right people. See who is pending and who has signed.",
+    "Yes. Assign signature, initials and date fields to the right people. The document is complete once everyone has signed, and the shared view can be printed or saved as a PDF.",
   ],
   [
     "Does the customer need an account to sign?",
@@ -216,10 +233,10 @@ export function QuotesInvoicesSignaturesPage() {
         <div className="qi-wrap qi-sign-layout">
           <div className="qi-sign-copy">
             <p className="qi-eyebrow">Documents &amp; e-signatures</p>
-            <h2 id="qi-sign-heading">Signed. Without the print and scan.</h2>
-            <p>
-              Upload a PDF or build your document. Your customer reviews and signs through a
-              personal link.
+            <h2 id="qi-sign-heading">One document. Multiple signers.</h2>
+            <p>Assign each person’s fields. See who has signed and who is still pending.</p>
+            <p className="qi-sign-support">
+              Use your PDF or build a document. Sign from a personal link, without an account.
             </p>
           </div>
           <SigningIllustration />
@@ -256,13 +273,13 @@ export function QuotesInvoicesSignaturesPage() {
             <p className="qi-eyebrow">Connected to the customer</p>
             <h2 id="qi-context-heading">Keep it with the customer.</h2>
             <p>
-              Find the quote, signed document and invoice alongside the customer’s other details.
+              Find the quote, signature document and invoice alongside the customer’s other details.
             </p>
             <div className="qi-customer">
               <Portrait />
               <div>
                 <strong>Priya Shah</strong>
-                <span>Quote · Signed scope · Invoice</span>
+                <span>Quote · Signature document · Invoice</span>
               </div>
             </div>
             <a className="qi-text-link" href="/crm">
