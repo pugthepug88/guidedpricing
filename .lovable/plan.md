@@ -1,18 +1,27 @@
-# HubSpot simple draft: review-list registration findings
+# Audit: native editor page dropdown vs current pages (revision 5f28c41)
 
-## Verified findings (current main, HEAD ddc9f99)
-- `widerVersions` no longer exists in any file. Its home, `src/components/industry-v3/VersionShell.tsx`, was deleted along with the whole `src/components/industry-v3/` folder during the V3 page removals. Only stale mentions are left, in AGENTS.md (line 16), docs/COMPARISON_PAGE_BRIEF.md (line 13) and roadmap.md.
-- So there is no in-app review viewer to register with now. The "Lovable review dropdown" is the editor's page selector, and no project file controls it. It is built from the route tree, and pages with `staticData: { sitemap: false }` may be left out. That second point is likely but not confirmed.
-- Sitemap visibility is set per route with `staticData: { sitemap: false }` plus the `robots: noindex, nofollow` meta tag, as in `src/routes/compare.zapla-vs-pipedrive-simple.tsx`.
+## What was actually observed
+- Workspace is at 5f28c41ad28862e69f8bfbfde0badcaba3004385.
+- The native dropdown itself could NOT be observed. No available tool can open, read, refresh or reindex it. The only preview tool present today is "publish", which is out of scope. So there is no observed before-list; anything below about the menu is inference.
+- The project settings file holds only template info, no page list, so there is nothing in the project that controls the menu.
 
-## How to register the HubSpot draft
-1. Create `src/routes/compare.zapla-vs-hubspot-simple.tsx` with `createFileRoute("/compare/zapla-vs-hubspot-simple")`. Keep `sitemap: false` and noindex, nofollow so the production sitemap does not change.
-2. Add the data file `src/components/compare/simple/hubspot.ts`. Do not edit `routeTree.gen.ts`; it is generated automatically.
-3. Review access: type the path into the editor page selector. No widerVersions entry is possible unless a new review list is built.
-4. Optional follow-up, only if you approve it: either rebuild a small review list, or correct the stale widerVersions lines in AGENTS.md and the brief.
+## Current pages in Git (from route files, 38)
+/, /platform, /crm, /customer-marketing, /follow-up, /ai-receptionist, /quote-follow-up, /reactivation, /reviews, /booking, /pricing-v2, /Pricing-v3
+/features/ai-chatbot, /features/unified-inbox, /features/business-phone, /features/pipeline-management, /features/automation-builder, /features/calendars-bookings, /features/quotes-invoices-signatures, /features/websites-funnels-forms
+/industries, /industries/allied-health, /industries/cosmetic-skin-clinics, /industries/dental, /industries/mechanics, /industries/mortgage-brokers, /industries/trades
+/comparison, /comparison/review, /comparison/zapla-vs-activecampaign, creatio, ghl, hubspot, keap, monday-crm, pipedrive, podium, salesforce, thryv, zoho
 
-## Preview URL
-https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/compare/zapla-vs-hubspot-simple
-This needs Lovable sign-in, and it only loads once the route is merged and synced. Published host: https://guidedpricing.zapla.io
+## Inferred stale or missing (not observed)
+- Should be missing from the menu if it is stale: any /compare/*, /comparison/*-simple, /concept/cinematic-follow-through-*, Ticketing. None exist in Git.
+- Most likely missing per your report: the eight /features/* pages. All eight are registered and carry no hiding flag, so the code is not the cause.
 
-No edits or publishing done.
+## Supported minimal repair (your side, no code change)
+1. Hard reload the editor tab (Ctrl+Shift+R) and reopen the page menu.
+2. If unchanged: DevTools, Application, Clear site data for the editor, then reload.
+3. Open one /features/* page directly in the preview address bar once, then recheck the menu.
+
+## Step I cannot perform
+Reading or refreshing the native menu. If steps 1 to 3 fail, the menu index is held by the editor itself and only Lovable staff can rebuild it, using the page list above.
+
+## Not doing
+No code, SEO, sitemap, route, navigation or content edits, no replacement selector, no recreated retired pages, no publishing.
