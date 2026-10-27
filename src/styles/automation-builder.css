@@ -986,7 +986,10 @@
 .ab-ai-workspace {
   border: 1px solid #303746;
   border-radius: 28px;
-  background: radial-gradient(ellipse at 24% 32%, #1c2334 0, transparent 54%), #12151d;
+  background:
+    radial-gradient(ellipse at 15% 12%, #7375bb42 0, transparent 52%),
+    radial-gradient(ellipse at 80% 43%, #3868bd26 0, transparent 46%),
+    linear-gradient(135deg, #1b2033 0%, #12151f 63%);
   color: #edf0f7;
   box-shadow: inset 0 1px 0 #ffffff08;
 }
@@ -1016,12 +1019,12 @@
 }
 .ab-ai-prompt {
   padding: 20px 22px 16px;
-  border: 1px solid #59617b;
+  border: 1px solid #737f9e;
   border-radius: 15px;
-  background: linear-gradient(145deg, #202536, #191d29 74%);
+  background: linear-gradient(145deg, #343b55, #252c40 74%);
   box-shadow:
     0 14px 38px #00000024,
-    inset 0 1px 0 #e5ebff0a;
+    inset 0 1px 0 #e5ebff1c;
 }
 .ab-ai-demo[data-phase="waiting"] .ab-ai-prompt,
 .ab-ai-demo[data-phase="typing"] .ab-ai-prompt {
@@ -1030,6 +1033,35 @@
     0 0 0 1px #8998ec18,
     0 0 28px #4562db17,
     0 14px 38px #00000024;
+}
+/* Light follows the existing submit/build states without an independent loop. */
+.ab-ai-demo[data-phase="submitting"] .ab-ai-prompt,
+.ab-ai-demo[data-phase="generating"] .ab-ai-prompt,
+.ab-ai-demo[data-phase="building"] .ab-ai-prompt {
+  border-color: #b0baf0;
+  box-shadow:
+    0 0 0 1px #9baeff24,
+    0 0 42px #657fe636,
+    0 14px 38px #00000024,
+    inset 0 1px 0 #e5ebff24;
+}
+.ab-ai-workflow {
+  position: relative;
+  isolation: isolate;
+}
+.ab-ai-workflow::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -12px -38px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #668be81c, transparent 68%);
+  opacity: 0;
+  pointer-events: none;
+}
+.ab-ai-demo[data-phase="generating"] .ab-ai-workflow::before,
+.ab-ai-demo[data-phase="building"] .ab-ai-workflow::before {
+  opacity: 1;
 }
 .ab-ai-prompt figcaption {
   display: flex;
