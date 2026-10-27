@@ -1,5 +1,7 @@
 # Ticketing feature page, 26 October 2026
 
+> The visual composition and numeric assessments below are historical and superseded by [the 27 October visual reset](TICKETING-VISUAL-RESET-20261027.md). Capability sources and original image provenance remain applicable. The previous scores did not establish owner approval.
+
 ## Scope and decision
 
 Route: `/features/ticketing`. Customer support ticketing owns recording and progressing an issue to resolution. Unified Inbox owns messages; Pipeline Management owns opportunities and related work. This page does not market event admission or QR tickets.
