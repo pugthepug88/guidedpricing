@@ -25,7 +25,7 @@ const FAQS = [
   {
     question: "Can AI help me build?",
     answer:
-      "Yes. Describe a new website for Zapla AI to build, or clone an existing page by URL with its styles and images. You can then refine it in the visual editor. The form builder can also use a written request to add fields, pages, styling and settings. You can edit the result, check the content and connections, then publish when it is ready. AI usage is separate and confirmed with your setup.",
+      "Yes. Describe a new website for Zapla AI to build, or clone an existing page by URL with its styles and images. You can then refine it in the visual editor. The form builder can also use a written request to add fields, pages, styling and settings. You can edit the result, check the content and connections, then publish when it is ready.",
   },
   {
     question: "What happens when someone submits a form?",
@@ -151,7 +151,7 @@ export function WebsitesFunnelsFormsPage() {
       <noscript>
         <style>
           {
-            ".wff-ai-watch, .wff-reset, .wff-column-handle, .wff-tracking-hint { display: none !important; }"
+            ".wff-ai-watch, .wff-reset, .wff-column-handle, .wff-tracking-control { display: none !important; }"
           }
         </style>
       </noscript>
