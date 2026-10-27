@@ -101,6 +101,23 @@ function Opening() {
           </p>
           <Cta />
         </header>
+        <div
+          className="bc-hero-dialogue"
+          role="group"
+          aria-label="A visitor asks the AI chatbot about a property inspection"
+        >
+          <p className="bc-hero-question">
+            <span className="bc-sr-only">Visitor: </span>
+            Can I arrange an inspection?
+          </p>
+          <div className="bc-hero-reply">
+            <ZaplaPetal size={21} />
+            <p>
+              <span className="bc-sr-only">Zapla AI: </span>
+              Which property would you like to see?
+            </p>
+          </div>
+        </div>
       </div>
       <div className="bc-wrap bc-intro-benefits" aria-label="What your chatbot can help with">
         <div>
