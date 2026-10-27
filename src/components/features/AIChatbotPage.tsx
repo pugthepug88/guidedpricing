@@ -1,210 +1,425 @@
 import { type ReactNode } from "react";
-import { Plus } from "lucide-react";
+import { Bell, BookOpen, CalendarDays, FileText, Globe2, MessagesSquare, Plus } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/ai-chatbot.css";
 
-// Prepared marketing scenes, not tenant screenshots or a live AI demonstration.
-// Marlow Kitchens, Alex Chen, the service policies and appointment are fictional.
-// No contact, message, AI or booking API is called.
+// Prepared product scenes. The businesses, people, policies and bookings are fictional.
+// All words are native HTML. No AI, contact, message or booking service is called.
 function Cta({ children = "Book a Call" }: { children?: ReactNode }) {
   return (
-    <a className="cb-cta" href="/booking">
+    <a className="bc-cta" href="/booking">
       {children}
     </a>
   );
 }
-
-function Bubble({ children, ai = false }: { children: ReactNode; ai?: boolean }) {
+function Brand() {
   return (
-    <div className={"cb-message" + (ai ? " cb-message-ai" : "")}>
-      {ai && <ZaplaPetal size={23} />}
+    <img
+      className="bc-brand"
+      src="/concept/zapla-logo-dark.svg"
+      alt="Zapla"
+      width="86"
+      height="28"
+    />
+  );
+}
+function Avatar({ cell = 16 }: { cell?: number }) {
+  return (
+    <span
+      className="bc-avatar"
+      aria-hidden="true"
+      style={{
+        backgroundImage: "url('/concept/revenue/soft-autumn-portraits-v1.webp')",
+        backgroundSize: "600% 400%",
+        backgroundPosition: `${((cell % 6) / 5) * 100}% ${(Math.floor(cell / 6) / 3) * 100}%`,
+      }}
+    />
+  );
+}
+function Message({
+  children,
+  speaker = "Visitor",
+}: {
+  children: ReactNode;
+  speaker?: "Visitor" | "AI Chatbot" | "Leah";
+}) {
+  const ai = speaker === "AI Chatbot";
+  return (
+    <div
+      className={`bc-message ${ai ? "bc-message-ai" : speaker === "Leah" ? "bc-message-team" : "bc-message-visitor"}`}
+    >
+      {ai && <ZaplaPetal size={19} />}
+      {speaker === "Leah" && <Avatar />}
       <div>
-        <span className="cb-sr-only">{ai ? "Zapla AI Chatbot" : "Visitor"}: </span>
+        <span className="bc-sr-only">{speaker}: </span>
         {children}
       </div>
     </div>
   );
 }
-
+function SectionCopy({
+  label,
+  title,
+  children,
+  id,
+}: {
+  label: string;
+  title: string;
+  children: ReactNode;
+  id: string;
+}) {
+  return (
+    <header className="bc-section-copy">
+      <p className="bc-label">{label}</p>
+      <h2 id={id}>{title}</h2>
+      {children}
+    </header>
+  );
+}
 function Opening() {
   return (
-    <section className="cb-opening" aria-labelledby="chatbot-title">
-      <div className="cb-hero">
+    <section className="bc-opening" aria-labelledby="chatbot-title">
+      <div className="bc-hero">
         <img
-          className="cb-hero-image"
-          src="/concept/features/chatbot-professional-hero-20261027.webp"
-          alt="A business owner reviewing a client’s project at his desk"
+          className="bc-hero-image"
+          src="/concept/features/chatbot-property-viewing-v2-20261027.webp"
+          alt="A real estate agent showing buyers through a home"
           width="1870"
           height="841"
           fetchPriority="high"
         />
-        <div className="cb-hero-shade" aria-hidden="true" />
-        <header className="cb-hero-copy">
-          <p className="cb-eyebrow">AI Chatbot</p>
+        <div className="bc-hero-shade" aria-hidden="true" />
+        <header className="bc-hero-copy">
+          <p className="bc-label">AI Chatbot</p>
           <h1 id="chatbot-title">
             <span>Answer the question.</span> <span>Capture the enquiry.</span>
           </h1>
-          <p className="cb-hero-description">
+          <p className="bc-hero-description">
             Answer website questions, collect the details your team needs and book suitable
             appointments, even after hours.
           </p>
           <Cta />
-          <p className="cb-existing-site">Works on your existing website.</p>
+          <p className="bc-existing-site">Works on your existing website.</p>
         </header>
+      </div>
+      <div className="bc-wrap bc-intro-benefits" aria-label="What your chatbot can help with">
+        <div>
+          <h2>Answer around the clock.</h2>
+          <p>Keep routine questions moving while your team is busy or offline.</p>
+        </div>
+        <div>
+          <h2>Capture the next enquiry.</h2>
+          <p>Ask what they need and collect their contact details in the chat.</p>
+        </div>
+        <div>
+          <h2>Bring in your team.</h2>
+          <p>Keep people involved when a conversation needs their judgement.</p>
+        </div>
       </div>
     </section>
   );
 }
-
-function EnquiryRecord() {
+function LeadCapture() {
   return (
-    <section
-      className="cb-section cb-enquiry"
-      id="chatbot-enquiry"
-      aria-labelledby="chatbot-enquiry-title"
-    >
-      <div className="cb-wrap">
-        <header className="cb-enquiry-intro">
-          <h2 id="chatbot-enquiry-title">Know what they need before you reply.</h2>
-          <p>The conversation, contact details and follow-up come together in Zapla.</p>
-        </header>
-        <div className="cb-capture-scene">
-          <div className="cb-widget" aria-label="Alex shares the enquiry, name and email">
-            <div className="cb-chat-header">
-              <ZaplaPetal size={26} />
+    <section className="bc-section" id="chatbot-enquiry" aria-labelledby="chatbot-enquiry-title">
+      <div className="bc-wrap bc-feature-row">
+        <SectionCopy
+          label="24/7 lead assistant"
+          title="Know what they need before you reply."
+          id="chatbot-enquiry-title"
+        >
+          <p>
+            Zapla answers questions, asks about the job and collects contact details. Your team gets
+            an enquiry with context for the next step.
+          </p>
+          <a className="bc-link" href="/features/automation-builder">
+            Connect the follow-up
+          </a>
+        </SectionCopy>
+        <div className="bc-stage bc-lead-stage">
+          <div className="bc-lead-photo">
+            <img
+              src="/concept/features/chatbot-plumber-enquiries-20261027.webp"
+              alt="A plumber focused on a hot-water installation while website enquiries are handled"
+              width="1448"
+              height="1086"
+              loading="lazy"
+            />
+          </div>
+          <div
+            className="bc-widget"
+            aria-label="Noah shares the job, suburb, timing and contact details"
+          >
+            <div className="bc-widget-header">
+              <ZaplaPetal size={25} />
               <div>
-                <strong>Marlow Kitchens</strong>
+                <strong>Harbour Plumbing</strong>
                 <span>AI Chatbot</span>
               </div>
             </div>
-            <div className="cb-thread">
-              <Bubble>Do you renovate small apartment kitchens?</Bubble>
-              <Bubble ai>Yes. What are you hoping to change?</Bubble>
-              <Bubble>New cabinets and worktops. Next month.</Bubble>
-              <Bubble ai>Your name and email so our team can get in touch?</Bubble>
-              <Bubble>
-                Alex Chen.<span className="cb-shared-detail">Email address shared</span>
-              </Bubble>
+            <div className="bc-thread">
+              <Message>Can I get a quote for a new hot-water system?</Message>
+              <Message speaker="AI Chatbot">Yes. What type of system, and which suburb?</Message>
+              <Message>Electric. Ashfield. Ideally next week.</Message>
+              <Message speaker="AI Chatbot">
+                Your name and mobile so our team can get in touch?
+              </Message>
+              <Message>
+                Noah Williams.<span className="bc-shared-detail">Mobile number shared</span>
+              </Message>
             </div>
           </div>
           <div
-            className="cb-record"
-            aria-label="Alex’s contact, original enquiry and configured follow-up"
+            className="bc-lead-result"
+            aria-label="Noah’s captured contact and original enquiry in the chosen pipeline"
           >
-            <div className="cb-record-header">
-              <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="88" height="30" />
-              <span>Website enquiry</span>
+            <div className="bc-result-person">
+              <Brand />
+              <div>
+                <strong>Noah Williams</strong>
+                <span>Contact details captured</span>
+              </div>
             </div>
-            <dl className="cb-record-fields">
-              <div>
-                <dt>Name</dt>
-                <dd>Alex Chen</dd>
-              </div>
-              <div>
-                <dt>Email</dt>
-                <dd>Captured</dd>
-              </div>
-              <div>
-                <dt>Pipeline stage</dt>
-                <dd>New enquiry</dd>
-              </div>
-              <div>
-                <dt>From the conversation</dt>
-                <dd>“New cabinets and worktops. Next month.”</dd>
-              </div>
-            </dl>
-            <div className="cb-acknowledgement">
-              <span>Configured acknowledgement</span>
-              <p>Thanks for your enquiry, Alex.</p>
+            <div className="bc-result-context">
+              <span>From the conversation</span>
+              <p>“Electric. Ashfield. Ideally next week.”</p>
+            </div>
+            <div className="bc-result-stage">
+              <span>Pipeline stage</span>
+              <strong>New enquiry</strong>
             </div>
           </div>
-        </div>
-        <div className="cb-capture-foot">
-          <p>Choose the pipeline and follow-up during setup.</p>
-          <a className="cb-link" href="/features/automation-builder">
-            Explore Automation Builder
-          </a>
+          <p className="bc-stage-note">Choose your pipeline and follow-up during setup.</p>
         </div>
       </div>
     </section>
   );
 }
-
 function Booking() {
   return (
-    <section className="cb-section cb-booking" aria-labelledby="chatbot-booking-title">
-      <div className="cb-wrap cb-booking-layout">
-        <div className="cb-booking-copy">
-          <h2 id="chatbot-booking-title">Book while they’re interested.</h2>
-          <p>Offer an available time and create the appointment once the visitor agrees.</p>
-          <div className="cb-booking-agreement" aria-label="Alex agrees to the offered assessment">
-            <Bubble ai>Friday at 2 pm is available for an assessment. Shall I book it?</Bubble>
-            <Bubble>Yes, please.</Bubble>
-          </div>
-          <a className="cb-link" href="/features/calendars-bookings">
+    <section className="bc-section bc-booking-section" aria-labelledby="chatbot-booking-title">
+      <div className="bc-wrap bc-feature-row bc-reverse">
+        <SectionCopy
+          label="Appointments"
+          title="Book while they’re interested."
+          id="chatbot-booking-title"
+        >
+          <p>
+            Check the calendars you allow, offer an available time and create the appointment once
+            the visitor agrees.
+          </p>
+          <a className="bc-link" href="/features/calendars-bookings">
             Explore Calendars &amp; Bookings
           </a>
-          <p className="cb-calendar-scope">
-            You choose the calendars and booking options it can use.
-          </p>
-        </div>
-        <div
-          className="cb-calendar"
-          aria-label="Alex Chen’s agreed on-site assessment, booked for Friday at 2 pm"
-        >
-          <p className="cb-calendar-name">On-site assessments</p>
-          <h3>Friday</h3>
-          <div className="cb-calendar-times">
-            <div className="cb-calendar-row">
-              <span>1 pm</span>
-              <div />
+        </SectionCopy>
+        <div className="bc-stage bc-booking-stage">
+          <img
+            className="bc-dental-photo"
+            src="/concept/features/chatbot-dental-appointment-v2-20261027.webp"
+            alt="A dentist occupied with a patient while another visitor arranges an appointment"
+            width="1448"
+            height="1086"
+            loading="lazy"
+          />
+          <div className="bc-booking-lower">
+            <div
+              className="bc-booking-chat"
+              aria-label="Harper agrees to the offered appointment and supplies contact details"
+            >
+              <p className="bc-small-heading">
+                <ZaplaPetal size={21} />
+                Bayside Dental · AI Chatbot
+              </p>
+              <Message speaker="AI Chatbot">
+                Friday at 2 pm is available for a new patient visit. Shall I book it?
+              </Message>
+              <Message>
+                Yes, please. Harper Reed.
+                <span className="bc-shared-detail">Mobile number shared</span>
+              </Message>
             </div>
-            <div className="cb-calendar-row cb-booked-row">
-              <span>2 pm</span>
-              <div className="cb-appointment">
-                <strong>On-site assessment</strong>
-                <span>Alex Chen</span>
+            <div
+              className="bc-calendar"
+              aria-label="Harper Reed’s agreed new patient visit, booked for Friday at 2 pm"
+            >
+              <p className="bc-small-heading">
+                <CalendarDays size={16} aria-hidden="true" />
+                Appointment booked
+              </p>
+              <h3>
+                Friday <span>2 pm</span>
+              </h3>
+              <div className="bc-calendar-event">
+                <strong>New patient visit</strong>
+                <span>Harper Reed</span>
               </div>
             </div>
-            <div className="cb-calendar-row">
-              <span>3 pm</span>
-              <div />
-            </div>
           </div>
-          <p className="cb-booked-label">Appointment booked</p>
         </div>
       </div>
     </section>
   );
 }
-
-function BusinessAnswers() {
+function Knowledge() {
   return (
-    <section className="cb-section cb-answers" aria-labelledby="chatbot-answers-title">
-      <div className="cb-wrap cb-answers-layout">
-        <div className="cb-answer-copy">
-          <h2 id="chatbot-answers-title">Useful answers. Clear limits.</h2>
+    <section className="bc-section" aria-labelledby="chatbot-knowledge-title">
+      <div className="bc-wrap bc-feature-row">
+        <SectionCopy
+          label="Knowledge base"
+          title="Your business information. Useful answers."
+          id="chatbot-knowledge-title"
+        >
           <p>
-            Use your service information for routine questions. Bring your team into the exceptions.
+            Use your website pages, documents and written instructions to prepare answers about your
+            services. Test the responses before customers use them.
           </p>
-          <p className="cb-knowledge-sources">Website pages, documents and written instructions.</p>
-          <a className="cb-link" href="/features/unified-inbox">
+          <p className="bc-copy-secondary">
+            Choose what it can answer and when your team should step in.
+          </p>
+        </SectionCopy>
+        <div className="bc-stage bc-knowledge-stage">
+          <div className="bc-knowledge-header">
+            <Brand />
+            <span>AI Chatbot · Knowledge</span>
+          </div>
+          <div className="bc-knowledge-grid">
+            <div
+              className="bc-source-list"
+              aria-label="Types of business information supplied to the chatbot"
+            >
+              <h3>Business information</h3>
+              <div>
+                <Globe2 size={18} aria-hidden="true" />
+                <p>
+                  <strong>Website pages</strong>
+                  <span>Services &amp; service areas</span>
+                </p>
+              </div>
+              <div className="bc-source-selected">
+                <FileText size={18} aria-hidden="true" />
+                <p>
+                  <strong>Service guide</strong>
+                  <span>Uploaded document</span>
+                </p>
+              </div>
+              <div>
+                <BookOpen size={18} aria-hidden="true" />
+                <p>
+                  <strong>Team instructions</strong>
+                  <span>When to involve a person</span>
+                </p>
+              </div>
+            </div>
+            <div className="bc-source-detail">
+              <span className="bc-small-label">From your service guide</span>
+              <h3>Apartment hot-water replacements</h3>
+              <p>
+                We replace electric hot-water systems in apartments. Access and strata requirements
+                are checked at the assessment.
+              </p>
+            </div>
+          </div>
+          <div
+            className="bc-knowledge-answer"
+            aria-label="An answer based on the supplied service guide"
+          >
+            <Message>Do you replace hot-water systems in apartments?</Message>
+            <Message speaker="AI Chatbot">
+              Yes. We replace electric systems in apartments. We’ll check access and any strata
+              requirements at your assessment.
+            </Message>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+function Handoff() {
+  return (
+    <section className="bc-section bc-handoff-section" aria-labelledby="chatbot-handoff-title">
+      <div className="bc-wrap bc-feature-row bc-reverse">
+        <SectionCopy
+          label="Human handoff & unified inbox"
+          title="Your team can pick up the conversation."
+          id="chatbot-handoff-title"
+        >
+          <p>
+            When a request needs a person, bring your team in with the question and conversation
+            context. They can continue the live web chat from Unified Inbox.
+          </p>
+          <a className="bc-link" href="/features/unified-inbox">
             Explore Unified Inbox
           </a>
-        </div>
-        <div className="cb-answer-visual">
-          <img
-            className="cb-answer-image"
-            src="/concept/features/chatbot-answer-review-20261027.webp"
-            alt="A member of the design team reviewing project materials"
-            width="1536"
-            height="1024"
-            loading="lazy"
-          />
-          <div className="cb-answer-exchange" aria-label="An unusual request is passed to the team">
-            <Bubble>Could you remove a structural wall?</Bubble>
-            <Bubble ai>That needs a site assessment. I’ll pass your question to our team.</Bubble>
+          <div className="bc-notification-copy">
+            <h3>Keep new messages in view.</h3>
+            <p>Choose message notifications in Zapla and browser alerts when enabled.</p>
+          </div>
+        </SectionCopy>
+        <div className="bc-stage bc-inbox-stage">
+          <div className="bc-inbox-app">
+            <div className="bc-app-header">
+              <Brand />
+              <span>Unified Inbox</span>
+            </div>
+            <div className="bc-inbox-grid">
+              <div className="bc-conversation-list" aria-label="Customer conversations">
+                <p className="bc-small-heading">
+                  <MessagesSquare size={16} aria-hidden="true" />
+                  Conversations
+                </p>
+                <div className="bc-inbox-person bc-inbox-selected">
+                  <Avatar cell={6} />
+                  <div>
+                    <strong>Noah Williams</strong>
+                    <span>Can I supply my own system?</span>
+                  </div>
+                </div>
+                <div className="bc-inbox-person">
+                  <Avatar cell={14} />
+                  <div>
+                    <strong>Harper Reed</strong>
+                    <span>Thanks for confirming.</span>
+                  </div>
+                </div>
+                <div className="bc-inbox-person">
+                  <Avatar cell={5} />
+                  <div>
+                    <strong>Alex Chen</strong>
+                    <span>I’d like to arrange an appraisal.</span>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="bc-human-thread"
+                aria-label="Noah’s conditional question, AI handover and subsequent reply from Leah"
+              >
+                <div className="bc-thread-person">
+                  <Avatar cell={6} />
+                  <div>
+                    <strong>Noah Williams</strong>
+                    <span>Live web chat</span>
+                  </div>
+                </div>
+                <Message>Can I supply my own system?</Message>
+                <Message speaker="AI Chatbot">
+                  Our team needs to confirm that. I’ll pass on your question.
+                </Message>
+                <div className="bc-team-label">Leah · Your team</div>
+                <Message speaker="Leah">Hi Noah, which brand and model are you looking at?</Message>
+              </div>
+            </div>
+          </div>
+          <div
+            className="bc-message-notice"
+            aria-label="A message notification in Zapla; browser alerts depend on settings and permission"
+          >
+            <Bell size={18} aria-hidden="true" />
+            <div>
+              <strong>New message · Noah Williams</strong>
+              <span>“Can I supply my own system?”</span>
+            </div>
+            <span className="bc-notice-setting">In Zapla · Browser alerts when enabled</span>
           </div>
         </div>
       </div>
@@ -245,10 +460,10 @@ const FAQS = [
 
 function SetupAndFaq() {
   return (
-    <section className="cb-section cb-setup" aria-labelledby="chatbot-setup-title">
-      <div className="cb-wrap cb-setup-layout">
-        <div className="cb-setup-copy">
-          <p className="cb-eyebrow">Guided Launch</p>
+    <section className="bc-section bc-setup" aria-labelledby="chatbot-setup-title">
+      <div className="bc-wrap bc-setup-layout">
+        <div className="bc-setup-copy">
+          <p className="bc-label">Guided Launch</p>
           <h2 id="chatbot-setup-title">
             Set up with you.
             <br />
@@ -259,14 +474,14 @@ function SetupAndFaq() {
             take.
           </p>
           <Cta>Talk through your setup</Cta>
-          <p className="cb-setup-scope">
+          <p className="bc-setup-scope">
             Guided Launch is separately priced for a new standard setup.
           </p>
-          <a className="cb-link" href="/Pricing-v3">
+          <a className="bc-link" href="/Pricing-v3">
             Plans and setup
           </a>
         </div>
-        <div className="cb-faq" aria-label="Practical chatbot questions">
+        <div className="bc-faq" aria-label="Practical chatbot questions">
           {FAQS.map(([question, answer]) => (
             <details key={question}>
               <summary>
@@ -281,23 +496,23 @@ function SetupAndFaq() {
     </section>
   );
 }
-
 export function AIChatbotPage() {
   return (
     <main className="zapla-feature zapla-chatbot">
       <Opening />
-      <EnquiryRecord />
+      <LeadCapture />
       <Booking />
-      <BusinessAnswers />
+      <Knowledge />
+      <Handoff />
       <SetupAndFaq />
-      <section className="cb-final">
-        <div className="cb-wrap">
-          <div className="cb-final-petal">
+      <section className="bc-final">
+        <div className="bc-wrap">
+          <div className="bc-final-petal">
             <ZaplaPetal size={34} />
           </div>
-          <p className="cb-eyebrow">See it around your business</p>
+          <p className="bc-label">See it around your business</p>
           <h2>
-            See how Zapla would <br className="cb-desktop-break" />
+            See how Zapla would <br className="bc-desktop-break" />
             handle your enquiries.
           </h2>
           <p>
