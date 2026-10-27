@@ -4,6 +4,7 @@ import {
   Clock3,
   Mail,
   MessageSquare,
+  MousePointer2,
   Pause,
   PhoneOutgoing,
   Play,
@@ -17,7 +18,15 @@ import {
 } from "./automationAiExamples";
 
 type BuildState = {
-  phase: "ready" | "waiting" | "typing" | "generating" | "building" | "complete" | "transition";
+  phase:
+    | "ready"
+    | "waiting"
+    | "typing"
+    | "submitting"
+    | "generating"
+    | "building"
+    | "complete"
+    | "transition";
   characters: number;
   steps: number;
 };
@@ -39,14 +48,15 @@ function fullDraft(
 
 function timing(example: AutomationExample) {
   const textEnd = 180 + example.request.length * 20;
-  const typingEnd = textEnd + 500;
+  const submitEnd = textEnd + 900;
+  const typingEnd = submitEnd + 500;
   const buildEnd = typingEnd + example.steps.length * 350;
   const holdEnd = buildEnd + 5000;
-  return { textEnd, typingEnd, buildEnd, holdEnd, cycleEnd: holdEnd + 240 };
+  return { textEnd, submitEnd, typingEnd, buildEnd, holdEnd, cycleEnd: holdEnd + 240 };
 }
 
 function draftAt(example: AutomationExample, elapsed: number): BuildState {
-  const { textEnd, typingEnd, buildEnd, holdEnd } = timing(example);
+  const { textEnd, submitEnd, typingEnd, buildEnd, holdEnd } = timing(example);
   if (elapsed >= holdEnd) return fullDraft(example, "transition");
   if (elapsed >= buildEnd) return fullDraft(example, "complete");
   if (elapsed >= typingEnd)
@@ -55,8 +65,10 @@ function draftAt(example: AutomationExample, elapsed: number): BuildState {
       characters: example.request.length,
       steps: Math.min(example.steps.length, Math.floor((elapsed - typingEnd) / 350) + 1),
     };
-  if (elapsed >= textEnd)
+  if (elapsed >= submitEnd)
     return { phase: "generating", characters: example.request.length, steps: 0 };
+  if (elapsed >= textEnd)
+    return { phase: "submitting", characters: example.request.length, steps: 0 };
   return {
     phase: elapsed < 180 ? "waiting" : "typing",
     characters: Math.max(0, Math.min(example.request.length, Math.floor((elapsed - 180) / 20))),
@@ -95,7 +107,6 @@ function useDraftAssembly() {
     let paused = false;
     let visible = false;
     let started = false;
-    let oneShot = false;
     let disposed = false;
     let timer = 0;
     let elapsed = 0;
@@ -149,14 +160,6 @@ function useDraftAssembly() {
       const example = automationAiExamples[selected];
       const times = timing(example);
 
-      if (oneShot && elapsed >= times.buildEnd) {
-        stopClock();
-        elapsed = times.buildEnd;
-        oneShot = false;
-        paused = true;
-        publish(fullDraft(example, "complete"), false);
-        return;
-      }
       // Keep the completed mobile graph in place while its prompt is above
       // the viewport. Returning to the prompt resumes automatic rotation.
       if (elapsed >= times.holdEnd && !readable()) {
@@ -202,7 +205,6 @@ function useDraftAssembly() {
       select: (index) => {
         stopClock();
         selected = index;
-        oneShot = false;
         if (paused || reduced) {
           started = true;
           elapsed = timing(automationAiExamples[selected]).buildEnd;
@@ -217,7 +219,6 @@ function useDraftAssembly() {
       replay: () => {
         if (reduced) return;
         stopClock();
-        oneShot = paused;
         paused = false;
         started = false;
         elapsed = 0;
@@ -228,10 +229,6 @@ function useDraftAssembly() {
         if (reduced) return;
         stopClock();
         paused = !paused;
-        if (paused && build.phase === "transition") {
-          elapsed = timing(automationAiExamples[selected]).holdEnd - 1000;
-          build = fullDraft(automationAiExamples[selected], "complete");
-        }
         publish(build, false);
         if (!paused) wake();
       },
@@ -246,7 +243,6 @@ function useDraftAssembly() {
     const respectPreference = () => {
       stopClock();
       reduced = preference.matches || !hasObserver;
-      oneShot = false;
       started = reduced;
       elapsed = reduced ? timing(automationAiExamples[selected]).buildEnd : 0;
       publish(fullDraft(automationAiExamples[selected], reduced ? "complete" : "ready"), false);
@@ -270,6 +266,16 @@ function useDraftAssembly() {
       preference.removeEventListener("change", respectPreference);
     };
   }, []);
+
+  useEffect(() => {
+    // Freeze in-flight CSS transitions as well as keyframes. Keeping the
+    // current phase preserves the exact frame, including a half-finished fade.
+    const animations = rootRef.current?.getAnimations?.({ subtree: true }) ?? [];
+    for (const animation of animations) {
+      if (playback.running) animation.play();
+      else animation.pause();
+    }
+  }, [playback.running]);
 
   const select = (index: number) => {
     controls.current?.select(index);
@@ -381,16 +387,19 @@ export function AutomationAiDemo() {
                       )}
                       {paused ? "Resume" : "Pause"}
                     </button>
-                    <button
-                      className="ab-ai-send"
-                      type="button"
-                      ref={sendRef}
-                      onClick={replay}
-                      aria-label="Replay this automation"
-                      title="Replay this automation"
-                    >
-                      <ArrowUp size={20} aria-hidden="true" />
-                    </button>
+                    <span className="ab-ai-send-control">
+                      <button
+                        className="ab-ai-send"
+                        type="button"
+                        ref={sendRef}
+                        onClick={replay}
+                        aria-label="Replay this automation"
+                        title="Replay this automation"
+                      >
+                        <ArrowUp size={20} aria-hidden="true" />
+                      </button>
+                      <MousePointer2 className="ab-ai-send-pointer" size={23} aria-hidden="true" />
+                    </span>
                   </div>
                 )}
               </figure>
