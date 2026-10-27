@@ -199,8 +199,7 @@ export function QuotesInvoicesSignaturesPage() {
               Get paid.
             </h1>
             <p className="qi-lead">
-              A clear quote. An easy way to sign. An invoice they can pay online. Keep the paperwork
-              with the customer in Zapla.
+              Keep your quotes, signed documents and invoice payments together in Zapla.
             </p>
             <div className="qi-actions">
               <BookCall />
@@ -263,7 +262,7 @@ export function QuotesInvoicesSignaturesPage() {
               <Portrait />
               <div>
                 <strong>Priya Shah</strong>
-                <span>Customer record</span>
+                <span>Quote · Signed scope · Invoice</span>
               </div>
             </div>
             <a className="qi-text-link" href="/crm">
