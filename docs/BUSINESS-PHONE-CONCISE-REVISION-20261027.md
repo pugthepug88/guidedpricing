@@ -29,3 +29,7 @@ Fresh rendered verification is currently blocked: the previously authenticated c
 No live NextGen calls, messages, number purchases, registrations or account changes are part of this work. Mobile/cross-browser product calling and retail number/rate acceptance remain outside this marketing implementation.
 
 Direct review URL: https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/business-phone
+
+## GitHub and preview sync
+
+Implementation commit: `19f12c8e789e5700f6fc4ae92f0b67d7149e0587`, a normal forward commit from the freshly checked main. Lovable's read-only project API subsequently reports that exact latest commit and `ready`; its source read contains the new number and recording headings. This verifies source sync, not a fresh visual render. Final TypeScript, scoped ESLint, Prettier and whitespace checks pass. No separate production Publish action was taken.
