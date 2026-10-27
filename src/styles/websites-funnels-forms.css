@@ -1776,42 +1776,216 @@
   font-size: 12px;
   line-height: 1.8;
 }
-.wff-enquiry-sharing {
+.wff-enquiry-followup {
+  display: flex;
+  width: fit-content;
+  margin: 20px 0 0 auto;
+}
+.wff-qr-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.65fr);
+  align-items: center;
+  gap: 65px;
+  padding-bottom: 90px;
+}
+.wff-qr-copy h2 {
+  max-width: 360px;
+  margin-top: 16px;
+  font-size: clamp(34px, 3.1vw, 44px);
+}
+.wff-qr-copy > p:not(.wff-eyebrow) {
+  max-width: 350px;
+  margin-top: 22px;
+  color: #606b77;
+  font-size: 14px;
+  line-height: 1.85;
+}
+.wff-qr-copy > .wff-qr-capabilities {
+  margin-top: 15px;
+  color: #283b37;
+  font-size: 12px;
+  font-weight: 600;
+}
+.wff-qr-studio {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #dce1e5;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 10px 32px #1e2b2908;
+}
+.wff-qr-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  margin-top: 20px;
+  gap: 18px;
+  min-height: 62px;
+  padding: 15px 23px;
+  border-bottom: 1px solid #e5e7eb;
 }
-.wff-form-qr {
+.wff-qr-toolbar > span {
+  color: #6f7884;
+  font-size: 10px;
+}
+.wff-qr-workspace {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.9fr) minmax(0, 1.1fr);
+}
+.wff-qr-controls {
+  align-self: center;
+  padding: 28px 25px;
+}
+.wff-qr-field-label {
+  color: #6a727c;
+  font-size: 11px;
+  font-weight: 600;
+}
+.wff-qr-types {
+  display: flex;
+  gap: 4px;
+  margin-top: 10px;
+  padding: 3px;
+  border-radius: 7px;
+  background: #f0f2f5;
+}
+.wff-qr-types button {
+  flex: 1;
+  min-height: 36px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: #656e79;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.wff-qr-types button[aria-pressed="true"] {
+  color: #111318;
+  background: #fff;
+  box-shadow: 0 1px 3px #13233b14;
+}
+.wff-qr-destination-name {
+  margin-top: 12px !important;
+  color: #293c39;
+  font-size: 13px;
+  font-weight: 600;
+}
+.wff-qr-styling {
+  margin-top: 29px;
+}
+.wff-qr-colours {
+  display: flex;
+  gap: 9px;
+  margin-top: 9px;
+  margin-bottom: 16px;
+}
+.wff-qr-colours button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+}
+.wff-qr-colours button[aria-pressed="true"] {
+  border-color: #7e8c88;
+}
+.wff-qr-colours span {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+.wff-qr-styling label {
   display: flex;
   align-items: center;
-  gap: 16px;
-  max-width: 370px;
-  padding: 14px 18px 14px 14px;
-  border: 1px solid #d7dfe7;
-  border-radius: 9px;
-  background: #fff;
-}
-.wff-form-qr-graphic {
-  display: flex;
-  flex: 0 0 auto;
-  padding: 7px;
-  border: 1px solid #e3e7ed;
-  border-radius: 5px;
-  color: #202a37;
-  background: #fff;
-}
-.wff-form-qr h3 {
-  color: #2e4056;
-  font-size: 16px;
-  line-height: 1.25;
-}
-.wff-form-qr p {
-  margin-top: 6px;
-  color: #68788b;
+  gap: 9px;
+  min-height: 35px;
+  color: #4a5561;
   font-size: 12px;
-  line-height: 1.7;
+  cursor: pointer;
+}
+.wff-qr-styling input {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  accent-color: #1e2b29;
+}
+.wff-qr-output {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  min-width: 0;
+  padding: 26px 24px 22px;
+  background: #f1f0eb;
+}
+.wff-qr-print {
+  width: 220px;
+  max-width: 100%;
+  padding: 18px 17px 16px;
+  border: 1px solid #e0dfd8;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 6px 15px #24352f0d;
+}
+.wff-qr-business {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  margin-bottom: 16px;
+  color: #273b33;
+  font-size: 17px;
+  line-height: 1.2;
+  letter-spacing: -0.06em;
+}
+.wff-qr-business > span {
+  font-size: 6px;
+  letter-spacing: 0.14em;
+}
+.wff-qr-print > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.wff-qr-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 7px 15px;
+  border: 1px solid #cbd0cc;
+  border-radius: 6px;
+  background: #fff;
+  color: #263b35;
+  font-size: 11px;
+  font-weight: 600;
+}
+.wff-qr-download:hover {
+  border-color: #65766d;
+}
+.wff-qr-download:disabled {
+  cursor: wait;
+}
+.wff-qr-error {
+  color: #923c2f;
+  font-size: 11px;
+}
+@media (max-width: 1100px) {
+  .wff-qr-section {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .wff-qr-copy h2,
+  .wff-qr-copy > p:not(.wff-eyebrow) {
+    max-width: 570px;
+  }
+  .wff-qr-copy h2 {
+    max-width: 520px;
+  }
 }
 @media (max-width: 1100px) and (min-width: 761px) {
   .wff-enquiry-flow {
@@ -1849,16 +2023,69 @@
   }
 }
 @media (max-width: 760px) {
-  .wff-enquiry-sharing {
-    align-items: stretch;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .wff-form-qr {
-    max-width: none;
-  }
   .wff-enquiry-followup {
-    align-self: flex-start;
+    margin-left: 0;
+  }
+  .wff-qr-section {
+    gap: 25px;
+    padding-bottom: 65px;
+  }
+  .wff-qr-copy > p:not(.wff-eyebrow) {
+    margin-top: 17px;
+    font-size: 13px;
+  }
+  .wff-qr-copy > .wff-qr-capabilities {
+    margin-top: 10px;
+    font-size: 11px;
+  }
+  .wff-qr-toolbar {
+    min-height: 58px;
+    padding: 13px 16px;
+  }
+  .wff-qr-toolbar > span {
+    display: none;
+  }
+  .wff-qr-workspace {
+    grid-template-columns: 1fr;
+  }
+  .wff-qr-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+    gap: 19px;
+    padding: 20px 17px;
+  }
+  .wff-qr-styling {
+    margin-top: 0;
+  }
+  .wff-qr-types {
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 9px;
+  }
+  .wff-qr-destination-name {
+    font-size: 11px;
+  }
+  .wff-qr-colours {
+    gap: 3px;
+    margin-bottom: 7px;
+  }
+  .wff-qr-colours button {
+    width: 32px;
+    height: 32px;
+  }
+  .wff-qr-colours span {
+    width: 23px;
+    height: 23px;
+  }
+  .wff-qr-styling label {
+    min-height: 33px;
+    font-size: 11px;
+  }
+  .wff-qr-output {
+    padding: 24px;
+  }
+  .wff-qr-print {
+    width: 215px;
   }
   .wff-enquiry-flow {
     display: flex;

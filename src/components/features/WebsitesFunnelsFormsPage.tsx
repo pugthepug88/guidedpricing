@@ -8,6 +8,7 @@ import {
   WebsiteBuilder,
 } from "./WebsitesProductScenes";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
+import { WebsitesQrSharing } from "./WebsitesQrSharing";
 import "@/styles/feature-foundations.css";
 import "@/styles/websites-funnels-forms.css";
 
@@ -110,7 +111,7 @@ export function WebsitesFunnelsFormsPage() {
       <noscript>
         <style>
           {
-            ".wff-scene-control, .wff-ai-send, .wff-reset, .wff-column-handle, .wff-tracking-control { display: none !important; }"
+            ".wff-scene-control, .wff-ai-send, .wff-reset, .wff-column-handle, .wff-tracking-control, .wff-qr-controls, .wff-qr-download { display: none !important; } .wff-qr-workspace { grid-template-columns: 1fr !important; }"
           }
         </style>
       </noscript>
@@ -153,6 +154,7 @@ export function WebsitesFunnelsFormsPage() {
       <AICreation />
       <FunnelBuilder />
       <FormConnection />
+      <WebsitesQrSharing />
       <SiteTracking />
       <LaunchAndQuestions />
       <section className="wff-final wff-shell" aria-labelledby="wff-final-title">

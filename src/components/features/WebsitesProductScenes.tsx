@@ -18,7 +18,6 @@ import {
   Pause,
   Play,
   Plus,
-  QrCode,
   RotateCcw,
   Smartphone,
   SquareMousePointer,
@@ -1095,20 +1094,9 @@ export function FormConnection() {
           />
         </div>
       </div>
-      <div className="wff-enquiry-sharing">
-        <aside className="wff-form-qr" aria-labelledby="wff-form-qr-title">
-          <div className="wff-form-qr-graphic" aria-hidden="true">
-            <QrCode size={52} strokeWidth={1.8} />
-          </div>
-          <div>
-            <h3 id="wff-form-qr-title">Share forms by QR code</h3>
-            <p>For counters, posters and brochures.</p>
-          </div>
-        </aside>
-        <a className="wff-text-link wff-enquiry-followup" href="/features/automation-builder">
-          Connect your follow-up <ArrowRight size={16} aria-hidden="true" />
-        </a>
-      </div>
+      <a className="wff-text-link wff-enquiry-followup" href="/features/automation-builder">
+        Connect your follow-up <ArrowRight size={16} aria-hidden="true" />
+      </a>
     </section>
   );
 }
