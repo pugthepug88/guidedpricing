@@ -270,7 +270,7 @@
   max-width: 390px;
 }
 .zapla-quotes .qi-sign-paper {
-  padding: 28px 30px 0;
+  padding: 28px 30px 24px;
   border-radius: 12px;
   background: #fff;
   color: #1d2823;
@@ -311,20 +311,67 @@
   font-size: 24px;
   line-height: 1;
 }
-.zapla-quotes .qi-sign-paper .qi-signed-result {
+.zapla-quotes .qi-sign-copy > p.qi-sign-support {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #c1cac4;
+  margin-top: 18px;
+}
+.zapla-quotes .qi-signers {
+  margin: 24px -30px 0;
+  padding: 18px 30px 21px;
+  background: #f1f3f0;
+}
+.zapla-quotes .qi-signers-title {
+  font-size: 12px;
+  font-weight: 650;
+  color: #59675f;
+}
+.zapla-quotes .qi-signers ul {
+  padding: 0;
+  margin: 13px 0 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.zapla-quotes .qi-signers li {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 74px;
-  margin: 25px -30px 0;
-  padding: 18px 30px;
-  color: #355b45;
-  background: #f1f3f0;
-  font-size: 13px;
-  line-height: 1.6;
+  gap: 11px;
+  min-width: 0;
 }
-.zapla-quotes .qi-signed-result svg {
-  flex: 0 0 20px;
+.zapla-quotes .qi-signers .qi-portrait {
+  width: 33px;
+  height: 33px;
+  flex-basis: 33px;
+}
+.zapla-quotes .qi-signers li > div {
+  min-width: 0;
+}
+.zapla-quotes .qi-signers strong {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+.zapla-quotes .qi-signers li > div > span {
+  display: block;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #65716b;
+  margin-top: 1px;
+}
+.zapla-quotes .qi-signers li > span:last-child {
+  margin-left: auto;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+.zapla-quotes .qi-person-signed {
+  color: #355b45;
+}
+.zapla-quotes .qi-person-pending {
+  color: #855f34;
 }
 .zapla-quotes .qi-payment-layout {
   display: grid;
@@ -661,7 +708,7 @@
     font-size: 15px;
   }
   .zapla-quotes .qi-sign-paper {
-    padding: 25px 22px 0;
+    padding: 25px 22px 22px;
   }
   .zapla-quotes .qi-paper-brand > span {
     font-size: 12px;
@@ -675,7 +722,7 @@
   .zapla-quotes .qi-signature dd {
     font-size: 32px;
   }
-  .zapla-quotes .qi-sign-paper .qi-signed-result {
+  .zapla-quotes .qi-signers {
     margin-inline: -22px;
     padding-inline: 22px;
   }
@@ -794,7 +841,7 @@
     margin-top: 20px;
   }
   .zapla-quotes .qi-sign-paper {
-    padding: 25px 22px 0;
+    padding: 25px 22px 22px;
   }
   .zapla-quotes .qi-signature-fields dt {
     font-size: 13px;
@@ -805,9 +852,12 @@
   .zapla-quotes .qi-signature dd {
     font-size: 34px;
   }
-  .zapla-quotes .qi-sign-paper .qi-signed-result {
+  .zapla-quotes .qi-signers {
     padding-inline: 22px;
-    font-size: 12px;
+  }
+  .zapla-quotes .qi-sign-copy > p.qi-sign-support {
+    font-size: 13px;
+    margin-top: 15px;
   }
   .zapla-quotes .qi-section {
     padding-block: 60px;
@@ -951,10 +1001,15 @@
   .zapla-quotes .qi-sign-paper {
     padding-inline: 18px;
   }
-  .zapla-quotes .qi-sign-paper .qi-signed-result {
+  .zapla-quotes .qi-signers {
     margin-inline: -18px;
     padding-inline: 18px;
-    font-size: 11px;
+  }
+  .zapla-quotes .qi-signers strong {
+    font-size: 13px;
+  }
+  .zapla-quotes .qi-signers li > span:last-child {
+    font-size: 12px;
   }
   .zapla-quotes .qi-signature-fields {
     gap: 14px;
