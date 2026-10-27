@@ -67,3 +67,9 @@ These are the implementation agent's distinct assessments, not independent revie
 ## Validation and hosted check
 
 Production build, TypeScript, targeted Ticketing ESLint, Prettier, SEO policy and whitespace checks passed. Existing dependency/module-directive warnings remain non-blocking. Temporary preview configuration and the responsive-review fixture are excluded from the committed source. No dependencies or shared components are changed. Hosted source/render verification is recorded after GitHub merge.
+
+PR #209 merged as `6a1c67c40019587cc75805dc5e4472c875ccbcd8`. The connected GitHub app created the exact local tree `57122f8e9dcbf956f6caafd619aaa2f1fb8b6505`, preserving concurrent Websites work. Branch and merge Vercel statuses succeeded. TypeScript passed again after incorporating that concurrent source. Lovable reported the updated source ready.
+
+Connected Chrome rendered the new eight-ticket board on the actual id-preview route. At its observed 1707 × 769 viewport (1692px document), Urgent & high showed four tickets with only those priorities; Enter on All tickets restored eight with visible keyboard focus. The expanded record visibly contained Olivia's request, both assignees, the related installation, service fields, supporting filename and tags. Main and nested widths showed no clipping; all sales links remained `/booking`, the context link was `/crm`, and robots remained `noindex, nofollow`. This hosted check used the browser's observed dimensions; no different requested viewport size is claimed.
+
+Saved actual hosted proof: [working support queue](proof/ticketing-working-queue-hosted-20261027.png) and [shared ticket record](proof/ticketing-shared-record-hosted-20261027.png). Review address: `https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/ticketing#ticket-board`. The temporary viewport override was reset. This is implementation verification, not owner acceptance or a live supplier-service test.
