@@ -110,3 +110,12 @@ The newer live Automation audit in `AUTOMATION-BUILDER-EVIDENCE.md` did not expo
 ## Owner-confirmed form QR sharing, 27 October 2026
 
 The supplied `image(20261027-035108).png` shows the form builder's Settings screen, including an Embed & QR panel, QR Code and Download PNG. This directly supports showing QR codes as a way to share forms. The marketing addition is one compact presentational QR symbol and short use line; it does not copy the account's embed script, form identifier or QR payload, and does not invent QR analytics, dynamic destinations, batch generation or a live download action.
+
+
+## Owner-supplied QR capability evidence, 27 October 2026
+
+The owner supplied `image(20261027-050235).png` (QR Codes management) and `image(20261027-050245).png` (QR Codes help article). The article explicitly supports QR destinations of custom URL or an existing form, foreground/background colours, margins, optional text labels with typography, optional outer border, folder organisation and PNG download. The management screen separately shows tracking links that count clicks. This does not prove automatic QR scan counts, dynamic redirects or campaign attribution, and none of those claims is added here.
+
+This new evidence supersedes the earlier form-only/icon-only presentation. USE the documented destination, styling and PNG scope; ADAPT as one concise QR chapter with a live local artwork preview; REJECT copying the empty management table, its loading state, account details or a lengthy settings tutorial. The demonstrator uses two fixed destinations and three safe high-contrast colours, a label and an optional border. Those prepared choices are not a claim that the real product is limited to those options.
+
+The vector QR modules were generated offline with the existing ReportLab QR encoder at error correction M (45 modules per side). They encode this public review page with `#connected-enquiry` or `#website-builder`, not a customer form, live lead endpoint or tracking link. Code styling and destination controls update local React state. The PNG handler serialises the visible SVG, draws a 960 × 1128 canvas and downloads the resulting image in the browser; it makes no external request. No runtime QR dependency, tenant URL, embed script, visitor-data collection or clipboard action is introduced. The actual product's QR generation is supported by the supplied help; no live-tenant acceptance or physical scan test is represented.

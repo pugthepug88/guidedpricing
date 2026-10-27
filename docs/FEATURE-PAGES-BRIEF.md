@@ -587,3 +587,10 @@ The owner rejected the latest rebuild and explicitly requested the first iterati
 ## Ticketing withdrawn and page deleted, 27 October 2026
 
 The owner decided not to offer Ticketing and explicitly requested deletion of the whole page. This supersedes all preceding Ticketing build, redesign and first-iteration restoration instructions. Delete its route, implementation, stylesheet and page-specific photos; remove its offering claims across current website pages/comparisons. The old URL uses the existing not-found response. Do not restore Ticketing or advertise it as included unless the owner explicitly reopens the offer. Scope and verification: `TICKETING-REMOVAL-20261027.md`. GitHub owns changes; Lovable remains read only, with no separate Publish action.
+
+
+## Websites QR sharing expansion, 27 October 2026
+
+The owner asked for QR to have more substance because there will not be a separate QR feature page. This supersedes the compact icon-only card beneath Forms & CRM. One contained chapter at `#qr-codes` now shows a form or website destination, branded QR artwork, selectable colours, optional text label/border and a PNG download. Keep the copy brief and the chapter within Websites, Funnels & Forms; do not add a QR route or menu item.
+
+The owner's QR Codes/help screenshots support custom URLs, existing forms, visual styling, labels, borders, folders and PNG exports. They do not establish scan analytics, dynamic destination guarantees or campaign attribution. The marketing table/loading state is not copied. The prepared codes return to the existing review page demonstrations, never the tenant identifiers or QR payload from supplied settings. Source and verification limits are in the Websites evidence/review documents. Existing builder, AI, funnel, form/CRM, heatmap, H1, closing CTA, shared shell and /booking destinations remain.

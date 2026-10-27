@@ -155,3 +155,33 @@ The owner's supplied Form Settings screenshot explicitly shows Embed & QR, a gen
 Copy: “Share forms by QR code” / “For counters, posters and brochures.” The QR symbol is a presentational SVG illustration, not a live tenant code or scanner destination. There is no scan/download button or added endpoint. The existing automation link sits alongside the card on desktop and below it on phone. The shared form/CRM player is untouched.
 
 Rendered desktop inspection shows the card at approximately 320 × 97px, beneath the completed form/CRM composition. The 393px phone viewport reports a 342 × 97px card, with no card or document horizontal overflow. The final phone capture was stale and is not retained as visual proof. The native desktop proof is `docs/qa/websites-form-qr-sharing-20261027.jpg`. Branding, restrained white/ink styling and short copy keep the QR option subordinate to the main enquiry flow. Build, TypeScript, targeted ESLint, formatting and whitespace checks pass. Source commit: `761039f617f365c7e77a96aa32f407241c0221b4`. No new dependency, motion, service call or production Publish action was added.
+
+
+## QR chapter expansion, 27 October 2026
+
+The owner reopened the small QR card, asking for a more substantial demonstration within this page rather than a separate QR page. This supersedes the prior compact-card treatment. The buyer question is: **Can a printed QR take someone to my form or website, and can I make it fit my brand?**
+
+USE the supplied QR Codes help article for forms/custom URLs, colours, labels, borders and PNG export. ADAPT those capabilities into one stable composition: concise open copy beside a small Zapla QR workspace and a recognisable printed handout. REJECT the empty management table/loading state, another full marketing page, a settings tutorial, invented QR metrics and unsupported dynamic-link claims. No photograph or animation is needed to explain this behaviour.
+
+The former icon card is removed. The Forms & CRM follow-up link remains. The new `#qr-codes` chapter sits between Forms & CRM and Site Tracking. Its actual Zapla wordmark, white controls, neutral print surface and garden-business artwork preserve the page's visual system. Selecting Form/Website URL changes both the prepared code and its label; colour, text-label and border controls visibly change the output. The PNG action exports the selected artwork locally. Two fixed public review-page destinations avoid copying a tenant form identifier or pretending to submit an enquiry.
+
+### Rendered checks
+
+The stable id-preview route serves source commit `c9e8b2e9689138d71ecaa3f6949c9d634f8d6317`. Actual Chrome inspection covered the normal desktop document, a real 834px tablet viewport, 393px phone and targeted 320px width. Desktop places copy beside a roughly 467px-high workspace. Tablet stacks the introduction above the two-column workspace. Phone keeps destination and styling controls together above the complete print preview and download, all in ordinary reading order. There is no document horizontal overflow at the inspected widths and no clipped paragraph, button or label in the scoped checks. Fresh screenshots visually confirm desktop/tablet and the complete phone workspace.
+
+Native destination and colour changes, border removal/restoration and text-label removal/restoration were exercised. The visible SVG's label, fill, border and destination match the selected state. A native PNG click completed without the application error state and the button returned enabled. The browser's download-event capture timed out, so the downloaded file payload and physical QR scanning were not independently verified. Source review confirms the PNG canvas dimensions, local-only export, complete server/static artwork and no added motion. No screen-reader, cross-browser, JavaScript-disabled or live-tenant acceptance test is claimed.
+
+Retained native screenshots:
+
+- `docs/qa/websites-qr-expanded-20261027.jpg`
+- `docs/qa/websites-qr-expanded-phone-20261027.jpg`
+
+The earlier compact QR screenshot is historical evidence, not the current presentation. Temporary viewport overrides were reset. The final direct preview reports no browser errors.
+
+### Review judgement
+
+These are role-based judgements by the implementing agent, not independent staff or owner approvals. UI/UX: the destination and editable printed result are clear together; phone controls and output remain readable. Brand/Creative: actual logo, established palette and one purposeful print surface, without generic pastel icon tiles. Product Marketing/Conversion: demonstrates forms and website links plus branding/export in a compact chapter beside the existing enquiry story. SME/buyer: counters, posters and brochures give a familiar use without a tutorial. Motion: static composition, with state changes only after a choice. Technical/AI-slop: no fake metrics, service calls, ornamental movement, new runtime dependency or copied tenant payload.
+
+Production build, TypeScript, scoped ESLint, formatting and whitespace checks pass. H1, final CTA, other product scenes, shared navigation/footer, route/indexing and /booking are unchanged. Changes were scoped through fresh GitHub trees and guarded branch updates, preserving concurrent work. Lovable remained read-only; no separate production Publish action was used.
+
+Review link: `https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/websites-funnels-forms#qr-codes`.
