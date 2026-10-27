@@ -103,110 +103,6 @@
   font-weight: 600;
   color: #596261;
 }
-.zapla-phone .bp-hero {
-  padding: 126px 0 72px;
-}
-.zapla-phone .bp-hero-layout {
-  display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
-  gap: clamp(40px, 5vw, 80px);
-  align-items: center;
-}
-.zapla-phone h1 {
-  font-size: clamp(54px, 5.25vw, 76px);
-  max-width: 580px;
-  line-height: 1.02;
-  letter-spacing: -0.055em;
-}
-.zapla-phone .bp-lead {
-  max-width: 485px;
-  margin-top: 30px;
-  font-size: 17px;
-  line-height: 1.85;
-}
-.zapla-phone .bp-hero-actions {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 22px;
-  margin-top: 30px;
-}
-.zapla-phone .bp-usage {
-  margin-top: 24px;
-  font-size: 12px;
-  line-height: 1.65;
-}
-.zapla-phone .bp-call-surround {
-  padding: 26px;
-  border-radius: 30px;
-  border: 1px solid #c9cecf;
-  background: linear-gradient(125deg, #e9ebeb, #d6dbdd 52%, #c3cbcf);
-  box-shadow: inset 0 0 0 3px #ffffff50;
-}
-.zapla-phone .bp-browser-call {
-  overflow: hidden;
-  border-radius: 17px;
-  background: #fff;
-  box-shadow:
-    0 16px 36px #25333d1c,
-    0 1px 2px #25333d16;
-}
-.zapla-phone .bp-call-person {
-  background: #242b31;
-  padding: 26px 24px 23px;
-  text-align: center;
-}
-.zapla-phone .bp-call-direction {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  color: #ccd2d6;
-  font-size: 12px;
-}
-.zapla-phone .bp-call-portrait {
-  width: 76px;
-  height: 76px;
-  margin-top: 24px;
-  border: 3px solid #ffffffbd;
-}
-.zapla-phone .bp-call-person h2 {
-  font-size: 31px;
-  color: #fff;
-  letter-spacing: -0.035em;
-  margin-top: 14px;
-}
-.zapla-phone .bp-call-person > p:not(.bp-call-direction) {
-  color: #ccd2d6;
-  font-size: 13px;
-  margin-top: 7px;
-}
-.zapla-phone .bp-call-recognition {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  margin-top: 25px;
-  color: #e3e7e9;
-}
-.zapla-phone .bp-call-recognition > span {
-  width: 1px;
-  height: 18px;
-  background: #69747d;
-}
-.zapla-phone .bp-call-context {
-  padding: 23px 27px 26px;
-}
-.zapla-phone .bp-call-context > span {
-  color: #687170;
-  font-size: 11px;
-}
-.zapla-phone .bp-call-context p {
-  color: #27302f;
-  font-size: 14px;
-  line-height: 1.7;
-  margin-top: 8px;
-}
 .zapla-phone #power-dialler {
   scroll-margin-top: 80px;
 }
@@ -418,24 +314,6 @@
 }
 .zapla-phone .bp-context-section {
   padding-block: 105px;
-}
-.zapla-phone .bp-context-layout {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 65px;
-  align-items: center;
-}
-.zapla-phone .bp-editorial {
-  min-width: 0;
-}
-.zapla-phone .bp-editorial img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1.35;
-  object-fit: cover;
-  object-position: 58% center;
-  border-radius: 26px;
 }
 .zapla-phone .bp-context-copy h2 {
   font-size: clamp(36px, 3.2vw, 46px);
@@ -692,12 +570,6 @@
   margin-top: 28px;
 }
 @media (max-width: 1200px) {
-  .zapla-phone .bp-hero-layout {
-    gap: 38px;
-  }
-  .zapla-phone .bp-call-surround {
-    padding: 20px 20px 16px;
-  }
   .zapla-phone .bp-power-stage {
     padding: 42px 30px 30px;
   }
@@ -716,9 +588,6 @@
   .zapla-phone .bp-list-position {
     display: none;
   }
-  .zapla-phone .bp-context-layout {
-    gap: 42px;
-  }
   .zapla-phone .bp-setup-panel {
     gap: 40px;
     padding: 42px 32px;
@@ -731,27 +600,6 @@
   .zapla-phone .bp-wrap {
     width: calc(100% - 48px);
   }
-  .zapla-phone .bp-hero {
-    padding: 110px 0 55px;
-  }
-  .zapla-phone .bp-hero-layout {
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
-  }
-  .zapla-phone h1 {
-    font-size: clamp(44px, 5.7vw, 54px);
-  }
-  .zapla-phone .bp-lead {
-    font-size: 15px;
-    margin-top: 24px;
-  }
-  .zapla-phone .bp-hero-actions {
-    gap: 12px;
-  }
-  .zapla-phone .bp-call-surround {
-    padding: 14px 14px 13px;
-    border-radius: 23px;
-  }
   .zapla-phone .bp-product-header {
     padding: 15px 18px;
   }
@@ -760,15 +608,6 @@
   }
   .zapla-phone .bp-wordmark {
     width: 76px;
-  }
-  .zapla-phone .bp-call-person {
-    padding: 22px 18px;
-  }
-  .zapla-phone .bp-call-person h2 {
-    font-size: 27px;
-  }
-  .zapla-phone .bp-call-context {
-    padding: 20px;
   }
   .zapla-phone .bp-power-stage {
     width: calc(100% - 32px);
@@ -825,14 +664,6 @@
   .zapla-phone .bp-context-section {
     padding-block: 75px;
   }
-  .zapla-phone .bp-context-layout {
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-  }
-  .zapla-phone .bp-editorial img {
-    aspect-ratio: 0.85;
-    object-position: 62% center;
-  }
   .zapla-phone .bp-context-copy h2 {
     font-size: 35px;
   }
@@ -878,56 +709,12 @@
   .zapla-phone h2 {
     font-size: 36px;
   }
-  .zapla-phone .bp-hero {
-    padding: 109px 0 38px;
-  }
-  .zapla-phone .bp-hero-layout {
-    grid-template-columns: 1fr;
-    gap: 34px;
-  }
   .zapla-phone .bp-eyebrow {
     margin-bottom: 18px;
-  }
-  .zapla-phone h1 {
-    font-size: clamp(45px, 11.4vw, 62px);
-  }
-  .zapla-phone .bp-lead {
-    margin-top: 25px;
-    font-size: 16px;
-    line-height: 1.8;
-  }
-  .zapla-phone .bp-hero-actions {
-    gap: 18px;
-    margin-top: 27px;
-  }
-  .zapla-phone .bp-usage {
-    font-size: 11px;
-    margin-top: 18px;
-  }
-  .zapla-phone .bp-call-surround {
-    max-width: 480px;
-    width: 100%;
-    margin-inline: auto;
-    padding: 17px 17px 14px;
-    border-radius: 25px;
   }
   .zapla-phone .bp-product-header {
     min-height: 59px;
     padding: 15px 18px;
-  }
-  .zapla-phone .bp-call-person {
-    padding: 23px 20px;
-  }
-  .zapla-phone .bp-call-portrait {
-    width: 68px;
-    height: 68px;
-    margin-top: 20px;
-  }
-  .zapla-phone .bp-call-person h2 {
-    font-size: 29px;
-  }
-  .zapla-phone .bp-call-context p {
-    font-size: 14px;
   }
   .zapla-phone .bp-power-section {
     padding-top: 12px;
@@ -1036,17 +823,6 @@
   .zapla-phone .bp-context-section {
     padding-block: 65px;
   }
-  .zapla-phone .bp-context-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 29px;
-    align-items: stretch;
-  }
-  .zapla-phone .bp-editorial img {
-    aspect-ratio: 1.12;
-    object-position: 62% center;
-    border-radius: 22px;
-  }
   .zapla-phone .bp-context-copy h2 {
     font-size: 36px;
     max-width: 450px;
@@ -1116,9 +892,6 @@
   .zapla-phone .bp-wrap {
     width: calc(100% - 32px);
   }
-  .zapla-phone .bp-hero-actions {
-    gap: 10px;
-  }
   .zapla-phone .bp-button {
     padding-inline: 22px;
   }
@@ -1149,5 +922,272 @@
     scroll-behavior: auto !important;
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* One photographic calling scene. Interface text stays native and readable. */
+.zapla-phone .bp-hero {
+  padding: 124px 0 62px;
+}
+.zapla-phone .bp-hero-copy {
+  text-align: center;
+  margin: 0 auto 42px;
+}
+.zapla-phone .bp-hero .bp-eyebrow {
+  margin-bottom: 18px;
+}
+.zapla-phone h1 {
+  font-size: clamp(48px, 5.15vw, 74px);
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+}
+.zapla-phone h1 span {
+  display: inline-block;
+}
+.zapla-phone .bp-lead {
+  max-width: 630px;
+  margin: 23px auto 0;
+  font-size: 17px;
+  line-height: 1.75;
+}
+.zapla-phone .bp-hero-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 25px;
+}
+.zapla-phone .bp-usage {
+  margin-top: 18px;
+  font-size: 12px;
+  line-height: 1.65;
+}
+.zapla-phone .bp-photo-call {
+  position: relative;
+  display: grid;
+  min-height: 530px;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #e9ebec;
+}
+.zapla-phone .bp-hero-photo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 43%;
+}
+.zapla-phone .bp-browser-call {
+  position: relative;
+  z-index: 1;
+  align-self: start;
+  margin: 54px 44px;
+  width: 320px;
+  overflow: hidden;
+  border: 1px solid #ffffffbf;
+  border-radius: 18px;
+  background: #ffffffed;
+  box-shadow:
+    0 18px 52px #101a2638,
+    inset 0 0 0 1px #fff;
+  backdrop-filter: blur(18px);
+}
+.zapla-phone .bp-browser-call .bp-product-header {
+  min-height: 61px;
+  padding: 17px 22px;
+  background: transparent;
+}
+.zapla-phone .bp-call-person {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  column-gap: 13px;
+  padding: 20px 22px;
+}
+.zapla-phone .bp-call-direction {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 18px;
+  color: #365d50;
+  font-size: 12px;
+}
+.zapla-phone .bp-call-portrait {
+  width: 52px;
+  height: 52px;
+  grid-row: span 2;
+}
+.zapla-phone .bp-call-person h2 {
+  font-size: 23px;
+  letter-spacing: -0.035em;
+  align-self: end;
+}
+.zapla-phone .bp-call-person > p:not(.bp-call-direction) {
+  font-size: 12px;
+  color: #61706b;
+  margin-top: 5px;
+}
+.zapla-phone .bp-call-recognition {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  grid-column: 1 / -1;
+  margin-top: 23px;
+  color: #52635d;
+}
+.zapla-phone .bp-call-recognition > span {
+  width: 1px;
+  height: 18px;
+  background: #d6dcd9;
+}
+.zapla-phone .bp-call-recognition > svg:last-child {
+  color: #b65a47;
+}
+.zapla-phone .bp-call-context {
+  margin-inline: 22px;
+  padding: 18px 0 23px;
+  border-top: 1px solid #d6dcda;
+}
+.zapla-phone .bp-call-context > span {
+  color: #687170;
+  font-size: 11px;
+}
+.zapla-phone .bp-call-context p {
+  color: #27302f;
+  font-size: 14px;
+  line-height: 1.65;
+  margin-top: 7px;
+}
+.zapla-phone .bp-quick-layout {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  gap: 110px;
+  align-items: center;
+}
+.zapla-phone .bp-context-copy {
+  max-width: 530px;
+}
+.zapla-phone .bp-action-proof .bp-quick-actions {
+  margin-top: 0;
+}
+.zapla-phone .bp-action-proof .bp-text-link {
+  margin-top: 18px;
+}
+@media (max-width: 1100px) {
+  .zapla-phone .bp-photo-call {
+    min-height: 490px;
+  }
+  .zapla-phone .bp-hero-photo {
+    object-position: 58% 45%;
+  }
+  .zapla-phone .bp-browser-call {
+    margin: 55px 28px;
+    width: 292px;
+  }
+  .zapla-phone .bp-quick-layout {
+    gap: 55px;
+  }
+}
+@media (max-width: 960px) {
+  .zapla-phone .bp-photo-call {
+    display: block;
+    min-height: 0;
+    border: 1px solid #d4dcd8;
+    border-radius: 23px;
+  }
+  .zapla-phone .bp-hero-photo {
+    position: static;
+    height: 420px;
+    object-position: 60% center;
+  }
+  .zapla-phone .bp-browser-call {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    background: #fff;
+  }
+  .zapla-phone .bp-call-person {
+    grid-template-columns: 52px 1fr auto;
+  }
+  .zapla-phone .bp-call-recognition {
+    grid-column: 3;
+    grid-row: 2 / 4;
+    margin: 0 0 0 10px;
+    gap: 14px;
+  }
+  .zapla-phone .bp-call-context {
+    padding-block: 16px 21px;
+  }
+}
+@media (max-width: 760px) {
+  .zapla-phone .bp-hero {
+    padding: 109px 0 40px;
+  }
+  .zapla-phone .bp-hero-copy {
+    margin-bottom: 30px;
+  }
+  .zapla-phone h1 {
+    font-size: clamp(40px, 7vw, 53px);
+  }
+  .zapla-phone .bp-lead {
+    max-width: 550px;
+    font-size: 16px;
+    margin-top: 22px;
+  }
+  .zapla-phone .bp-hero-actions {
+    gap: 18px;
+    margin-top: 23px;
+  }
+  .zapla-phone .bp-usage {
+    font-size: 11px;
+    margin-top: 15px;
+  }
+  .zapla-phone .bp-hero-photo {
+    height: 360px;
+    object-position: 65% center;
+  }
+  .zapla-phone .bp-quick-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+@media (max-width: 480px) {
+  .zapla-phone h1 {
+    font-size: clamp(37px, 10.5vw, 48px);
+  }
+  .zapla-phone .bp-hero-photo {
+    height: 300px;
+    object-position: 66% center;
+  }
+  .zapla-phone .bp-call-person {
+    grid-template-columns: 48px 1fr;
+    padding: 18px 20px;
+    column-gap: 11px;
+  }
+  .zapla-phone .bp-call-portrait {
+    width: 48px;
+    height: 48px;
+  }
+  .zapla-phone .bp-call-person h2 {
+    font-size: 23px;
+  }
+  .zapla-phone .bp-call-recognition {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    margin: 19px 0 0;
+    gap: 24px;
+  }
+  .zapla-phone .bp-browser-call .bp-product-header {
+    padding-inline: 20px;
+  }
+  .zapla-phone .bp-call-context {
+    margin-inline: 20px;
   }
 }

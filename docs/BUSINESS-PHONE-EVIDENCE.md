@@ -2,6 +2,10 @@
 
 Date: 27 October 2026. Scope: human calling. This is documentary and public-client verification, not a completed live telephony acceptance test or a promise of inclusion in every plan.
 
+## Later photographic opening correction
+
+The owner's later “looks a bit dull” / expected photo UI feedback reopens the opening composition. The existing fresh showroom photograph now supports the browser-call UI in the hero and is removed from the lower quick-action chapter. All text/wordmarks remain native. To avoid contradictory staff identity across the connected Mia example, the outcome is now attributed to “your team”; earlier references to Ben describe the prior version. The generated person remains fictional editorial content, with no customer or testimonial claim. See BUSINESS-PHONE-PHOTO-UI-20261027.md for design, independent reviews and the remaining rendered-verification limit.
+
 ## Owner correction: shorter story and confirmed phone options
 
 The owner's later message and five attached product screenshots supersede the initial uncertainty about purchasing markets and recording/transcription options. The owner explicitly confirms options to record and transcribe all calls; number purchasing in the US, UK, Australia, Singapore, Hong Kong, Canada, Germany and France; and A2P/10DLC. The page now presents these capabilities directly while keeping activation choices, availability and separate charges clear. It does not turn those confirmations into a successful live call, current stock, default activation or every-plan inclusion claim.

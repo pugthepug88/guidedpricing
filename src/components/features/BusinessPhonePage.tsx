@@ -43,10 +43,18 @@ function BookCall() {
 
 function BrowserCall() {
   return (
-    <div className="bp-call-surround">
+    <div className="bp-photo-call">
+      <img
+        className="bp-hero-photo"
+        src="/concept/business-phone/lighting-owner-calling-20261027.webp"
+        width="1536"
+        height="1024"
+        alt="A lighting showroom owner talking with a customer through earphones at her computer"
+        fetchPriority="high"
+      />
       <article
         className="bp-browser-call"
-        aria-label="Ben returns Mia’s requested call using Zapla’s browser phone"
+        aria-label="A requested callback to Mia using Zapla’s browser phone, with her saved contact note"
       >
         <header className="bp-product-header">
           <Wordmark />
@@ -58,7 +66,7 @@ function BrowserCall() {
           </p>
           <Portrait className="bp-call-portrait" />
           <h2>Mia Thompson</h2>
-          <p>Speaking with Ben Walker</p>
+          <p>Call in progress</p>
           <div className="bp-call-recognition" aria-hidden="true">
             <Mic size={18} />
             <span />
@@ -84,7 +92,7 @@ function PowerDialler() {
   return (
     <article
       className="bp-dialler"
-      aria-label="A manual Power Dialler sequence: selected contacts, Mia’s completed call and Ben’s saved note, then Daniel next"
+      aria-label="A manual Power Dialler sequence: selected contacts, Mia’s completed call and your team’s saved note, then Daniel next"
     >
       <header className="bp-product-header">
         <Wordmark />
@@ -123,7 +131,7 @@ function PowerDialler() {
           <div className="bp-saved-note">
             <div>
               <span>Contact note</span>
-              <span>Saved by Ben Walker</span>
+              <span>Saved by your team</span>
             </div>
             <p>Warm-white pendants. I’ll email Mia a shortlist.</p>
           </div>
@@ -234,13 +242,11 @@ export function BusinessPhonePage() {
   return (
     <main className="zapla-feature zapla-phone">
       <section className="bp-hero" aria-labelledby="bp-title">
-        <div className="bp-wrap bp-hero-layout">
+        <div className="bp-wrap">
           <div className="bp-hero-copy">
             <p className="bp-eyebrow">Business Phone &amp; Power Dialler</p>
             <h1 id="bp-title">
-              Make the call.
-              <br />
-              Keep the context.
+              <span>Make the call.</span> <span>Keep the context.</span>
             </h1>
             <p className="bp-lead">
               Make and receive customer calls from your browser. Return enquiries with the
@@ -282,20 +288,13 @@ export function BusinessPhonePage() {
       </section>
 
       <section className="bp-context-section" aria-labelledby="bp-context-title">
-        <div className="bp-wrap bp-context-layout">
-          <figure className="bp-editorial">
-            <img
-              src="/concept/business-phone/lighting-owner-calling-20261027.webp"
-              width="1536"
-              height="1024"
-              alt="A lighting showroom owner speaking through earphones while reviewing options at her computer"
-              loading="lazy"
-            />
-          </figure>
+        <div className="bp-wrap bp-quick-layout">
           <div className="bp-context-copy">
             <p className="bp-eyebrow">Phone quick actions</p>
             <h2 id="bp-context-title">Take the next step while you talk.</h2>
             <p>Add a tag or run a configured workflow from the phone. You choose the action.</p>
+          </div>
+          <div className="bp-action-proof">
             <dl className="bp-quick-actions">
               <div>
                 <dt>Add tag</dt>
