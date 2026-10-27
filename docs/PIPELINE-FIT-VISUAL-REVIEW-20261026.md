@@ -76,7 +76,7 @@ The exact candidate df82bce9037d63cb3a81d7658a89bd9485141edb passed Workers Buil
 
 The Browser viewport override did not change the actual page dimensions, so it was reset. A temporary same-origin review frame on the draft branch supplied real 834px tablet, 390px phone, 320px narrow-phone and 1100px desktop-boundary widths at 680px height. All three tablet and phone scenes were visually inspected through native scrolling. At 320px the tag list wraps naturally, complete records fit before the copy, and all checked section headings, paragraphs, fields and tags have no horizontal text overflow. Document/content widths matched: 305px at the narrow width and 1085px at 1100. The tablet changes to three horizontal compositions rather than shrinking the UI; phone keeps the UI above its copy. No new live interaction exists in these scenes.
 
-A contrast review found that grain and a darker gradient under the lavender paragraph could reduce contrast. The correction confines grain to the illustration, removes the dark gradient stop and uses ink copy. The clean lavender base with the final paragraph colour exceeds 5:1; lighter tonal stops increase contrast. The final source gets a deployed confirmation after this correction. The temporary review page is removed from the final source.
+A contrast review found that grain and a darker gradient under the lavender paragraph could reduce contrast. The correction confines grain to the illustration, removes the dark gradient stop and uses ink copy. The clean lavender base with the final paragraph colour exceeds 5:1; lighter tonal stops increase contrast. The grain fades out smoothly before the copy, rather than ending at a hard edge; on tablets it fades before the copy column. Final deployed confirmation is recorded below. The temporary review page is removed from the final source.
 
 ### Director and buyer assessment
 
@@ -85,3 +85,11 @@ These are separate judgements by the implementation owner, not independent-agent
 ### Code checks and limits
 
 TypeScript, scoped ESLint, Prettier, SEO and whitespace checks passed. The managed local build logged completed client and SSR bundles, but did not log the final Nitro completion marker; it is not represented as a complete local build. The exact deployed candidate's Workers Builds check completed successfully. Reduced-motion/no-JavaScript completeness is unchanged static markup, reviewed in source; no browser-level preference or JavaScript-disabled test is claimed. No physical-device, screen-reader or live tenant acceptance test was added. Shared navigation/footer, booking destinations and production publication remain untouched.
+
+### Final deployed confirmation
+
+Final runtime commit `51b64e4a4dc82b59445ad2910f9759099381b30c` passed Workers Builds. [Open the reviewed composition](https://de07ab77-guidedpricing.jinrcao.workers.dev/features/pipeline-management#pipeline-fit). The direct desktop page was opened again and visibly confirmed after the contrast/fade correction. Computed copy colour is `rgb(27, 32, 33)`; the grain's bottom fade is present; the complete three-card scene has no document overflow. This last change affects grain masking only and does not change the responsive geometry checked above.
+
+Current main through `ab4bf8ddfadea129618445d91251c16d9d0c944e`, including the latest Websites funnel/tracking correction, is preserved with a merge parent. The temporary responsive harness is absent from the final source. PR #202 contains the concrete revision for review; shared main and Lovable still await explicit merge authorisation after the earlier automatic approval rejection. No production Publish action was performed.
+
+![Final composed Pipeline scenes with local grain](qa/pipeline-composed-scenes-20261027.png)
