@@ -42,3 +42,43 @@ Initial production build, TypeScript, scoped component/route ESLint, SEO policy 
 Local Vite SSR returns the actual route with HTTP 200 and complete server-rendered content. The connected browser cannot reach this execution host's localhost. A data-URL snapshot was rejected because the browser permits only HTTP/HTTPS; no alternate URL-policy workaround was attempted. Visual review therefore continues through the normal GitHub-hosted draft/connected preview. A working build or SSR response alone is not visual proof, and the initial commit is a review draft until the hosted checks are complete.
 
 No owner approval, live telephony acceptance, independent user study, measured conversion uplift or numerical design score is claimed.
+
+## Hosted review and completed corrections
+
+Implementation was merged through PR #225 (`ad62e447dc69c58f8ff13bf25555053a89e5f025`), then corrected in `662dd57c27b7ee19dff56c9d16f26a7c088178de`. Both Workers builds succeeded; the implementation branch's Vercel build also succeeded. The Vercel preview redirected to its sign-in origin, which automatic approval review blocked. That sign-in/dashboard was not accessed. Review continued on the explicitly requested existing Lovable project. Its Refresh control updated the preview without a builder prompt or Publish action.
+
+Lovable reported source `662dd57…`; the actual direct preview was checked displaying the changed browser sentence and Daniel's corrected portrait. The editor page selector accepted `/features/business-phone`, rendered it and subsequently showed it as the selected option. The editor's broader page inventory and older static-build failure messages remain pre-existing limitations; this task does not claim to repair that build system.
+
+The independent visual reviewer inspected actual captures after its source review: desktop hero/dialler/context; tablet hero/dialler; mobile hero, complete list/current-outcome/next-contact sequence, photo/context introduction, setup/first FAQs and lower CTA/sky. It found no material rendered layout blocker. It judged the roughly two-phone-screen dialler justified by its role, with the outcome note remaining readable. It recommended explicitly saying browser calling; the opening now does. The implementer separately checked the inbound cards, expanded FAQs, complete lower tablet flow and complete final-CTA recapture, which were outside that independent coverage.
+
+Additional fixes: Daniel's original cell 4 portrait was inconsistent with the intended character, so both list and next-contact instances now use male cell 17. At 320px, the next-contact arrow wrapped to its own otherwise empty line; it is now suppressed at that width while the explicit human Next/Call now sentence remains. Actual synced rendering was rechecked after both corrections.
+
+### Observed coverage
+
+| Check | Actual result |
+| --- | --- |
+| Desktop 1440 × 960 | All six consecutive chapters: hero, full dialler, editorial crop, inbound/history, setup/FAQs and complete final CTA/sky. Readable current contact, note, next person; deliberate white/silver/ink/photo rhythm. |
+| Tablet 834 × 1112 | Hero, full dialler, portrait crop, inbound/history, setup/all closed questions, expanded saved-call answer and final transition inspected. No horizontal document overflow or measured width clipping in checked nested panels/headings. |
+| Phone 390 × 844 | Full normal-flow walkthrough, current call, selected list, human outcome/next contact, photograph, breadth, setup, full question list, expanded pricing answer and complete final CTA/sky. No horizontal document overflow or measured text/panel width clipping. |
+| Narrow phone 320 × 760 | Hero and detailed current-call/outcome/next-contact capture; final corrected arrow is hidden, meaningful text remains readable. Whole-page DOM checks found no horizontal overflow or measured text/panel width clipping. This is not a second full visual walkthrough at 320px. |
+| Keyboard and links | Enter opens/closes native FAQ answers. Desktop Features opens, Escape closes. Mobile Features expands via its native summary; the Business Phone link loads the page and closes the mobile menu. Leads & conversations grouping and preserved Platform destinations were read. The closing CTA was activated by keyboard and rendered `/booking`; no email or calendar action was submitted. All three page sales links target `/booking`; related links target existing CRM, AI Receptionist and Inbox pages. |
+| Static/motion | Complete server-rendered page content; zero running page-owned animations and no page-owned button/input/textarea controls in the rendered DOM. Reduced-motion CSS and no-JavaScript story were reviewed in source. No separate browser OS/media preference or disabled-JavaScript session is claimed. |
+| Assets/metadata | Both product wordmarks and fresh photograph loaded; photo face, earphones and working context preserved in desktop/tablet/phone crops. Rendered title is Business Phone & Power Dialler &#124; Zapla; robots is `noindex, nofollow`. SEO policy check retains 17 production pages and excludes drafts/booking/404. |
+| Runtime | No browser error logs were returned during final corrected preview review. No telephony SDK, microphone permission, calling service, live account update, number purchase or message send is part of the page. |
+
+Final build, TypeScript, scoped ESLint, formatting, SEO policy and whitespace checks pass. This page's commits change only its implementation/stylesheet/route/image, generated route tree, Features navigation and evidence/review/proof, plus this feature-brief record. They do not change the global footer, root shell or unrelated product/industry/comparison source. No dependency or lockfile change is committed. Current main was fetched before each commit/ref change, with expected-head checks and normal forward history.
+
+Before the final evidence commit, main advanced to `3f06813befe33d7f4d011e9738edc5516d9954d9` with the concurrent AI Chatbot photographic reset. The new Chatbot-specific brief and guardrail additions were read, their feature-brief entry preserved, and this record appended to the fresh version. The final evidence tree is based on that current main and does not replace any of the concurrent Chatbot implementation, styles, photos or review files.
+
+### Retained final proof
+
+- [Desktop opening](proof/business-phone-desktop-hero-20261027.webp)
+- [Desktop Power Dialler](proof/business-phone-desktop-dialler-20261027.webp)
+- [320px current call and human outcome](proof/business-phone-320-outcome-20261027.webp)
+- [Phone final CTA and sky transition](proof/business-phone-mobile-closing-20261027.webp)
+
+These are actual screenshots of the corrected synced preview, saved losslessly without resizing. Earlier review captures were retained in the temporary working area only.
+
+Remaining limits: no physical-device/cross-browser matrix, screen-reader session, dedicated media-preference/JavaScript-disabled browser session, live NextGen calling test or conversion study. Product acceptance still needs actual numbers/devices/rates and incoming/outgoing/media behaviour confirmed before a customer is activated. The documentary evidence supports the page; it is not a claim that every listed function has been tested or belongs to every Zapla plan.
+
+Direct review URL: https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/business-phone
