@@ -71,7 +71,7 @@ function SupportDesk() {
       <div className="tk2-desk-content">
         <article className="tk2-focus-ticket">
           <header>
-            <h2>Update invoice details</h2>
+            <h2>Return visit needed</h2>
             <span className="tk2-progress-state">In progress</span>
           </header>
           <div className="tk2-requester">
@@ -166,7 +166,7 @@ function CustomerContext() {
           <div
             className="tk2-linked-context"
             role="group"
-            aria-label="Customer and related work linked to Mia’s invoice-details request"
+            aria-label="Customer and related work linked to Mia’s return-visit request"
           >
             <div className="tk2-linked-customer">
               <Portrait cell={9} />
