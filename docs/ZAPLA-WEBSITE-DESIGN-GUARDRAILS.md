@@ -266,3 +266,8 @@ The owner explicitly approved trying a compact phone in place of the booking-mes
 ## Ticketing first-iteration restoration, 27 October 2026
 
 The owner rejected the latest rebuild and explicitly requested the first iteration again. Restore the exact Ticketing component and stylesheet from `89ebcd5a4cee0b03cbb4bf74bc80c3dbb89a79ec`, including its light stone/glass hero, original story/copy, board/table/filter and connected context. This supersedes the intervening Ticketing redesign and rejection-specific composition rules; do not reinterpret the rollback as another design revision. Preserve current shared architecture and all other feature-page work. Verification and provenance: `TICKETING-ORIGINAL-RESTORE-20261027.md`. Historical scores and technical passes are not owner aesthetic approval. GitHub owns changes; Lovable remains read only with no separate Publish action.
+
+
+## Ticketing withdrawn and page deleted, 27 October 2026
+
+The owner decided not to offer Ticketing and explicitly requested deletion of the whole page. This supersedes all preceding Ticketing build, redesign and first-iteration restoration instructions. Delete its route, implementation, stylesheet and page-specific photos; remove its offering claims across current website pages/comparisons. The old URL uses the existing not-found response. Do not restore Ticketing or advertise it as included unless the owner explicitly reopens the offer. Scope and verification: `TICKETING-REMOVAL-20261027.md`. GitHub owns changes; Lovable remains read only, with no separate Publish action.

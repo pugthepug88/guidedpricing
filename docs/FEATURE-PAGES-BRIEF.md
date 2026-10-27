@@ -5,7 +5,7 @@ Platform remains Overview, CRM, Customer Marketing, AI Receptionist. Features is
 
 Initial page: /features/unified-inbox. AI Chatbot belongs beside Unified Inbox as a separate future feature page; the two are not interchangeable. AI Assistant scope must be clarified before creating another overlapping item.
 
-Future grouping: Leads & conversations (AI Chatbot, Unified Inbox); Sales & automation (Pipeline Management, Automation Builder, Calendars & Bookings, Quotes/Invoices/Signatures); Marketing & operations (Websites/Funnels/Forms, Social Planner, Ticketing, Reporting & Analytics). Meeting Rooms, Whiteboard and apps are supporting capabilities initially.
+Future grouping: Leads & conversations (AI Chatbot, Unified Inbox); Sales & automation (Pipeline Management, Automation Builder, Calendars & Bookings, Quotes/Invoices/Signatures); Marketing & operations (Websites/Funnels/Forms, Social Planner, Reporting & Analytics). Meeting Rooms, Whiteboard and apps are supporting capabilities initially. Ticketing was withdrawn from the offer on 27 October 2026; its page is deleted.
 
 ## Visual direction
 ADAPT Birdeye's contained textured blue stage and layered frosted panel depth, not its mascot, copy or product claims. ADAPT ActiveCampaign's editorial photography and varied open/enclosed section rhythm. USE existing Zapla colours, Manrope, portrait sheet and root-owned header/footer. REJECT repeated coloured heading fragments, tiny decorative dashboard controls, arbitrary metrics and all-card layouts.
@@ -41,7 +41,7 @@ The user approved a single shared Zapla palette with controlled feature illustra
 | Conversations | muted blue | Inbox and future Chatbot hero illustration |
 | Sales / automation | sage, muted green | Pipeline, future Automation and Calendars illustrations |
 | Marketing | terracotta, warm peach | future marketing, Social and Website illustrations |
-| Operations | warm stone with restrained blue/green detail | future reporting, ticketing and documents illustrations |
+| Operations | warm stone with restrained blue/green detail | future reporting and documents illustrations |
 
 These are illustration defaults, not public categories or whole-page themes. Feature states retain their meaning across pages. Most supporting backgrounds stay neutral; headings predominantly ink. Each feature needs its own appropriate composition, not the same glass layout recoloured.
 
@@ -582,3 +582,8 @@ The owner approved trying a recognisable phone conversation in place of the book
 ## Ticketing first-iteration restoration, 27 October 2026
 
 The owner rejected the latest rebuild and explicitly requested the first iteration again. Restore the exact Ticketing component and stylesheet from `89ebcd5a4cee0b03cbb4bf74bc80c3dbb89a79ec`, including its light stone/glass hero, original story/copy, board/table/filter and connected context. This supersedes the intervening Ticketing redesign and rejection-specific composition rules; do not reinterpret the rollback as another design revision. Preserve current shared architecture and all other feature-page work. Verification and provenance: `TICKETING-ORIGINAL-RESTORE-20261027.md`. Historical scores and technical passes are not owner aesthetic approval. GitHub owns changes; Lovable remains read only with no separate Publish action.
+
+
+## Ticketing withdrawn and page deleted, 27 October 2026
+
+The owner decided not to offer Ticketing and explicitly requested deletion of the whole page. This supersedes all preceding Ticketing build, redesign and first-iteration restoration instructions. Delete its route, implementation, stylesheet and page-specific photos; remove its offering claims across current website pages/comparisons. The old URL uses the existing not-found response. Do not restore Ticketing or advertise it as included unless the owner explicitly reopens the offer. Scope and verification: `TICKETING-REMOVAL-20261027.md`. GitHub owns changes; Lovable remains read only, with no separate Publish action.

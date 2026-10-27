@@ -6,6 +6,7 @@ import {
   CalendarDays,
   ChevronDown,
   CreditCard,
+  FileSignature,
   FileText,
   Filter,
   Globe2,
@@ -13,7 +14,6 @@ import {
   MousePointer2,
   Search,
   SlidersHorizontal,
-  TicketCheck,
   Users,
 } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
@@ -961,7 +961,7 @@ function ConnectedPlatform() {
     {icon:CreditCard,title:"Payments",copy:"Keep payment activity in context.",tone:"#C89A5D"},
     {icon:Globe2,title:"Websites + funnels",copy:"Capture enquiries into the CRM.",tone:"#58706F"},
     {icon:FileText,title:"Forms + lead capture",copy:"Create records from new enquiries.",tone:"#85845D"},
-    {icon:TicketCheck,title:"Ticketing + service",copy:"Carry the history beyond the sale.",tone:"#BF7458"},
+    {icon:FileSignature,title:"Quotes + signatures",copy:"Keep customer documents in context.",tone:"#BF7458"},
   ];
 
   return (
@@ -976,7 +976,7 @@ function ConnectedPlatform() {
             </h2>
           </div>
           <p className="max-w-[560px] text-[15px] font-medium leading-[1.72] text-[#646B65] lg:justify-self-end">
-            Messages, bookings, payments, lead capture and service activity stay connected to the same customer instead of being scattered across separate tools.
+            Messages, bookings, payments, documents and lead capture stay connected to the same customer instead of being scattered across separate tools.
           </p>
         </Reveal>
 
