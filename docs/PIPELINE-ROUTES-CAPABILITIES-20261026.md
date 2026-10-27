@@ -62,3 +62,11 @@ Recommended bounded route copy: **Choose the jobs to visit, optimise the stop or
 Numbered route stops can convey actual visit order; decorative numbered sections remain rejected. If S4's map image is reused, retain its Mapbox/OpenStreetMap attribution. Do not invent an optimisation result or describe an illustrative map as a computed customer route.
 
 The new page still requires rendered desktop/tablet/mobile inspection and meaningful interaction, reduced-motion, link and build checks. This document provides claim boundaries; it is not visual approval, owner acceptance, a live product test or evidence that a route was saved successfully.
+
+## Customisation clarification, 27 October 2026
+
+The public, rendered supplier Help Centre was reread for the owner's visual correction. Pipeline Fields (`https://app.thenextgencrm.com/help-centre.html?lang=en#/pipeline-fields`) explicitly documents named fields, text/number/date/select/address/file and other field types, selectable-field options, per-pipeline-type scope, card visibility and required fields. The six types in the marketing visual are a representative subset, not an exhaustive limit. System type and its Heat pump/Gas/Electric options are prepared business-defined data.
+
+The separate Pipelines Quick Actions article (`https://app.thenextgencrm.com/help-centre.html?lang=en#/pipelines/quick-actions`) explicitly supports Form, Automation, Iframe, Add Tag, Remove Tag, URL, Pipeline, Ticket and Check In action types. It also documents button names/icons/colours, type-specific configuration, role defaults, per-pipeline-type applicability and ordering. This newly checked documentation supersedes the earlier screenshot-only restriction to appearance, without establishing that a live action was executed.
+
+Bounded marketing use: show custom shortcuts for a job form, configured follow-up automation and applying an Urgent tag. The static website does not open a real CRM form, run a workflow or modify a customer. Do not infer an automatic send, an appointment, task creation or a particular workflow outcome. The actual help articles were read in the connected browser because web retrieval/search did not expose their client-rendered contents. No sign-in or private tenant inspection was needed.

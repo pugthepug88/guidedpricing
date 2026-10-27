@@ -1,4 +1,16 @@
-import { Check, MessageSquare, Plus } from "lucide-react";
+import {
+  CalendarDays,
+  Check,
+  ChevronDown,
+  FileText,
+  Hash,
+  MapPin,
+  Paperclip,
+  Plus,
+  Tag,
+  Type,
+  Workflow,
+} from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import { PipelineBoard, PipelinePortrait } from "@/components/features/PipelineBoard";
 import { PipelineRoutes } from "@/components/features/PipelineRoutes";
@@ -31,87 +43,113 @@ function PipelineFitTools() {
           <article className="pf-fit-card pf-fit-fields">
             <div
               className="pf-fit-scene pf-fields-scene"
-              aria-label="Custom job fields displayed on an opportunity"
+              aria-label="Add a custom field: choose its type, name it and define dropdown options"
             >
-              <div className="pf-fit-record pf-fields-record">
-                <div className="pf-fit-record-title">Hot water replacement</div>
-                <div className="pf-fit-person">
-                  <PipelinePortrait cell={9} small />
-                  <span>Mia Thompson</span>
+              <div className="pf-fit-record pf-field-type-picker">
+                <div className="pf-tool-picker-title">
+                  <Plus size={15} aria-hidden="true" /> Add custom field
                 </div>
-                <dl className="pf-custom-values">
+                <div className="pf-field-types" aria-label="Available custom field types">
+                  <span>
+                    <Type size={18} aria-hidden="true" />
+                    Text
+                  </span>
+                  <span>
+                    <Hash size={18} aria-hidden="true" />
+                    Number
+                  </span>
+                  <span>
+                    <CalendarDays size={18} aria-hidden="true" />
+                    Date
+                  </span>
+                  <span className="pf-field-type-selected">
+                    <ChevronDown size={18} aria-hidden="true" />
+                    Dropdown
+                  </span>
+                  <span>
+                    <MapPin size={18} aria-hidden="true" />
+                    Address
+                  </span>
+                  <span>
+                    <Paperclip size={18} aria-hidden="true" />
+                    File
+                  </span>
+                </div>
+              </div>
+              <div className="pf-fit-record pf-field-editor">
+                <dl>
                   <div>
-                    <dt>Job address</dt>
-                    <dd>24 King Street</dd>
+                    <dt>Field name</dt>
+                    <dd className="pf-field-name-value">System type</dd>
                   </div>
                   <div>
-                    <dt>System type</dt>
-                    <dd>Heat pump</dd>
+                    <dt>Dropdown options</dt>
+                    <dd className="pf-field-options">
+                      <span>Heat pump</span>
+                      <span>Gas</span>
+                      <span>Electric</span>
+                    </dd>
                   </div>
                 </dl>
-              </div>
-              <div className="pf-fit-record pf-field-config">
-                <span className="pf-fit-ui-label">Job address · Address field</span>
-                <span className="pf-field-board-state">
-                  <Check size={14} aria-hidden="true" />
-                  Show on board
-                </span>
               </div>
             </div>
             <div className="pf-fit-card-copy">
               <h3>Custom fields</h3>
-              <p>
-                Add your own fields for each pipeline type and show the details your team needs on
-                the board.
-              </p>
+              <p>Keep the job details your team needs, in fields you define.</p>
             </div>
           </article>
 
           <article className="pf-fit-card pf-fit-actions">
             <div
               className="pf-fit-scene pf-actions-scene"
-              aria-label="Custom quick-action settings and the shortcut on an opportunity"
+              aria-label="Custom buttons on an opportunity open a job form, run follow-up or add an urgent tag"
             >
-              <div className="pf-fit-record pf-action-config">
-                <dl className="pf-action-settings">
-                  <div>
-                    <dt>Button name</dt>
-                    <dd className="pf-action-name">Follow up customer</dd>
-                  </div>
-                  <div>
-                    <dt>Icon</dt>
-                    <dd className="pf-chosen-icon">
-                      <MessageSquare size={18} aria-hidden="true" />
-                      <span className="pf-sr-only">Message bubble</span>
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Colour</dt>
-                    <dd className="pf-action-colours">
-                      <span className="pf-colour-blue" aria-label="Selected: blue" />
-                      <span className="pf-colour-ink" aria-label="Charcoal" />
-                      <span className="pf-colour-coral" aria-label="Coral" />
-                    </dd>
-                  </div>
-                </dl>
-              </div>
               <div className="pf-fit-record pf-action-record">
                 <div className="pf-fit-record-title">Hot water replacement</div>
                 <div className="pf-fit-person">
                   <PipelinePortrait cell={9} small />
                   <span>Mia Thompson</span>
                 </div>
-                <div className="pf-action-result">
-                  <span className="pf-custom-action">
-                    <MessageSquare size={17} aria-hidden="true" />
-                    Follow up customer
+                <div className="pf-shortcut-toolbar" aria-label="Custom quick-action buttons">
+                  <span className="pf-shortcut pf-shortcut-form">
+                    <FileText size={15} aria-hidden="true" />
+                    Job form
+                  </span>
+                  <span className="pf-shortcut pf-shortcut-workflow">
+                    <Workflow size={15} aria-hidden="true" />
+                    Follow-up
+                  </span>
+                  <span className="pf-shortcut pf-shortcut-tag">
+                    <Tag size={15} aria-hidden="true" />
+                    Mark urgent
                   </span>
                 </div>
+              </div>
+              <div className="pf-fit-record pf-action-type-picker">
+                <div className="pf-tool-picker-title">
+                  <Plus size={14} aria-hidden="true" />
+                  Add button
+                </div>
+                <ul className="pf-action-type-list">
+                  <li>
+                    <FileText size={15} aria-hidden="true" />
+                    <span>Open form</span>
+                  </li>
+                  <li className="pf-action-type-selected">
+                    <Workflow size={15} aria-hidden="true" />
+                    <span>Run workflow</span>
+                    <Check size={13} aria-hidden="true" />
+                  </li>
+                  <li>
+                    <Tag size={15} aria-hidden="true" />
+                    <span>Add tag</span>
+                  </li>
+                </ul>
               </div>
             </div>
             <div className="pf-fit-card-copy">
               <h3>Quick actions</h3>
-              <p>Give repeated work its own shortcut, right on the opportunity.</p>
+              <p>Open a form, run a workflow or apply a tag from the opportunity.</p>
             </div>
           </article>
 
@@ -121,10 +159,19 @@ function PipelineFitTools() {
               aria-label="Tags make priority and job type visible across opportunities"
             >
               <div className="pf-fit-record pf-tag-key">
-                <span className="pf-fit-ui-label">Your tags</span>
+                <span className="pf-fit-ui-label pf-tag-picker-title">
+                  <Plus size={12} aria-hidden="true" />
+                  Add tags
+                </span>
                 <div className="pf-tag-list">
-                  <span className="pf-tag pf-tag-urgent">Urgent</span>
-                  <span className="pf-tag pf-tag-install">Install</span>
+                  <span className="pf-tag pf-tag-urgent">
+                    <Check size={11} aria-hidden="true" />
+                    Urgent
+                  </span>
+                  <span className="pf-tag pf-tag-install">
+                    <Check size={11} aria-hidden="true" />
+                    Install
+                  </span>
                   <span className="pf-tag pf-tag-vip">VIP</span>
                 </div>
               </div>

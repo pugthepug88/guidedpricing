@@ -93,3 +93,15 @@ Final runtime commit `51b64e4a4dc82b59445ad2910f9759099381b30c` passed Workers B
 Current main through `8f71e2b89cd8f6b5f5aa47cf4ebab292df0b3a38`, including the latest Websites funnel/tracking correction and Automation AI autoplay, is preserved with a merge parent. This final integration changes no Pipeline runtime code after the reviewed commit. The temporary responsive harness is absent from the final source. PR #202 contains the concrete revision for review; shared main and Lovable still await explicit merge authorisation after the earlier automatic approval rejection. No production Publish action was performed.
 
 ![Final composed Pipeline scenes with local grain](qa/pipeline-composed-scenes-20261027.png)
+
+## Superseding visual-comprehension correction, 27 October 2026
+
+The owner found that Custom fields still showed saved values rather than the ability to add/configure fields, and Quick actions gave settings more prominence than the actual shortcuts. More surface detail alone had not solved comprehension. The updated scenes must answer their capability questions without relying on the marketing paragraphs.
+
+- Fields: an Add custom field picker shows six verified input types, with Dropdown selected. A separate editor visibly names System type and defines Heat pump, Gas and Electric as its options. This replaces the incidental Show on board check and ordinary job values.
+- Quick actions: the opportunity itself leads with recognisable Job form, Follow-up and Mark urgent buttons. A smaller Add button chooser shows their actual action categories. Name/icon/colour settings are removed from the focal scene. The new action claims rely on the separately reread official Pipelines Quick Actions article, not assumptions about the screenshot.
+- Tags: retain the clear opportunity list; change the repeated legend into Add tags with Urgent/Install visibly selected, matching Mia's attached labels. Do not invent tag-based filtering or automatic classification.
+
+Current supplier evidence and limits are appended to PIPELINE-ROUTES-CAPABILITIES-20261026.md. These are native static marketing illustrations with no new handlers, live form, execution, send or record mutation. No motion is added. A click-dependent demonstration was considered and rejected because the owner's goal is immediate visual comprehension. Keep the established local grain, colours and exterior layout; do not enlarge this into three major page sections. The supplied Clay reference remains an adaptation of visual hierarchy, not a source for product claims.
+
+Fresh rendered verification of this correction is pending. Earlier captures do not verify the new field picker, actual action choices or tag selection. The working draft remains in PR #202; this update does not authorise or perform the shared-main merge.
