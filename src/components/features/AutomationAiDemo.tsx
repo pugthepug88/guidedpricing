@@ -1,5 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { Clock3, Mail, MessageSquare, PhoneOutgoing, Play, Slack } from "lucide-react";
+import {
+  ArrowUp,
+  Clock3,
+  Mail,
+  MessageSquare,
+  Pause,
+  PhoneOutgoing,
+  Play,
+  Slack,
+} from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import {
   automationAiExamples,
@@ -8,164 +17,281 @@ import {
 } from "./automationAiExamples";
 
 type BuildState = {
-  phase: "ready" | "waiting" | "typing" | "generating" | "building" | "complete";
+  phase: "ready" | "waiting" | "typing" | "generating" | "building" | "complete" | "transition";
   characters: number;
   steps: number;
 };
 
-function fullDraft(example: AutomationExample, phase: "ready" | "complete"): BuildState {
+type Playback = {
+  selected: number;
+  build: BuildState;
+  paused: boolean;
+  running: boolean;
+  reduced: boolean;
+};
+
+function fullDraft(
+  example: AutomationExample,
+  phase: "ready" | "complete" | "transition",
+): BuildState {
   return { phase, characters: example.request.length, steps: example.steps.length };
 }
 
-/** Prepared local demonstrations. Only an explicit Watch/example click starts
- * motion. No AI, phone, invoice, email or other live service is invoked.
+function timing(example: AutomationExample) {
+  const textEnd = 180 + example.request.length * 20;
+  const typingEnd = textEnd + 500;
+  const buildEnd = typingEnd + example.steps.length * 350;
+  const holdEnd = buildEnd + 5000;
+  return { textEnd, typingEnd, buildEnd, holdEnd, cycleEnd: holdEnd + 240 };
+}
+
+function draftAt(example: AutomationExample, elapsed: number): BuildState {
+  const { textEnd, typingEnd, buildEnd, holdEnd } = timing(example);
+  if (elapsed >= holdEnd) return fullDraft(example, "transition");
+  if (elapsed >= buildEnd) return fullDraft(example, "complete");
+  if (elapsed >= typingEnd)
+    return {
+      phase: "building",
+      characters: example.request.length,
+      steps: Math.min(example.steps.length, Math.floor((elapsed - typingEnd) / 350) + 1),
+    };
+  if (elapsed >= textEnd)
+    return { phase: "generating", characters: example.request.length, steps: 0 };
+  return {
+    phase: elapsed < 180 ? "waiting" : "typing",
+    characters: Math.max(0, Math.min(example.request.length, Math.floor((elapsed - 180) / 20))),
+    steps: 0,
+  };
+}
+
+/** Local presentation clock. Automatic changes never navigate or move focus.
+ * No AI, communications, billing or other live service is invoked.
  */
 function useDraftAssembly() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const watchRef = useRef<HTMLButtonElement>(null);
-  const [selected, setSelected] = useState(0);
-  const [build, setBuild] = useState<BuildState>(() => fullDraft(automationAiExamples[0], "ready"));
-  const [version, setVersion] = useState(0);
-  const example = automationAiExamples[selected];
+  const sendRef = useRef<HTMLButtonElement>(null);
+  const controls = useRef<{
+    select: (index: number) => void;
+    replay: () => void;
+    togglePause: () => void;
+  } | null>(null);
+  const [playback, setPlayback] = useState<Playback>(() => ({
+    selected: 0,
+    build: fullDraft(automationAiExamples[0], "ready"),
+    paused: false,
+    running: false,
+    reduced: false,
+  }));
 
   useEffect(() => {
-    if (version === 0) return;
     const root = rootRef.current;
     const request = root?.querySelector<HTMLElement>(".ab-ai-prompt");
+    if (!root || !request) return;
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!root || !request || preference.matches || typeof IntersectionObserver === "undefined")
-      return;
-
-    let timer = 0;
-    let started = false;
+    const hasObserver = typeof IntersectionObserver !== "undefined";
+    let reduced = preference.matches || !hasObserver;
+    let selected = 0;
+    let build = fullDraft(automationAiExamples[0], "ready");
+    let paused = false;
     let visible = false;
-    let complete = false;
+    let started = false;
+    let oneShot = false;
     let disposed = false;
+    let timer = 0;
     let elapsed = 0;
     let stamp: number | null = null;
-    const typingEnd = 180 + example.request.length * 20 + 400;
-    const buildEnd = typingEnd + example.steps.length * 350;
 
-    const tick = () => {
-      if (disposed || !visible || complete || document.hidden) return;
-      const now = performance.now();
-      if (stamp !== null) elapsed += now - stamp;
-      stamp = now;
-      if (elapsed >= buildEnd) {
-        complete = true;
-        setBuild(fullDraft(example, "complete"));
-        return;
-      }
-      const nextState: BuildState =
-        elapsed < typingEnd
-          ? {
-              phase: elapsed < typingEnd - 400 ? "typing" : "generating",
-              characters: Math.min(
-                example.request.length,
-                Math.max(0, Math.floor((elapsed - 180) / 20)),
-              ),
-              steps: 0,
-            }
-          : {
-              phase: "building",
-              characters: example.request.length,
-              steps: Math.min(example.steps.length, Math.floor((elapsed - typingEnd) / 350) + 1),
-            };
-      setBuild((current) =>
-        current.phase === nextState.phase &&
-        current.characters === nextState.characters &&
-        current.steps === nextState.steps
+    const publish = (next: BuildState, running: boolean) => {
+      if (disposed) return;
+      build = next;
+      const candidate = { selected, build, paused, running, reduced };
+      setPlayback((current) =>
+        current.selected === candidate.selected &&
+        current.paused === candidate.paused &&
+        current.running === candidate.running &&
+        current.reduced === candidate.reduced &&
+        current.build.phase === next.phase &&
+        current.build.characters === next.characters &&
+        current.build.steps === next.steps
           ? current
-          : nextState,
+          : candidate,
       );
-      timer = window.setTimeout(tick, 25);
     };
 
-    const beginWhenReadable = () => {
-      if (disposed || !visible || started || complete || document.hidden) return;
+    const readable = () => {
       const bounds = request.getBoundingClientRect();
-      const readableHeight = Math.max(
+      const height = Math.max(
         0,
         Math.min(bounds.bottom, window.innerHeight) - Math.max(bounds.top, 70),
       );
-      if (bounds.bottom < 70) {
-        complete = true;
-        setBuild(fullDraft(example, "complete"));
-      } else if (readableHeight >= bounds.height * 0.9) {
-        started = true;
-        window.clearTimeout(timer);
-        stamp = performance.now();
-        timer = window.setTimeout(tick, 25);
-      }
+      return height >= bounds.height * 0.9;
     };
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (disposed) return;
-        visible = entry.isIntersecting;
-        window.clearTimeout(timer);
-        stamp = null;
-        if (visible && started && !complete && !document.hidden) {
-          stamp = performance.now();
-          timer = window.setTimeout(tick, 25);
-        } else if (!started && !complete) {
-          beginWhenReadable();
+    const stopClock = () => {
+      window.clearTimeout(timer);
+      timer = 0;
+      if (stamp !== null) elapsed += performance.now() - stamp;
+      stamp = null;
+    };
+
+    const allowed = () => !disposed && !reduced && !paused && visible && !document.hidden;
+
+    const tick = () => {
+      timer = 0;
+      if (!allowed()) {
+        stopClock();
+        publish(build, false);
+        return;
+      }
+      const now = performance.now();
+      if (stamp !== null) elapsed += now - stamp;
+      stamp = now;
+      const example = automationAiExamples[selected];
+      const times = timing(example);
+
+      if (oneShot && elapsed >= times.buildEnd) {
+        stopClock();
+        elapsed = times.buildEnd;
+        oneShot = false;
+        paused = true;
+        publish(fullDraft(example, "complete"), false);
+        return;
+      }
+      // Keep the completed mobile graph in place while its prompt is above
+      // the viewport. Returning to the prompt resumes automatic rotation.
+      if (elapsed >= times.holdEnd && !readable()) {
+        stopClock();
+        elapsed = times.holdEnd;
+        publish(fullDraft(example, "complete"), false);
+        return;
+      }
+      if (elapsed >= times.cycleEnd) {
+        selected = (selected + 1) % automationAiExamples.length;
+        elapsed = 0;
+      }
+      const next = draftAt(automationAiExamples[selected], elapsed);
+      publish(next, true);
+      timer = window.setTimeout(tick, next.phase === "complete" ? 200 : 25);
+    };
+
+    const wake = () => {
+      if (!allowed()) {
+        stopClock();
+        publish(build, false);
+        return;
+      }
+      if (!started && !readable()) return;
+      if (
+        build.phase === "complete" &&
+        elapsed >= timing(automationAiExamples[selected]).holdEnd &&
+        !readable()
+      )
+        return;
+      if (timer) return;
+      if (!started) {
+        started = true;
+        elapsed = 0;
+        build = draftAt(automationAiExamples[selected], 0);
+      }
+      stamp = performance.now();
+      publish(build, true);
+      timer = window.setTimeout(tick, 25);
+    };
+
+    controls.current = {
+      select: (index) => {
+        stopClock();
+        selected = index;
+        oneShot = false;
+        if (paused || reduced) {
+          started = true;
+          elapsed = timing(automationAiExamples[selected]).buildEnd;
+          publish(fullDraft(automationAiExamples[selected], "complete"), false);
+        } else {
+          started = false;
+          elapsed = 0;
+          publish(draftAt(automationAiExamples[selected], 0), false);
+          wake();
         }
       },
-      { threshold: 0 },
-    );
-
-    const respectVisibility = () => {
-      window.clearTimeout(timer);
-      stamp = null;
-      if (!document.hidden && visible && started && !complete) {
-        stamp = performance.now();
-        timer = window.setTimeout(tick, 25);
-      } else if (!document.hidden) {
-        beginWhenReadable();
-      }
+      replay: () => {
+        if (reduced) return;
+        stopClock();
+        oneShot = paused;
+        paused = false;
+        started = false;
+        elapsed = 0;
+        publish(draftAt(automationAiExamples[selected], 0), false);
+        wake();
+      },
+      togglePause: () => {
+        if (reduced) return;
+        stopClock();
+        paused = !paused;
+        if (paused && build.phase === "transition") {
+          elapsed = timing(automationAiExamples[selected]).holdEnd - 1000;
+          build = fullDraft(automationAiExamples[selected], "complete");
+        }
+        publish(build, false);
+        if (!paused) wake();
+      },
     };
 
+    const observer = hasObserver
+      ? new IntersectionObserver(([entry]) => {
+          visible = entry.isIntersecting;
+          wake();
+        })
+      : null;
     const respectPreference = () => {
-      if (!disposed && preference.matches) {
-        complete = true;
-        window.clearTimeout(timer);
-        setBuild(fullDraft(example, "complete"));
-      }
+      stopClock();
+      reduced = preference.matches || !hasObserver;
+      oneShot = false;
+      started = reduced;
+      elapsed = reduced ? timing(automationAiExamples[selected]).buildEnd : 0;
+      publish(fullDraft(automationAiExamples[selected], reduced ? "complete" : "ready"), false);
+      wake();
     };
 
-    observer.observe(root);
-    document.addEventListener("visibilitychange", respectVisibility);
-    window.addEventListener("scroll", beginWhenReadable, { passive: true });
-    window.addEventListener("resize", beginWhenReadable);
+    observer?.observe(root);
+    if (reduced) publish(fullDraft(automationAiExamples[selected], "complete"), false);
+    document.addEventListener("visibilitychange", wake);
+    window.addEventListener("scroll", wake, { passive: true });
+    window.addEventListener("resize", wake);
     preference.addEventListener("change", respectPreference);
     return () => {
       disposed = true;
-      observer.disconnect();
-      document.removeEventListener("visibilitychange", respectVisibility);
-      window.clearTimeout(timer);
-      window.removeEventListener("scroll", beginWhenReadable);
-      window.removeEventListener("resize", beginWhenReadable);
+      stopClock();
+      controls.current = null;
+      observer?.disconnect();
+      document.removeEventListener("visibilitychange", wake);
+      window.removeEventListener("scroll", wake);
+      window.removeEventListener("resize", wake);
       preference.removeEventListener("change", respectPreference);
     };
-  }, [example, version]);
+  }, []);
 
-  const play = (index = selected) => {
-    const next = automationAiExamples[index];
+  const select = (index: number) => {
+    controls.current?.select(index);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setSelected(index);
-    setBuild(
-      reduce || typeof IntersectionObserver === "undefined"
-        ? fullDraft(next, "complete")
-        : { phase: "waiting", characters: 0, steps: 0 },
-    );
-    setVersion((current) => current + 1);
-    // Navigation follows the visitor's explicit Watch action, never a timer.
     rootRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-    window.requestAnimationFrame(() => watchRef.current?.focus({ preventScroll: true }));
+    window.requestAnimationFrame(() => {
+      const destination = reduce
+        ? rootRef.current?.querySelector<HTMLElement>("h3")
+        : sendRef.current;
+      destination?.focus({ preventScroll: true });
+    });
   };
 
-  return { rootRef, watchRef, build, example, selected, play };
+  return {
+    rootRef,
+    sendRef,
+    ...playback,
+    example: automationAiExamples[playback.selected],
+    select,
+    replay: () => controls.current?.replay(),
+    togglePause: () => controls.current?.togglePause(),
+  };
 }
 
 function StepIcon({ kind }: { kind: AutomationStep["kind"] }) {
@@ -178,7 +304,19 @@ function StepIcon({ kind }: { kind: AutomationStep["kind"] }) {
 }
 
 export function AutomationAiDemo() {
-  const { rootRef, watchRef, build, example, selected, play } = useDraftAssembly();
+  const {
+    rootRef,
+    sendRef,
+    build,
+    example,
+    selected,
+    paused,
+    running,
+    reduced,
+    select,
+    replay,
+    togglePause,
+  } = useDraftAssembly();
   const allVisible = build.phase === "ready" || build.phase === "complete";
   const generating = build.phase === "generating" || build.phase === "building";
 
@@ -190,10 +328,7 @@ export function AutomationAiDemo() {
             <p className="ab-eyebrow">AI Flow Builder</p>
             <h2 id="ab-ai-heading">Build the workflow your business needs.</h2>
           </div>
-          <p>
-            Choose an idea. Watch Zapla AI turn it into a connected workflow. Describe your own
-            process inside Zapla.
-          </p>
+          <p>Describe your process. Zapla AI builds a connected draft you can review and edit.</p>
         </header>
 
         <div className="ab-ai-workspace">
@@ -203,10 +338,12 @@ export function AutomationAiDemo() {
             id="ai-construction"
             data-phase={build.phase}
             data-example={example.id}
+            data-paused={paused}
+            data-running={running}
           >
             <div className="ab-ai-input">
               <div className="ab-ai-copy">
-                <h3>{example.label}</h3>
+                <h3 tabIndex={-1}>{example.label}</h3>
               </div>
               <figure className="ab-ai-prompt">
                 <figcaption>
@@ -216,7 +353,9 @@ export function AutomationAiDemo() {
                 <blockquote>
                   <span className="ab-ai-sr-only">{example.request}</span>
                   <span className="ab-ai-prompt-reserve" aria-hidden="true">
-                    {example.request}
+                    {automationAiExamples.map((item) => (
+                      <span key={item.id}>{item.request}</span>
+                    ))}
                   </span>
                   <span className="ab-ai-prompt-typed" aria-hidden="true">
                     {example.request.slice(0, build.characters)}
@@ -225,20 +364,35 @@ export function AutomationAiDemo() {
                     ) : null}
                   </span>
                 </blockquote>
-                <div className="ab-ai-toolbar">
-                  <button
-                    className="ab-ai-watch"
-                    type="button"
-                    ref={watchRef}
-                    onClick={() => play()}
-                  >
-                    <Play size={14} fill="currentColor" aria-hidden="true" />
-                    Watch AI build
-                  </button>
-                  <a className="ab-ai-other" href="#automation-ai-ideas">
-                    Choose another idea
-                  </a>
-                </div>
+                {!reduced && (
+                  <div className="ab-ai-toolbar">
+                    <button
+                      className="ab-ai-pause"
+                      type="button"
+                      onClick={togglePause}
+                      aria-label={
+                        paused ? "Resume automation animation" : "Pause automation animation"
+                      }
+                    >
+                      {paused ? (
+                        <Play size={14} aria-hidden="true" />
+                      ) : (
+                        <Pause size={14} aria-hidden="true" />
+                      )}
+                      {paused ? "Resume" : "Pause"}
+                    </button>
+                    <button
+                      className="ab-ai-send"
+                      type="button"
+                      ref={sendRef}
+                      onClick={replay}
+                      aria-label="Replay this automation"
+                      title="Replay this automation"
+                    >
+                      <ArrowUp size={20} aria-hidden="true" />
+                    </button>
+                  </div>
+                )}
               </figure>
               <p className="ab-ai-scope">{example.scope}</p>
               <p className="ab-ai-review">
@@ -246,7 +400,10 @@ export function AutomationAiDemo() {
               </p>
             </div>
             <figure className="ab-ai-workflow" aria-label={"Workflow draft: " + example.label}>
-              <figcaption aria-live="polite" aria-atomic="true">
+              <figcaption aria-live={paused ? "polite" : "off"} aria-atomic="true">
+                <span className="ab-ai-thinking" data-thinking={generating} aria-hidden="true">
+                  <ZaplaPetal size={22} />
+                </span>
                 <span>{generating ? "Building your workflow…" : "Workflow draft"}</span>
               </figcaption>
               <ol>
@@ -282,7 +439,7 @@ export function AutomationAiDemo() {
                   key={item.id}
                   aria-pressed={selected === index}
                   aria-controls="ai-construction"
-                  onClick={() => play(index)}
+                  onClick={() => select(index)}
                 >
                   {item.label}
                 </button>
@@ -291,7 +448,7 @@ export function AutomationAiDemo() {
           </div>
 
           <noscript>
-            <style>{".ab-ai-ideas,.ab-ai-watch,.ab-ai-other{display:none!important}"}</style>
+            <style>{".ab-ai-ideas,.ab-ai-toolbar{display:none!important}"}</style>
             <div className="ab-ai-static-examples">
               {automationAiExamples.slice(1).map((item) => (
                 <details key={item.id}>
