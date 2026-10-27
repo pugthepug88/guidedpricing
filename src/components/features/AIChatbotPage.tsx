@@ -4,54 +4,24 @@ import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/ai-chatbot.css";
 
-// Prepared marketing scenes, using documented capabilities. These are not
-// tenant screenshots. No AI service, contact, message or booking API is called.
-// Harbour Physiotherapy, its policies and the masked contact data are fictional.
-function Avatar({ cell = 9 }: { cell?: number }) {
-  return (
-    <span
-      className="cr-avatar"
-      aria-hidden="true"
-      style={{
-        backgroundImage: "url('/concept/revenue/soft-autumn-portraits-v1.webp')",
-        backgroundPosition: `${((cell % 6) / 5) * 100}% ${(Math.floor(cell / 6) / 3) * 100}%`,
-      }}
-    />
-  );
-}
+// Prepared marketing scenes, not tenant screenshots or a live AI demonstration.
+// Marlow Kitchens, Alex Chen, the service policies and appointment are fictional.
+// No contact, message, AI or booking API is called.
 function Cta({ children = "Book a Call" }: { children?: ReactNode }) {
   return (
-    <a className="cr-cta" href="/booking">
+    <a className="cb-cta" href="/booking">
       {children}
     </a>
   );
 }
-function Bubble({
-  children,
-  ai = false,
-  cell = 9,
-}: {
-  children: ReactNode;
-  ai?: boolean;
-  cell?: number;
-}) {
+
+function Bubble({ children, ai = false }: { children: ReactNode; ai?: boolean }) {
   return (
-    <div className={`cr-message${ai ? " cr-message-ai" : ""}`}>
-      {ai ? <ZaplaPetal size={21} /> : <Avatar cell={cell} />}
+    <div className={"cb-message" + (ai ? " cb-message-ai" : "")}>
+      {ai && <ZaplaPetal size={23} />}
       <div>
-        <span className="cr-sr-only">{ai ? "Zapla AI Chatbot" : "Visitor"}: </span>
+        <span className="cb-sr-only">{ai ? "Zapla AI Chatbot" : "Visitor"}: </span>
         {children}
-      </div>
-    </div>
-  );
-}
-function ChatHeader({ business = "Harbour Physiotherapy" }: { business?: string }) {
-  return (
-    <div className="cr-chat-header">
-      <ZaplaPetal size={25} />
-      <div>
-        <strong>{business}</strong>
-        <span>AI Chatbot</span>
       </div>
     </div>
   );
@@ -59,66 +29,29 @@ function ChatHeader({ business = "Harbour Physiotherapy" }: { business?: string 
 
 function Opening() {
   return (
-    <section className="cr-opening" aria-labelledby="chatbot-title">
-      <div className="cr-wrap cr-hero">
-        <header className="cr-hero-copy">
-          <p className="cr-eyebrow">AI Chatbot</p>
+    <section className="cb-opening" aria-labelledby="chatbot-title">
+      <div className="cb-hero">
+        <img
+          className="cb-hero-image"
+          src="/concept/features/chatbot-professional-hero-20261027.webp"
+          alt="A business owner reviewing a client’s project at his desk"
+          width="1870"
+          height="841"
+          fetchPriority="high"
+        />
+        <div className="cb-hero-shade" aria-hidden="true" />
+        <header className="cb-hero-copy">
+          <p className="cb-eyebrow">AI Chatbot</p>
           <h1 id="chatbot-title">
             <span>Answer the question.</span> <span>Capture the enquiry.</span>
           </h1>
-          <p>
+          <p className="cb-hero-description">
             Answer website questions, collect the details your team needs and book suitable
             appointments, even after hours.
           </p>
-          <div className="cr-actions">
-            <Cta />
-            <a className="cr-link" href="#chatbot-enquiry">
-              See what reaches your team
-            </a>
-          </div>
-          <p className="cr-existing-site">Works on your existing website.</p>
+          <Cta />
+          <p className="cb-existing-site">Works on your existing website.</p>
         </header>
-        <div className="cr-website-scene" aria-label="Zapla’s chatbot on a physiotherapy website">
-          <div className="cr-business-site">
-            <div className="cr-site-header">
-              <span className="cr-practice-brand">
-                harbour<span>PHYSIOTHERAPY</span>
-              </span>
-              <span className="cr-site-services">Physiotherapy &amp; rehabilitation</span>
-            </div>
-            <div className="cr-site-intro">
-              <p className="cr-site-title">
-                Move well.
-                <br />
-                Feel stronger.
-              </p>
-              <p>Physiotherapy for your everyday life.</p>
-            </div>
-            <img
-              className="cr-site-photo"
-              src="/concept/features/chatbot-clinic-interior-20261026.webp"
-              alt="A bright physiotherapy treatment room on Harbour’s website"
-              width="1536"
-              height="1024"
-              fetchPriority="high"
-            />
-            <div className="cr-hero-widget">
-              <ChatHeader />
-              <div className="cr-thread">
-                <Bubble>Do you have appointments after work?</Bubble>
-                <Bubble ai>Yes, we have evening appointments. Is this your first visit?</Bubble>
-                <Bubble>Yes. I’d like to book.</Bubble>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="cr-wrap">
-        <ul className="cr-outcomes" aria-label="What your chatbot can help with">
-          <li>Answer questions around the clock</li>
-          <li>Collect the right enquiry details</li>
-          <li>Book agreed appointments</li>
-        </ul>
       </div>
     </section>
   );
@@ -127,62 +60,69 @@ function Opening() {
 function EnquiryRecord() {
   return (
     <section
-      className="cr-section cr-enquiry"
+      className="cb-section cb-enquiry"
       id="chatbot-enquiry"
       aria-labelledby="chatbot-enquiry-title"
     >
-      <div className="cr-wrap">
-        <header className="cr-section-intro">
+      <div className="cb-wrap">
+        <header className="cb-enquiry-intro">
           <h2 id="chatbot-enquiry-title">Know what they need before you reply.</h2>
           <p>The conversation, contact details and follow-up come together in Zapla.</p>
         </header>
-        <div className="cr-capture-scene">
-          <div className="cr-capture-chat" aria-label="Daniel shares his enquiry, name and email">
-            <ChatHeader business="Inner West Air" />
-            <div className="cr-thread">
-              <Bubble cell={5}>Do you replace ducted air conditioning in Marrickville?</Bubble>
-              <Bubble ai>Yes. Home or business, and when do you need it?</Bubble>
-              <Bubble cell={5}>Home. Ideally next week.</Bubble>
+        <div className="cb-capture-scene">
+          <div className="cb-widget" aria-label="Alex shares the enquiry, name and email">
+            <div className="cb-chat-header">
+              <ZaplaPetal size={26} />
+              <div>
+                <strong>Marlow Kitchens</strong>
+                <span>AI Chatbot</span>
+              </div>
+            </div>
+            <div className="cb-thread">
+              <Bubble>Do you renovate small apartment kitchens?</Bubble>
+              <Bubble ai>Yes. What are you hoping to change?</Bubble>
+              <Bubble>New cabinets and worktops. Next month.</Bubble>
               <Bubble ai>Your name and email so our team can get in touch?</Bubble>
-              <Bubble cell={5}>
-                Daniel.<span className="cr-shared-detail">Email address shared</span>
+              <Bubble>
+                Alex Chen.<span className="cb-shared-detail">Email address shared</span>
               </Bubble>
             </div>
           </div>
           <div
-            className="cr-capture-record"
-            aria-label="Daniel’s contact, enquiry and configured follow-up in Zapla"
+            className="cb-record"
+            aria-label="Alex’s contact, original enquiry and configured follow-up"
           >
-            <div className="cr-capture-brand">
+            <div className="cb-record-header">
               <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="88" height="30" />
               <span>Website enquiry</span>
             </div>
-            <div className="cr-capture-body">
-              <div className="cr-captured-person">
-                <Avatar cell={5} />
-                <div>
-                  <h3>Daniel</h3>
-                  <p>Email captured</p>
-                </div>
+            <dl className="cb-record-fields">
+              <div>
+                <dt>Name</dt>
+                <dd>Alex Chen</dd>
               </div>
-              <div className="cr-captured-stage">
-                <span>Pipeline stage</span>
-                <strong>New enquiry</strong>
+              <div>
+                <dt>Email</dt>
+                <dd>Captured</dd>
               </div>
-              <div className="cr-captured-context">
-                <span>From the conversation</span>
-                <p>Home. Ideally next week.</p>
+              <div>
+                <dt>Pipeline stage</dt>
+                <dd>New enquiry</dd>
               </div>
-              <div className="cr-captured-email">
-                <span>Configured acknowledgement email</span>
-                <p>Thanks for your enquiry, Daniel.</p>
+              <div>
+                <dt>From the conversation</dt>
+                <dd>“New cabinets and worktops. Next month.”</dd>
               </div>
+            </dl>
+            <div className="cb-acknowledgement">
+              <span>Configured acknowledgement</span>
+              <p>Thanks for your enquiry, Alex.</p>
             </div>
           </div>
         </div>
-        <div className="cr-scene-foot">
+        <div className="cb-capture-foot">
           <p>Choose the pipeline and follow-up during setup.</p>
-          <a className="cr-link" href="/features/automation-builder">
+          <a className="cb-link" href="/features/automation-builder">
             Explore Automation Builder
           </a>
         </div>
@@ -193,58 +133,47 @@ function EnquiryRecord() {
 
 function Booking() {
   return (
-    <section
-      className="cr-section cr-booking"
-      id="chatbot-booking"
-      aria-labelledby="chatbot-booking-title"
-    >
-      <div className="cr-wrap">
-        <header className="cr-section-intro">
-          <h2 id="chatbot-booking-title">Book while your team’s busy.</h2>
-          <p>Offer an available time and create the appointment once the customer agrees.</p>
-        </header>
-        <div className="cr-booking-layout">
-          <img
-            className="cr-care-photo"
-            src="/concept/features/chatbot-clinic-care-20261026.webp"
-            alt="A physiotherapist assessing a patient’s ankle while the chatbot handles another enquiry"
-            width="1536"
-            height="1024"
-            loading="lazy"
-          />
-          <div className="cr-booking-proof">
-            <div
-              className="cr-booking-widget"
-              aria-label="Mia agrees and supplies her details before the appointment is booked"
-            >
-              <ChatHeader />
-              <div className="cr-thread">
-                <Bubble ai>
-                  Friday at 5 pm is available for a first visit. Shall I book it? Your name and
-                  mobile?
-                </Bubble>
-                <Bubble>
-                  Yes, please. Mia Thompson.<span className="cr-shared-detail">04•• ••• ••8</span>
-                </Bubble>
-              </div>
-              <div className="cr-booking-result">
-                <p>Appointment booked</p>
-                <div>
-                  <strong>
-                    Friday<span>5 pm</span>
-                  </strong>
-                  <h3>Initial physiotherapy</h3>
-                </div>
+    <section className="cb-section cb-booking" aria-labelledby="chatbot-booking-title">
+      <div className="cb-wrap cb-booking-layout">
+        <div className="cb-booking-copy">
+          <h2 id="chatbot-booking-title">Book while they’re interested.</h2>
+          <p>Offer an available time and create the appointment once the visitor agrees.</p>
+          <div className="cb-booking-agreement" aria-label="Alex agrees to the offered assessment">
+            <Bubble ai>Friday at 2 pm is available for an assessment. Shall I book it?</Bubble>
+            <Bubble>Yes, please.</Bubble>
+          </div>
+          <a className="cb-link" href="/features/calendars-bookings">
+            Explore Calendars &amp; Bookings
+          </a>
+          <p className="cb-calendar-scope">
+            You choose the calendars and booking options it can use.
+          </p>
+        </div>
+        <div
+          className="cb-calendar"
+          aria-label="Alex Chen’s agreed on-site assessment, booked for Friday at 2 pm"
+        >
+          <p className="cb-calendar-name">On-site assessments</p>
+          <h3>Friday</h3>
+          <div className="cb-calendar-times">
+            <div className="cb-calendar-row">
+              <span>1 pm</span>
+              <div />
+            </div>
+            <div className="cb-calendar-row cb-booked-row">
+              <span>2 pm</span>
+              <div className="cb-appointment">
+                <strong>On-site assessment</strong>
+                <span>Alex Chen</span>
               </div>
             </div>
-            <a className="cr-link" href="/features/calendars-bookings">
-              Explore Calendars &amp; Bookings
-            </a>
+            <div className="cb-calendar-row">
+              <span>3 pm</span>
+              <div />
+            </div>
           </div>
+          <p className="cb-booked-label">Appointment booked</p>
         </div>
-        <p className="cr-calendar-scope">
-          You choose the calendars and booking options it can use.
-        </p>
       </div>
     </section>
   );
@@ -252,42 +181,31 @@ function Booking() {
 
 function BusinessAnswers() {
   return (
-    <section className="cr-section cr-control" aria-labelledby="chatbot-control-title">
-      <div className="cr-wrap cr-control-layout">
-        <div className="cr-control-copy">
-          <h2 id="chatbot-control-title">Useful answers. Clear limits.</h2>
+    <section className="cb-section cb-answers" aria-labelledby="chatbot-answers-title">
+      <div className="cb-wrap cb-answers-layout">
+        <div className="cb-answer-visual">
+          <img
+            className="cb-answer-image"
+            src="/concept/features/chatbot-answer-review-20261027.webp"
+            alt="A member of the design team reviewing project materials"
+            width="1536"
+            height="1024"
+            loading="lazy"
+          />
+          <div className="cb-answer-exchange" aria-label="An unusual request is passed to the team">
+            <Bubble>Could you remove a structural wall?</Bubble>
+            <Bubble ai>That needs a site assessment. I’ll pass your question to our team.</Bubble>
+          </div>
+        </div>
+        <div className="cb-answer-copy">
+          <h2 id="chatbot-answers-title">Useful answers. Clear limits.</h2>
           <p>
-            Use your service information and booking rules. Pass unusual requests to your team with
-            the conversation.
+            Use your service information for routine questions. Bring your team into the exceptions.
           </p>
-          <a className="cr-link" href="/features/unified-inbox">
+          <p className="cb-knowledge-sources">Website pages, documents and written instructions.</p>
+          <a className="cb-link" href="/features/unified-inbox">
             Explore Unified Inbox
           </a>
-        </div>
-        <div
-          className="cr-knowledge-scene"
-          aria-label="The chatbot answers using the practice’s appointment guide"
-        >
-          <div className="cr-source-guide">
-            <h3>Appointment guide</h3>
-            <dl>
-              <div>
-                <dt>New patients</dt>
-                <dd>Initial appointment</dd>
-              </div>
-              <div>
-                <dt>Returning patients</dt>
-                <dd>Follow-up appointment</dd>
-              </div>
-            </dl>
-          </div>
-          <div className="cr-knowledge-chat">
-            <Bubble>Can I book a follow-up for my first visit?</Bubble>
-            <Bubble ai>
-              Choose an initial appointment for your first visit. Follow-ups are for returning
-              patients.
-            </Bubble>
-          </div>
         </div>
       </div>
     </section>
@@ -327,25 +245,28 @@ const FAQS = [
 
 function SetupAndFaq() {
   return (
-    <section className="cr-section cr-setup" aria-labelledby="chatbot-setup-title">
-      <div className="cr-wrap cr-setup-layout">
-        <div className="cr-setup-copy">
-          <p className="cr-eyebrow">Guided Launch</p>
+    <section className="cb-section cb-setup" aria-labelledby="chatbot-setup-title">
+      <div className="cb-wrap cb-setup-layout">
+        <div className="cb-setup-copy">
+          <p className="cb-eyebrow">Guided Launch</p>
           <h2 id="chatbot-setup-title">
             Set up with you.
             <br />
             Tested before launch.
           </h2>
-          <p>We help add the widget, prepare your answers and agree the actions it can take.</p>
+          <p>
+            We help add the chatbot, prepare its business information and agree the actions it can
+            take.
+          </p>
           <Cta>Talk through your setup</Cta>
-          <p className="cr-setup-scope">
+          <p className="cb-setup-scope">
             Guided Launch is separately priced for a new standard setup.
           </p>
-          <a className="cr-link" href="/Pricing-v3">
+          <a className="cb-link" href="/Pricing-v3">
             Plans and setup
           </a>
         </div>
-        <div className="cr-faq" aria-label="Practical chatbot questions">
+        <div className="cb-faq" aria-label="Practical chatbot questions">
           {FAQS.map(([question, answer]) => (
             <details key={question}>
               <summary>
@@ -369,14 +290,14 @@ export function AIChatbotPage() {
       <Booking />
       <BusinessAnswers />
       <SetupAndFaq />
-      <section className="cr-final">
-        <div className="cr-wrap">
-          <div className="cr-final-petal">
+      <section className="cb-final">
+        <div className="cb-wrap">
+          <div className="cb-final-petal">
             <ZaplaPetal size={34} />
           </div>
-          <p className="cr-eyebrow">See it around your business</p>
+          <p className="cb-eyebrow">See it around your business</p>
           <h2>
-            See how Zapla would <br className="cr-desktop-break" />
+            See how Zapla would <br className="cb-desktop-break" />
             handle your enquiries.
           </h2>
           <p>
