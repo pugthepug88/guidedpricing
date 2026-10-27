@@ -1,14 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import {
-  ArrowRight,
-  Check,
-  ChevronDown,
-  Mail,
-  MessageSquare,
-  Mic,
-  MonitorUp,
-  Video,
-} from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Mic, MonitorUp, Video } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/calendars-bookings.css";
@@ -487,74 +478,80 @@ function MeetingRoomScene() {
   );
 }
 
-/** The booking and both configured messages stay visible at a glance. */
+/** One customer's messages, with a separately triggered no-show follow-up. */
 function BookingAutomations({ day, time }: { day: number; time: string | null }) {
   return (
     <div className="cal-automation" id="booking-automations" aria-labelledby="cal-automation-title">
       <div className="cal-automation-copy">
         <h2 id="cal-automation-title">
-          Confirm bookings.
+          Confirm. Remind.
           <br />
-          Send reminders.
+          Help them rebook.
         </h2>
         <p>
-          When a customer books, send their confirmation automatically. Follow with a reminder
-          before the appointment, using the timing and messages you choose.
+          Send confirmations and reminders by email or SMS. When your team marks an appointment as
+          missed, follow up with a link to book again.
         </p>
         <a className="cal-text-link" href="/features/automation-builder">
           Explore Automation Builder <ArrowRight size={17} aria-hidden="true" />
         </a>
       </div>
       <div
-        className="cal-message-sequence"
+        className="cal-phone-scene"
         aria-label={
           time
-            ? "Emma’s booking triggers a confirmation email, followed by an SMS one day before"
+            ? "Emma’s phone: booking confirmation, reminder and a follow-up if marked as missed"
             : "Choose a time to see the booking automation"
         }
       >
-        {time ? (
-          <>
-            <div className="cal-message-booking">
-              <Avatar cell={9} />
+        <div className="cal-message-phone">
+          <div className="cal-phone-screen">
+            <span className="cal-phone-speaker" aria-hidden="true" />
+            <div className="cal-phone-heading">
+              <Avatar />
               <div>
-                <h3>Emma books a consultation.</h3>
-                <p>
-                  {dateLabel(day)} · {time} · Sydney
-                </p>
+                <h3>Alex Chen</h3>
+                <p>Project consultation</p>
               </div>
             </div>
-            <ol className="cal-message-delivery" aria-label="Messages sent after Emma’s booking">
-              <li className="cal-message-email">
-                <h3>
-                  When booked
-                  <span>
-                    <Mail size={16} aria-hidden="true" />
-                    Confirmation email
-                  </span>
-                </h3>
-                <p className="cal-message-body">Your consultation with Alex is confirmed.</p>
-              </li>
-              <li className="cal-message-sms">
-                <h3>
-                  1 day before
-                  <span>
-                    <MessageSquare size={16} aria-hidden="true" />
-                    Reminder SMS
-                  </span>
-                </h3>
-                <p className="cal-message-body cal-message-bubble">
-                  Hi Emma, your consultation is tomorrow at {time}.
-                </p>
-              </li>
-            </ol>
-          </>
-        ) : (
-          <p className="cal-message-pending">
-            <a href="#booking-example">Choose a booking time</a> to see Emma’s confirmation and
-            reminder.
-          </p>
-        )}
+            {time ? (
+              <ol className="cal-phone-thread" aria-label="Messages Emma receives">
+                <li>
+                  <h4>When booked</h4>
+                  <p className="cal-phone-bubble">
+                    You’re booked, Emma.
+                    <strong>
+                      {dateLabel(day)} · {time}
+                    </strong>
+                  </p>
+                </li>
+                <li>
+                  <h4>1 day before</h4>
+                  <p className="cal-phone-bubble">
+                    A reminder about your consultation tomorrow at {time}. See you then.
+                  </p>
+                </li>
+                <li className="cal-phone-rebook">
+                  <h4>If marked as missed</h4>
+                  <div className="cal-phone-bubble">
+                    <p>Sorry we missed you, Emma. Find another time that suits you.</p>
+                    <a
+                      href="#booking-example"
+                      aria-label="Choose another time in the booking demonstration"
+                    >
+                      Choose another time <ArrowRight size={16} aria-hidden="true" />
+                    </a>
+                  </div>
+                </li>
+              </ol>
+            ) : (
+              <p className="cal-message-pending">
+                <a href="#booking-example">Choose a booking time</a> to see Emma’s messages.
+              </p>
+            )}
+            <span className="cal-phone-home" aria-hidden="true" />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -614,8 +611,8 @@ const faqs = [
     "Yes. The booking page detects the visitor’s time zone and lets them change it, so they can choose a time in their own time zone.",
   ],
   [
-    "Can bookings trigger confirmations and reminders?",
-    "Yes. Connect a booking event to an automation that sends a confirmation email and reminders before the appointment. Choose the calendar, booking status, messages and timing during setup. Message usage is charged separately.",
+    "Can I automate confirmations, reminders and missed-appointment follow-ups?",
+    "Yes. Send confirmation and reminder messages using a configured booking automation. When your team marks an appointment as missed, a status-change automation can send a link to book again. Choose the calendar, booking statuses, messages and timing during setup. Message usage is charged separately.",
   ],
   [
     "How do changes and cancellations work?",

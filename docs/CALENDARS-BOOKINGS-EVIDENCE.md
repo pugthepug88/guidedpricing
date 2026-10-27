@@ -6,6 +6,14 @@ This is a documentation review, not live product acceptance testing. No appointm
 
 ## Booking automations and information sources, 27 October 2026
 
+### Superseding phone and missed-appointment follow-up
+
+The owner requested a phone-based alternative and confirmed that missed appointments can receive a rebooking message. The existing saved live-product audit, `Zapla-Automation-Knowledge-2026-10-26.md`, was resolved and read again, specifically lines 150–174. It records an **Appointment Status Changed** trigger with calendar and target-status filters; the inspected account included a **No Show** status among its account-defined choices. This supports a separately configured status-change → Send SMS follow-up containing the business's public booking link. It does not establish automatic attendance detection or a universal fixed status catalogue. This is recorded UI configuration evidence, not a new workflow-execution or message-delivery test.
+
+The phone shows SMS confirmation, a reminder and a conditional invitation **If marked as missed**. The business supplies its messages and calendar link. Rebooking means inviting the customer back to choose a time; it does not promise a native customer link that edits the original appointment, queued-reminder recalculation or cancellation. The illustration's link navigates to the existing local booking demonstration and performs no live service action. Its selected date/time and cleared-selection safeguard remain.
+
+### Earlier two-message sequence
+
 The owner reopened the removed availability space and approved a compact booking-to-message explanation. The later live Automation audit in `AUTOMATION-BUILDER-EVIDENCE.md` supersedes this document's original help-only uncertainty about configured confirmation messages. That audit inspected Appointment Booked filtered to a chosen Confirmed status, Send Email, Wait Before Calendar Booking and Send SMS, including a one-day offset. These are inspected configuration capabilities, not a successful message-delivery test or universal calendar default.
 
 The current scene therefore shows one configured calendar/status event sending a confirmation email, followed by an SMS one day before the appointment. Message copy and timing are business choices. The selected illustration date/time updates the booking, email and reminder together; clearing the time shows a pending explanation. No real booking, automation or message service is called. No automatic cancellation, reminder recalculation after rescheduling, timezone guarantee or self-service reschedule link is established.

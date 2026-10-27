@@ -256,3 +256,8 @@ The owner rejected the oversized populated board and specialist coffee-machine f
 ## Ticketing complete visual rejection, 27 October 2026
 
 The owner rejected the entire compact-board composition, including its visual quality. The prior Ticketing hierarchy rule is historical rather than approval of that appearance. Rebuild the visual system and scene roles, not just spacing or card scale. For this revision use one focused request/list, fresh wide staff photography with compact linked context, and a distinct lower custom-stage/detail composition. Keep real product meaning, legible supporting labels and the original shared brand; a successful build is not evidence of visual acceptance.
+
+
+## Calendar phone conversation trial, 27 October 2026
+
+The owner explicitly approved trying a compact phone in place of the booking-message card and reserved the option to revert. Use one recognisable device, readable incoming messages and a visibly conditional missed-appointment invitation; all content is present immediately. A restrained physical rim, speaker and home indicator explain the customer-facing phone surface. Avoid fake battery/time indicators, composer controls, delivery ticks, extra feature panels or timed message reveals. Preserve the saved two-row version as the rollback baseline.
