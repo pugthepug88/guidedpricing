@@ -1246,9 +1246,6 @@
   .wff-split-node {
     width: 160px;
   }
-  .wff-split-node p br {
-    display: none;
-  }
   .wff-funnel-variants {
     width: min(100%, 670px);
     grid-template-columns: 1fr 1fr;

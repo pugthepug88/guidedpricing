@@ -46,11 +46,6 @@ function BookingCalendar() {
   return (
     <div className="bk-calendar-slot" data-booking-embed="pending">
       <div className="bk-calendar-fallback">
-        <h3>Arrange your call by email.</h3>
-        <p>
-          Tell us what you’d like to discuss and a few suitable times. We’ll confirm a time with
-          you.
-        </p>
         <a
           className="bk-email-button"
           href={`mailto:hello@zapla.io?subject=Arrange%20a%20Zapla%20call&body=${emailBody}`}
@@ -58,6 +53,7 @@ function BookingCalendar() {
           Email to arrange a call <ArrowRight size={16} aria-hidden="true" />
         </a>
         <span className="bk-email-address">hello@zapla.io</span>
+        <p>We’ll confirm a time with you.</p>
       </div>
     </div>
   );
@@ -94,8 +90,8 @@ function BookingPage() {
 
         <section className="bk-booking-panel" aria-labelledby="choose-time">
           <div className="bk-panel-heading">
-            <h2 id="choose-time">Arrange a time that suits you.</h2>
-            <p>A conversation about your current setup and where to go next.</p>
+            <h2 id="choose-time">Arrange your call by email.</h2>
+            <p>Send a few suitable times and what you’d like to discuss.</p>
           </div>
           <BookingCalendar />
           <p className="bk-calendar-note">

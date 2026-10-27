@@ -995,7 +995,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
   align-items: center;
   column-gap: 88px;
-  min-height: 510px;
+  min-height: 530px;
   padding: 38px 48px 28px;
   scroll-margin-top: 80px;
 }
@@ -1004,6 +1004,7 @@
   min-width: 0;
 }
 .ab-ai-copy h3 {
+  min-height: 2.3em;
   max-width: 470px;
   margin-bottom: 22px;
   color: #f1f3f8;
@@ -1046,15 +1047,18 @@
 .ab-ai-prompt blockquote {
   position: relative;
   margin: 0;
-  min-height: 92px;
+  min-height: 112px;
   color: #e3e8f4;
   font-size: 17px;
   line-height: 1.65;
   overflow-wrap: anywhere;
 }
 .ab-ai-prompt-reserve {
-  display: block;
+  display: grid;
   visibility: hidden;
+}
+.ab-ai-prompt-reserve > span {
+  grid-area: 1 / 1;
 }
 .ab-ai-prompt-typed {
   position: absolute;
@@ -1087,20 +1091,21 @@
 }
 .ab-ai-toolbar {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
   gap: 3px 18px;
   margin-top: 22px;
 }
-.ab-ai-watch {
+.ab-ai-send {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 9px;
   min-height: 44px;
-  padding: 11px 16px;
+  width: 44px;
+  padding: 0;
   border: 1px solid #6c8fff;
-  border-radius: 9px;
+  border-radius: 50%;
   background: #2563ff;
   color: #fff;
   font: inherit;
@@ -1110,26 +1115,34 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
-.ab-ai-watch:hover {
+.ab-ai-send:hover {
   background: #3e74ff;
 }
-.ab-ai-watch:focus-visible,
-.ab-ai-other:focus-visible,
+.ab-ai-send:focus-visible,
+.ab-ai-pause:focus-visible,
 .ab-ai-choices button:focus-visible {
   outline: 2px solid #c2d0ff;
   outline-offset: 4px;
 }
-.ab-ai-other {
+.ab-ai-pause {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
+  gap: 7px;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
   color: #c1c9dd;
+  font: inherit;
   font-size: 12px;
   line-height: 1.5;
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.ab-ai-pause:hover {
+  color: #fff;
 }
 .zapla-automation .ab-ai-scope {
+  min-height: 4.95em;
   max-width: 470px;
   margin-top: 18px;
   color: #b5bed2;
@@ -1137,6 +1150,7 @@
   line-height: 1.65;
 }
 .zapla-automation .ab-ai-review {
+  min-height: 3.3em;
   max-width: 470px;
   margin-top: 14px;
   color: #9faabe;
@@ -1144,11 +1158,16 @@
   line-height: 1.65;
 }
 .ab-ai-workflow {
+  min-height: 464px;
   width: 100%;
   max-width: 316px;
   margin-inline: auto !important;
 }
 .ab-ai-workflow figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   min-height: 20px;
   margin-bottom: 16px;
   color: #b7c1d5;
@@ -1156,6 +1175,40 @@
   font-weight: 500;
   line-height: 1.5;
   text-align: center;
+}
+.ab-ai-thinking {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.ab-ai-thinking[data-thinking="true"] {
+  animation: ab-ai-thinking 2.2s linear infinite;
+  animation-play-state: paused;
+}
+.ab-ai-demo[data-running="true"] .ab-ai-thinking[data-thinking="true"] {
+  animation-play-state: running;
+}
+@keyframes ab-ai-thinking {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.ab-ai-demo[data-running="false"] .ab-ai-cursor {
+  animation-play-state: paused;
+}
+.ab-ai-copy,
+.ab-ai-prompt blockquote,
+.ab-ai-workflow {
+  transition: opacity 0.22s ease;
+}
+.ab-ai-demo[data-phase="transition"] .ab-ai-copy,
+.ab-ai-demo[data-phase="transition"] .ab-ai-prompt blockquote,
+.ab-ai-demo[data-phase="transition"] .ab-ai-workflow {
+  opacity: 0;
+}
+.ab-ai-demo[data-paused="true"] .ab-ai-copy,
+.ab-ai-demo[data-paused="true"] .ab-ai-prompt blockquote,
+.ab-ai-demo[data-paused="true"] .ab-ai-workflow {
+  transition: none;
 }
 .ab-ai-workflow ol {
   list-style: none;
@@ -1379,10 +1432,11 @@
     margin-inline: auto;
   }
   .ab-ai-workflow {
+    min-height: 480px;
     max-width: 316px;
   }
   .ab-ai-prompt blockquote {
-    min-height: 80px;
+    min-height: 112px;
   }
 }
 @media (max-width: 640px) {
@@ -1417,20 +1471,12 @@
     font-size: 12px;
   }
   .ab-ai-prompt blockquote {
-    min-height: 100px;
+    min-height: 9.9em;
     font-size: 15px;
     line-height: 1.65;
   }
   .ab-ai-toolbar {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2px;
     margin-top: 18px;
-  }
-  .ab-ai-other {
-    justify-content: center;
-    min-height: 40px;
-    font-size: 12px;
   }
   .ab-ai-node strong {
     font-size: 13px;
@@ -1496,6 +1542,9 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .ab-ai-toolbar {
+    display: none;
+  }
   .ab-ai-node,
   .ab-ai-connection {
     opacity: 1 !important;

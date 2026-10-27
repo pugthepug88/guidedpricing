@@ -860,11 +860,7 @@ function FunnelFlow() {
         <small>Visitors to your offer</small>
         <span>A/B</span>
         <strong>Split test</strong>
-        <p>
-          One visitor.
-          <br />
-          One version.
-        </p>
+        <p>One visitor. One version.</p>
       </div>
       <div className="wff-funnel-variants">
         <FunnelPage variant="A" />
@@ -1203,7 +1199,7 @@ export function SiteTracking() {
         <div className="wff-tracking-content">
           <div className="wff-tracking-scope">
             <strong>Courtyard / Home</strong>
-            <span>Example session</span>
+            <span>Page activity</span>
           </div>
           <dl className="wff-tracking-stats">
             <div>

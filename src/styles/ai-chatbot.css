@@ -637,11 +637,6 @@
   font-size: 14px;
   line-height: 1.6;
 }
-.zapla-chatbot .cr-knowledge-source {
-  margin: 5px 0 10px;
-  font-size: 11px;
-  line-height: 1.7;
-}
 
 @media (max-width: 1099px) {
   .cr-enquiry-stage {

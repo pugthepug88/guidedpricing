@@ -216,6 +216,16 @@
 .bk-email-button:hover {
   background: #164fe0;
 }
+.bk-calendar-slot[data-booking-embed="pending"] {
+  min-height: 0;
+  align-content: start;
+}
+.bk-calendar-slot[data-booking-embed="pending"] .bk-calendar-fallback {
+  padding-block: 0;
+}
+.bk-calendar-slot[data-booking-embed="pending"] .bk-email-button {
+  margin-top: 0;
+}
 .bk-email-address {
   margin-top: 14px;
   font-size: 12px;

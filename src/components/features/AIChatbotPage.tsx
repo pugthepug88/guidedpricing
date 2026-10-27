@@ -162,7 +162,7 @@ function EnquiryFlow() {
     let previous = performance.now();
     let frame = 0;
     const tick = (now: number) => {
-      elapsed.current += Math.min(now - previous, 100);
+      elapsed.current += now - previous;
       previous = now;
       const next = Math.min(5, Math.floor(elapsed.current / 2400));
       setStep(next);
@@ -411,7 +411,6 @@ function BusinessAnswers() {
                 <dd>Book a follow-up appointment</dd>
               </div>
             </dl>
-            <p className="cr-knowledge-source">From your website, documents and instructions.</p>
           </div>
           <div
             className="cr-answer-preview"
@@ -423,7 +422,7 @@ function BusinessAnswers() {
               <Bubble>Can I book a follow-up if I haven’t visited before?</Bubble>
               <Bubble ai>
                 For your first visit, choose an initial appointment. Follow-ups are for returning
-                patients. Would you like help finding a time?
+                patients.
               </Bubble>
             </div>
           </div>
