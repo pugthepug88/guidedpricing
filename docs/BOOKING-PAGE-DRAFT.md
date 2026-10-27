@@ -33,3 +33,7 @@ These are distinct reviews by the implementing agent, not independent people or 
 ## Status
 
 Draft implementation only. Production build, TypeScript and scoped new-route lint are checked separately. Full rendered desktop/mobile/keyboard inspection is pending: the managed environment's required control-browser skill is unavailable, so no alternative browser runtime was installed or preview server improvised. Do not call the design visually verified or merge it as a working booking replacement yet. Calendar integration awaits Andrew's supplied code.
+
+## Email arrangement refinement, 27 October 2026
+
+Approved alongside the Chatbot review follow-up. The supplied calendar embed is still absent. Replace “Online scheduling is coming soon” with an honest email arrangement action and a prefilled draft asking for business, discussion topic and suitable times/timezone. The buyer reviews and sends the email themselves; visiting the route sends nothing and reserves no slot. Change the panel heading from choosing to arranging a time. Preserve the existing agenda, /booking route, shared shell and pending embed replacement point. This improves the existing fallback; it does not complete or claim live scheduling.

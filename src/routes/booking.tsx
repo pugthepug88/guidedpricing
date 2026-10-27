@@ -38,16 +38,22 @@ const AGENDA = [
   },
 ] as const;
 
-/** Replace this fallback with the supplied calendar embed, not a second enquiry form. */
+/** Replace this working email arrangement path when the actual calendar embed is supplied. */
 function BookingCalendar() {
+  const emailBody = encodeURIComponent(
+    "Hi Zapla,\n\nI’d like to arrange a call.\n\nMy business:\nWhat I’d like help with:\nTimes that suit me (including timezone):\n\nThanks",
+  );
   return (
     <div className="bk-calendar-slot" data-booking-embed="pending">
       <div className="bk-calendar-fallback">
-        <h3>Online scheduling is coming soon.</h3>
-        <p>For now, email us and we’ll find a time that works for you.</p>
+        <h3>Arrange your call by email.</h3>
+        <p>
+          Tell us what you’d like to discuss and a few suitable times. We’ll confirm a time with
+          you.
+        </p>
         <a
           className="bk-email-button"
-          href="mailto:hello@zapla.io?subject=Arrange%20a%20Zapla%20call"
+          href={`mailto:hello@zapla.io?subject=Arrange%20a%20Zapla%20call&body=${emailBody}`}
         >
           Email to arrange a call <ArrowRight size={16} aria-hidden="true" />
         </a>
@@ -88,7 +94,7 @@ function BookingPage() {
 
         <section className="bk-booking-panel" aria-labelledby="choose-time">
           <div className="bk-panel-heading">
-            <h2 id="choose-time">Find a time that suits you.</h2>
+            <h2 id="choose-time">Arrange a time that suits you.</h2>
             <p>A conversation about your current setup and where to go next.</p>
           </div>
           <BookingCalendar />
