@@ -137,7 +137,7 @@
   line-height: 1.65;
 }
 .zapla-phone .bp-call-surround {
-  padding: 28px 28px 19px;
+  padding: 26px;
   border-radius: 30px;
   border: 1px solid #c9cecf;
   background: linear-gradient(125deg, #e9ebeb, #d6dbdd 52%, #c3cbcf);
@@ -206,13 +206,6 @@
   font-size: 14px;
   line-height: 1.7;
   margin-top: 8px;
-}
-.zapla-phone .bp-scene-caption {
-  font-size: 11px;
-  line-height: 1.6;
-  text-align: center;
-  margin-top: 17px;
-  color: #515b60;
 }
 .zapla-phone #power-dialler {
   scroll-margin-top: 80px;
@@ -314,12 +307,6 @@
   color: #335a52;
   font-size: 10px;
 }
-.zapla-phone .bp-list-source {
-  padding: 25px 10px 0;
-  font-size: 12px;
-  line-height: 1.75;
-  max-width: 320px;
-}
 .zapla-phone .bp-current-work {
   padding: 30px;
   min-width: 0;
@@ -351,26 +338,8 @@
   font-size: 11px;
   color: #35584d;
 }
-.zapla-phone .bp-person-action {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin: 25px 0 20px;
-}
-.zapla-phone .bp-person-action .bp-portrait {
-  width: 25px;
-  height: 25px;
-  flex-basis: 25px;
-}
-.zapla-phone .bp-person-action p {
-  font-size: 12px;
-  color: #626b69;
-}
-.zapla-phone .bp-person-action strong {
-  color: #273e37;
-  font-weight: 650;
-}
 .zapla-phone .bp-saved-note {
+  margin-top: 26px;
   padding: 21px 0 24px;
   border-block: 1px solid var(--bp-line);
 }
@@ -480,66 +449,25 @@
 .zapla-phone .bp-incoming-section {
   padding-block: 10px 95px;
 }
-.zapla-phone .bp-section-intro {
-  max-width: 800px;
-  margin-bottom: 38px;
-}
 .zapla-phone .bp-phone-tools {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 45px;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 32px;
 }
 .zapla-phone .bp-phone-tools > article {
-  padding: 28px 30px;
+  padding: 36px;
   background: #fff;
   border: 1px solid var(--bp-line);
   border-radius: 20px;
   min-width: 0;
 }
-.zapla-phone .bp-tool-title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.zapla-phone .bp-tool-title > svg {
-  flex-shrink: 0;
-  color: #53645e;
-}
-.zapla-phone .bp-tool-title h3 {
-  font-size: 26px;
+.zapla-phone .bp-phone-tools h2 {
+  font-size: clamp(30px, 2.8vw, 39px);
 }
 .zapla-phone .bp-phone-tools article > p {
   margin-top: 17px;
   font-size: 14px;
   line-height: 1.8;
-}
-.zapla-phone .bp-assignment {
-  margin-top: 23px;
-  padding-top: 20px;
-  border-top: 1px solid var(--bp-line);
-}
-.zapla-phone .bp-assignment > span {
-  font-size: 11px;
-  color: #6e7774;
-}
-.zapla-phone .bp-assignment > div {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-top: 12px;
-  flex-wrap: wrap;
-}
-.zapla-phone .bp-assignment .bp-portrait {
-  width: 32px;
-  height: 32px;
-  flex-basis: 32px;
-}
-.zapla-phone .bp-assignment strong {
-  font-size: 12px;
-  font-weight: 600;
-}
-.zapla-phone .bp-assignment .bp-portrait:nth-of-type(2) {
-  margin-left: 12px;
 }
 .zapla-phone .bp-history-record {
   margin-top: 24px;
@@ -567,6 +495,85 @@
 .zapla-phone .bp-record-assets span + span {
   padding-left: 16px;
   border-left: 1px solid var(--bp-line);
+}
+.zapla-phone .bp-quick-actions {
+  margin: 25px 0 0;
+  padding: 0;
+  border-block: 1px solid var(--bp-line);
+}
+.zapla-phone .bp-quick-actions > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 18px;
+  padding: 16px 0;
+}
+.zapla-phone .bp-quick-actions > div + div {
+  border-top: 1px solid var(--bp-line);
+}
+.zapla-phone .bp-quick-actions dt {
+  font-size: 12px;
+  color: var(--bp-muted);
+}
+.zapla-phone .bp-quick-actions dd {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+.zapla-phone .bp-market-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 22px;
+  list-style: none;
+  padding: 0;
+  margin: 25px 0 0;
+}
+.zapla-phone .bp-market-list li {
+  border-bottom: 1px solid var(--bp-line);
+  padding-block: 14px;
+  font-size: 15px;
+  font-weight: 550;
+}
+.zapla-phone .bp-phone-tools .bp-market-terms {
+  font-size: 12px;
+  line-height: 1.65;
+  margin-top: 20px;
+}
+.zapla-phone .bp-phone-tools > .bp-history {
+  background: linear-gradient(130deg, #fff, #f1f3f4);
+}
+.zapla-phone .bp-history-record .bp-portrait {
+  width: 34px;
+  height: 34px;
+  flex-basis: 34px;
+  margin-right: 4px;
+}
+.zapla-phone .bp-recording-file {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  padding: 17px 0;
+  margin-top: 18px;
+  border-block: 1px solid var(--bp-line);
+}
+.zapla-phone .bp-recording-file svg:last-child {
+  margin-left: auto;
+  color: #35584d;
+}
+.zapla-phone .bp-transcript {
+  padding-top: 18px;
+}
+.zapla-phone .bp-transcript > span {
+  font-size: 11px;
+  color: var(--bp-muted);
+}
+.zapla-phone .bp-transcript p {
+  font-size: 16px;
+  color: #24352f;
+  line-height: 1.65;
+  margin-top: 9px;
+  max-width: 400px;
 }
 .zapla-phone .bp-connected-links {
   display: grid;
@@ -763,9 +770,6 @@
   .zapla-phone .bp-call-context {
     padding: 20px;
   }
-  .zapla-phone .bp-scene-caption {
-    font-size: 10px;
-  }
   .zapla-phone .bp-power-stage {
     width: calc(100% - 32px);
     padding: 36px 24px 28px;
@@ -841,23 +845,6 @@
   }
   .zapla-phone .bp-phone-tools > article {
     padding: 24px;
-  }
-  .zapla-phone .bp-tool-title {
-    align-items: start;
-  }
-  .zapla-phone .bp-tool-title h3 {
-    font-size: 24px;
-  }
-  .zapla-phone .bp-tool-title > svg {
-    margin-top: 3px;
-  }
-  .zapla-phone .bp-assignment > div {
-    display: grid;
-    grid-template-columns: 32px 1fr;
-    gap: 10px;
-  }
-  .zapla-phone .bp-assignment .bp-portrait:nth-of-type(2) {
-    margin-left: 0;
   }
   .zapla-phone .bp-record-assets {
     gap: 9px;
@@ -942,9 +929,6 @@
   .zapla-phone .bp-call-context p {
     font-size: 14px;
   }
-  .zapla-phone .bp-scene-caption {
-    font-size: 11px;
-  }
   .zapla-phone .bp-power-section {
     padding-top: 12px;
   }
@@ -997,11 +981,6 @@
     height: 32px;
     flex-basis: 32px;
   }
-  .zapla-phone .bp-list-source {
-    font-size: 11px;
-    padding: 14px 5px 0;
-    max-width: none;
-  }
   .zapla-phone .bp-current-work {
     padding: 23px 19px;
   }
@@ -1019,13 +998,6 @@
   .zapla-phone .bp-completed {
     margin: 6px 0 0 55px;
     font-size: 11px;
-  }
-  .zapla-phone .bp-person-action {
-    align-items: start;
-    margin-top: 23px;
-  }
-  .zapla-phone .bp-person-action p {
-    font-size: 12px;
   }
   .zapla-phone .bp-saved-note p {
     font-size: 15px;
@@ -1086,9 +1058,6 @@
   .zapla-phone .bp-incoming-section {
     padding-block: 0 62px;
   }
-  .zapla-phone .bp-section-intro {
-    margin-bottom: 27px;
-  }
   .zapla-phone .bp-phone-tools {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -1096,17 +1065,8 @@
   .zapla-phone .bp-phone-tools > article {
     padding: 25px 23px;
   }
-  .zapla-phone .bp-tool-title h3 {
-    font-size: 27px;
-  }
   .zapla-phone .bp-phone-tools article > p {
     font-size: 15px;
-  }
-  .zapla-phone .bp-assignment > div {
-    display: flex;
-  }
-  .zapla-phone .bp-assignment .bp-portrait:nth-of-type(2) {
-    margin-left: 8px;
   }
   .zapla-phone .bp-connected-links {
     grid-template-columns: 1fr;
@@ -1170,13 +1130,6 @@
   }
   .zapla-phone .bp-current-customer h3 {
     font-size: 23px;
-  }
-  .zapla-phone .bp-assignment > div {
-    display: grid;
-    grid-template-columns: 32px 1fr;
-  }
-  .zapla-phone .bp-assignment .bp-portrait:nth-of-type(2) {
-    margin-left: 0;
   }
   .zapla-phone .bp-record-assets {
     display: block;

@@ -1,4 +1,4 @@
-import { ArrowDownLeft, ArrowRight, ArrowUpRight, Check, Mic, Phone, Plus } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, Mic, Phone, Plus } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/business-phone.css";
@@ -67,10 +67,9 @@ function BrowserCall() {
         </div>
         <div className="bp-call-context">
           <span>Saved contact note</span>
-          <p>Kitchen lighting enquiry. Asked for a call to discuss pendant options.</p>
+          <p>Kitchen pendants. Requested a callback.</p>
         </div>
       </article>
-      <p className="bp-scene-caption">The customer, their notes and the call. Together in Zapla.</p>
     </div>
   );
 }
@@ -109,9 +108,6 @@ function PowerDialler() {
               </li>
             ))}
           </ul>
-          <p className="bp-list-source">
-            Select the contacts you want to call, then push them to Power Dialler.
-          </p>
         </div>
         <div className="bp-current-work">
           <div className="bp-current-customer">
@@ -124,20 +120,12 @@ function PowerDialler() {
               <Check size={15} aria-hidden="true" /> Call completed
             </span>
           </div>
-          <div className="bp-person-action">
-            <Portrait cell={13} />
-            <p>
-              Ben selects <strong>Call now</strong> and speaks with Mia.
-            </p>
-          </div>
           <div className="bp-saved-note">
             <div>
               <span>Contact note</span>
               <span>Saved by Ben Walker</span>
             </div>
-            <p>
-              Mia wants warm-white pendant options. I’ll email her a shortlist before she visits.
-            </p>
+            <p>Warm-white pendants. I’ll email Mia a shortlist.</p>
           </div>
           <div className="bp-next-contact">
             <div className="bp-next-identity">
@@ -148,8 +136,7 @@ function PowerDialler() {
               </div>
             </div>
             <p>
-              Ben chooses <strong>Next</strong>, <br />
-              then <strong>Call now</strong>.
+              Choose <strong>Next</strong>, then <strong>Call now</strong>.
             </p>
             <ArrowRight size={23} aria-hidden="true" />
           </div>
@@ -157,55 +144,58 @@ function PowerDialler() {
       </div>
       <div className="bp-manual-mode">
         <span>Click-to-call mode</span>
-        <p>You start each call and choose when to move on.</p>
+        <p>Call now → speak → save your note → Next.</p>
       </div>
     </article>
   );
 }
 
-function IncomingAndHistory() {
+function NumbersAndRecordings() {
   return (
     <div className="bp-phone-tools">
-      <article className="bp-number-team">
-        <div className="bp-tool-title">
-          <ArrowDownLeft size={20} aria-hidden="true" />
-          <h3>A number for your team.</h3>
-        </div>
-        <p>
-          Assign a phone number to selected people or make it account-wide. Set an optional caller
-          menu for incoming calls.
-        </p>
-        <div className="bp-assignment">
-          <span>Assigned users</span>
-          <div>
-            <Portrait cell={13} />
-            <strong>Ben Walker</strong>
-            <Portrait cell={8} />
-            <strong>Alex Chen</strong>
-          </div>
-        </div>
+      <article className="bp-number-markets">
+        <h2>Buy a business number.</h2>
+        <p>Choose a number for the markets you work in.</p>
+        <ul className="bp-market-list" aria-label="Phone number purchasing markets">
+          {[
+            "Australia",
+            "United Kingdom",
+            "United States",
+            "Canada",
+            "Singapore",
+            "Hong Kong",
+            "Germany",
+            "France",
+          ].map((market) => (
+            <li key={market}>{market}</li>
+          ))}
+        </ul>
+        <p className="bp-market-terms">Availability, local requirements and rates vary.</p>
       </article>
       <article className="bp-history">
-        <div className="bp-tool-title">
-          <Phone size={19} aria-hidden="true" />
-          <h3>A record to come back to.</h3>
-        </div>
-        <p>
-          Review call direction, duration and status in call history. When recording is enabled,
-          revisit available recordings and transcripts.
-        </p>
+        <h2>Record. Transcribe. Revisit.</h2>
+        <p>Enable recording and transcription to come back to what was said.</p>
         <div
           className="bp-history-record"
-          aria-label="An outgoing completed call with a recording and transcript available"
+          aria-label="Mia’s completed call with recording and transcription enabled"
         >
           <div>
-            <ArrowUpRight size={18} aria-hidden="true" />
-            <span>Outgoing call</span>
+            <Portrait />
+            <span>Mia Thompson</span>
             <strong>Completed</strong>
           </div>
           <div className="bp-record-assets">
-            <span>Recording available</span>
-            <span>Transcript available</span>
+            <span>Recording on</span>
+            <span>Transcription on</span>
+          </div>
+          <div className="bp-recording-file">
+            <Mic size={18} aria-hidden="true" />
+            <span>Call recording</span>
+            <Check size={16} aria-hidden="true" />
+          </div>
+          <div className="bp-transcript">
+            <span>Transcript · Mia</span>
+            <p>“Warm-white pendants would suit the kitchen. Could you email me the options?”</p>
           </div>
         </div>
       </article>
@@ -215,36 +205,28 @@ function IncomingAndHistory() {
 
 const FAQS = [
   [
-    "What do I need to make and receive calls?",
-    "Calling needs an active phone setup, an available number, a computer with a microphone and speakers or a headset, and a stable internet connection. We check browser permissions, number access and calling behaviour during setup. App and mobile calling requirements are confirmed for your team before activation.",
+    "What do I need for browser calling?",
+    "An active phone setup, a number, a computer with a microphone and speakers or headset, and reliable internet. We check permissions and calling requirements during setup.",
   ],
   [
-    "How do I add contacts to Power Dialler?",
-    "Select contacts in the CRM, using search or filters to find the people you need. Push the selected contacts to Power Dialler. In click-to-call mode, choose Call now for the current contact and use Next when you are ready to move on. Contacts need a phone number to call.",
+    "Does Power Dialler call automatically?",
+    "Click-to-call keeps Call now and Next in your hands. Optional Auto Dial advances and calls after a delay you set. You start or stop that sequence; your team still writes notes and decides the follow-up.",
   ],
   [
-    "Can Power Dialler advance automatically?",
-    "Yes. An optional Auto Dial mode has a configurable delay between calls. You choose that mode and start the sequence; after a call ends, it advances and starts the next call after the delay. Click-to-call mode keeps calling and progression manual. Auto Dial does not write your notes or decide the next customer action.",
+    "How are incoming calls handled?",
+    "Assign a number to selected people or make it account-wide. An optional caller menu can help direct incoming calls. We agree the arrangement during setup.",
   ],
   [
-    "What is saved after a call?",
-    "Call history shows details such as direction, duration and call status. A completed call status is not a record of what was agreed. Your team saves that in a contact note. Configured phone quick actions can also add a tag or run a chosen automation when a person selects them; a call ending does not itself promise a follow-up message.",
+    "Where do I find recordings and transcripts?",
+    "In Call History, alongside call details. Enable recording and transcription in your phone setup. Save agreed next steps separately in a contact note.",
   ],
   [
-    "Are recordings and transcripts included for every call?",
-    "Recording can be enabled or disabled for a phone number. Call history provides recordings and transcripts when they are available; they are not guaranteed for every call. Recording, transcription, storage and any associated charges are agreed as part of your setup.",
+    "Does Zapla support A2P / 10DLC?",
+    "Yes. Register your brand and campaign for business SMS using US local numbers. Carrier approval and separate registration and campaign fees apply. This is SMS setup, separate from voice calling.",
   ],
   [
-    "Can I keep my number or replace my current phone system?",
-    "Bring your current phone setup to the call. We’ll check the numbers, devices and call handling you need before recommending a change. Number availability, including Australian numbers, any transfer requirements and compatibility must be confirmed. A complete phone-system replacement or number port is not assumed.",
-  ],
-  [
-    "What does phone usage cost?",
-    "Phone numbers and call usage are charged separately from the software subscription. We confirm number costs, calling rates and any recording or transcription charges before activation. Guided Launch is required for a new standard plan and is priced separately.",
-  ],
-  [
-    "Is this the same as AI Receptionist?",
-    "Business Phone is for calls handled by people. AI Receptionist is the separate capability for AI-handled calls. Unified Inbox is your team’s shared messaging workspace. We agree how these fit your business during setup.",
+    "What costs are separate?",
+    "Phone numbers and call usage are separate from your subscription. We confirm rates and recording or transcription charges before activation. Guided Launch is required for a new standard plan and priced separately.",
   ],
 ];
 
@@ -261,8 +243,8 @@ export function BusinessPhonePage() {
               Keep the context.
             </h1>
             <p className="bp-lead">
-              Return a requested call. Talk through an open enquiry. Make and receive customer calls
-              from your browser, with contact notes close at hand.
+              Make and receive customer calls from your browser. Return enquiries with the
+              customer’s notes close at hand.
             </p>
             <div className="bp-hero-actions">
               <BookCall />
@@ -284,18 +266,17 @@ export function BusinessPhonePage() {
               <h2 id="bp-power-title">
                 Work through the list.
                 <br />
-                Give each call your attention.
+                One conversation at a time.
               </h2>
             </div>
             <p>
-              Bring selected CRM contacts into one calling list. Review who’s next, have the
-              conversation and save what was agreed before moving on.
+              Select CRM contacts and push them to Power Dialler. Call, save what was agreed and
+              move on when you’re ready.
             </p>
           </div>
           <PowerDialler />
           <p className="bp-auto-option">
-            Prefer a timed gap between calls? Optional Auto Dial advances through the list after a
-            delay you set.
+            Optional Auto Dial: advance and call after a delay you set.
           </p>
         </div>
       </section>
@@ -312,16 +293,19 @@ export function BusinessPhonePage() {
             />
           </figure>
           <div className="bp-context-copy">
-            <p className="bp-eyebrow">A person on the other end</p>
-            <h2 id="bp-context-title">Pick up where the last conversation left off.</h2>
-            <p>
-              Review saved contact notes while you talk. Keep useful details in view, so the
-              customer can get on with the question they called about.
-            </p>
-            <p>
-              After the call, add your own note. If you promised to send options or arrange a visit,
-              your team still decides and takes that next step.
-            </p>
+            <p className="bp-eyebrow">Phone quick actions</p>
+            <h2 id="bp-context-title">Take the next step while you talk.</h2>
+            <p>Add a tag or run a configured workflow from the phone. You choose the action.</p>
+            <dl className="bp-quick-actions">
+              <div>
+                <dt>Add tag</dt>
+                <dd>Hot lead</dd>
+              </div>
+              <div>
+                <dt>Run workflow</dt>
+                <dd>Enquiry follow-up</dd>
+              </div>
+            </dl>
             <a className="bp-text-link" href="/crm">
               Explore the customer record
             </a>
@@ -329,17 +313,12 @@ export function BusinessPhonePage() {
         </div>
       </section>
 
-      <section className="bp-incoming-section" aria-labelledby="bp-incoming-title">
+      <section
+        className="bp-incoming-section"
+        aria-label="Business numbers, recordings and transcripts"
+      >
         <div className="bp-wrap">
-          <div className="bp-section-intro">
-            <p className="bp-eyebrow">Incoming calls &amp; call history</p>
-            <h2 id="bp-incoming-title">
-              Handle the calls coming in.
-              <br />
-              Keep track of the conversation.
-            </h2>
-          </div>
-          <IncomingAndHistory />
+          <NumbersAndRecordings />
           <div className="bp-connected-links">
             <div>
               <span>When you want AI to answer</span>
@@ -366,17 +345,11 @@ export function BusinessPhonePage() {
               <br />
               the way you work.
             </h2>
-            <p>
-              Bring your current numbers, the people taking calls and the follow-up work you need to
-              do. We’ll agree the phone setup, calling list and contact notes your team will use.
-            </p>
+            <p>We’ll work through your numbers, call handling and follow-up with you.</p>
             <a className="bp-text-link" href="/booking">
               Talk through your phone setup
             </a>
-            <p className="bp-setup-terms">
-              Number availability, devices, rates and setup scope are confirmed before activation.
-              Guided Launch is required for a new standard plan and priced separately.
-            </p>
+            <p className="bp-setup-terms">Required for new standard plans. Priced separately.</p>
           </div>
           <div
             className="bp-faq"

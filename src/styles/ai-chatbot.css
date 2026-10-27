@@ -382,7 +382,7 @@
   border: 1px solid #fff;
   border-radius: 17px;
   object-fit: cover;
-  object-position: 50% 26%;
+  object-position: 50% 0%;
 }
 .zapla-chatbot .bc-booking-lower {
   display: grid;
@@ -1170,7 +1170,7 @@
   .zapla-chatbot .bc-dental-photo {
     height: 220px;
     border-radius: 13px;
-    object-position: 50% 32%;
+    object-position: 50% 0%;
   }
   .zapla-chatbot .bc-booking-lower {
     grid-template-columns: 1fr;
