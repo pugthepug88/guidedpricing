@@ -253,6 +253,41 @@ function CalendarOpening({
           </p>
         </div>
       </div>
+      <div className="cal-wrap cal-calendar-connections" id="calendar-connections">
+        <p>Send bookings to the calendars your team uses.</p>
+        <ul aria-label="Supported calendar connections">
+          <li>
+            <img
+              src="/concept/calendars/providers/google-calendar.svg"
+              width="24"
+              height="24"
+              alt=""
+              loading="lazy"
+            />
+            <span>Google Calendar</span>
+          </li>
+          <li>
+            <img
+              src="/concept/calendars/providers/microsoft-outlook.svg"
+              width="24"
+              height="24"
+              alt=""
+              loading="lazy"
+            />
+            <span>Microsoft 365</span>
+          </li>
+          <li>
+            <img
+              src="/concept/calendars/providers/apple-calendar.png"
+              width="24"
+              height="24"
+              alt=""
+              loading="lazy"
+            />
+            <span>Apple iCloud</span>
+          </li>
+        </ul>
+      </div>
     </section>
   );
 }
@@ -473,86 +508,6 @@ function BusinessDay() {
             </p>
           </div>
         </div>
-        <div className="cal-booking-control" id="booking-availability">
-          <div className="cal-booking-rules">
-            <h3>Set when customers can book.</h3>
-            <p>
-              Choose your working days, hours and time zone. Customers see available appointment
-              times within the hours you set.
-            </p>
-            <dl>
-              <div>
-                <dt>Appointment length</dt>
-                <dd>Set a duration for each service.</dd>
-              </div>
-              <div>
-                <dt>Minimum notice</dt>
-                <dd>Choose how far ahead customers must book.</dd>
-              </div>
-            </dl>
-          </div>
-          <div className="cal-availability-scene">
-            <div className="cal-availability-window">
-              <div className="cal-hours-heading">
-                <h4>Booking hours</h4>
-                <span>Monday to Friday · Sydney</span>
-              </div>
-              <div
-                className="cal-workday"
-                aria-label="Bookable from 9 am to noon and 1 pm to 5 pm; unavailable from noon to 1 pm"
-              >
-                <div>
-                  <span>9 am – 12 pm</span>
-                  <strong>Bookable</strong>
-                </div>
-                <div className="cal-workday-break">
-                  <span>12 – 1 pm</span>
-                  <strong>Not bookable</strong>
-                </div>
-                <div>
-                  <span>1 – 5 pm</span>
-                  <strong>Bookable</strong>
-                </div>
-              </div>
-              <p>Split your hours to keep breaks outside your booking windows.</p>
-            </div>
-            <div className="cal-calendar-connections">
-              <p>Send bookings to the calendars your team uses.</p>
-              <ul aria-label="Supported calendar connections">
-                <li>
-                  <img
-                    src="/concept/calendars/providers/google-calendar.svg"
-                    width="36"
-                    height="36"
-                    alt=""
-                    loading="lazy"
-                  />
-                  <span>Google Calendar</span>
-                </li>
-                <li>
-                  <img
-                    src="/concept/calendars/providers/microsoft-outlook.svg"
-                    width="36"
-                    height="36"
-                    alt=""
-                    loading="lazy"
-                  />
-                  <span>Microsoft 365</span>
-                </li>
-                <li>
-                  <img
-                    src="/concept/calendars/providers/apple-calendar.png"
-                    width="36"
-                    height="36"
-                    alt=""
-                    loading="lazy"
-                  />
-                  <span>Apple iCloud</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -568,8 +523,8 @@ const faqs = [
     "Yes. Meeting Rooms lets you create native video meeting rooms and share a room’s unique link. Guests join in the browser, with camera and microphone controls and screen sharing. Public rooms allow anyone with the link; restricted rooms let you select up to four contacts, alongside selected team members. The four-contact limit applies to the restricted invitation list.",
   ],
   [
-    "Can I offer different services and appointment lengths?",
-    "Yes. Add booking types with their own names and durations, plus a minimum notice setting. If a calendar offers several services, customers choose one before selecting a date and time.",
+    "Can I set my hours and appointment lengths?",
+    "Yes. Set working days, hours and a time zone, including split time ranges. Give each booking type its own duration and minimum notice. If you offer several services, customers choose one before selecting a date and time.",
   ],
   [
     "Can the booking page look like my business?",
