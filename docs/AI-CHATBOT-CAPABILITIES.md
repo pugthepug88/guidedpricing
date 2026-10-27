@@ -81,3 +81,10 @@ Rechecked the public AI Agents page and help-content/en.json. The agents/create 
 New fixed trades case: Daniel asks about ducted replacement in Marrickville, supplies home/next-week timing, then gives his name and shares an email before the contact and New enquiry stage appear. The resulting record quotes his original words. A separately configured acknowledgement names Daniel; no actual address, inferred custom-field mapping, AI summary, task, assignment or dispatch is represented. The practice's initial/follow-up booking rules are fictional business information, visibly supplied before the matching prepared answer; no clinical advice is shown.
 
 The Watch control only replays prepared local content. It is not an application recording, AI response test or customer result. The complete story is visible by default and no visitor data is collected. No usable recording or sales-calendar embed was obtained, so those remain explicit delivery limits.
+
+
+## Static composition correction, 27 October 2026
+
+The owner rejected the enquiry replay and consecutive chat-left/photo-right scenes. This supersedes every Chatbot playback, pause/resume/replay, timed reveal and photograph-swap description above. All enquiry, booking and answer content now remains visible in ordinary document flow. There is no replacement autoplay or gated product proof.
+
+The enquiry is one prepared Zapla record: Daniel’s original service question, home/next-week words, supplied name/email, New enquiry stage and separately configured acknowledgement. The scene shows a complete record rather than a chronological creation animation. The supplied facts and product boundaries are unchanged. Booking keeps the same offered Friday 5 pm, Mia’s explicit agreement/name/masked mobile and appointment, with a photo-led composition. The appointment guide and matching first-visit answer use open typography instead of another chat window. Only the opening retains a full widget. No new recording, exact application-screen evidence, live service call or conversion evidence is claimed.

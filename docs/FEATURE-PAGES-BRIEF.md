@@ -508,6 +508,11 @@ The owner found the revised Service support scene and page empty. This supersede
 
 Expand Harbour Coffee into one coherent ticket with the original question, Ben/Alex shared responsibility, related installation, equipment/site access fields, supporting file and useful tags. Explain their value beside the record instead of hiding every capability in FAQs or creating unrelated feature tiles. Keep the H1, final CTA, shared architecture, route/indexing and `/booking`; the customer-context link goes to `/crm`. Capability boundaries and page-specific image provenance remain. Exact reference choices, prepared-data scope, rendered checks and review limits are in `TICKETING-WORKING-QUEUE-20261027.md`. GitHub owns all source changes; Lovable remains read-only, with no separate Publish action.
 
+
+## AI Chatbot page rhythm correction, 27 October 2026
+
+The owner rejected the replay control and the repeated large chat-left/photo-right sections. Remove playback entirely, including its timers, hidden states and conditional photograph. Retain one full website widget in the opening, show the enquiry as one complete Zapla record, lead booking with its clinic photograph beside a compact agreement/calendar result, and render the supplied booking rule/answer without another widget. This supersedes prior Chatbot animation approval; the capability scope, H1, final CTA, shared architecture and /booking remain. Review the consecutive sections and full buying journey, not just each isolated illustration. Evidence and implementation assessment: `AI-CHATBOT-PAGE-RHYTHM-20261027.md`.
+
 ## Calendar content priority correction, 27 October 2026
 
 The owner rejected the availability block as basic configuration given too much sales-page space, and approved deleting it. This supersedes the rounded hours/provider-panel direction. Remove its heading, large surface, working-hours diagram and setting descriptions without adding a replacement chapter. Keep the native calendar marks and names as a compact unboxed supporting row beneath the existing booking demonstration, outside its sticky track. Consolidate working days, split ranges, time zone, duration and notice into the existing practical FAQ.

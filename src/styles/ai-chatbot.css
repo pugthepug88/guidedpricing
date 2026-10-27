@@ -34,9 +34,9 @@
 }
 .cr-wrap > *,
 .cr-hero > *,
-.cr-booking-scene > *,
+.cr-booking-layout > *,
+.cr-record-content > *,
 .cr-control-layout > *,
-.cr-control-workspace > *,
 .cr-setup-layout > * {
   min-width: 0;
 }
@@ -313,103 +313,125 @@
 .cr-section-intro > p {
   max-width: 445px;
 }
-#chatbot-booking {
-  scroll-margin-top: 80px;
+/* One completed record shows what the business receives. */
+#chatbot-enquiry {
+  scroll-margin-top: 85px;
+  padding-top: 35px;
 }
-.cr-booking-scene {
-  display: grid;
-  grid-template-columns: 290px minmax(0, 1fr);
-  gap: 14px;
-  padding: 20px;
-  border: 1px solid #e0e2dc;
-  border-radius: 27px;
-  background: #f0f0eb;
-  align-items: stretch;
-}
-.cr-booking-chat {
-  align-self: center;
-  overflow: hidden;
-  border: 1px solid #e4e6df;
-  border-radius: 15px;
+.cr-enquiry-record {
+  border: 1px solid #dce1de;
+  border-radius: 20px;
   background: #fff;
+  box-shadow: 0 12px 35px #26342a08;
 }
-.cr-booking-chat .cr-thread {
-  padding-block: 22px;
+.cr-record-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 30px;
+  border-bottom: 1px solid #e5e8e5;
 }
-.cr-booking-chat .cr-message > div {
-  font-size: 13px;
+.cr-record-brand > img {
+  display: block;
+  width: 88px;
+  height: auto;
 }
-.cr-masked-number {
-  display: inline-block;
-  margin-top: 5px;
-  color: #5d6c64;
+.cr-record-brand > span {
+  color: #66726c;
   font-size: 12px;
-  letter-spacing: 0.02em;
+  line-height: 1.6;
 }
-.zapla-chatbot .cr-chat-footer {
-  margin: 0 14px;
-  padding-block: 14px;
-  border-top: 1px solid #e7e9e5;
-  color: #647168;
+.cr-record-contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 27px 34px;
+  border-bottom: 1px solid #e5e8e5;
+}
+.cr-contact-person {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.cr-contact-person > .cr-avatar {
+  width: 45px;
+  height: 45px;
+  flex-basis: 45px;
+}
+.cr-contact-person h3 {
+  font-size: 30px;
+}
+.cr-contact-person p {
+  margin-top: 5px;
+  font-size: 12px;
+}
+.cr-record-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 190px;
+}
+.cr-record-stage > span {
+  color: #66726c;
   font-size: 11px;
 }
-.cr-care-scene {
-  position: relative;
-  min-height: 500px;
-  border-radius: 14px;
-  overflow: hidden;
-}
-.cr-care-scene > img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  inset: 0;
-  object-fit: cover;
-  object-position: center top;
-}
-.cr-appointment {
-  position: absolute;
-  bottom: 21px;
-  right: 21px;
-  width: 246px;
-  padding: 19px 21px;
-  border: 1px solid #ffffffed;
-  border-radius: 14px;
-  background: #fcfcfaf2;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 10px 26px #21362b12;
-}
-.cr-appointment > p {
-  color: #607165;
-  font-size: 11px;
-  line-height: 1.5;
-}
-.cr-appointment h3 {
-  margin-top: 10px;
-  color: #1f3528;
-  font-size: 23px;
-  line-height: 1.12;
-}
-.cr-appointment > strong {
-  display: block;
-  margin-top: 10px;
-  color: #304b38;
-  font-size: 15px;
+.cr-record-stage > strong {
+  color: #243b31;
+  font-size: 20px;
   font-weight: 500;
 }
-.cr-appointment > div {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin-top: 16px;
-  color: #50614e;
+.cr-record-content {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 40px;
+  padding: 31px 34px 35px;
+}
+.cr-record-content h4 {
+  margin: 0 0 19px;
+  color: #66726c;
+  font-size: 12px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+.cr-original-request blockquote {
+  max-width: 510px;
+  margin: 0;
+  font-family: "Inter Tight", Manrope, sans-serif;
+  font-size: 25px;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}
+.cr-original-request > p:not(.cr-contact-source) {
+  margin-top: 12px;
+  color: #30473c;
+  font-size: 17px;
+}
+.zapla-chatbot .cr-contact-source {
+  margin-top: 24px;
   font-size: 12px;
 }
-.cr-appointment .cr-avatar {
-  width: 24px;
-  height: 24px;
-  flex-basis: 24px;
+.cr-record-follow-up {
+  padding-left: 35px;
+  border-left: 1px solid #e5e8e5;
+}
+.zapla-chatbot .cr-email-recipient {
+  font-size: 12px;
+}
+.zapla-chatbot .cr-email-subject {
+  margin-top: 13px;
+  color: #1e2b29;
+  font-family: "Inter Tight", Manrope, sans-serif;
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+.cr-record-follow-up > p:last-child {
+  max-width: 395px;
+  margin-top: 13px;
+  font-size: 14px;
+  line-height: 1.75;
 }
 .cr-scene-foot {
   display: flex;
@@ -423,352 +445,179 @@
   line-height: 1.7;
 }
 
-/* A complete enquiry is visible first. Watch replays only the causal changes. */
-#chatbot-enquiry {
-  scroll-margin-top: 70px;
-  padding-top: 30px;
+/* The team photograph leads; agreement and a calendar result sit alongside. */
+#chatbot-booking {
+  scroll-margin-top: 85px;
 }
-.cr-enquiry-stage {
+.cr-booking-layout {
   display: grid;
-  grid-template-columns: 350px minmax(0, 1fr);
-  gap: 25px;
-  padding: 25px;
-  border: 1px solid #dce1e4;
-  border-radius: 25px;
-  background: #eef0f0;
-  scroll-margin-top: 80px;
+  grid-template-columns: 1.35fr 1fr;
+  align-items: center;
+  gap: 48px;
 }
-.cr-enquiry-stage > * {
-  min-width: 0;
-}
-.cr-enquiry-thread {
-  align-self: center;
-  overflow: hidden;
-  border: 1px solid #fff;
-  border-radius: 14px;
-  background: #fff;
-}
-.cr-enquiry-thread .cr-chat-header strong {
-  font-size: 14px;
-}
-.cr-enquiry-thread .cr-thread {
-  padding: 17px 14px;
-}
-.cr-enquiry-thread .cr-thread > .cr-flow-reveal {
-  margin-top: 13px;
-}
-.cr-shared-detail {
-  display: block;
-  margin-top: 3px;
-  font-size: 11px;
-  color: #5b6860;
-}
-.cr-enquiry-result-stage {
-  position: relative;
-  align-self: center;
-  min-width: 0;
-}
-.cr-enquiry-working {
-  position: absolute;
-  inset: 0;
+.cr-care-photo {
   display: block;
   width: 100%;
-  height: 100%;
-  border-radius: 14px;
-  object-fit: cover;
-  object-position: 69% center;
-}
-.cr-crm-workspace {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid #dce1e4;
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 10px 30px #18252c08;
-  transition: opacity 400ms ease;
-}
-.cr-result-pending {
-  opacity: 0;
-  visibility: hidden;
-}
-.cr-workspace-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 18px;
-  padding: 18px 25px;
-  border-bottom: 1px solid #e6e9eb;
-}
-.cr-workspace-header > img {
-  display: block;
-  width: 88px;
   height: auto;
+  aspect-ratio: 3/2;
+  object-fit: cover;
+  border-radius: 20px;
 }
-.cr-workspace-header > span {
-  color: #64717a;
+.cr-booking-exchange {
+  display: grid;
+  gap: 23px;
+  margin-bottom: 25px;
+}
+.cr-offered-time,
+.cr-agreed-time {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+}
+.cr-offered-time > svg {
+  flex: 0 0 23px;
+  margin-top: 4px;
+}
+.cr-offered-time > p,
+.cr-agreed-time p {
+  color: #304238;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.cr-agreed-time > .cr-avatar {
+  width: 25px;
+  height: 25px;
+  flex-basis: 25px;
+}
+.cr-masked-number {
+  display: inline-block;
+  margin-top: 3px;
+  color: #66726c;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+.cr-appointment {
+  padding: 24px;
+  border-radius: 14px;
+  background: #1e2b29;
+  color: #fff;
+}
+.cr-appointment > p {
+  color: #c6d2cc;
   font-size: 12px;
 }
-.cr-flow-contact {
-  display: flex;
-  gap: 12px;
+.cr-appointment-details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 25px;
   align-items: center;
-  padding: 23px 25px 20px;
+  margin-top: 19px;
 }
-.cr-flow-contact .cr-avatar {
-  width: 40px;
-  height: 40px;
-  flex-basis: 40px;
+.cr-appointment-time {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-right: 25px;
+  border-right: 1px solid #ffffff38;
 }
-.cr-flow-contact h3 {
+.cr-appointment-time > strong {
+  font-family: "Inter Tight", Manrope, sans-serif;
   font-size: 27px;
+  font-weight: 500;
   line-height: 1.1;
+  letter-spacing: -0.035em;
 }
-.cr-flow-contact p {
-  margin-top: 5px;
+.cr-appointment-time > span {
+  color: #dce6e0;
+  font-size: 16px;
+}
+.cr-appointment h3 {
+  font-size: 24px;
+  line-height: 1.12;
+}
+.cr-appointment-details p {
+  margin-top: 10px;
+  color: #dce6e0;
   font-size: 12px;
 }
-.cr-flow-stage {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 12px 25px;
-  border-block: 1px solid #e4e9ed;
-  background: #f2f5f7;
-  font-size: 12px;
-  line-height: 1.6;
+.cr-booking-proof > .cr-link {
+  margin-top: 12px;
 }
-.cr-flow-stage > span {
-  color: #63717c;
-}
-.cr-flow-stage > strong {
-  color: #284e78;
-  font-weight: 600;
-}
-.cr-flow-request {
-  padding: 20px 25px;
-}
-.cr-flow-request h4,
-.cr-flow-email h4 {
-  margin: 0;
-  font-family: Manrope, sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  font-weight: 600;
-}
-.cr-flow-request > p {
-  margin-top: 9px;
-  font-size: 13px;
-  line-height: 1.7;
-}
-.cr-flow-email {
-  padding: 18px 25px 22px;
-  border-top: 1px solid #e3e7e9;
-  background: #fafbf9;
-}
-.cr-flow-email > p:first-child {
-  margin-bottom: 9px;
-  font-size: 11px;
-  color: #64717a;
-}
-.cr-flow-email > p:last-child {
-  margin-top: 7px;
-  font-size: 13px;
-  line-height: 1.7;
-}
-.cr-flow-reveal {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 400ms ease;
-}
-.cr-flow-pending {
-  opacity: 0;
-  visibility: hidden;
-}
-.cr-enquiry-controls {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 14px 20px;
-  margin-bottom: 16px;
-}
-.cr-watch {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  min-width: 170px;
-  min-height: 44px;
-  padding: 10px 17px;
-  border: 1px solid #bdc8d0;
-  border-radius: 999px;
-  color: #284e78;
-  background: #fff;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-}
-.cr-watch:hover {
-  background: #f1f4f6;
-}
-.cr-enquiry-controls > [role="status"] {
-  color: #667177;
+.zapla-chatbot .cr-calendar-scope {
+  margin-top: 19px;
   font-size: 12px;
 }
-.cr-enquiry-controls > .cr-link {
-  margin-left: auto;
-}
 
-.cr-appointment-rules {
-  margin: 22px 0 0;
-}
-.cr-appointment-rules > div {
-  padding: 16px 0;
-  border-top: 1px solid #e4e8e0;
-}
-.cr-appointment-rules dt {
-  color: #687360;
-  font-size: 12px;
-  line-height: 1.6;
-}
-.cr-appointment-rules dd {
-  margin: 5px 0 0;
-  color: #34482c;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-@media (max-width: 1099px) {
-  .cr-enquiry-stage {
-    grid-template-columns: 300px minmax(0, 1fr);
-    padding: 18px;
-    gap: 17px;
-  }
-  .cr-workspace-header {
-    padding: 17px 20px;
-  }
-  .cr-flow-contact {
-    padding: 20px;
-  }
-  .cr-flow-stage {
-    padding-inline: 20px;
-  }
-  .cr-flow-request {
-    padding: 18px 20px;
-  }
-  .cr-flow-email {
-    padding: 17px 20px 20px;
-  }
-}
-@media (max-width: 799px) {
-  .cr-enquiry-stage {
-    grid-template-columns: 1fr;
-    padding: 17px;
-  }
-  .cr-enquiry-thread {
-    width: 100%;
-    max-width: 440px;
-    justify-self: center;
-  }
-  .cr-crm-workspace {
-    width: 100%;
-  }
-  .cr-enquiry-controls {
-    align-items: start;
-    gap: 10px;
-  }
-  .cr-enquiry-controls > [role="status"] {
-    flex-basis: calc(100% - 190px);
-    align-self: center;
-  }
-  .cr-enquiry-controls > .cr-link {
-    margin-left: 0;
-  }
-}
-@media (max-width: 399px) {
-  .cr-enquiry-stage {
-    padding: 12px;
-  }
-  .cr-workspace-header {
-    padding: 16px;
-  }
-  .cr-workspace-header > span {
-    font-size: 11px;
-  }
-  .cr-flow-contact {
-    padding: 18px 16px;
-  }
-  .cr-flow-stage {
-    padding-inline: 16px;
-  }
-  .cr-flow-request {
-    padding: 17px 16px;
-  }
-  .cr-flow-email {
-    padding: 16px;
-  }
-  .cr-enquiry-controls > [role="status"] {
-    flex-basis: 100%;
-  }
-}
-
-.cr-control-copy > .cr-control-inbox-link {
-  margin-top: 18px;
-}
-
-/* Business information supports a relevant answer. */
+/* A supplied business rule and its answer, without another widget. */
 .cr-control {
-  background: #f4f5f2;
+  margin-block: 15px 70px;
+  background: #f7f4ee;
 }
 .cr-control-layout {
   display: grid;
-  grid-template-columns: 0.71fr 1.29fr;
-  gap: 80px;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 100px;
   align-items: center;
 }
 .cr-control-copy > p {
-  max-width: 375px;
-  margin-top: 21px;
+  max-width: 370px;
+  margin-top: 22px;
 }
-.cr-control-workspace {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 21px;
-  align-items: center;
-  padding: 24px;
-  border: 1px solid #dce1d8;
-  border-radius: 24px;
-  background: #e7eae3;
+.cr-control-copy > .cr-link {
+  margin-top: 18px;
 }
-.cr-knowledge-panel {
-  padding: 20px 17px 10px;
-  border: 1px solid #e2e5de;
-  border-radius: 13px;
-  background: #fff;
+.cr-appointment-guide {
+  padding-bottom: 25px;
+  border-bottom: 1px solid #d9ddd5;
 }
-.cr-product-brand {
-  display: flex;
-  gap: 9px;
-  align-items: center;
-  color: #53634f;
-  font-size: 11px;
+.cr-appointment-guide h3 {
+  color: #66726c;
+  font-family: Manrope, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
   line-height: 1.5;
+  letter-spacing: 0;
 }
-.cr-product-brand > svg {
-  flex-shrink: 0;
+.cr-appointment-guide dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin: 18px 0 0;
 }
-.cr-answer-preview {
-  overflow: hidden;
-  border: 1px solid #fff;
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 12px 25px #2433290c;
+.cr-appointment-guide dt {
+  color: #66726c;
+  font-size: 12px;
+  line-height: 1.6;
 }
-.cr-answer-preview .cr-chat-header {
-  padding-block: 17px;
+.cr-appointment-guide dd {
+  margin: 5px 0 0;
+  color: #273b30;
+  font-size: 15px;
+  line-height: 1.6;
 }
-.cr-answer-preview .cr-thread {
-  padding-block: 24px;
+.zapla-chatbot .cr-rule-question {
+  max-width: 590px;
+  margin-top: 26px;
+  color: #182a22;
+  font-family: "Inter Tight", Manrope, sans-serif;
+  font-size: 28px;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+}
+.cr-rule-answer {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  margin-top: 22px;
+}
+.cr-rule-answer > svg {
+  flex: 0 0 26px;
+  margin-top: 3px;
+}
+.cr-rule-answer > p {
+  color: #3a5144;
+  font-size: 17px;
+  line-height: 1.7;
 }
 
 /* One closing chapter replaces repeated implementation explanations. */
@@ -889,16 +738,11 @@
     right: 15px;
     width: 245px;
   }
+  .cr-booking-layout {
+    gap: 30px;
+  }
   .cr-control-layout {
-    gap: 45px;
-    grid-template-columns: 0.65fr 1.35fr;
-  }
-  .cr-control-workspace {
-    gap: 16px;
-    padding: 18px;
-  }
-  .cr-knowledge-panel {
-    padding-inline: 13px;
+    gap: 55px;
   }
   .cr-setup-layout {
     gap: 65px;
@@ -955,45 +799,63 @@
     max-width: 350px;
     font-size: 15px;
   }
-  .cr-booking-scene {
-    grid-template-columns: 255px minmax(0, 1fr);
-    padding: 16px;
-    gap: 11px;
+  .cr-record-content {
+    gap: 25px;
   }
-  .cr-care-scene {
-    min-height: 440px;
+  .cr-record-follow-up {
+    padding-left: 25px;
   }
-  .cr-care-scene > img {
-    object-position: 66% top;
+  .cr-original-request blockquote {
+    font-size: 23px;
+  }
+  .cr-booking-layout {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 25px;
   }
   .cr-appointment {
-    right: 15px;
-    bottom: 15px;
-    width: 218px;
-    padding: 17px;
+    padding: 20px;
+  }
+  .cr-appointment-details {
+    gap: 18px;
+  }
+  .cr-appointment-time {
+    padding-right: 18px;
   }
   .cr-appointment h3 {
     font-size: 22px;
   }
   .cr-control-layout {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .cr-control-copy > p {
-    max-width: 610px;
-  }
-  .cr-control-workspace {
-    max-width: 800px;
-    grid-template-columns: 1fr 1fr;
-    padding: 25px;
-    gap: 30px;
-  }
-  .cr-knowledge-panel {
-    padding-inline: 21px;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 45px;
   }
   .cr-setup-layout {
     gap: 35px;
     grid-template-columns: 0.85fr 1.15fr;
+  }
+}
+@media (max-width: 799px) {
+  .cr-booking-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .cr-booking-proof {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 25px;
+    align-items: center;
+  }
+  .cr-booking-exchange {
+    margin-bottom: 0;
+  }
+  .cr-booking-proof > .cr-link {
+    grid-column: 2;
+  }
+  .cr-control-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .cr-control-copy > p {
+    max-width: 600px;
   }
 }
 @media (max-width: 699px) {
@@ -1024,7 +886,7 @@
     line-height: 1.7;
   }
   .cr-actions {
-    gap: 21px;
+    gap: 10px 21px;
     margin-top: 22px;
   }
   .zapla-chatbot .cr-existing-site {
@@ -1041,18 +903,8 @@
   .cr-practice-brand {
     font-size: 25px;
   }
-  .cr-site-services {
-    display: none;
-  }
+  .cr-site-services,
   .cr-site-intro {
-    display: none;
-  }
-  .zapla-chatbot .cr-site-title {
-    width: 100%;
-    font-size: 34px;
-    min-width: 0;
-  }
-  .cr-site-intro > p:not(.cr-site-title) {
     display: none;
   }
   .cr-site-photo {
@@ -1095,51 +947,75 @@
     margin-top: 17px;
     font-size: 15px;
   }
-  .cr-booking-scene {
-    grid-template-columns: 1fr;
-    gap: 17px;
-    padding: 14px;
-    border-radius: 21px;
+  #chatbot-enquiry {
+    padding-top: 30px;
   }
-  .cr-booking-chat {
-    width: 100%;
+  .cr-enquiry-record {
+    border-radius: 16px;
   }
-  .cr-booking-chat .cr-message > div {
-    font-size: 14px;
+  .cr-record-brand {
+    padding: 17px 20px;
+    gap: 20px;
   }
-  .cr-care-scene {
-    min-height: 0;
-    overflow: visible;
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    border-radius: 13px;
+  .cr-record-brand > img {
+    width: 72px;
   }
-  .cr-care-scene > img {
-    position: static;
-    height: auto;
-    aspect-ratio: 3/2;
-    border-radius: 13px 13px 0 0;
-    object-fit: cover;
+  .cr-record-brand > span {
+    max-width: 135px;
+    font-size: 11px;
+    text-align: right;
   }
-  .cr-appointment {
-    position: static;
-    width: auto;
-    border: 0;
-    border-radius: 0 0 13px 13px;
-    box-shadow: none;
-    padding: 20px;
-    background: #fff;
-    backdrop-filter: none;
+  .cr-record-contact {
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 23px 20px;
   }
-  .cr-appointment h3 {
-    font-size: 25px;
+  .cr-contact-person {
+    gap: 11px;
   }
-  .cr-appointment > p {
+  .cr-contact-person > .cr-avatar {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+  .cr-contact-person h3 {
+    font-size: 27px;
+  }
+  .cr-contact-person p {
     font-size: 11px;
   }
-  .cr-appointment > strong {
+  .cr-record-stage {
+    min-width: 0;
+  }
+  .cr-record-stage > strong {
+    font-size: 17px;
+  }
+  .cr-record-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px 20px 27px;
+  }
+  .cr-record-content h4 {
+    margin-bottom: 14px;
+    font-size: 12px;
+  }
+  .cr-original-request blockquote {
+    font-size: 23px;
+  }
+  .cr-original-request > p:not(.cr-contact-source) {
     font-size: 16px;
+  }
+  .zapla-chatbot .cr-contact-source {
+    margin-top: 16px;
+    font-size: 11px;
+  }
+  .cr-record-follow-up {
+    padding: 24px 0 0;
+    border-left: 0;
+    border-top: 1px solid #e5e8e5;
+  }
+  .zapla-chatbot .cr-email-subject {
+    font-size: 24px;
   }
   .cr-scene-foot {
     flex-direction: column;
@@ -1147,28 +1023,56 @@
     gap: 3px;
     margin-top: 14px;
   }
-  .cr-control-layout {
+  .cr-booking-layout {
     gap: 25px;
   }
+  .cr-care-photo {
+    border-radius: 16px;
+  }
+  .cr-booking-proof {
+    display: block;
+  }
+  .cr-booking-exchange {
+    gap: 19px;
+    margin-bottom: 24px;
+  }
+  .cr-offered-time > p,
+  .cr-agreed-time p {
+    font-size: 14px;
+  }
+  .cr-appointment {
+    padding: 23px 21px;
+  }
+  .cr-appointment-details {
+    gap: 20px;
+  }
+  .cr-appointment-time {
+    padding-right: 20px;
+  }
+  .cr-appointment h3 {
+    font-size: 24px;
+  }
+  .cr-control {
+    margin-block: 0 40px;
+  }
   .cr-control-copy > p {
+    margin-top: 18px;
     font-size: 15px;
   }
-  .cr-control-workspace {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 17px;
-    border-radius: 20px;
+  .cr-control-copy > .cr-link {
+    margin-top: 10px;
   }
-  .cr-knowledge-panel {
-    padding-inline: 19px;
+  .cr-appointment-guide dl {
+    gap: 22px;
   }
-  .cr-answer-preview {
-    max-width: 320px;
-    justify-self: center;
-    width: 100%;
+  .cr-appointment-guide dd {
+    font-size: 14px;
   }
-  .cr-answer-preview .cr-thread {
-    padding-block: 20px;
+  .zapla-chatbot .cr-rule-question {
+    font-size: 27px;
+  }
+  .cr-rule-answer > p {
+    font-size: 16px;
   }
   .cr-setup {
     padding-top: 15px;
@@ -1212,12 +1116,6 @@
   .cr-website-scene {
     padding: 9px;
   }
-  .cr-site-intro {
-    padding-inline: 16px;
-  }
-  .zapla-chatbot .cr-site-title {
-    font-size: 32px;
-  }
   .cr-hero-widget {
     width: calc(100% - 18px);
     margin-inline: 9px;
@@ -1229,17 +1127,26 @@
     font-size: 13px;
     padding-inline: 9px;
   }
-  .cr-control-workspace {
-    padding: 13px;
+  .cr-record-contact {
+    align-items: flex-start;
+    flex-direction: column;
   }
-  .cr-knowledge-panel {
-    padding-inline: 15px;
-  }
-  .cr-booking-scene {
-    padding: 11px;
+  .cr-record-stage {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 15px;
   }
   .cr-appointment {
-    padding-inline: 16px;
+    padding-inline: 18px;
+  }
+  .cr-appointment-details {
+    gap: 15px;
+  }
+  .cr-appointment-time {
+    padding-right: 15px;
+  }
+  .cr-appointment h3 {
+    font-size: 22px;
   }
   .cr-final h2 {
     font-size: 36px;
