@@ -45,3 +45,7 @@ These checks concern the prepared marketing illustration, not real tenant UI, an
 ## Delivery proof
 
 The final desktop capture is [the compact enquiry and contact](qa/ai-chatbot-compact-visuals-20261027.png), from the verified source above. No browser error logs were returned. Temporary viewport overrides were reset, and the enquiry FAQ was confirmed closed after keyboard Enter. Concurrent main through 59c739b71bfbf1df1a2f566228fd3bca0f089736 was preserved, including both feature-brief appends. That last integration changes documentation/proof only after the successful integration build; Chatbot code remains identical to the rendered source. No builder prompt, production Publish action or published-history rewrite is performed. Connected-preview verification follows merge.
+
+## Merge and connected-preview status
+
+PR #213 merged normally as 98f3a9b96a38259b7d5077a9f2a2636428155879. The source integration tree matched local Git exactly. Lovable reported ready at that merge SHA, but a fresh stable id-preview navigation and a separate hard reload still showed the previous open-quotation layout: two old quote elements and neither the compact capture nor booking widget. Connected-source metadata is confirmed; current connected rendering is not. The final response therefore links to the verified exact-source Workers version above. No alternate-origin retry, sign-in, builder write or Publish action is used to bypass that limitation. The verified preview tab is retained for review.
