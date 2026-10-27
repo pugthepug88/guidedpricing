@@ -1,6 +1,6 @@
 # Automation Builder: implementation and review
 
-**Latest revision:** [Automation AI interface refinement, 27 October 2026](AUTOMATION-AI-INTERFACE-20261027.md) supersedes the flat-green AI player with an integrated cooler-ink composer, finer draft nodes and eight compact ideas. The restored hero, photo overlay, rounded FAQ and approved silver frame/white hero cards remain. Earlier assessments are historical, not owner approval.
+**Latest revision:** [Automation AI autoplay, 27 October 2026](AUTOMATION-AI-AUTOPLAY-20261027.md) adds owner-requested entry autoplay, eight-idea rotation, Pause/Resume, an up-arrow replay and the working petal. The accepted cooler-ink AI scene and the restored hero/photo/FAQ remain. Earlier assessments are historical, not owner approval.
 
 **Hero correction, 26 October 2026:** the owner rejected the coloured rim/glow, blue message fills, pastel channel highlights and strong beige triggers. The neutral correction at the end supersedes the earlier colour/rim recommendation. The hero's message cards must stay white in every scroll state. The later AI-interface approval applies only to its separate scene.
 

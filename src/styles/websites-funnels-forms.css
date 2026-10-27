@@ -1010,99 +1010,84 @@
     transform: none;
   }
 }
-.wff-usage-note {
-  margin-top: 15px !important;
-  color: #758092;
-  font-size: 11px;
-}
-/* Funnel pages retain their own miniature page layouts. Connections are structural. */
+
+/* The A/B fork is an alternative; submission is the separate final transition. */
 .wff-funnels {
   padding-top: 4px;
 }
 .wff-funnel-flow {
+  --wff-flow-direction: row;
+  position: relative;
   display: grid;
-  grid-template-columns: 115px 125px minmax(0, 1fr) 205px;
-  gap: 43px;
+  grid-template-columns: 118px minmax(0, 1fr) 215px 195px;
+  gap: 38px;
   align-items: center;
-  min-height: 365px;
   padding: 33px;
+  isolation: isolate;
   background:
     radial-gradient(#cdd4e1 0.7px, transparent 0.7px) 0 0/17px 17px,
     #f7f8fb;
 }
-.wff-funnel-entry,
-.wff-split-node {
+.wff-funnel-flow > :not(svg) {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 17px 8px;
+  z-index: 1;
+  min-width: 0;
+}
+.wff-funnel-connections {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.wff-funnel-connections path {
+  fill: none;
+  stroke: #98a7bb;
+  stroke-width: 1.15;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.wff-split-node {
+  padding: 17px 9px;
   border: 1px solid #d7dde7;
   border-radius: 8px;
   background: #fff;
-  box-shadow: 0 3px 7px #26385206;
   text-align: center;
 }
-.wff-funnel-entry > svg {
-  color: #71839f;
-  margin-bottom: 10px;
+.wff-split-node small {
+  display: block;
+  color: #77869c;
+  font-size: 8px;
+  line-height: 1.6;
 }
-.wff-funnel-entry > strong,
-.wff-split-node > strong {
+.wff-split-node > span {
+  display: block;
+  margin: 10px 0 6px;
+  color: #2563ff;
+  font-size: 29px;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+.wff-split-node strong {
   color: #34445a;
   font-size: 12px;
   font-weight: 600;
 }
-.wff-funnel-entry > span,
-.wff-split-node > small {
-  margin-top: 4px;
+.wff-split-node p {
+  margin-top: 8px;
   color: #7a889d;
   font-size: 9px;
-}
-.wff-funnel-entry::after,
-.wff-split-node::after {
-  content: "";
-  position: absolute;
-  height: 1px;
-  width: 43px;
-  right: -44px;
-  top: 50%;
-  background: #97a6bd;
-}
-.wff-split-node > span {
-  margin-bottom: 6px;
-  color: #2563ff;
-  font-size: 29px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.04em;
+  line-height: 1.6;
 }
 .wff-funnel-variants {
-  position: relative;
   display: grid;
   gap: 24px;
 }
-.wff-funnel-variants::before,
-.wff-funnel-variants::after {
-  content: "";
-  position: absolute;
-  width: 23px;
-  top: 24%;
-  bottom: 24%;
-  border-block: 1px solid #97a6bd;
-}
-.wff-funnel-variants::before {
-  left: -23px;
-  border-left: 1px solid #97a6bd;
-  border-radius: 6px 0 0 6px;
-}
-.wff-funnel-variants::after {
-  right: -23px;
-  border-right: 1px solid #97a6bd;
-  border-radius: 0 6px 6px 0;
-}
-.wff-funnel-page {
+.wff-funnel-page,
+.wff-funnel-enquire,
+.wff-funnel-thanks {
   min-width: 0;
   overflow: hidden;
   border: 1px solid #cbd6e8;
@@ -1114,18 +1099,18 @@
   justify-content: space-between;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
+  padding: 9px 12px;
   border-bottom: 1px solid #e1e6ef;
-  font-size: 10px;
   color: #475d7f;
+  font-size: 10px;
 }
 .wff-funnel-page-label > strong {
   color: #2563ff;
   font-weight: 650;
 }
 .wff-funnel-page-label > span {
-  font-size: 8px;
   color: #7d8999;
+  font-size: 8px;
 }
 .wff-funnel-thumbnail {
   display: grid;
@@ -1158,13 +1143,13 @@
   margin-top: 3px;
   background: #344435;
   color: #fff;
-  font-size: 6px;
+  font-size: 7px;
   line-height: 1.6;
 }
 .wff-funnel-thumbnail img {
+  display: block;
   width: 100%;
   height: 140px;
-  min-height: 0;
   object-fit: cover;
   object-position: 47% 40%;
 }
@@ -1176,78 +1161,183 @@
   background: #fff;
   color: #273b31;
 }
-.wff-funnel-destinations {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 11px;
+.wff-funnel-form-content,
+.wff-funnel-thanks-content {
+  padding: 20px 17px;
 }
-.wff-funnel-destinations::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  height: 1px;
-  width: 22px;
-  left: -23px;
-  background: #97a6bd;
-}
-.wff-funnel-destinations > svg {
-  color: #97a6bd;
-}
-.wff-funnel-enquire,
-.wff-funnel-thanks {
-  width: 100%;
-  padding: 17px;
-  background: #fff;
-  border: 1px solid #d7dde7;
-  border-radius: 6px;
-}
-.wff-funnel-enquire > svg {
-  display: none;
-}
-.wff-funnel-enquire > span,
-.wff-funnel-thanks > span {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 10px;
-  color: #6d7f98;
-}
-.wff-funnel-enquire > strong,
-.wff-funnel-thanks > strong {
-  display: block;
+.wff-funnel-form-content h3,
+.wff-funnel-thanks-content h3 {
   color: #303e50;
-  font:
-    500 21px/1.1 "Inter Tight",
-    sans-serif;
+  font-size: 23px;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
 }
-.wff-funnel-enquire > div {
-  margin-top: 9px;
-  padding: 6px 8px;
-  border: 1px solid #e0e5ed;
+.wff-funnel-form-content dl {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0;
+}
+.wff-funnel-form-content dt {
+  margin-bottom: 4px;
+  color: #75859a;
   font-size: 8px;
-  color: #9aa4b2;
+  line-height: 1.6;
 }
-.wff-funnel-thanks > p {
-  margin-top: 10px;
-  color: #667990;
+.wff-funnel-form-content dd {
+  margin: 0;
+  padding: 7px 9px;
+  border: 1px solid #e0e5ed;
+  border-radius: 3px;
+  color: #475870;
+  font-size: 10px;
+  line-height: 1.6;
+}
+.wff-funnel-submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 11px;
+  background: #293d32;
+  color: #fff;
+  font-size: 9px;
+  line-height: 1.6;
+}
+.wff-funnel-thanks-content > span {
+  display: block;
+  margin-bottom: 12px;
+  color: #7c8a9e;
   font-size: 9px;
 }
-.wff-funnel-notes {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 65px;
-  margin-top: 25px;
-  color: #77808a;
-  font-size: 12px;
+.wff-funnel-thanks-content p {
+  margin-top: 16px;
+  color: #75859b;
+  font-size: 11px;
+  line-height: 1.85;
 }
-.wff-funnel-notes strong {
-  display: block;
-  margin-bottom: 4px;
-  color: #33404c;
-  font-weight: 650;
-  font-size: 13px;
+
+@media (max-width: 1150px) and (min-width: 1001px) {
+  .wff-funnel-flow {
+    grid-template-columns: 100px minmax(0, 1fr) 195px 170px;
+    gap: 30px;
+    padding: 26px;
+  }
+  .wff-funnel-page-label > span {
+    display: none;
+  }
+  .wff-funnel-thumbnail > div {
+    padding: 13px;
+  }
+  .wff-funnel-thumbnail strong {
+    font-size: 18px;
+  }
+  .wff-funnel-thanks-content h3 {
+    font-size: 22px;
+  }
 }
+@media (max-width: 1000px) {
+  .wff-funnel-flow {
+    --wff-flow-direction: column;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 28px;
+  }
+  .wff-split-node {
+    width: 160px;
+  }
+  .wff-funnel-variants {
+    width: min(100%, 670px);
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .wff-funnel-page {
+    height: 100%;
+  }
+  .wff-funnel-thumbnail {
+    display: block;
+    height: auto;
+  }
+  .wff-funnel-thumbnail > div {
+    min-height: 160px;
+    padding: 20px;
+    gap: 12px;
+  }
+  .wff-funnel-thumbnail img {
+    display: none;
+  }
+  .wff-funnel-thumbnail strong {
+    font-size: 24px;
+  }
+  .wff-funnel-page-label > span {
+    display: none;
+  }
+  .wff-funnel-enquire,
+  .wff-funnel-thanks {
+    width: min(100%, 340px);
+  }
+  .wff-funnel-form-content,
+  .wff-funnel-thanks-content {
+    padding: 24px;
+  }
+  .wff-funnel-form-content h3,
+  .wff-funnel-thanks-content h3 {
+    font-size: 27px;
+  }
+  .wff-funnel-form-content dt {
+    font-size: 10px;
+  }
+  .wff-funnel-form-content dd {
+    font-size: 12px;
+    padding: 9px 12px;
+  }
+  .wff-funnel-submit {
+    padding: 12px;
+    font-size: 11px;
+  }
+  .wff-funnel-thanks-content > span {
+    font-size: 10px;
+  }
+  .wff-funnel-thanks-content p {
+    font-size: 13px;
+  }
+}
+@media (max-width: 600px) {
+  .wff-funnel-flow {
+    gap: 42px;
+    padding: 24px 16px;
+  }
+  .wff-funnel-variants {
+    gap: 14px;
+  }
+  .wff-funnel-page-label {
+    padding: 9px;
+    font-size: 9px;
+  }
+  .wff-funnel-thumbnail > div {
+    min-height: 181px;
+    padding: 14px 11px;
+    gap: 12px;
+  }
+  .wff-funnel-thumbnail > div > span:first-child {
+    font-size: 11px;
+  }
+  .wff-funnel-thumbnail strong {
+    font-size: 18px;
+  }
+  .wff-funnel-mini-cta {
+    font-size: 7px;
+  }
+}
+@media (max-width: 360px) {
+  .wff-funnel-thumbnail strong {
+    font-size: 16px;
+  }
+  .wff-funnel-thumbnail > div {
+    padding-inline: 9px;
+  }
+}
+
 /* A form editor and the same enquiry in CRM, with all supplied data in view. */
 .wff-connected {
   padding-bottom: 85px;
@@ -1430,15 +1520,10 @@
   gap: 45px;
   margin-top: 22px;
 }
-.wff-enquiry-notes > p {
-  max-width: 670px;
-  color: #6d7886;
-  font-size: 12px;
-}
 .wff-enquiry-notes > a {
   flex-shrink: 0;
 }
-/* Reporting uses actual temporary interactions with this preview, never fake traffic. */
+/* Prepared single-session click map; the cursor and heat spots share measured targets. */
 .wff-tracking {
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
@@ -1552,12 +1637,12 @@
   line-height: 1;
   letter-spacing: -0.05em;
 }
-.wff-tracked-nav > button {
+.wff-tracked-nav > span {
   padding: 5px;
   border: 0;
   background: transparent;
   color: #6c7b67;
-  font-size: 9px !important;
+  font-size: 9px;
 }
 .wff-tracked-hero {
   display: grid;
@@ -1571,7 +1656,7 @@
   padding: 24px;
   background: #f6f7f1;
 }
-.wff-tracked-hero > div > span {
+.wff-tracked-hero > div > span:not(.wff-tracked-cta) {
   font-size: 7px;
   color: #6f7c66;
   letter-spacing: 0.1em;
@@ -1583,7 +1668,7 @@
   line-height: 1.05;
   letter-spacing: -0.04em;
 }
-.wff-tracked-hero button {
+.wff-tracked-hero .wff-tracked-cta {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1637,11 +1722,38 @@
     transparent 74%
   );
 }
-.wff-tracking-hint {
-  margin-top: 12px !important;
-  color: #7c8ba1;
-  font-size: 10px;
+
+/* The pointer is a small local illustration, never a replacement system cursor. */
+.wff-tracking-pointer {
+  position: absolute;
+  width: 22px;
+  height: 26px;
+  pointer-events: none;
+  z-index: 2;
+  filter: drop-shadow(0 2px 2px #24344d26);
 }
+.wff-tracking-pointer > i {
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  width: 35px;
+  height: 35px;
+  border: 2px solid #2975ff;
+  border-radius: 50%;
+  background: #2975ff17;
+}
+.wff-tracking-pointer svg {
+  position: relative;
+  display: block;
+}
+.wff-tracking-control {
+  cursor: pointer;
+}
+.wff-tracking-control:focus-visible {
+  outline: 2px solid #2975ff;
+  outline-offset: 3px;
+}
+
 /* A concise service choice and a practical setup chapter. */
 .wff-launch-layout {
   display: grid;
@@ -1855,39 +1967,6 @@
   .wff-site-preview-nav > span {
     display: none;
   }
-  .wff-funnel-flow {
-    grid-template-columns: 96px 105px minmax(0, 1fr) 175px;
-    gap: 32px;
-    padding: 26px;
-  }
-  .wff-funnel-entry::after,
-  .wff-split-node::after {
-    width: 32px;
-    right: -33px;
-  }
-  .wff-funnel-variants::before,
-  .wff-funnel-variants::after {
-    width: 17px;
-  }
-  .wff-funnel-variants::before {
-    left: -17px;
-  }
-  .wff-funnel-variants::after {
-    right: -17px;
-  }
-  .wff-funnel-destinations::before {
-    left: -17px;
-    width: 17px;
-  }
-  .wff-funnel-page-label > span {
-    display: none;
-  }
-  .wff-funnel-thumbnail > div {
-    padding: 13px;
-  }
-  .wff-funnel-thumbnail strong {
-    font-size: 19px;
-  }
   .wff-form-connection {
     gap: 20px;
     grid-template-columns: 1.4fr 1fr;
@@ -2090,23 +2169,6 @@
     align-items: flex-start;
     gap: 8px;
   }
-  .wff-funnel-flow {
-    grid-template-columns: 94px 1fr 165px;
-    gap: 31px;
-  }
-  .wff-funnel-entry {
-    display: none;
-  }
-  .wff-funnel-thumbnail strong {
-    font-size: 19px;
-  }
-  .wff-funnel-notes {
-    gap: 30px;
-    font-size: 11px;
-  }
-  .wff-funnel-notes strong {
-    font-size: 12px;
-  }
   .wff-form-connection {
     grid-template-columns: 1.2fr 1fr;
     gap: 18px;
@@ -2183,7 +2245,7 @@
   .wff-tracked-hero h3 {
     font-size: 26px;
   }
-  .wff-tracked-hero button {
+  .wff-tracked-hero .wff-tracked-cta {
     gap: 5px;
     padding: 8px;
     font-size: 8px !important;
@@ -2520,101 +2582,7 @@
   .wff-site-preview-enquiry {
     gap: 10px;
   }
-  .wff-usage-note {
-    font-size: 10px;
-  }
-  .wff-funnel-flow {
-    display: flex;
-    flex-direction: column;
-    gap: 27px;
-    min-height: 0;
-    padding: 25px 22px;
-  }
-  .wff-split-node {
-    width: 145px;
-    padding: 13px;
-  }
-  .wff-split-node > span {
-    font-size: 28px;
-  }
-  .wff-split-node::after {
-    top: 100%;
-    right: 50%;
-    width: 1px;
-    height: 27px;
-  }
-  .wff-funnel-variants {
-    width: 100%;
-    gap: 16px;
-  }
-  .wff-funnel-variants::before {
-    display: none;
-  }
-  .wff-funnel-variants::after {
-    top: 100%;
-    bottom: auto;
-    right: 50%;
-    width: 1px;
-    height: 27px;
-    border: 0;
-    background: #97a6bd;
-    border-radius: 0;
-  }
-  .wff-funnel-page-label {
-    padding: 9px 13px;
-    font-size: 11px;
-  }
-  .wff-funnel-page-label > span {
-    display: block;
-    font-size: 8px;
-  }
-  .wff-funnel-thumbnail {
-    display: block;
-    height: auto;
-  }
-  .wff-funnel-thumbnail > div {
-    min-height: 140px;
-    padding: 18px;
-    gap: 10px;
-  }
-  .wff-funnel-thumbnail strong {
-    font-size: 23px;
-  }
-  .wff-funnel-thumbnail img {
-    display: none;
-  }
-  .wff-funnel-mini-cta {
-    font-size: 7px;
-  }
-  .wff-funnel-destinations {
-    width: 100%;
-  }
-  .wff-funnel-destinations::before {
-    display: none;
-  }
-  .wff-funnel-enquire,
-  .wff-funnel-thanks {
-    padding: 20px;
-  }
-  .wff-funnel-enquire > strong,
-  .wff-funnel-thanks > strong {
-    font-size: 23px;
-  }
-  .wff-funnel-enquire > div {
-    font-size: 9px;
-  }
-  .wff-funnel-thanks > p {
-    font-size: 10px;
-  }
-  .wff-funnel-notes {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    margin-top: 22px;
-    font-size: 12px;
-  }
-  .wff-funnel-notes strong {
-    font-size: 13px;
-  }
+
   .wff-form-connection {
     grid-template-columns: 1fr;
     gap: 22px;
@@ -2708,7 +2676,7 @@
   .wff-tracked-nav > strong {
     font-size: 24px;
   }
-  .wff-tracked-nav > button {
+  .wff-tracked-nav > span {
     font-size: 8px !important;
   }
   .wff-tracked-hero {
@@ -2720,7 +2688,7 @@
   .wff-tracked-hero h3 {
     font-size: 34px;
   }
-  .wff-tracked-hero button {
+  .wff-tracked-hero .wff-tracked-cta {
     padding: 10px 13px;
     font-size: 10px !important;
   }
@@ -2735,9 +2703,7 @@
   .wff-tracked-services strong {
     font-size: 24px;
   }
-  .wff-tracking-hint {
-    font-size: 10px;
-  }
+
   .wff-launch-layout {
     grid-template-columns: 1fr;
     gap: 35px;

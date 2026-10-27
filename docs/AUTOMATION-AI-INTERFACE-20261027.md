@@ -1,5 +1,7 @@
 # Automation AI interface refinement, 27 October 2026
 
+**Playback superseded:** [Entry autoplay and controls](AUTOMATION-AI-AUTOPLAY-20261027.md) follow the owner’s later request. The cooler-ink visual direction below remains accepted.
+
 The owner rejected the visual weight of the flat green AI container and approved a cooler, integrated interface after the attached ActiveCampaign recording was rechecked. This supersedes the green AI player and oversized white choice tiles. It does not reopen the restored nurture hero, its silver frame/white cards, the photo overlay, FAQ, final CTA or shared architecture.
 
 The buyer question is: can I describe a routine process and get a connected workflow draft? A visitor deliberately plays the selected request. Typing finishes, a short building response introduces the draft, then its connected steps appear and hold. Nothing activates a live workflow. All eight existing requests, step data and setup boundaries remain, including the external billing webhook for overdue invoices and configured voice agent for requested callbacks.
