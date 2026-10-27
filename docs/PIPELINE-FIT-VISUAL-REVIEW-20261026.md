@@ -68,4 +68,20 @@ Reference decision: ADAPT the supplied Clay screenshots' material depth, varied 
 
 Runtime changes are limited to PipelineManagementPage.tsx and pipeline-management.css. The three cards contain no new handlers, effects, submissions, service calls or runtime dependencies. The configured field-display check represents a documented option; the shortcut remains static appearance. Essential content must remain legible without JavaScript or motion. Tablet scenes receive more space instead of miniature UI.
 
-Rendered verification of this new composition is pending; earlier captures do not verify it. Current main's Automation and Websites changes are incorporated without rewriting branch history. The existing PR remains a draft while the candidate is checked. Main, Lovable and production have not been updated by this correction.
+Current main's Automation and Websites changes are incorporated without rewriting branch history. Main, Lovable and production have not been updated by this correction.
+
+### Scoped rendered checks
+
+The exact candidate df82bce9037d63cb3a81d7658a89bd9485141edb passed Workers Builds and rendered at https://fb4eeba2-guidedpricing.jinrcao.workers.dev/features/pipeline-management#pipeline-fit. The normal desktop view was inspected at 1707 by 769, with 1692px document width. All three compositions and their complete copy fit in one view; the field/settings and shortcut panels remain separated, while the tag list deliberately reaches the card edge. No document overflow appeared.
+
+The Browser viewport override did not change the actual page dimensions, so it was reset. A temporary same-origin review frame on the draft branch supplied real 834px tablet, 390px phone, 320px narrow-phone and 1100px desktop-boundary widths at 680px height. All three tablet and phone scenes were visually inspected through native scrolling. At 320px the tag list wraps naturally, complete records fit before the copy, and all checked section headings, paragraphs, fields and tags have no horizontal text overflow. Document/content widths matched: 305px at the narrow width and 1085px at 1100. The tablet changes to three horizontal compositions rather than shrinking the UI; phone keeps the UI above its copy. No new live interaction exists in these scenes.
+
+A contrast review found that grain and a darker gradient under the lavender paragraph could reduce contrast. The correction confines grain to the illustration, removes the dark gradient stop and uses ink copy. The clean lavender base with the final paragraph colour exceeds 5:1; lighter tonal stops increase contrast. The final source gets a deployed confirmation after this correction. The temporary review page is removed from the final source.
+
+### Director and buyer assessment
+
+These are separate judgements by the implementation owner, not independent-agent approval or measured conversion results. Motion: static content communicates all three features immediately, without timing or extra clicks. Brand/Creative: local fine grain and tonal depth support Zapla's coral/gold/lavender and smooth white panels; the site canvas stays clean. UI/UX: distinct compositions, readable values and source-reviewed complete static content; narrow-screen geometry confirms labels remain visible. Product Marketing/Conversion: fields demonstrate useful job detail, the shortcut sits on the opportunity and tags explain scanning several jobs; settings remain secondary to stages and routes. SME/buyer psychology: practical adaptability is visible without a configuration catalogue. AI-slop check: no cursor hands, fake metrics, floating/tilted decoration, arbitrary connecting lines or new runtime status claims.
+
+### Code checks and limits
+
+TypeScript, scoped ESLint, Prettier, SEO and whitespace checks passed. The managed local build logged completed client and SSR bundles, but did not log the final Nitro completion marker; it is not represented as a complete local build. The exact deployed candidate's Workers Builds check completed successfully. Reduced-motion/no-JavaScript completeness is unchanged static markup, reviewed in source; no browser-level preference or JavaScript-disabled test is claimed. No physical-device, screen-reader or live tenant acceptance test was added. Shared navigation/footer, booking destinations and production publication remain untouched.

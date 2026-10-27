@@ -570,9 +570,11 @@
   content: "";
 }
 .zapla-pipeline .pf-fit-card::before {
-  background: linear-gradient(135deg, #ffffff6b 0%, #ffffff0a 55%, #2e22300a 100%);
+  background: linear-gradient(135deg, #ffffff6b 0%, #ffffff0a 55%, #ffffff00 100%);
 }
 .zapla-pipeline .pf-fit-card::after {
+  bottom: auto;
+  height: 340px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23808080' filter='url(%23grain)' d='M0 0h160v160H0z'/%3E%3C/svg%3E");
   opacity: 0.19;
   mix-blend-mode: multiply;
@@ -859,7 +861,7 @@
 }
 .zapla-pipeline .pf-fit-card-copy > p {
   margin-top: 10px;
-  color: #25272a;
+  color: #1b2021;
   font-size: 14px;
   line-height: 1.65;
 }
@@ -1605,7 +1607,11 @@
     padding: 30px;
   }
   .zapla-pipeline .pf-fit-card::before {
-    background: linear-gradient(135deg, #ffffff6b, #ffffff05 65%, #2e22300a);
+    background: linear-gradient(135deg, #ffffff6b, #ffffff05 65%, #ffffff00);
+  }
+  .zapla-pipeline .pf-fit-card::after {
+    width: 56.522%;
+    height: 100%;
   }
 }
 @media (max-width: 750px) {
