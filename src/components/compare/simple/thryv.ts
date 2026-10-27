@@ -16,7 +16,7 @@ export const thryvComparison = {
     },
     {
       "title": "Keep customer work in one place.",
-      "description": "CRM & pipelines, a shared inbox, quotes, invoices and a support ticketing system are included. Give each customer issue an owner and track it through to resolution."
+      "description": "CRM & pipelines, a shared inbox, quotes and invoices are included. Keep enquiries, conversations and customer documents together."
     }
   ],
   "tableIntroduction": "Zapla Follow-Through versus Thryv Signature. Compare missed-call recovery, customer follow-up, reporting and the tools your team uses every day.",
@@ -351,10 +351,6 @@ export const thryvComparison = {
     {
       "question": "Does Thryv also offer CRM, invoicing and automation?",
       "answer": "Yes. Thryv offers these capabilities across its product family. This page prices the Australian Signature package; it does not combine Business Center, Keap or other subscriptions into that price. Confirm the exact products and allowances in your Thryv order."
-    },
-    {
-      "question": "Can my team manage customer support tickets?",
-      "answer": "Yes. Follow-Through includes a support ticketing system to organise customer issues, assign responsibility and track progress. Configuration and automation are agreed as part of your launch scope."
     },
     {
       "question": "Is Zapla’s subscription cheaper?",

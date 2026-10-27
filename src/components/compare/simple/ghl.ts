@@ -351,28 +351,6 @@ export const ghlComparison = {
       }
     },
     {
-      "id": "ticketing",
-      "label": "Support ticketing system",
-      "zapla": {
-        "text": "",
-        "detail": "Manage customer support tickets inside the platform, including escalation where configured.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "nextgen-privacy"
-        ]
-      },
-      "competitor": {
-        "text": "",
-        "detail": "Dedicated support ticketing can be added through integrations such as SupportDesk. CRM pipelines can also be configured to track service requests.",
-        "status": "separate",
-        "mark": "cross",
-        "sources": [
-          "ghl-ticketing"
-        ]
-      }
-    },
-    {
       "id": "support",
       "label": "Support",
       "zapla": {
@@ -670,11 +648,6 @@ export const ghlComparison = {
       "url": "https://marketplace.gohighlevel.com/integration/69b67036e65bf138703a31d7/versions/69cd720d516a315c8f08c6e4"
     },
     {
-      "id": "ghl-ticketing",
-      "title": "SupportDesk integration for GoHighLevel",
-      "url": "https://ghlplugins.com/ghl-support-desk-ticketing"
-    },
-    {
       "id": "ghl-meetings",
       "title": "GoHighLevel native video meetings",
       "url": "https://help.gohighlevel.com/support/solutions/articles/155000008369-highlevel-meetings-reusable-links-for-one-time-recurring-calls"
@@ -683,16 +656,6 @@ export const ghlComparison = {
       "id": "ghl-support",
       "title": "GoHighLevel support",
       "url": "https://help.gohighlevel.com/support/home"
-    },
-    {
-      "id": "nextgen-ticketing",
-      "title": "NextGen event ticketing",
-      "url": "https://thenextgencrm.com/features/"
-    },
-    {
-      "id": "ghl-events",
-      "title": "GoHighLevel event tickets and QR check-in",
-      "url": "https://help.gohighlevel.com/support/solutions/articles/155000008294-check-in-experience-for-in-person-events"
     },
     {
       "id": "nextgen-agents",

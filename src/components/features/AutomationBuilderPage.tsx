@@ -343,7 +343,7 @@ const faqs = [
   ],
   [
     "What can start a workflow?",
-    "Starting events include a submitted form, tag change, new contact, pipeline stage change, appointment booking, accepted quote, invoice payment or support-ticket event. Choose the event and entry conditions that match your process.",
+    "Starting events include a submitted form, tag change, new contact, pipeline stage change, appointment booking, accepted quote or invoice payment. Choose the event and entry conditions that match your process.",
   ],
   [
     "Can I change the messages and timing?",

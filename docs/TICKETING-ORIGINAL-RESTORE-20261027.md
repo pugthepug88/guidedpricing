@@ -1,5 +1,7 @@
 # Ticketing: restore the first iteration, 27 October 2026
 
+> Historical. The owner subsequently decided not to offer Ticketing and explicitly requested deletion of the entire page. See `TICKETING-REMOVAL-20261027.md`. Do not restore this implementation under the former rollback instruction.
+
 The owner rejected the latest visual rebuild and asked: “what was the first iteration that u did? can u go back to that again”. This is an exact page restoration, not another redesign. It supersedes the intervening Ticketing composition instructions only.
 
 ## Exact restoration

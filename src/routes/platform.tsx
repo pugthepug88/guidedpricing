@@ -118,12 +118,12 @@ function PlatformMap() {
       badge: "Operations",
       title: "Work system",
       copy:
-        "Once a customer is in motion, Zapla coordinates the work around them. Opportunities move, workflows trigger, documents go out, payments come in and service issues stay visible.",
+        "Once a customer is in motion, Zapla coordinates the work around them. Opportunities move, workflows trigger, documents go out and payments come in.",
       capabilities: [
         "Pipelines & opportunities",
         "Automation & workflows",
         "Payments & invoicing",
-        "Docs, contracts & ticketing",
+        "Documents & contracts",
       ],
       accent: "#9FC6B5",
       dots: ["#D2E1DA", "#AFCDBF", "#789889"],

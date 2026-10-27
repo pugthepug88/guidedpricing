@@ -44,7 +44,6 @@ import { Route as FeaturesAutomationBuilderRouteImport } from './routes/features
 import { Route as FeaturesCalendarsBookingsRouteImport } from './routes/features.calendars-bookings'
 import { Route as FeaturesPipelineManagementRouteImport } from './routes/features.pipeline-management'
 import { Route as FeaturesQuotesInvoicesSignaturesRouteImport } from './routes/features.quotes-invoices-signatures'
-import { Route as FeaturesTicketingRouteImport } from './routes/features.ticketing'
 import { Route as FeaturesUnifiedInboxRouteImport } from './routes/features.unified-inbox'
 import { Route as FeaturesWebsitesFunnelsFormsRouteImport } from './routes/features.websites-funnels-forms'
 import { Route as IndustriesIndexRouteImport } from './routes/industries/index'
@@ -243,11 +242,6 @@ const FeaturesQuotesInvoicesSignaturesRoute =
     path: '/features/quotes-invoices-signatures',
     getParentRoute: () => rootRouteImport,
   } as any)
-const FeaturesTicketingRoute = FeaturesTicketingRouteImport.update({
-  id: '/features/ticketing',
-  path: '/features/ticketing',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const FeaturesUnifiedInboxRoute = FeaturesUnifiedInboxRouteImport.update({
   id: '/features/unified-inbox',
   path: '/features/unified-inbox',
@@ -338,7 +332,6 @@ export interface FileRoutesByFullPath {
   '/features/calendars-bookings': typeof FeaturesCalendarsBookingsRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/quotes-invoices-signatures': typeof FeaturesQuotesInvoicesSignaturesRoute
-  '/features/ticketing': typeof FeaturesTicketingRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -386,7 +379,6 @@ export interface FileRoutesByTo {
   '/features/calendars-bookings': typeof FeaturesCalendarsBookingsRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/quotes-invoices-signatures': typeof FeaturesQuotesInvoicesSignaturesRoute
-  '/features/ticketing': typeof FeaturesTicketingRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -435,7 +427,6 @@ export interface FileRoutesById {
   '/features/calendars-bookings': typeof FeaturesCalendarsBookingsRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/quotes-invoices-signatures': typeof FeaturesQuotesInvoicesSignaturesRoute
-  '/features/ticketing': typeof FeaturesTicketingRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -485,7 +476,6 @@ export interface FileRouteTypes {
     | '/features/calendars-bookings'
     | '/features/pipeline-management'
     | '/features/quotes-invoices-signatures'
-    | '/features/ticketing'
     | '/features/unified-inbox'
     | '/features/websites-funnels-forms'
     | '/industries/allied-health'
@@ -533,7 +523,6 @@ export interface FileRouteTypes {
     | '/features/calendars-bookings'
     | '/features/pipeline-management'
     | '/features/quotes-invoices-signatures'
-    | '/features/ticketing'
     | '/features/unified-inbox'
     | '/features/websites-funnels-forms'
     | '/industries/allied-health'
@@ -581,7 +570,6 @@ export interface FileRouteTypes {
     | '/features/calendars-bookings'
     | '/features/pipeline-management'
     | '/features/quotes-invoices-signatures'
-    | '/features/ticketing'
     | '/features/unified-inbox'
     | '/features/websites-funnels-forms'
     | '/industries/allied-health'
@@ -630,7 +618,6 @@ export interface RootRouteChildren {
   FeaturesCalendarsBookingsRoute: typeof FeaturesCalendarsBookingsRoute
   FeaturesPipelineManagementRoute: typeof FeaturesPipelineManagementRoute
   FeaturesQuotesInvoicesSignaturesRoute: typeof FeaturesQuotesInvoicesSignaturesRoute
-  FeaturesTicketingRoute: typeof FeaturesTicketingRoute
   FeaturesUnifiedInboxRoute: typeof FeaturesUnifiedInboxRoute
   FeaturesWebsitesFunnelsFormsRoute: typeof FeaturesWebsitesFunnelsFormsRoute
   IndustriesAlliedHealthRoute: typeof IndustriesAlliedHealthRoute
@@ -891,13 +878,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeaturesQuotesInvoicesSignaturesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/features/ticketing': {
-      id: '/features/ticketing'
-      path: '/features/ticketing'
-      fullPath: '/features/ticketing'
-      preLoaderRoute: typeof FeaturesTicketingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/features/unified-inbox': {
       id: '/features/unified-inbox'
       path: '/features/unified-inbox'
@@ -1007,7 +987,6 @@ const rootRouteChildren: RootRouteChildren = {
   FeaturesCalendarsBookingsRoute: FeaturesCalendarsBookingsRoute,
   FeaturesPipelineManagementRoute: FeaturesPipelineManagementRoute,
   FeaturesQuotesInvoicesSignaturesRoute: FeaturesQuotesInvoicesSignaturesRoute,
-  FeaturesTicketingRoute: FeaturesTicketingRoute,
   FeaturesUnifiedInboxRoute: FeaturesUnifiedInboxRoute,
   FeaturesWebsitesFunnelsFormsRoute: FeaturesWebsitesFunnelsFormsRoute,
   IndustriesAlliedHealthRoute: IndustriesAlliedHealthRoute,
