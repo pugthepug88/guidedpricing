@@ -28,7 +28,7 @@
   margin-inline: auto;
 }
 .zapla-quotes .qi-section {
-  padding-block: 108px;
+  padding-block: 90px;
 }
 .zapla-quotes :is(h1, h2) {
   font-family: "Inter Tight", Outfit, Manrope, sans-serif;
@@ -37,7 +37,7 @@
   line-height: 1.04;
 }
 .zapla-quotes h2 {
-  font-size: clamp(36px, 3.6vw, 51px);
+  font-size: clamp(36px, 3.4vw, 48px);
 }
 .zapla-quotes p {
   color: var(--qi-muted);
@@ -46,12 +46,12 @@
 }
 .zapla-quotes .qi-eyebrow {
   color: #946e5b;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 650;
   line-height: 1.5;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 .zapla-quotes .qi-button {
   display: inline-flex;
@@ -60,7 +60,7 @@
   min-height: 52px;
   border-radius: 30px;
   padding: 14px 27px;
-  color: white;
+  color: #fff;
   background: #1e2b29;
   text-decoration: none;
   font-size: 13px;
@@ -106,8 +106,7 @@
   background-repeat: no-repeat;
 }
 .zapla-quotes .qi-hero {
-  padding-top: 110px;
-  padding-bottom: 90px;
+  padding: 108px 0 76px;
 }
 .zapla-quotes .qi-hero-layout {
   display: grid;
@@ -121,8 +120,8 @@
   letter-spacing: -0.052em;
 }
 .zapla-quotes .qi-lead {
-  margin-top: 30px;
-  max-width: 470px;
+  margin-top: 27px;
+  max-width: 465px;
   font-size: 17px;
   line-height: 1.8;
 }
@@ -131,15 +130,15 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 14px 24px;
-  margin-top: 30px;
+  margin-top: 28px;
 }
 .zapla-quotes .qi-quote-stage {
   position: relative;
   isolation: isolate;
-  padding: 20px;
+  padding: 14px;
   background: #c4c0b7;
   border: 1px solid #b6b7b1;
-  border-radius: 25px;
+  border-radius: 23px;
   box-shadow:
     inset 0 0 0 3px #ffffff38,
     0 22px 50px -35px #29363180;
@@ -154,20 +153,20 @@
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.55' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 .zapla-quotes .qi-quote-paper {
-  padding: 28px 30px 26px;
+  padding: 24px;
   background: #fff;
   border: 1px solid #ffffffcf;
-  border-radius: 12px;
+  border-radius: 11px;
   box-shadow: 0 6px 20px #29363116;
 }
 .zapla-quotes .qi-document-brand {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 16px;
 }
 .zapla-quotes .qi-document-brand img {
-  width: 103px;
+  width: 95px;
   height: auto;
 }
 .zapla-quotes .qi-document-brand > span {
@@ -175,27 +174,27 @@
   color: #65716b;
 }
 .zapla-quotes .qi-document-title {
-  padding: 26px 0 22px;
+  padding: 18px 0;
 }
 .zapla-quotes .qi-document-title > p {
-  font-size: 11px;
-  color: #737a76;
+  font-size: 12px;
+  color: #66716a;
 }
 .zapla-quotes .qi-document-title h2 {
-  margin-top: 4px;
-  font-size: 31px;
+  margin-top: 3px;
+  font-size: 29px;
   letter-spacing: -0.035em;
   line-height: 1.15;
 }
 .zapla-quotes .qi-quote-recipient {
   display: flex;
   gap: 9px;
-  margin-top: 13px;
+  margin-top: 10px;
   align-items: baseline;
-  font-size: 12px;
+  font-size: 13px;
 }
 .zapla-quotes .qi-quote-recipient > span {
-  color: #717975;
+  color: #65716b;
 }
 .zapla-quotes .qi-quote-recipient strong {
   font-weight: 650;
@@ -204,67 +203,65 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 12px;
+  font-size: 13px;
   font-variant-numeric: tabular-nums;
 }
 .zapla-quotes .qi-line-items thead {
-  color: #737a76;
-  font-size: 10px;
+  color: #65716b;
+  font-size: 11px;
 }
 .zapla-quotes .qi-line-items thead th {
-  padding-block: 10px;
+  padding-block: 8px;
   font-weight: 500;
   border-block: 1px solid #e8e8e4;
 }
 .zapla-quotes .qi-line-items :is(th, td) {
-  padding: 14px 0;
+  padding: 11px 0;
   vertical-align: top;
 }
 .zapla-quotes .qi-line-items th:first-child {
   width: 60%;
-  padding-right: 14px;
+  padding-right: 12px;
 }
-.zapla-quotes .qi-line-items th:nth-child(2),
-.zapla-quotes .qi-line-items td:nth-child(2) {
+.zapla-quotes .qi-line-items :is(th, td):nth-child(2) {
   text-align: center;
 }
-.zapla-quotes .qi-line-items td:last-child,
-.zapla-quotes .qi-line-items th:last-child {
+.zapla-quotes .qi-line-items :is(td, th):last-child {
   text-align: right;
   white-space: nowrap;
 }
 .zapla-quotes .qi-line-items tbody th {
   font-weight: 650;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 .zapla-quotes .qi-line-items tbody th > span {
   display: block;
-  margin-top: 4px;
-  color: #767c78;
-  font-size: 10px;
+  margin-top: 3px;
+  color: #66716a;
+  font-size: 11px;
   font-weight: 400;
 }
 .zapla-quotes .qi-quote-totals {
   border-top: 1px solid #e8e8e4;
-  padding-top: 12px;
+  padding-top: 8px;
 }
 .zapla-quotes .qi-quote-totals > div {
   display: flex;
   justify-content: space-between;
-  padding-block: 4px;
+  padding-block: 3px;
   gap: 12px;
-  font-size: 12px;
+  font-size: 13px;
 }
 .zapla-quotes .qi-quote-totals dt {
-  color: #6e7771;
+  color: #65716b;
 }
 .zapla-quotes .qi-quote-totals dd {
   font-variant-numeric: tabular-nums;
 }
 .zapla-quotes .qi-quote-totals .qi-document-total {
-  padding-top: 12px;
+  padding-top: 9px;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
 }
 .zapla-quotes .qi-document-total dt {
   color: #1a2520;
@@ -272,38 +269,61 @@
 .zapla-quotes .qi-quote-terms {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 24px;
-  padding-top: 20px;
+  gap: 20px;
+  margin-top: 15px;
+  padding-top: 13px;
   border-top: 1px solid #e8e8e4;
 }
 .zapla-quotes .qi-quote-terms strong {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 650;
 }
 .zapla-quotes .qi-quote-terms p {
-  margin-top: 5px;
-  color: #6b746d;
-  font-size: 10px;
-  line-height: 1.8;
+  margin-top: 4px;
+  color: #65716b;
+  font-size: 11px;
+  line-height: 1.65;
+}
+.zapla-quotes .qi-related-documents {
+  padding: 4px 12px 0;
+}
+.zapla-quotes .qi-related-documents a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 5px 16px;
+  padding-block: 12px;
+  color: #26322e;
+  font-size: 12px;
+  line-height: 1.5;
+  text-decoration: none;
+}
+.zapla-quotes .qi-related-documents a + a {
+  border-top: 1px solid #a6aaa0;
+}
+.zapla-quotes .qi-related-documents strong {
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 .zapla-quotes .qi-overview {
   display: grid;
-  grid-template-columns: 0.8fr 1fr;
+  grid-template-columns: 0.88fr 1.12fr;
   align-items: center;
-  gap: 100px;
-  margin-top: 90px;
+  gap: 70px;
+  margin-top: 70px;
 }
 .zapla-quotes .qi-overview h2 {
-  font-size: 35px;
-  max-width: 430px;
+  font-size: 34px;
+  max-width: 420px;
 }
 .zapla-quotes .qi-overview-copy > p {
-  margin-top: 20px;
+  margin-top: 17px;
   font-size: 15px;
 }
 .zapla-quotes .qi-overview-copy > a {
-  margin-top: 12px;
+  margin-top: 10px;
 }
 .zapla-quotes .qi-quote-register {
   border-block: 1px solid #d5d9d3;
@@ -312,7 +332,7 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 18px 0;
+  padding: 16px 0;
   gap: 15px;
 }
 .zapla-quotes .qi-register-heading h3 {
@@ -320,8 +340,8 @@
   font-weight: 650;
 }
 .zapla-quotes .qi-register-heading > span {
-  font-size: 11px;
-  color: #757b76;
+  font-size: 12px;
+  color: #65716b;
 }
 .zapla-quotes .qi-register-row {
   display: grid;
@@ -329,20 +349,20 @@
   align-items: center;
   gap: 15px;
   border-top: 1px solid #e6e8e3;
-  padding: 18px 0;
-  font-size: 12px;
+  padding: 15px 0;
+  font-size: 13px;
 }
 .zapla-quotes .qi-register-row strong {
   font-weight: 600;
 }
 .zapla-quotes .qi-register-row p {
-  font-size: 11px;
-  line-height: 1.7;
-  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 3px;
 }
 .zapla-quotes .qi-register-row > span {
-  color: #778079;
-  font-size: 11px;
+  color: #65716b;
+  font-size: 12px;
 }
 .zapla-quotes .qi-sent {
   color: #345c81;
@@ -350,12 +370,12 @@
 .zapla-quotes .qi-accepted {
   color: #416646;
 }
-.zapla-quotes .qi-sign-section {
+.zapla-quotes :is(.qi-sign-section, .qi-payments) {
   scroll-margin-top: 78px;
 }
 .zapla-quotes .qi-sign-container {
-  padding: 58px 60px 42px;
-  border-radius: 32px;
+  padding: 48px 50px;
+  border-radius: 30px;
   background: #242a2b;
   color: #fff;
 }
@@ -366,31 +386,33 @@
   align-items: end;
 }
 .zapla-quotes .qi-chapter-heading h2 {
-  font-size: clamp(36px, 3.3vw, 48px);
+  font-size: clamp(36px, 3.2vw, 46px);
   max-width: 540px;
 }
 .zapla-quotes .qi-chapter-heading > p {
-  color: #c4c9c7;
-  font-size: 14px;
+  color: #cbd0ce;
+  font-size: 15px;
   line-height: 1.8;
 }
 .zapla-quotes .qi-chapter-heading .qi-eyebrow {
   color: #d9ad91;
 }
 .zapla-quotes .qi-sign-scene {
-  margin-top: 32px;
+  margin-top: 28px;
 }
-.zapla-quotes .qi-sign-playback {
-  min-height: 50px;
+.zapla-quotes .qi-playback {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 18px;
+  gap: 18px;
+}
+.zapla-quotes .qi-sign-playback {
+  min-height: 60px;
+  margin-bottom: 20px;
 }
 .zapla-quotes .qi-sign-playback > p {
-  font-size: 12px;
   color: #dce0dd;
+  font-size: 13px;
+  max-width: 680px;
 }
 .zapla-quotes .qi-watch {
   display: inline-flex;
@@ -398,14 +420,15 @@
   justify-content: center;
   gap: 9px;
   flex-shrink: 0;
+  min-width: 150px;
   min-height: 44px;
   padding: 10px 17px;
-  border: 1px solid #a0aba35c;
-  border-radius: 24px;
+  border: 1px solid #b0b7b173;
+  border-radius: 25px;
   background: transparent;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 600;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 650;
 }
 .zapla-quotes .qi-watch:hover {
   background: #ffffff12;
@@ -413,40 +436,40 @@
 .zapla-quotes .qi-watch[hidden] {
   display: none;
 }
-.zapla-quotes .qi-watch:disabled {
-  cursor: default;
-  color: #b9c2bb;
-}
 .zapla-quotes .qi-sign-workspace {
   display: grid;
-  grid-template-columns: 1.65fr 1fr;
-  gap: 28px;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
   align-items: center;
+  gap: 64px;
+  max-width: 1040px;
+  margin-inline: auto;
 }
 .zapla-quotes .qi-sign-paper {
-  padding: 28px 32px 22px;
+  padding: 25px 28px 0;
   border-radius: 12px;
   background: #fff;
   color: #1d2823;
+  overflow: hidden;
 }
-.zapla-quotes .qi-sign-paper > header {
+.zapla-quotes .qi-sign-person {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  border-bottom: 1px solid #e2e6e0;
-  padding-bottom: 15px;
-  gap: 10px;
-  font-size: 10px;
-  color: #747c75;
+  flex-wrap: wrap;
+  gap: 7px 15px;
+  margin-top: 20px;
+  padding-block: 13px;
+  border-block: 1px solid #e2e6e0;
+  font-size: 12px;
+  color: #59675e;
 }
-.zapla-quotes .qi-sign-paper > header strong {
-  color: #42664c;
+.zapla-quotes .qi-sign-person > strong {
+  color: #345b48;
   font-weight: 650;
 }
 .zapla-quotes .qi-sign-paper > .qi-document-kind {
-  color: #7d837d;
-  font-size: 10px;
-  margin-top: 22px;
+  color: #65716b;
+  font-size: 12px;
+  margin-top: 19px;
 }
 .zapla-quotes .qi-sign-paper h3 {
   margin-top: 3px;
@@ -457,104 +480,137 @@
   letter-spacing: -0.025em;
 }
 .zapla-quotes .qi-sign-paper > p:not(.qi-document-kind) {
-  font-size: 12px;
-  color: #5c675f;
-  margin-top: 13px;
-}
-.zapla-quotes .qi-scope-clause {
-  padding: 17px 0 21px;
-}
-.zapla-quotes .qi-scope-clause strong {
-  font-size: 11px;
-  font-weight: 650;
-}
-.zapla-quotes .qi-scope-clause p {
-  font-size: 11px;
-  color: #616d64;
-  margin-top: 6px;
+  font-size: 13px;
+  color: #59675e;
+  margin-top: 12px;
+  line-height: 1.7;
 }
 .zapla-quotes .qi-signature-field {
-  padding: 14px 16px;
-  border: 1px dashed #718fba;
+  padding: 13px 15px;
+  border: 1px dashed #9caebf;
   border-radius: 6px;
   background: #fff;
-  min-height: 90px;
+  min-height: 88px;
+  margin-top: 20px;
+}
+.zapla-quotes .qi-signature-field[data-active="true"] {
+  border: 1px solid #2563ff;
+  background: #f8faff;
 }
 .zapla-quotes .qi-signature-field > span {
   display: block;
-  font-size: 10px;
-  color: #6c7870;
+  font-size: 12px;
+  color: #59675e;
 }
 .zapla-quotes .qi-handwriting {
   display: block;
   margin-top: 8px;
   font-family: Georgia, serif;
   font-style: italic;
-  font-size: 29px;
+  font-size: 30px;
   font-weight: 400;
   color: #315b9a;
   line-height: 1.2;
 }
 .zapla-quotes .qi-signature-field[data-entered="false"] .qi-handwriting {
-  color: #8a9790;
-  font-size: 21px;
+  color: #748078;
+  font-size: 23px;
 }
 .zapla-quotes .qi-sign-fields {
   display: grid;
-  grid-template-columns: 0.6fr 1fr;
-  gap: 22px;
-  margin-top: 16px;
+  grid-template-columns: 0.5fr 1fr;
+  gap: 18px;
+  margin-top: 14px;
 }
 .zapla-quotes .qi-sign-fields > div {
   display: flex;
   flex-direction: column;
   gap: 7px;
-  border-bottom: 1px solid #d6ded5;
-  padding-bottom: 9px;
+  border-bottom: 1px solid #bdc9c0;
+  padding: 7px 4px 11px;
+}
+.zapla-quotes .qi-sign-fields[data-active="true"] > div {
+  border-color: #2563ff;
 }
 .zapla-quotes .qi-sign-fields span {
-  color: #778078;
-  font-size: 10px;
+  color: #65716b;
+  font-size: 12px;
 }
 .zapla-quotes .qi-sign-fields strong {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   color: #315b9a;
 }
-.zapla-quotes .qi-sign-result {
+.zapla-quotes .qi-document-action {
+  min-height: 91px;
+  margin: 21px -28px 0;
+  padding: 19px 28px;
+  border-top: 1px solid #e2e6e0;
+  background: #f1f3f0;
+}
+.zapla-quotes .qi-scripted-action {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  min-height: 48px;
+}
+.zapla-quotes .qi-scripted-action > span {
+  font-size: 12px;
+  line-height: 1.65;
+  max-width: 160px;
+  color: #65716b;
+}
+.zapla-quotes .qi-scripted-action > strong {
+  display: inline-flex;
+  align-items: center;
   gap: 8px;
-  min-height: 43px;
-  padding-top: 16px;
-  color: #42664c;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.6;
+  color: #53685d;
 }
-.zapla-quotes .qi-sign-result p {
-  font-size: 10px;
-  color: #5b6c60;
+.zapla-quotes .qi-document-action[data-active="true"] {
+  background: #2563ff;
 }
-.zapla-quotes .qi-sign-scene[data-stage="2"] .qi-handwriting {
-  animation: qi-sign-enter 0.4s ease-out both;
+.zapla-quotes .qi-document-action[data-active="true"] :is(span, strong) {
+  color: #fff;
+}
+.zapla-quotes .qi-completed-action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  color: #355b45;
+}
+.zapla-quotes .qi-completed-action strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 650;
+}
+.zapla-quotes .qi-completed-action span {
+  display: block;
+  font-size: 12px;
+  margin-top: 4px;
+}
+.zapla-quotes .qi-sign-scene[data-stage="1"] .qi-handwriting {
+  animation: qi-sign-enter 0.65s ease-out both;
 }
 @keyframes qi-sign-enter {
   from {
-    opacity: 0.1;
+    clip-path: inset(0 100% 0 0);
   }
   to {
-    opacity: 1;
+    clip-path: inset(0);
   }
 }
-.zapla-quotes .qi-signer-record {
-  min-width: 0;
-  padding: 20px 8px 20px 12px;
-}
 .zapla-quotes .qi-signer-record > p:first-child {
-  font-size: 11px;
-  color: #b8c2bc;
+  font-size: 13px;
+  color: #bfc9c2;
 }
 .zapla-quotes .qi-signer-record h3 {
   font-family: "Inter Tight", Manrope, sans-serif;
-  font-size: 31px;
+  font-size: 35px;
   line-height: 1.15;
   font-weight: 500;
   letter-spacing: -0.03em;
@@ -563,74 +619,72 @@
 .zapla-quotes .qi-signer-person {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 25px 0;
-  margin-top: 10px;
-  border-bottom: 1px solid #59615a;
+  gap: 13px;
+  padding: 23px 0;
+  margin-top: 9px;
+  border-bottom: 1px solid #56615a;
 }
 .zapla-quotes .qi-signer-person strong {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
 }
 .zapla-quotes .qi-signer-person span:not(.qi-portrait) {
   display: block;
-  font-size: 11px;
+  font-size: 13px;
+  line-height: 1.6;
   margin-top: 5px;
-  color: #c2d0c0;
-}
-.zapla-quotes .qi-signer-record dl {
-  margin-top: 7px;
+  color: #c6d1c6;
 }
 .zapla-quotes .qi-signer-record dl > div {
-  padding-block: 15px;
-  border-bottom: 1px solid #59615a;
+  padding-block: 18px;
+  border-bottom: 1px solid #56615a;
 }
 .zapla-quotes .qi-signer-record dt {
-  font-size: 10px;
-  color: #b0bab2;
+  font-size: 12px;
+  color: #bfc9c2;
 }
 .zapla-quotes .qi-signer-record dd {
-  margin-top: 6px;
-  font-size: 13px;
+  margin-top: 7px;
+  font-size: 15px;
 }
 .zapla-quotes .qi-signer-record dd.qi-signed {
   color: #c5dcb9;
 }
 .zapla-quotes .qi-signer-record .qi-signer-payoff {
-  margin-top: 22px;
-  font-size: 12px;
-  color: #c3cbc4;
+  margin-top: 21px;
+  font-size: 14px;
+  color: #cbd4cc;
 }
 .zapla-quotes .qi-payment-layout {
   display: grid;
-  grid-template-columns: 0.95fr 1fr;
+  grid-template-columns: 0.85fr 1.15fr;
   align-items: center;
-  gap: 100px;
+  gap: 80px;
 }
 .zapla-quotes .qi-payment-copy h2 {
-  max-width: 450px;
+  max-width: 440px;
 }
 .zapla-quotes .qi-payment-copy > p:not(.qi-eyebrow) {
-  margin-top: 24px;
+  margin-top: 22px;
   font-size: 15px;
 }
 .zapla-quotes .qi-payment-choices {
   border: 0;
   padding: 0;
-  margin: 32px 0 0;
+  margin: 26px 0 0;
   min-width: 0;
 }
 .zapla-quotes .qi-payment-choices legend {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
-  color: #67746b;
-  padding: 0 0 10px;
+  color: #65716b;
+  padding: 0 0 7px;
 }
 .zapla-quotes .qi-payment-choices label {
   display: flex;
   gap: 13px;
   align-items: start;
-  padding: 18px 0;
+  padding: 14px 0;
   border-bottom: 1px solid #dce0d9;
   cursor: pointer;
 }
@@ -638,7 +692,7 @@
   accent-color: var(--feature-blue);
   width: 18px;
   height: 18px;
-  margin-top: 2px;
+  margin: 2px 0 0;
   flex-shrink: 0;
   cursor: pointer;
 }
@@ -649,61 +703,90 @@
 }
 .zapla-quotes .qi-payment-choices label > span > span {
   display: block;
-  margin-top: 4px;
-  color: #68746b;
-  font-size: 12px;
-  line-height: 1.8;
+  margin-top: 3px;
+  color: #65716b;
+  font-size: 13px;
+  line-height: 1.7;
 }
 .zapla-quotes .qi-payment-choices label.qi-chosen strong {
   color: #2453a0;
 }
+.zapla-quotes .qi-payment-playback {
+  align-items: start;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 25px;
+}
+.zapla-quotes .qi-payment-playback .qi-watch {
+  background: #1e2b29;
+  border-color: #1e2b29;
+  color: #fff;
+}
+.zapla-quotes .qi-payment-playback .qi-watch:hover {
+  background: #334b43;
+}
+.zapla-quotes .qi-payment-playback p {
+  min-height: 48px;
+  font-size: 13px;
+  color: #334c48;
+}
 .zapla-quotes .qi-payment-copy .qi-provider-note {
   font-size: 12px;
-  color: #778077;
-  margin-top: 20px;
+  color: #65716b;
+  margin-top: 12px;
 }
 .zapla-quotes .qi-invoice-stage {
   min-width: 0;
+  padding: 14px;
+  border: 1px solid #d0d4d0;
+  border-radius: 23px;
+  background: #e9ece8;
 }
 .zapla-quotes .qi-invoice {
-  padding: 35px 36px 0;
-  border: 1px solid #c9ceca;
-  border-radius: 16px;
+  padding: 24px 28px 0;
+  border: 1px solid #e0e4df;
+  border-radius: 11px;
   background: #fff;
   overflow: hidden;
-  box-shadow: 0 24px 55px -35px #263d3840;
+  box-shadow: 0 8px 20px #263d380a;
 }
-.zapla-quotes .qi-invoice > header {
+.zapla-quotes .qi-invoice-title {
   display: flex;
   justify-content: space-between;
-  gap: 15px;
-  flex-wrap: wrap;
-  color: #758075;
-  font-size: 10px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e2e5df;
+  align-items: end;
+  gap: 18px;
+  padding-top: 22px;
+}
+.zapla-quotes .qi-invoice-title p {
+  font-size: 12px;
+}
+.zapla-quotes .qi-invoice-title > span {
+  font-size: 12px;
+  color: #65716b;
+  line-height: 1.7;
+  max-width: 100px;
 }
 .zapla-quotes .qi-invoice h3 {
   font-family: "Inter Tight", Manrope, sans-serif;
-  font-size: 31px;
+  font-size: 30px;
   font-weight: 500;
   letter-spacing: -0.03em;
   line-height: 1.2;
-  margin-top: 25px;
+  margin-top: 4px;
 }
 .zapla-quotes .qi-invoice-lines {
-  margin-top: 20px;
+  margin-top: 19px;
 }
 .zapla-quotes .qi-invoice-lines > div {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 22px;
-  padding-block: 9px;
-  font-size: 12px;
+  gap: 20px;
+  padding-block: 8px;
+  font-size: 14px;
 }
 .zapla-quotes .qi-invoice-lines dt {
-  color: #69766b;
+  color: #59675e;
 }
 .zapla-quotes .qi-invoice-lines dd {
   white-space: nowrap;
@@ -711,123 +794,173 @@
 }
 .zapla-quotes .qi-invoice-lines .qi-invoice-total {
   border-top: 1px solid #e2e5df;
-  margin-top: 12px;
-  padding-top: 18px;
-  font-size: 15px;
+  margin-top: 9px;
+  padding-top: 14px;
+  font-size: 17px;
   font-weight: 650;
 }
 .zapla-quotes .qi-invoice-total dt {
   color: #1e2b29;
 }
 .zapla-quotes .qi-payment-schedule {
-  padding: 20px 0 25px;
-  min-height: 142px;
-}
-.zapla-quotes .qi-payment-schedule h4 {
-  font-size: 10px;
-  color: #69746c;
-  font-weight: 500;
-  margin-bottom: 12px;
+  padding: 12px 0 20px;
+  min-height: 88px;
 }
 .zapla-quotes .qi-payment-schedule > div {
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  padding-block: 6px;
-  font-size: 11px;
+  padding-block: 5px;
+  font-size: 12px;
+  line-height: 1.6;
 }
 .zapla-quotes .qi-payment-schedule strong {
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
-.zapla-quotes .qi-payment-due {
-  margin-inline: -36px;
-  padding: 25px 36px;
+.zapla-quotes .qi-payment-action {
+  margin-inline: -28px;
+  padding: 21px 28px;
   background: #334c61;
   color: #fff;
 }
-.zapla-quotes .qi-payment-due > div {
+.zapla-quotes .qi-payment-action[data-received="true"] {
+  background: #1e2b29;
+}
+.zapla-quotes .qi-payment-amount {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 15px;
 }
-.zapla-quotes .qi-payment-due span {
-  font-size: 12px;
+.zapla-quotes .qi-payment-amount > span {
+  font-size: 14px;
 }
-.zapla-quotes .qi-payment-due strong {
+.zapla-quotes .qi-payment-amount > strong {
   font-family: "Inter Tight", Manrope, sans-serif;
+  font-size: 33px;
   font-weight: 500;
-  font-size: 32px;
   letter-spacing: -0.03em;
   line-height: 1.3;
   font-variant-numeric: tabular-nums;
 }
-.zapla-quotes .qi-payment-due p {
-  font-size: 11px;
-  color: #d3dfe6;
-  margin-top: 10px;
+.zapla-quotes .qi-payment-event {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  margin-top: 11px;
+  font-size: 12px;
+  line-height: 1.65;
+  color: #e0e8e5;
+}
+.zapla-quotes .qi-payment-event svg {
+  flex: 0 0 19px;
+}
+.zapla-quotes .qi-method {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 11px;
+  border: 1px solid #91a5b5;
+  border-radius: 5px;
+  color: #fff;
+}
+.zapla-quotes .qi-method[data-selected="true"] {
+  background: #fff;
+  color: #1e2b29;
+}
+.zapla-quotes .qi-payment-record {
+  padding: 22px 14px 8px;
+}
+.zapla-quotes .qi-payment-record > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 13px;
+}
+.zapla-quotes .qi-payment-record > header > strong {
+  color: #475d69;
+  font-size: 14px;
+  font-weight: 650;
+}
+.zapla-quotes .qi-payment-record > header > strong[data-paid="true"] {
+  color: #355e43;
+}
+.zapla-quotes .qi-payment-record dl {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 16px;
+}
+.zapla-quotes .qi-payment-record dt {
+  font-size: 12px;
+  color: #59675e;
+}
+.zapla-quotes .qi-payment-record dd {
+  margin-top: 6px;
+  font-size: 17px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 .zapla-quotes .qi-provider-row {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin-top: 24px;
+  padding-top: 18px;
   flex-wrap: wrap;
   font-size: 13px;
 }
 .zapla-quotes .qi-provider-row > span {
-  font-size: 10px;
-  color: #768075;
+  font-size: 12px;
+  color: #65716b;
 }
 .zapla-quotes .qi-provider-row > strong {
-  color: #57655b;
+  color: #536159;
   font-weight: 650;
+}
+.zapla-quotes .qi-context-layout {
+  display: grid;
+  grid-template-columns: 1.08fr 1fr;
+  gap: 80px;
+  align-items: center;
 }
 .zapla-quotes .qi-work-photo {
   overflow: hidden;
-  border-radius: 28px 28px 5px 5px;
+  border-radius: 23px;
   background: #ddd6c9;
 }
 .zapla-quotes .qi-work-photo img {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 2.15;
+  aspect-ratio: 1.12;
   object-fit: cover;
-  object-position: 50% 15%;
-}
-.zapla-quotes .qi-context-layout {
-  display: grid;
-  grid-template-columns: 0.9fr 1fr;
-  gap: 110px;
-  padding-top: 55px;
-  align-items: center;
+  object-position: 62% 50%;
 }
 .zapla-quotes .qi-context-layout h2 {
-  max-width: 480px;
+  font-size: 43px;
 }
-.zapla-quotes .qi-context-layout > div > p:not(.qi-eyebrow) {
+.zapla-quotes .qi-context-copy > p:not(.qi-eyebrow) {
   font-size: 15px;
-  margin-top: 20px;
+  margin-top: 18px;
 }
 .zapla-quotes .qi-context-layout .qi-text-link {
-  margin-top: 14px;
+  margin-top: 10px;
 }
 .zapla-quotes .qi-customer-documents {
   min-width: 0;
-  border-block: 1px solid #d1d9d1;
-  padding: 25px 0 0;
+  margin-top: 24px;
 }
 .zapla-quotes .qi-customer-documents > header {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding-bottom: 21px;
+  padding-bottom: 18px;
 }
 .zapla-quotes .qi-customer-documents h3 {
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.025em;
 }
@@ -837,14 +970,14 @@
 }
 .zapla-quotes .qi-customer-documents dl > div {
   display: grid;
-  grid-template-columns: 125px 1fr;
+  grid-template-columns: 100px 1fr;
   gap: 15px;
-  border-top: 1px solid #e1e5de;
-  padding-block: 16px;
-  font-size: 12px;
+  border-top: 1px solid #dce1d9;
+  padding-block: 13px;
+  font-size: 13px;
 }
 .zapla-quotes .qi-customer-documents dt {
-  color: #737e73;
+  color: #65716b;
 }
 .zapla-quotes .qi-customer-documents dd {
   display: flex;
@@ -852,17 +985,17 @@
   gap: 15px;
 }
 .zapla-quotes .qi-customer-documents dd span {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
 }
 .zapla-quotes .qi-customer-documents .qi-record-owner {
   display: flex;
   gap: 9px;
   align-items: center;
-  border-top: 1px solid #e1e5de;
-  padding-block: 17px;
-  font-size: 11px;
-  color: #6a766c;
+  border-top: 1px solid #dce1d9;
+  padding-block: 13px;
+  font-size: 12px;
+  color: #65716b;
   margin: 0;
 }
 .zapla-quotes .qi-record-owner .qi-portrait {
@@ -878,24 +1011,22 @@
   grid-template-columns: 0.9fr 1fr;
   gap: 110px;
   align-items: center;
-  padding-top: 25px;
-  border-top: 1px solid #d8dfd6;
 }
 .zapla-quotes .qi-launch-layout h2 {
   max-width: 450px;
 }
 .zapla-quotes .qi-launch-layout > div > p:not(.qi-eyebrow) {
   font-size: 15px;
-  margin-top: 22px;
+  margin-top: 20px;
 }
 .zapla-quotes .qi-launch-layout > div > .qi-setup-terms {
   font-size: 12px;
 }
 .zapla-quotes .qi-launch-layout .qi-text-link {
-  margin-top: 13px;
+  margin-top: 12px;
 }
 .zapla-quotes .qi-launch-plan > div {
-  padding-block: 22px;
+  padding-block: 21px;
   border-bottom: 1px solid #dbe1d7;
 }
 .zapla-quotes .qi-launch-plan dt {
@@ -904,19 +1035,19 @@
   letter-spacing: -0.02em;
 }
 .zapla-quotes .qi-launch-plan dd {
-  margin-top: 10px;
-  font-size: 13px;
-  line-height: 1.9;
-  color: #637066;
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #59675e;
 }
 .zapla-quotes .qi-faq {
   display: grid;
   grid-template-columns: 0.7fr 1.3fr;
   gap: 70px;
-  padding: 52px 50px;
+  padding: 46px 50px;
   border-radius: 30px;
   background: #f0f1ee;
-  margin-top: 85px;
+  margin-top: 65px;
 }
 .zapla-quotes .qi-faq h2 {
   font-size: 39px;
@@ -933,8 +1064,8 @@
   justify-content: space-between;
   align-items: center;
   gap: 25px;
-  min-height: 75px;
-  padding-block: 19px;
+  min-height: 73px;
+  padding-block: 18px;
   list-style: none;
   font-size: 14px;
   font-weight: 600;
@@ -953,9 +1084,9 @@
 }
 .zapla-quotes .qi-faq details > p {
   padding: 0 35px 22px 0;
-  font-size: 12px;
-  line-height: 1.9;
-  color: #5d6a60;
+  font-size: 14px;
+  line-height: 1.85;
+  color: #59675e;
 }
 .zapla-quotes .qi-final {
   padding: 100px 0 0;
@@ -992,46 +1123,59 @@
 .zapla-quotes .qi-final .qi-button {
   margin-top: 28px;
 }
-
 @media (max-width: 1200px) {
-  .zapla-quotes .qi-hero-layout {
-    gap: 35px;
-    grid-template-columns: 0.85fr 1.15fr;
+  .zapla-quotes :is(.qi-hero-layout, .qi-overview) {
+    gap: 40px;
   }
   .zapla-quotes h1 {
     font-size: 60px;
   }
   .zapla-quotes .qi-lead {
-    font-size: 15px;
-  }
-  .zapla-quotes .qi-quote-paper {
-    padding: 25px;
-  }
-  .zapla-quotes :is(.qi-overview, .qi-payment-layout, .qi-context-layout, .qi-launch-layout) {
-    gap: 60px;
+    font-size: 16px;
   }
   .zapla-quotes .qi-sign-container {
-    padding: 45px 38px 35px;
+    padding: 40px 35px;
   }
-  .zapla-quotes .qi-chapter-heading {
+  .zapla-quotes
+    :is(
+      .qi-chapter-heading,
+      .qi-sign-workspace,
+      .qi-payment-layout,
+      .qi-context-layout,
+      .qi-launch-layout
+    ) {
     gap: 40px;
   }
-  .zapla-quotes .qi-sign-paper {
-    padding: 25px;
-  }
   .zapla-quotes .qi-sign-workspace {
-    gap: 20px;
+    grid-template-columns: 1.4fr 1fr;
+  }
+  .zapla-quotes .qi-sign-paper {
+    padding-inline: 22px;
+  }
+  .zapla-quotes .qi-document-action {
+    margin-inline: -22px;
+    padding-inline: 22px;
+  }
+  .zapla-quotes .qi-quote-paper {
+    padding: 22px;
+  }
+  .zapla-quotes .qi-line-items tbody th > span {
+    display: none;
   }
   .zapla-quotes .qi-invoice {
-    padding: 30px 25px 0;
+    padding-inline: 22px;
   }
-  .zapla-quotes .qi-payment-due {
-    margin-inline: -25px;
-    padding-inline: 25px;
+  .zapla-quotes .qi-payment-action {
+    margin-inline: -22px;
+    padding-inline: 22px;
+  }
+  .zapla-quotes .qi-customer-documents dl > div {
+    grid-template-columns: 1fr;
+    gap: 7px;
   }
   .zapla-quotes .qi-faq {
-    gap: 35px;
-    padding: 45px 35px;
+    gap: 40px;
+    padding-inline: 35px;
   }
 }
 @media (max-width: 1000px) {
@@ -1039,42 +1183,55 @@
     width: calc(100% - 56px);
   }
   .zapla-quotes .qi-hero {
-    padding-top: 100px;
-    padding-bottom: 65px;
+    padding: 98px 0 65px;
   }
   .zapla-quotes .qi-hero-layout {
-    grid-template-columns: 1fr;
-    gap: 35px;
-  }
-  .zapla-quotes .qi-hero-copy {
-    max-width: 720px;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 28px;
   }
   .zapla-quotes h1 {
-    font-size: 66px;
+    font-size: clamp(38px, 5.9vw, 59px);
+  }
+  .zapla-quotes .qi-hero .qi-eyebrow {
+    font-size: 10px;
   }
   .zapla-quotes .qi-lead {
-    max-width: 630px;
-    font-size: 16px;
+    font-size: 15px;
+    margin-top: 22px;
+  }
+  .zapla-quotes .qi-actions {
+    gap: 8px 14px;
     margin-top: 22px;
   }
   .zapla-quotes .qi-quote-stage {
-    max-width: 660px;
-    width: 100%;
-    justify-self: center;
+    padding: 10px;
   }
   .zapla-quotes .qi-quote-paper {
-    padding: 30px;
+    padding: 18px;
+  }
+  .zapla-quotes .qi-document-title h2 {
+    font-size: 25px;
   }
   .zapla-quotes .qi-line-items {
-    font-size: 14px;
+    font-size: 12px;
+  }
+  .zapla-quotes .qi-line-items th:first-child {
+    width: 50%;
+  }
+  .zapla-quotes .qi-quote-terms {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
   .zapla-quotes .qi-quote-terms p {
     font-size: 12px;
   }
+  .zapla-quotes .qi-related-documents {
+    padding-inline: 4px;
+  }
   .zapla-quotes .qi-overview {
-    margin-top: 60px;
     grid-template-columns: 0.85fr 1fr;
     gap: 35px;
+    margin-top: 55px;
   }
   .zapla-quotes .qi-overview h2 {
     font-size: 31px;
@@ -1082,9 +1239,7 @@
   .zapla-quotes .qi-register-row {
     grid-template-columns: 1fr auto;
   }
-  .zapla-quotes .qi-register-row > span {
-    display: none;
-  }
+  .zapla-quotes .qi-register-row > span,
   .zapla-quotes .qi-register-heading > span {
     display: none;
   }
@@ -1099,76 +1254,117 @@
     max-width: 580px;
   }
   .zapla-quotes .qi-sign-workspace {
-    grid-template-columns: 1.5fr 1fr;
-    gap: 15px;
+    gap: 28px;
+    grid-template-columns: 1.4fr 1fr;
   }
   .zapla-quotes .qi-sign-paper {
-    padding: 22px;
+    padding-inline: 20px;
+  }
+  .zapla-quotes .qi-document-action {
+    margin-inline: -20px;
+    padding-inline: 20px;
+  }
+  .zapla-quotes .qi-document-brand > span {
+    font-size: 11px;
   }
   .zapla-quotes .qi-sign-paper h3 {
-    font-size: 26px;
-  }
-  .zapla-quotes .qi-signer-record h3 {
     font-size: 27px;
   }
+  .zapla-quotes .qi-signer-record h3 {
+    font-size: 29px;
+  }
+  .zapla-quotes .qi-scripted-action {
+    flex-wrap: wrap;
+    gap: 7px;
+  }
   .zapla-quotes .qi-section {
-    padding-block: 75px;
+    padding-block: 72px;
   }
   .zapla-quotes .qi-payment-layout {
-    gap: 35px;
-    grid-template-columns: 0.9fr 1fr;
+    grid-template-columns: 0.8fr 1fr;
+    gap: 30px;
+  }
+  .zapla-quotes .qi-payment-copy h2 {
+    font-size: 37px;
   }
   .zapla-quotes .qi-invoice {
-    padding: 25px 20px 0;
+    padding-inline: 18px;
+  }
+  .zapla-quotes .qi-invoice-title {
+    align-items: start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .zapla-quotes .qi-invoice-title > span {
+    max-width: none;
   }
   .zapla-quotes .qi-invoice h3 {
     font-size: 27px;
   }
   .zapla-quotes .qi-invoice-lines > div {
+    font-size: 12px;
     gap: 12px;
-    font-size: 11px;
   }
   .zapla-quotes .qi-invoice-lines .qi-invoice-total {
-    font-size: 13px;
+    font-size: 15px;
   }
-  .zapla-quotes .qi-payment-due {
-    padding: 23px 20px;
-    margin-inline: -20px;
-  }
-  .zapla-quotes .qi-payment-due strong {
-    font-size: 29px;
-  }
-  .zapla-quotes .qi-provider-row {
+  .zapla-quotes .qi-payment-schedule > div {
+    font-size: 11px;
     gap: 12px;
   }
-  .zapla-quotes .qi-provider-row > span {
-    width: 100%;
-    text-align: center;
+  .zapla-quotes .qi-payment-action {
+    margin-inline: -18px;
+    padding-inline: 18px;
   }
-  .zapla-quotes .qi-context-layout,
-  .zapla-quotes .qi-launch-layout {
-    gap: 35px;
+  .zapla-quotes .qi-payment-amount {
+    flex-wrap: wrap;
+    gap: 5px 15px;
+  }
+  .zapla-quotes .qi-payment-amount > strong {
+    font-size: 30px;
+  }
+  .zapla-quotes .qi-payment-record {
+    padding-inline: 5px;
+  }
+  .zapla-quotes .qi-payment-record dl {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .zapla-quotes .qi-payment-record dl > div:first-child {
+    display: none;
+  }
+  .zapla-quotes .qi-payment-record dd {
+    font-size: 17px;
+  }
+  .zapla-quotes .qi-provider-row {
+    gap: 10px;
+    font-size: 12px;
+  }
+  .zapla-quotes .qi-context-layout {
+    gap: 32px;
+    grid-template-columns: 0.9fr 1fr;
+    align-items: stretch;
+  }
+  .zapla-quotes .qi-work-photo img {
+    height: 100%;
+    aspect-ratio: auto;
   }
   .zapla-quotes .qi-context-layout h2 {
     font-size: 37px;
   }
-  .zapla-quotes .qi-customer-documents dl > div {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-  .zapla-quotes .qi-closing {
-    padding-bottom: 0;
+  .zapla-quotes .qi-launch-layout {
+    gap: 40px;
   }
   .zapla-quotes .qi-launch-layout h2 {
     font-size: 38px;
   }
   .zapla-quotes .qi-faq {
     grid-template-columns: 1fr;
-    gap: 30px;
-    margin-top: 55px;
+    gap: 28px;
+    margin-top: 50px;
   }
   .zapla-quotes .qi-faq h2 {
-    max-width: 100%;
+    max-width: none;
   }
   .zapla-quotes .qi-final h2 {
     font-size: 54px;
@@ -1180,25 +1376,28 @@
     width: calc(100% - 40px);
   }
   .zapla-quotes .qi-hero {
-    padding-top: 102px;
-    padding-bottom: 52px;
+    padding: 100px 0 52px;
+  }
+  .zapla-quotes .qi-hero-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
   .zapla-quotes h1 {
     font-size: clamp(40px, 10.9vw, 65px);
     line-height: 1.03;
   }
   .zapla-quotes .qi-eyebrow {
-    font-size: 9px;
-    margin-bottom: 17px;
+    font-size: 10px;
+    margin-bottom: 16px;
   }
   .zapla-quotes .qi-lead {
+    max-width: 530px;
     font-size: 15px;
-    line-height: 1.85;
-    margin-top: 24px;
+    line-height: 1.8;
   }
   .zapla-quotes .qi-actions {
-    margin-top: 25px;
-    gap: 12px 20px;
+    margin-top: 24px;
+    gap: 12px 18px;
   }
   .zapla-quotes .qi-button {
     min-height: 48px;
@@ -1209,18 +1408,13 @@
     font-size: 12px;
   }
   .zapla-quotes .qi-quote-stage {
-    padding: 10px;
+    max-width: 550px;
+    width: 100%;
+    justify-self: center;
     border-radius: 18px;
   }
   .zapla-quotes .qi-quote-paper {
-    padding: 23px 18px 20px;
-    border-radius: 10px;
-  }
-  .zapla-quotes .qi-document-brand img {
-    width: 95px;
-  }
-  .zapla-quotes .qi-document-title {
-    padding: 25px 0 21px;
+    padding: 22px 18px;
   }
   .zapla-quotes .qi-document-title h2 {
     font-size: 28px;
@@ -1229,95 +1423,72 @@
     font-size: 12px;
   }
   .zapla-quotes .qi-line-items th:first-child {
-    width: 55%;
     padding-right: 9px;
-  }
-  .zapla-quotes .qi-line-items tbody th > span {
-    display: none;
-  }
-  .zapla-quotes .qi-line-items thead {
-    font-size: 10px;
-  }
-  .zapla-quotes .qi-quote-totals > div {
-    font-size: 12px;
-  }
-  .zapla-quotes .qi-quote-totals .qi-document-total {
-    font-size: 19px;
+    width: 55%;
   }
   .zapla-quotes .qi-quote-terms {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-top: 20px;
-    padding-top: 16px;
+    gap: 13px;
   }
   .zapla-quotes .qi-quote-terms strong {
     font-size: 12px;
   }
   .zapla-quotes .qi-quote-terms p {
     font-size: 12px;
-    line-height: 1.75;
+  }
+  .zapla-quotes .qi-related-documents a {
+    padding-block: 12px;
+    font-size: 12px;
   }
   .zapla-quotes .qi-overview {
     grid-template-columns: 1fr;
-    gap: 30px;
-    margin-top: 45px;
+    gap: 27px;
+    margin-top: 42px;
   }
   .zapla-quotes .qi-overview h2 {
     font-size: 32px;
-    max-width: 420px;
   }
   .zapla-quotes .qi-overview-copy > p {
     font-size: 14px;
-    margin-top: 17px;
   }
   .zapla-quotes .qi-register-row {
-    font-size: 13px;
-    padding-block: 17px;
-  }
-  .zapla-quotes .qi-register-row p {
-    font-size: 12px;
-  }
-  .zapla-quotes .qi-register-row > strong {
-    font-size: 12px;
+    padding-block: 15px;
   }
   .zapla-quotes .qi-sign-container {
     width: calc(100% - 24px);
-    padding: 32px 18px 26px;
+    padding: 30px 18px;
     border-radius: 23px;
   }
   .zapla-quotes .qi-chapter-heading h2 {
-    font-size: 36px;
+    font-size: 35px;
   }
   .zapla-quotes .qi-chapter-heading > p {
     font-size: 14px;
   }
   .zapla-quotes .qi-sign-scene {
-    margin-top: 20px;
+    margin-top: 22px;
   }
   .zapla-quotes .qi-sign-playback {
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: start;
-    gap: 15px;
-    min-height: 104px;
-    margin-bottom: 20px;
+    gap: 13px;
+    min-height: 112px;
+    margin-bottom: 18px;
   }
   .zapla-quotes .qi-sign-playback > p {
-    font-size: 12px;
+    min-height: 45px;
+    font-size: 13px;
     line-height: 1.7;
-    min-height: 42px;
-  }
-  .zapla-quotes .qi-watch {
-    font-size: 12px;
   }
   .zapla-quotes .qi-sign-workspace {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 27px;
   }
   .zapla-quotes .qi-sign-paper {
-    padding: 23px 18px 20px;
+    padding: 22px 18px 0;
   }
-  .zapla-quotes .qi-sign-paper > header {
-    font-size: 10px;
+  .zapla-quotes .qi-sign-person {
+    font-size: 12px;
+    margin-top: 16px;
   }
   .zapla-quotes .qi-sign-paper h3 {
     font-size: 29px;
@@ -1325,168 +1496,137 @@
   .zapla-quotes .qi-sign-paper > p:not(.qi-document-kind) {
     font-size: 13px;
   }
-  .zapla-quotes .qi-scope-clause strong {
-    font-size: 12px;
-  }
-  .zapla-quotes .qi-scope-clause p {
-    font-size: 12px;
-  }
-  .zapla-quotes .qi-handwriting {
-    font-size: 31px;
+  .zapla-quotes .qi-signature-field {
+    padding-inline: 12px;
   }
   .zapla-quotes .qi-signature-field > span {
     font-size: 11px;
   }
   .zapla-quotes .qi-sign-fields {
-    gap: 16px;
-    grid-template-columns: 0.55fr 1fr;
-  }
-  .zapla-quotes .qi-sign-fields span {
-    font-size: 11px;
+    gap: 12px;
+    grid-template-columns: 0.45fr 1fr;
   }
   .zapla-quotes .qi-sign-fields strong {
-    font-size: 12px;
+    font-size: 13px;
   }
-  .zapla-quotes .qi-sign-result p {
-    font-size: 11px;
+  .zapla-quotes .qi-document-action {
+    margin-inline: -18px;
+    padding-inline: 18px;
+    min-height: 91px;
   }
   .zapla-quotes .qi-signer-record {
-    padding: 23px 4px 12px;
+    padding: 0 5px;
   }
   .zapla-quotes .qi-signer-record h3 {
     font-size: 31px;
   }
   .zapla-quotes .qi-signer-person {
-    padding-block: 20px;
+    padding-block: 19px;
   }
   .zapla-quotes .qi-signer-record dl > div {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: 18px;
     align-items: baseline;
+    padding-block: 15px;
   }
   .zapla-quotes .qi-signer-record dd {
     margin: 0;
-    font-size: 12px;
+    font-size: 13px;
+    text-align: right;
   }
-  .zapla-quotes .qi-signer-record dt {
-    font-size: 11px;
+  .zapla-quotes .qi-signer-record .qi-signer-payoff {
+    font-size: 13px;
+    margin-top: 18px;
   }
   .zapla-quotes .qi-section {
     padding-block: 60px;
   }
   .zapla-quotes .qi-payment-layout {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 28px;
   }
   .zapla-quotes .qi-payment-copy h2 {
     font-size: 38px;
   }
   .zapla-quotes .qi-payment-copy > p:not(.qi-eyebrow) {
     font-size: 14px;
-    margin-top: 20px;
+    margin-top: 19px;
   }
   .zapla-quotes .qi-payment-choices {
-    margin-top: 23px;
+    margin-top: 22px;
   }
-  .zapla-quotes .qi-payment-choices label {
-    padding-block: 16px;
+  .zapla-quotes .qi-payment-playback p {
+    min-height: 45px;
+    font-size: 13px;
   }
   .zapla-quotes .qi-payment-copy .qi-provider-note {
     font-size: 12px;
   }
-  .zapla-quotes .qi-payment-copy p.qi-payment-status {
-    position: static;
-    width: auto;
-    height: auto;
-    margin: 22px 0 0;
-    padding: 18px 0;
-    overflow: visible;
-    clip: auto;
-    white-space: normal;
-    border-block: 1px solid #dce0d9;
-  }
-  .zapla-quotes .qi-payment-status > span {
-    display: block;
-    font-size: 12px;
-    line-height: 1.8;
-  }
-  .zapla-quotes .qi-payment-status > strong {
-    display: block;
-    margin-block: 5px;
-    color: #213b47;
-    font-family: "Inter Tight", Manrope, sans-serif;
-    font-size: 28px;
-    font-weight: 500;
-    line-height: 1.3;
-    letter-spacing: -0.025em;
+  .zapla-quotes .qi-invoice-stage {
+    padding: 10px;
+    border-radius: 18px;
   }
   .zapla-quotes .qi-invoice {
-    padding: 24px 21px 0;
-    border-radius: 12px;
+    padding: 22px 18px 0;
   }
   .zapla-quotes .qi-invoice h3 {
-    font-size: 30px;
+    font-size: 29px;
   }
   .zapla-quotes .qi-invoice-lines > div {
     font-size: 12px;
   }
-  .zapla-quotes .qi-invoice-lines .qi-invoice-total {
-    font-size: 15px;
-  }
   .zapla-quotes .qi-payment-schedule {
-    min-height: 138px;
-  }
-  .zapla-quotes .qi-payment-schedule h4 {
-    font-size: 11px;
+    min-height: 88px;
   }
   .zapla-quotes .qi-payment-schedule > div {
     font-size: 12px;
   }
-  .zapla-quotes .qi-payment-due {
-    padding: 23px 21px;
-    margin-inline: -21px;
+  .zapla-quotes .qi-payment-action {
+    margin-inline: -18px;
+    padding-inline: 18px;
   }
-  .zapla-quotes .qi-payment-due strong {
-    font-size: 31px;
+  .zapla-quotes .qi-payment-amount > span {
+    font-size: 13px;
   }
-  .zapla-quotes .qi-payment-due p {
-    font-size: 12px;
+  .zapla-quotes .qi-payment-amount > strong {
+    font-size: 30px;
+  }
+  .zapla-quotes .qi-payment-event {
+    min-height: 47px;
+  }
+  .zapla-quotes .qi-payment-record {
+    padding: 19px 8px 8px;
+  }
+  .zapla-quotes .qi-payment-record dl {
+    margin-top: 16px;
+  }
+  .zapla-quotes .qi-payment-record dd {
+    font-size: 18px;
   }
   .zapla-quotes .qi-provider-row {
-    margin-top: 20px;
-  }
-  .zapla-quotes .qi-work-photo {
-    border-radius: 20px 20px 4px 4px;
-  }
-  .zapla-quotes .qi-work-photo img {
-    aspect-ratio: 1.12;
-    object-position: 62% 50%;
+    padding-top: 15px;
   }
   .zapla-quotes .qi-context-layout {
     grid-template-columns: 1fr;
-    padding-top: 33px;
-    gap: 32px;
+    gap: 30px;
+  }
+  .zapla-quotes .qi-work-photo {
+    border-radius: 19px;
+  }
+  .zapla-quotes .qi-work-photo img {
+    aspect-ratio: 1.12;
+    height: auto;
   }
   .zapla-quotes .qi-context-layout h2 {
     font-size: 37px;
   }
-  .zapla-quotes .qi-context-layout > div > p:not(.qi-eyebrow) {
+  .zapla-quotes .qi-context-copy > p:not(.qi-eyebrow) {
     font-size: 14px;
   }
-  .zapla-quotes .qi-customer-documents {
-    padding-top: 22px;
-  }
   .zapla-quotes .qi-customer-documents dl > div {
-    grid-template-columns: 1fr;
-    gap: 9px;
+    gap: 8px;
     font-size: 13px;
-  }
-  .zapla-quotes .qi-customer-documents dd span {
-    font-size: 12px;
-  }
-  .zapla-quotes .qi-customer-documents .qi-record-owner {
-    font-size: 12px;
   }
   .zapla-quotes .qi-closing {
     padding-bottom: 0;
@@ -1494,7 +1634,6 @@
   .zapla-quotes .qi-launch-layout {
     grid-template-columns: 1fr;
     gap: 15px;
-    padding-top: 40px;
   }
   .zapla-quotes .qi-launch-layout h2 {
     font-size: 36px;
@@ -1505,16 +1644,13 @@
   .zapla-quotes .qi-launch-layout > div > .qi-setup-terms {
     font-size: 12px;
   }
-  .zapla-quotes .qi-launch-plan dt {
-    font-size: 18px;
-  }
   .zapla-quotes .qi-launch-plan dd {
     font-size: 13px;
   }
   .zapla-quotes .qi-faq {
     padding: 30px 20px;
     border-radius: 22px;
-    margin-top: 42px;
+    margin-top: 40px;
     gap: 25px;
   }
   .zapla-quotes .qi-faq h2 {
@@ -1565,26 +1701,36 @@
   .zapla-quotes .qi-sign-paper {
     padding-inline: 14px;
   }
+  .zapla-quotes .qi-document-action {
+    margin-inline: -14px;
+    padding-inline: 14px;
+  }
   .zapla-quotes .qi-sign-paper h3 {
     font-size: 27px;
   }
   .zapla-quotes .qi-sign-fields {
     grid-template-columns: 0.4fr 1fr;
-    gap: 12px;
+    gap: 10px;
+  }
+  .zapla-quotes .qi-sign-fields strong {
+    font-size: 12px;
   }
   .zapla-quotes .qi-invoice {
-    padding-inline: 17px;
+    padding-inline: 14px;
+  }
+  .zapla-quotes .qi-payment-action {
+    margin-inline: -14px;
+    padding-inline: 14px;
   }
   .zapla-quotes .qi-invoice-lines > div {
     font-size: 11px;
-    gap: 12px;
+    gap: 10px;
   }
-  .zapla-quotes .qi-payment-due {
-    margin-inline: -17px;
-    padding-inline: 17px;
-  }
-  .zapla-quotes .qi-payment-due strong {
+  .zapla-quotes .qi-payment-amount > strong {
     font-size: 28px;
+  }
+  .zapla-quotes .qi-payment-record dd {
+    font-size: 16px;
   }
   .zapla-quotes .qi-faq {
     padding-inline: 17px;

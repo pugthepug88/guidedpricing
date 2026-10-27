@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Check, Play, Plus } from "lucide-react";
+import { Check, MousePointer2, Pause, Play, Plus, RotateCcw } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/quotes-invoices-signatures.css";
@@ -112,6 +112,16 @@ function QuoteDocument() {
           </div>
         </div>
       </article>
+      <nav className="qi-related-documents" aria-label="See the other documents for this job">
+        <a href="#qi-signatures">
+          <span>Scope of work</span>
+          <strong>Signed by Priya Shah</strong>
+        </a>
+        <a href="#qi-payments">
+          <span>Invoice · {JOB.invoice}</span>
+          <strong>View payment &amp; balance</strong>
+        </a>
+      </nav>
     </div>
   );
 }
@@ -122,8 +132,8 @@ function QuoteOverview() {
       <div className="qi-overview-copy">
         <h2>A price they can understand. A quote you can find.</h2>
         <p>
-          Choose the customer, add products or services, and set the quantities, tax and terms. Keep
-          quotes organised by customer and status, with numbering that fits your business.
+          Set the products, quantities, tax and terms. Find the quote by customer and status when
+          it’s time to follow up.
         </p>
         <a className="qi-text-link" href="/quote-follow-up">
           Explore quote follow-up
@@ -163,21 +173,18 @@ function QuoteOverview() {
   );
 }
 
-const SIGNING_BEATS = [
-  "Priya opens her personal signing link.",
-  "She reviews the scope and the fields assigned to her.",
-  "She completes her signature, initials and date.",
-  "Priya finishes and submits. Her signed document is recorded.",
-];
-
-function SigningScene() {
-  // Start complete so the initial / server-rendered scene is useful without motion.
-  const [stage, setStage] = useState(3);
+// Each clock advances only while its scene and browser tab are visible.
+// Static/server-rendered scenes start with the complete, meaningful result.
+function useScenePlayback(beats: readonly number[]) {
+  const scene = useRef<HTMLDivElement>(null);
+  const elapsed = useRef(0);
+  const [stage, setStage] = useState(beats.length);
   const [playing, setPlaying] = useState(false);
+  const [played, setPlayed] = useState(false);
   const [enhanced, setEnhanced] = useState(false);
   const [reduced, setReduced] = useState(false);
-  const scene = useRef<HTMLDivElement>(null);
-  const visible = useRef(true);
+  const [visible, setVisible] = useState(false);
+  const [tabVisible, setTabVisible] = useState(true);
 
   useEffect(() => {
     setEnhanced(true);
@@ -185,104 +192,205 @@ function SigningScene() {
     const sync = () => {
       setReduced(preference.matches);
       if (preference.matches) {
-        setStage(3);
+        setStage(beats.length);
         setPlaying(false);
       }
     };
     sync();
     preference.addEventListener("change", sync);
-    const observer = new IntersectionObserver(([entry]) => {
-      visible.current = entry.isIntersecting;
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), {
+      threshold: 0.12,
     });
     if (scene.current) observer.observe(scene.current);
+    const onVisibility = () => setTabVisible(document.visibilityState === "visible");
+    document.addEventListener("visibilitychange", onVisibility);
     return () => {
       preference.removeEventListener("change", sync);
+      document.removeEventListener("visibilitychange", onVisibility);
       observer.disconnect();
     };
-  }, []);
+  }, [beats]);
 
   useEffect(() => {
-    if (!playing) return;
-    let elapsed = 0;
-    let last = performance.now();
-    const timer = window.setInterval(() => {
-      const now = performance.now();
-      if (visible.current && !document.hidden) elapsed += Math.min(now - last, 150);
-      last = now;
-      setStage(elapsed >= 4200 ? 3 : elapsed >= 2800 ? 2 : elapsed >= 1500 ? 1 : 0);
-      if (elapsed >= 4200) setPlaying(false);
-    }, 100);
-    return () => window.clearInterval(timer);
-  }, [playing]);
+    if (!playing || !visible || !tabVisible) return;
+    let previous = performance.now();
+    let frame = 0;
+    const tick = (now: number) => {
+      elapsed.current += now - previous;
+      previous = now;
+      const next = beats.filter((at) => elapsed.current >= at).length;
+      setStage(next);
+      if (next === beats.length) setPlaying(false);
+      else frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [playing, visible, tabVisible, beats]);
 
   const watch = () => {
     if (reduced) {
-      setStage(3);
+      setStage(beats.length);
       return;
     }
-    setStage(0);
+    if (playing) {
+      setPlaying(false);
+      return;
+    }
+    if (!played || stage === beats.length) {
+      elapsed.current = 0;
+      setStage(0);
+    }
+    setPlayed(true);
     setPlaying(true);
   };
-  const entered = stage >= 2;
-  const submitted = stage === 3;
+  const complete = () => {
+    elapsed.current = 0;
+    setPlaying(false);
+    setPlayed(false);
+    setStage(beats.length);
+  };
+  return {
+    scene,
+    stage,
+    finished: stage === beats.length,
+    playing,
+    played,
+    enhanced,
+    reduced,
+    watch,
+    complete,
+  };
+}
+
+const SIGNING_TIMES = [1600, 3200, 4800, 6200, 7600] as const;
+const SIGNING_BEATS = [
+  "Priya opens her personal signing link and reviews the scope.",
+  "She adopts her signature in the field assigned to her.",
+  "She completes her initials and date. All three fields are ready.",
+  "Priya chooses Finish & Submit after reviewing her fields.",
+  "She confirms that she wants to submit the document.",
+  "Her submission is complete. Your document record now shows Signed.",
+];
+
+function PlaybackButton({
+  player,
+  name,
+  controls,
+}: {
+  player: ReturnType<typeof useScenePlayback>;
+  name: string;
+  controls: string;
+}) {
+  return (
+    <button
+      className="qi-watch"
+      type="button"
+      hidden={!player.enhanced || player.reduced}
+      onClick={player.watch}
+      aria-controls={controls}
+    >
+      {player.playing ? (
+        <Pause size={16} aria-hidden="true" />
+      ) : player.played && player.finished ? (
+        <RotateCcw size={16} aria-hidden="true" />
+      ) : (
+        <Play size={16} aria-hidden="true" />
+      )}
+      {player.playing
+        ? "Pause"
+        : player.played
+          ? player.finished
+            ? "Watch again"
+            : "Continue"
+          : "Watch " + name}
+    </button>
+  );
+}
+
+function SigningScene() {
+  const player = useScenePlayback(SIGNING_TIMES);
+  const { stage } = player;
+  const signed = stage >= 1;
+  const fieldsComplete = stage >= 2;
+  const submitted = stage === 5;
 
   return (
-    <div className="qi-sign-scene" ref={scene} data-stage={stage}>
-      <div className="qi-sign-playback">
-        <p role="status" aria-live="polite">
-          {SIGNING_BEATS[stage]}
-        </p>
-        <button
-          className="qi-watch"
-          type="button"
-          hidden={!enhanced || reduced}
-          disabled={playing}
-          onClick={watch}
-          aria-controls="qi-signing-document qi-signer-record"
-        >
-          <Play size={16} aria-hidden="true" />
-          {playing ? "Signing in progress" : "Watch signing"}
-        </button>
+    <div className="qi-sign-scene" ref={player.scene} data-stage={stage}>
+      <div className="qi-playback qi-sign-playback">
+        <PlaybackButton
+          player={player}
+          name="signing"
+          controls="qi-signing-document qi-signer-record"
+        />
+        <p role="status">{SIGNING_BEATS[stage]}</p>
       </div>
       <div className="qi-sign-workspace">
         <article className="qi-sign-paper" id="qi-signing-document">
-          <header>
-            <span>Customer view</span>
-            <strong>{submitted ? "Signing complete" : "Review your document"}</strong>
+          <header className="qi-document-brand">
+            <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="95" height="28" />
+            <span>Personal signing link</span>
           </header>
-          <p className="qi-document-kind">Scope of work</p>
+          <div className="qi-sign-person">
+            <span>
+              Signing as <strong>{JOB.customer}</strong>
+            </span>
+            <strong>
+              {submitted
+                ? "Document signed"
+                : fieldsComplete
+                  ? "All fields complete"
+                  : signed
+                    ? "2 fields remaining"
+                    : "3 fields remaining"}
+            </strong>
+          </div>
+          <p className="qi-document-kind">Scope of work · {JOB.quote}</p>
           <h3>{JOB.title}</h3>
           <p>
-            Design, manufacture and installation of reception signage, as detailed in quote{" "}
-            {JOB.quote}.
+            Design, manufacture and installation of your reception sign. Final artwork is approved
+            before manufacture.
           </p>
-          <div className="qi-scope-clause">
-            <strong>Artwork approval</strong>
-            <p>Final artwork is approved before manufacture. Installation is arranged with you.</p>
-          </div>
-          <div className="qi-signature-field" data-entered={entered}>
+          <div className="qi-signature-field" data-entered={signed} data-active={stage === 1}>
             <span>Customer signature · {JOB.customer}</span>
-            <strong className="qi-handwriting">{entered ? JOB.customer : "Your signature"}</strong>
+            <strong className="qi-handwriting">{signed ? JOB.customer : "Your signature"}</strong>
           </div>
-          <div className="qi-sign-fields">
+          <div className="qi-sign-fields" data-active={stage === 2}>
             <div>
               <span>Initials</span>
-              <strong>{entered ? "PS" : "Your initials"}</strong>
+              <strong>{fieldsComplete ? "PS" : "Your initials"}</strong>
             </div>
             <div>
               <span>Date</span>
-              <strong>{entered ? "27 October 2026" : "Signing date"}</strong>
+              <strong>{fieldsComplete ? "27 October 2026" : "Signing date"}</strong>
             </div>
           </div>
-          <div className="qi-sign-result">
-            {submitted ? <Check size={17} aria-hidden="true" /> : null}
-            <p>
-              {submitted
-                ? "Finished and submitted by Priya Shah."
-                : entered
-                  ? "Fields complete. Priya reviews before submitting."
-                  : "Complete the fields, then finish and submit."}
-            </p>
+          <div className="qi-document-action" data-active={stage === 3 || stage === 4}>
+            {submitted ? (
+              <div className="qi-completed-action">
+                <Check size={20} aria-hidden="true" />
+                <div>
+                  <strong>Document signed</strong>
+                  <span>Submitted by Priya Shah</span>
+                </div>
+              </div>
+            ) : stage === 4 ? (
+              <div className="qi-scripted-action">
+                <span>Confirm submission</span>
+                <strong>
+                  Priya confirms <MousePointer2 size={18} aria-hidden="true" />
+                </strong>
+              </div>
+            ) : (
+              <div className="qi-scripted-action">
+                <span>
+                  {fieldsComplete ? "Ready for Priya to submit" : "Complete your assigned fields"}
+                </span>
+                <strong>
+                  Finish &amp; Submit{" "}
+                  {stage === 3 ? <MousePointer2 size={18} aria-hidden="true" /> : null}
+                </strong>
+              </div>
+            )}
           </div>
         </article>
         <aside
@@ -291,12 +399,12 @@ function SigningScene() {
           aria-label="Your signature document record"
         >
           <p>Your document record</p>
-          <h3>Who has signed?</h3>
+          <h3>See the signed result.</h3>
           <div className="qi-signer-person">
             <Portrait />
             <div>
               <strong>{JOB.customer}</strong>
-              <span>{submitted ? "Signed · 27 October 2026" : "Awaiting submission"}</span>
+              <span>{submitted ? "Signed · 27 October 2026" : "Pending signature"}</span>
             </div>
           </div>
           <dl>
@@ -311,8 +419,8 @@ function SigningScene() {
           </dl>
           <p className="qi-signer-payoff">
             {submitted
-              ? "View the completed document and save a PDF copy."
-              : "The request stays open until Priya finishes and submits."}
+              ? "The completed scope is available to view or save as a PDF."
+              : "Priya’s signature is recorded only after she submits and confirms."}
           </p>
         </aside>
       </div>
@@ -322,37 +430,42 @@ function SigningScene() {
 
 type PaymentPlan = "full" | "deposit" | "instalments";
 const PAYMENT_PLANS: { id: PaymentPlan; name: string; copy: string; due: number }[] = [
-  { id: "full", name: "Full payment", copy: "One invoice. One amount to pay.", due: 3300 },
-  {
-    id: "deposit",
-    name: "Deposit first",
-    copy: "Request 30% now, with the balance still visible.",
-    due: 990,
-  },
-  {
-    id: "instalments",
-    name: "In instalments",
-    copy: "Set dated amounts across a payment schedule.",
-    due: 1650,
-  },
+  { id: "full", name: "Full payment", copy: "The full A$3,300 invoice.", due: 3300 },
+  { id: "deposit", name: "Deposit first", copy: "30% now. A$2,310 remains.", due: 990 },
+  { id: "instalments", name: "In instalments", copy: "Two dated payments of A$1,650.", due: 1650 },
 ];
+const PAYMENT_TIMES = [1800, 3600, 5600] as const;
 
 function PaymentScene() {
   const [plan, setPlan] = useState<PaymentPlan>("full");
-  const [enhanced, setEnhanced] = useState(false);
-  useEffect(() => setEnhanced(true), []);
+  const player = useScenePlayback(PAYMENT_TIMES);
   const selected = PAYMENT_PLANS.find((item) => item.id === plan)!;
+  const received = player.stage === 3;
+  const paid = received ? selected.due : 0;
+  const balance = JOB.total - paid;
+  const invoiceStatus = received ? (plan === "full" ? "Paid" : "Partially Paid") : "Open";
+  const beats = [
+    "Priya opens the invoice link and reviews the charges.",
+    "She chooses Card from the payment methods enabled for this invoice.",
+    "Priya confirms the " + money(selected.due) + " payment through the provider.",
+    "Payment received. " + money(paid) + " paid, with " + money(balance) + " left on the invoice.",
+  ];
+
   return (
-    <section className="qi-section qi-payments" aria-labelledby="qi-payment-heading">
+    <section
+      className="qi-section qi-payments"
+      id="qi-payments"
+      aria-labelledby="qi-payment-heading"
+    >
       <div className="qi-wrap qi-payment-layout">
         <div className="qi-payment-copy">
           <p className="qi-eyebrow">Invoices & online payments</p>
           <h2 id="qi-payment-heading">Give them a clear way to pay.</h2>
           <p>
-            When you’re ready to bill, create an invoice for the customer and share its payment
-            link. They can review the charges and pay through the methods you’ve enabled.
+            Prepare the invoice when it’s time to bill, then share its payment link. Your customer
+            pays online. You see what’s paid and what remains.
           </p>
-          <fieldset className="qi-payment-choices" disabled={!enhanced}>
+          <fieldset className="qi-payment-choices" disabled={!player.enhanced}>
             <legend>Choose a payment arrangement</legend>
             {PAYMENT_PLANS.map((item) => (
               <label key={item.id} className={plan === item.id ? "qi-chosen" : ""}>
@@ -361,7 +474,10 @@ function PaymentScene() {
                   name="qi-payment-plan"
                   value={item.id}
                   checked={plan === item.id}
-                  onChange={() => setPlan(item.id)}
+                  onChange={() => {
+                    setPlan(item.id);
+                    player.complete();
+                  }}
                   aria-controls="qi-invoice-preview qi-payment-status"
                 />
                 <span>
@@ -371,26 +487,29 @@ function PaymentScene() {
               </label>
             ))}
           </fieldset>
-          <p className="qi-sr-only qi-payment-status" id="qi-payment-status" role="status">
-            <span>{selected.name}</span>
-            <strong>{money(selected.due)} to pay</strong>
-            <span>
-              {plan === "full"
-                ? "The full invoice amount."
-                : `${money(JOB.total - selected.due)} remains after this payment.`}
-            </span>
-          </p>
+          <div className="qi-playback qi-payment-playback">
+            <PlaybackButton player={player} name="payment" controls="qi-invoice-preview" />
+            <p role="status" id="qi-payment-status">
+              {beats[player.stage]}
+            </p>
+          </div>
           <p className="qi-provider-note">
-            Connect your payment provider, then choose the options for each invoice.
+            Payment options depend on your connected provider and invoice settings.
           </p>
         </div>
-        <div className="qi-invoice-stage">
+        <div className="qi-invoice-stage" ref={player.scene} data-stage={player.stage}>
           <article className="qi-invoice" id="qi-invoice-preview">
-            <header>
-              <span>Invoice for {JOB.customer}</span>
-              <span>{JOB.invoice}</span>
+            <header className="qi-document-brand">
+              <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="95" height="28" />
+              <span>Customer invoice</span>
             </header>
-            <h3>{JOB.title}</h3>
+            <div className="qi-invoice-title">
+              <div>
+                <p>{JOB.invoice}</p>
+                <h3>{JOB.title}</h3>
+              </div>
+              <span>For {JOB.customer}</span>
+            </div>
             <dl className="qi-invoice-lines">
               {JOB.items.map((item) => (
                 <div key={item.name}>
@@ -407,51 +526,88 @@ function PaymentScene() {
                 <dd>{money(JOB.total)}</dd>
               </div>
             </dl>
-            {plan === "instalments" ? (
-              <div className="qi-payment-schedule">
-                <h4>Payment schedule</h4>
+            <div className="qi-payment-schedule">
+              {plan === "instalments" ? (
+                <>
+                  <div>
+                    <span>10 November</span>
+                    <strong>
+                      {money(1650)} · {received ? "Paid" : "Due"}
+                    </strong>
+                  </div>
+                  <div>
+                    <span>24 November</span>
+                    <strong>{money(1650)} · Scheduled</strong>
+                  </div>
+                </>
+              ) : (
                 <div>
-                  <span>10 November</span>
-                  <strong>{money(1650)}</strong>
-                </div>
-                <div>
-                  <span>24 November</span>
-                  <strong>{money(1650)}</strong>
-                </div>
-              </div>
-            ) : (
-              <div className="qi-payment-schedule">
-                <h4>{plan === "deposit" ? "Deposit arrangement" : "Payment due"}</h4>
-                <div>
-                  <span>{plan === "deposit" ? "30% deposit" : "10 November"}</span>
+                  <span>{plan === "deposit" ? "30% deposit" : "Due 10 November"}</span>
                   <strong>{money(selected.due)}</strong>
                 </div>
-                <div>
-                  <span>{plan === "deposit" ? "Balance after deposit" : "Amount paid"}</span>
-                  <strong>{money(plan === "deposit" ? 2310 : 0)}</strong>
-                </div>
-              </div>
-            )}
-            <div className="qi-payment-due">
-              <div>
+              )}
+            </div>
+            <div className="qi-payment-action" data-received={received}>
+              <div className="qi-payment-amount">
                 <span>
-                  {plan === "deposit"
-                    ? "Deposit to pay"
-                    : plan === "instalments"
-                      ? "First instalment"
-                      : "Amount to pay"}
+                  {received
+                    ? "Payment received"
+                    : plan === "deposit"
+                      ? "Deposit to pay"
+                      : plan === "instalments"
+                        ? "First instalment"
+                        : "Amount to pay"}
                 </span>
                 <strong>{money(selected.due)}</strong>
               </div>
-              <p>
-                {plan === "full"
-                  ? "Review your invoice. Pay online."
-                  : `${money(JOB.total - selected.due)} remains after this payment.`}
-              </p>
+              <div className="qi-payment-event">
+                {received ? (
+                  <>
+                    <Check size={19} aria-hidden="true" />
+                    <span>Thank you, Priya. Your payment is confirmed.</span>
+                  </>
+                ) : player.stage === 2 ? (
+                  <>
+                    <MousePointer2 size={19} aria-hidden="true" />
+                    <span>Priya confirms payment through the provider.</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="qi-method" data-selected={player.stage >= 1}>
+                      Card
+                    </span>
+                    <span>
+                      {player.stage === 1
+                        ? "Priya selects her payment method."
+                        : "Review the invoice, then choose how to pay."}
+                    </span>
+                  </>
+                )}
+              </div>
             </div>
           </article>
+          <aside className="qi-payment-record" aria-label="Your updated invoice record">
+            <header>
+              <span>Your invoice record</span>
+              <strong data-paid={received}>{invoiceStatus}</strong>
+            </header>
+            <dl>
+              <div>
+                <dt>Invoice total</dt>
+                <dd>{money(JOB.total)}</dd>
+              </div>
+              <div>
+                <dt>Amount paid</dt>
+                <dd>{money(paid)}</dd>
+              </div>
+              <div>
+                <dt>Balance due</dt>
+                <dd>{money(balance)}</dd>
+              </div>
+            </dl>
+          </aside>
           <div className="qi-provider-row" aria-label="Documented payment provider connections">
-            <span>Payment connections</span>
+            <span>Connect</span>
             <strong>Stripe</strong>
             <strong>PayPal</strong>
             <strong>Authorize.Net</strong>
@@ -512,8 +668,8 @@ export function QuotesInvoicesSignaturesPage() {
               Get paid.
             </h1>
             <p className="qi-lead">
-              Give customers a clear price, a document they can sign and an invoice they can pay
-              online. Manage the paperwork in the same platform as your customer relationships.
+              Give customers a clear price, an easy way to sign and an invoice they can pay online.
+              Keep the paperwork with the customer in Zapla.
             </p>
             <div className="qi-actions">
               <BookCall />
@@ -535,9 +691,8 @@ export function QuotesInvoicesSignaturesPage() {
               <h2 id="qi-sign-heading">The agreement, without the print and scan.</h2>
             </div>
             <p>
-              Upload a PDF or build your document in Zapla. Choose who signs and where, then send
-              their signing link. They review and sign from their phone or computer, without
-              creating an account.
+              Use a PDF or build your document. Assign the fields and send a personal link. Your
+              customer reviews and signs on their phone or computer, with no account to create.
             </p>
           </header>
           <SigningScene />
@@ -547,7 +702,7 @@ export function QuotesInvoicesSignaturesPage() {
       <PaymentScene />
 
       <section className="qi-context" aria-labelledby="qi-context-heading">
-        <div className="qi-wrap">
+        <div className="qi-wrap qi-context-layout">
           <figure className="qi-work-photo">
             <img
               src="/concept/quotes/signage-workshop-20261026.webp"
@@ -557,19 +712,13 @@ export function QuotesInvoicesSignaturesPage() {
               loading="lazy"
             />
           </figure>
-          <div className="qi-context-layout">
-            <div>
-              <p className="qi-eyebrow">Connected to the customer</p>
-              <h2 id="qi-context-heading">Know what’s agreed. See what’s outstanding.</h2>
-              <p>
-                Keep the quote, signature request and invoice connected to the right customer. Your
-                team can find the scope, check signing progress and see the invoice status when the
-                next question comes in.
-              </p>
-              <a className="qi-text-link" href="/crm">
-                Explore the connected CRM
-              </a>
-            </div>
+          <div className="qi-context-copy">
+            <p className="qi-eyebrow">Connected to the customer</p>
+            <h2 id="qi-context-heading">Know what’s agreed.</h2>
+            <p>
+              The scope, signed document and invoices stay with the customer, so your team has the
+              context for the next question.
+            </p>
             <div className="qi-customer-documents">
               <header>
                 <Portrait />
@@ -587,16 +736,16 @@ export function QuotesInvoicesSignaturesPage() {
                   </dd>
                 </div>
                 <div>
-                  <dt>Signature request</dt>
+                  <dt>Scope of work</dt>
                   <dd>
-                    Scope of work<span className="qi-accepted">Completed</span>
+                    Signature request<span className="qi-accepted">Completed</span>
                   </dd>
                 </div>
                 <div>
                   <dt>Invoice</dt>
                   <dd>
                     {JOB.invoice}
-                    <span>Open</span>
+                    <span>{money(JOB.total)}</span>
                   </dd>
                 </div>
               </dl>
@@ -605,6 +754,9 @@ export function QuotesInvoicesSignaturesPage() {
                 Your team contact: Alex Chen
               </p>
             </div>
+            <a className="qi-text-link" href="/crm">
+              Explore the connected CRM
+            </a>
           </div>
         </div>
       </section>
@@ -616,9 +768,8 @@ export function QuotesInvoicesSignaturesPage() {
               <p className="qi-eyebrow">Guided Launch</p>
               <h2 id="qi-launch-heading">Your paperwork. Your process. Set up with you.</h2>
               <p>
-                Starting with spreadsheets and attachments, or already using a CRM or billing tool?
-                We work through how you quote, agree work and collect payment before deciding what
-                to set up in Zapla.
+                Bring your current quotes, documents and billing process. We’ll map what belongs in
+                Zapla and where your existing tools fit.
               </p>
               <p className="qi-setup-terms">
                 Guided Launch is the required, separately priced initial setup for a new standard
@@ -631,24 +782,15 @@ export function QuotesInvoicesSignaturesPage() {
             <dl className="qi-launch-plan">
               <div>
                 <dt>Your products and terms</dt>
-                <dd>
-                  Agree the prices, tax settings, numbering and customer information you need on
-                  your documents.
-                </dd>
+                <dd>Prices, tax, numbering and the information your customers need.</dd>
               </div>
               <div>
                 <dt>Your documents and signers</dt>
-                <dd>
-                  Prepare the documents, place assigned fields and walk through the customer’s
-                  signing experience.
-                </dd>
+                <dd>Your documents, assigned fields and the customer’s signing experience.</dd>
               </div>
               <div>
                 <dt>Your payment setup</dt>
-                <dd>
-                  Review providers, invoice payment options and where your existing accounting tools
-                  fit.
-                </dd>
+                <dd>Your provider, payment arrangements and existing accounting tools.</dd>
               </div>
             </dl>
           </div>
