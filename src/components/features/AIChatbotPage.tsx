@@ -134,40 +134,49 @@ function EnquiryRecord() {
       <div className="cr-wrap">
         <header className="cr-section-intro">
           <h2 id="chatbot-enquiry-title">Know what they need before you reply.</h2>
-          <p>The original request and contact details reach your team together in Zapla.</p>
+          <p>The conversation, contact details and follow-up come together in Zapla.</p>
         </header>
-        <div className="cr-enquiry-record" aria-label="Daniel’s enquiry in Zapla">
-          <div className="cr-record-brand">
-            <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="88" height="30" />
-            <span>Website enquiry · Inner West Air</span>
+        <div className="cr-capture-scene">
+          <div className="cr-capture-chat" aria-label="Daniel shares his enquiry, name and email">
+            <ChatHeader business="Inner West Air" />
+            <div className="cr-thread">
+              <Bubble cell={5}>Do you replace ducted air conditioning in Marrickville?</Bubble>
+              <Bubble ai>Yes. Home or business, and when do you need it?</Bubble>
+              <Bubble cell={5}>Home. Ideally next week.</Bubble>
+              <Bubble ai>Your name and email so our team can get in touch?</Bubble>
+              <Bubble cell={5}>
+                Daniel.<span className="cr-shared-detail">Email address shared</span>
+              </Bubble>
+            </div>
           </div>
-          <div className="cr-record-contact">
-            <div className="cr-contact-person">
-              <Avatar cell={5} />
-              <div>
-                <h3>Daniel</h3>
-                <p>Email captured</p>
+          <div
+            className="cr-capture-record"
+            aria-label="Daniel’s contact, enquiry and configured follow-up in Zapla"
+          >
+            <div className="cr-capture-brand">
+              <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="88" height="30" />
+              <span>Website enquiry</span>
+            </div>
+            <div className="cr-capture-body">
+              <div className="cr-captured-person">
+                <Avatar cell={5} />
+                <div>
+                  <h3>Daniel</h3>
+                  <p>Email captured</p>
+                </div>
               </div>
-            </div>
-            <div className="cr-record-stage">
-              <span>Pipeline stage</span>
-              <strong>New enquiry</strong>
-            </div>
-          </div>
-          <div className="cr-record-content">
-            <div className="cr-original-request">
-              <h4>Customer’s original request</h4>
-              <blockquote>“Do you replace ducted air conditioning in Marrickville?”</blockquote>
-              <p>“Home. Ideally next week.”</p>
-              <p className="cr-contact-source">Daniel · Email address shared in chat</p>
-            </div>
-            <div className="cr-record-follow-up">
-              <h4>Configured acknowledgement email</h4>
-              <p className="cr-email-recipient">To Daniel</p>
-              <p className="cr-email-subject">Thanks for your enquiry, Daniel.</p>
-              <p>
-                We’ve received your request. Our team will get in touch to discuss the replacement.
-              </p>
+              <div className="cr-captured-stage">
+                <span>Pipeline stage</span>
+                <strong>New enquiry</strong>
+              </div>
+              <div className="cr-captured-context">
+                <span>From the conversation</span>
+                <p>Home. Ideally next week.</p>
+              </div>
+              <div className="cr-captured-email">
+                <span>Configured acknowledgement email</span>
+                <p>Thanks for your enquiry, Daniel.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -205,37 +214,26 @@ function Booking() {
           />
           <div className="cr-booking-proof">
             <div
-              className="cr-booking-exchange"
-              aria-label="Mia agrees and supplies her contact details"
+              className="cr-booking-widget"
+              aria-label="Mia agrees and supplies her details before the appointment is booked"
             >
-              <div className="cr-offered-time">
-                <ZaplaPetal size={23} />
-                <p>
-                  Friday at 5 pm is available for a first visit. Shall I book it? What’s your name
-                  and mobile?
-                </p>
+              <ChatHeader />
+              <div className="cr-thread">
+                <Bubble ai>
+                  Friday at 5 pm is available for a first visit. Shall I book it? Your name and
+                  mobile?
+                </Bubble>
+                <Bubble>
+                  Yes, please. Mia Thompson.<span className="cr-shared-detail">04•• ••• ••8</span>
+                </Bubble>
               </div>
-              <div className="cr-agreed-time">
-                <Avatar />
+              <div className="cr-booking-result">
+                <p>Appointment booked</p>
                 <div>
-                  <p>Yes, please. Mia Thompson.</p>
-                  <span className="cr-masked-number">04•• ••• ••8</span>
-                </div>
-              </div>
-            </div>
-            <div
-              className="cr-appointment"
-              aria-label="Mia’s agreed appointment in the connected calendar"
-            >
-              <p>Appointment booked</p>
-              <div className="cr-appointment-details">
-                <div className="cr-appointment-time">
-                  <strong>Friday</strong>
-                  <span>5 pm</span>
-                </div>
-                <div>
+                  <strong>
+                    Friday<span>5 pm</span>
+                  </strong>
                   <h3>Initial physiotherapy</h3>
-                  <p>Mia Thompson</p>
                 </div>
               </div>
             </div>
@@ -267,11 +265,11 @@ function BusinessAnswers() {
           </a>
         </div>
         <div
-          className="cr-answer-example"
-          aria-label="An answer based on the practice’s booking rules"
+          className="cr-knowledge-scene"
+          aria-label="The chatbot answers using the practice’s appointment guide"
         >
-          <div className="cr-appointment-guide">
-            <h3>Your appointment guide</h3>
+          <div className="cr-source-guide">
+            <h3>Appointment guide</h3>
             <dl>
               <div>
                 <dt>New patients</dt>
@@ -283,13 +281,12 @@ function BusinessAnswers() {
               </div>
             </dl>
           </div>
-          <p className="cr-rule-question">“Can I book a follow-up if I haven’t visited before?”</p>
-          <div className="cr-rule-answer">
-            <ZaplaPetal size={26} />
-            <p>
-              For your first visit, choose an initial appointment. Follow-ups are for returning
+          <div className="cr-knowledge-chat">
+            <Bubble>Can I book a follow-up for my first visit?</Bubble>
+            <Bubble ai>
+              Choose an initial appointment for your first visit. Follow-ups are for returning
               patients.
-            </p>
+            </Bubble>
           </div>
         </div>
       </div>
