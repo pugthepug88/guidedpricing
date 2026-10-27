@@ -12,6 +12,7 @@ const FOOTER_GROUPS = [
       ["AI Receptionist", "/ai-receptionist"],
       ["Compare Zapla", "/comparison"],
     ],
+    features: [["Business Phone", "/features/business-phone"]],
   },
   {
     label: "Solutions",
@@ -147,6 +148,24 @@ export function DominoFooter() {
                       </a>
                     ))}
                   </div>
+                  {"features" in group && (
+                    <div className="mt-6">
+                      <div className="text-[10px] font-black uppercase tracking-[0.16em] text-[#20241F]">
+                        Features
+                      </div>
+                      <div className="mt-4 grid gap-2.5">
+                        {group.features.map(([label, href]) => (
+                          <a
+                            key={label}
+                            href={href}
+                            className="text-[13px] font-medium text-[#676B65] transition-colors hover:text-[#2563FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF]/40 focus-visible:ring-offset-4 focus-visible:ring-offset-[#F8F5EF]"
+                          >
+                            {label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
