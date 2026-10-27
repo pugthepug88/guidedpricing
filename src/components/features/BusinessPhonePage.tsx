@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Check, Mic, Phone, Plus } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, Mic, Phone, Plus, Tag, Zap } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/business-phone.css";
@@ -41,6 +41,35 @@ function BookCall() {
   );
 }
 
+// Prepared button illustrations. These do not tag a contact or run a workflow.
+function QuickActions({ showTypes = false }: { showTypes?: boolean }) {
+  return (
+    <ul
+      className="bp-shortcut-buttons"
+      aria-label="Custom quick action buttons: Hot lead adds a tag; Follow-up runs a configured workflow"
+    >
+      <li>
+        <span className="bp-shortcut-icon bp-shortcut-tag">
+          <Tag size={19} aria-hidden="true" />
+        </span>
+        <span>
+          <strong>Hot lead</strong>
+          {showTypes && <small>Add tag</small>}
+        </span>
+      </li>
+      <li>
+        <span className="bp-shortcut-icon bp-shortcut-workflow">
+          <Zap size={19} aria-hidden="true" />
+        </span>
+        <span>
+          <strong>Follow-up</strong>
+          {showTypes && <small>Run workflow</small>}
+        </span>
+      </li>
+    </ul>
+  );
+}
+
 function BrowserCall() {
   return (
     <div className="bp-photo-call">
@@ -77,6 +106,10 @@ function BrowserCall() {
           <span>Saved contact note</span>
           <p>Kitchen pendants. Requested a callback.</p>
         </div>
+        <footer className="bp-phone-shortcuts">
+          <p>Quick actions</p>
+          <QuickActions />
+        </footer>
       </article>
     </div>
   );
@@ -154,6 +187,10 @@ function PowerDialler() {
         <span>Click-to-call mode</span>
         <p>Call now → speak → save your note → Next.</p>
       </div>
+      <footer className="bp-phone-shortcuts">
+        <p>Quick actions</p>
+        <QuickActions />
+      </footer>
     </article>
   );
 }
@@ -291,20 +328,17 @@ export function BusinessPhonePage() {
         <div className="bp-wrap bp-quick-layout">
           <div className="bp-context-copy">
             <p className="bp-eyebrow">Phone quick actions</p>
-            <h2 id="bp-context-title">Take the next step while you talk.</h2>
-            <p>Add a tag or run a configured workflow from the phone. You choose the action.</p>
+            <h2 id="bp-context-title">Your next action. Right on the dialler.</h2>
+            <p>
+              Customise each button’s name, icon, colours and action. Open a form, add a tag or run
+              a configured workflow.
+            </p>
           </div>
           <div className="bp-action-proof">
-            <dl className="bp-quick-actions">
-              <div>
-                <dt>Add tag</dt>
-                <dd>Hot lead</dd>
-              </div>
-              <div>
-                <dt>Run workflow</dt>
-                <dd>Enquiry follow-up</dd>
-              </div>
-            </dl>
+            <div className="bp-shortcut-settings">
+              <p>Your customised quick actions</p>
+              <QuickActions showTypes />
+            </div>
             <a className="bp-text-link" href="/crm">
               Explore the customer record
             </a>

@@ -2,6 +2,10 @@
 
 Date: 27 October 2026. Scope: human calling. This is documentary and public-client verification, not a completed live telephony acceptance test or a promise of inclusion in every plan.
 
+## Later custom quick-action clarification
+
+Four further owner screenshots directly show customisable action buttons at the bottom of both the keypad and Power Dialler queue, plus configuration of name, icon, foreground/background colours and action type. The bottom button bars now appear in both prepared calling panels. Open Form, Trigger Automation and Add Tag are directly visible options; obscured options are not inferred. The earlier plain tag/workflow rows did not explain this placement and have been superseded. Source file references, colour correction, review and verification limits: BUSINESS-PHONE-QUICK-ACTIONS-COLOUR-20261027.md.
+
 ## Later photographic opening correction
 
 The owner's later “looks a bit dull” / expected photo UI feedback reopens the opening composition. The existing fresh showroom photograph now supports the browser-call UI in the hero and is removed from the lower quick-action chapter. All text/wordmarks remain native. To avoid contradictory staff identity across the connected Mia example, the outcome is now attributed to “your team”; earlier references to Ben describe the prior version. The generated person remains fictional editorial content, with no customer or testimonial claim. See BUSINESS-PHONE-PHOTO-UI-20261027.md for design, independent reviews and the remaining rendered-verification limit.
