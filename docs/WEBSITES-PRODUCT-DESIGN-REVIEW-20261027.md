@@ -66,3 +66,26 @@ PR #201 merged the main composition. Scoped follow-up commits repair the AI asse
 Production build, TypeScript, targeted ESLint, SEO policy, Prettier and whitespace checks pass. A combined build also includes the concurrently merged Chatbot correction. The original npm install was local verification only; no dependency/lockfile change is included. GitHub is the source of truth. Shared navigation/footer, Platform grouping, route metadata/indexing and `/booking` were preserved. This is a review draft; no separate production Publish action was taken.
 
 Retained proof: `docs/qa/websites-ai-rebuild-20261027.jpg` (native screenshot bytes). The account/editor UI and supplied 53MB recording are not committed to the public repository.
+
+
+## Funnel connections and automatic heatmap correction, 27 October 2026
+
+The owner identified disconnected A/B lines, an unclear enquiry/thank-you sequence and excessive explanation. The previous optional user-click map is superseded by a prepared automatic visitor session.
+
+The funnel now reads as offer A **or** B → shared enquiry page → thank-you page after submission. Both offers retain their page button. The form has a visible submit action, and the confirmation acknowledges Mia’s enquiry; the unsupported booking suggestion “Choose a consultation” is removed. A measured SVG attaches every arrow to the actual card edge and recalculates after font loading and responsive layout changes. Desktop uses four columns; tablet/phone place A and B side by side, merging into the form below. Neither variant is shown as a subsequent step of the other.
+
+Removed the requested AI-usage sentence from the section and FAQ, the requested form-explainer paragraph and the long funnel explanation. Tracking/publishing copy is also shortened. No substitute usage disclaimer was added.
+
+The tracking scene depicts one prepared visitor and two clicks: the services navigation, then the garden-enquiry button. A small cursor travels to the measured centers, click rings appear, the corresponding heat spots accumulate, and the click count advances from zero to two. This is marketing illustration, not collected traffic or customer performance. It starts once with the page in view, holds the completed map, and has Pause/Resume/Replay. Offscreen and hidden-tab pauses plus complete reduced-motion/no-JavaScript fallback are implemented. The previous manual click recorder, clear action and “Click the page” instruction are removed; no visitor data is captured.
+
+Fresh Chrome checks covered the actual stable id-preview route at a standard desktop size, Lovable’s 834px tablet and 393px phone iframe. Both variant cards and downstream form/confirmation have no horizontal overflow or clipped text in the inspected layouts. SVG paths end at the correct destination boundaries in both orientations. A phone spacing issue in “One visitor. One version.” was caught and corrected. The desktop and phone cursor scenes both reached two matching heat spots and a final hold. Native Pause, Resume and Replay were exercised on desktop. No dedicated reduced-motion, no-JavaScript or hidden-tab browser run is claimed; those paths were reviewed in source.
+
+Role-based review by the implementing agent: Motion—clicks cause spots and counts, with a final hold; Brand/Creative—actual wordmark and restrained application styling remain; Product Marketing/Conversion—the enquiry submission is distinct from an offer-button click and does not imply booking; UI/UX—clean attached arrows, readable parallel phone alternatives and no manual tracking exercise. These are implementation judgments, not owner acceptance or independent-agent approvals.
+
+Source commits: `9702c9291165625e797c22cca061693d28c23784` and `6812c68825a168224335479c5bc1999d31cc342f`. Production build, TypeScript, scoped ESLint, formatting and whitespace checks pass. The stable review address now serves the new source:
+
+`https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/websites-funnels-forms`
+
+The earlier transient lovableproject.com URL is not a durable delivery link. No separate production Publish action was used.
+
+Retained proof: `docs/qa/websites-funnel-connections-20261027.jpg` and `docs/qa/websites-cursor-heatmap-20261027.jpg`. Final stable preview reports no browser errors or document horizontal overflow. SEO policy checks also pass.
