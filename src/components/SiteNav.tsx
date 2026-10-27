@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useLocation } from "@tanstack/react-router";
 import { INDUSTRY_LINKS } from "@/lib/industries";
 
@@ -18,12 +18,21 @@ const NAV_GROUPS = [
     id: "features",
     label: "Features",
     links: [
-      { name: "Unified Inbox", href: "/features/unified-inbox" },
-      { name: "Pipeline Management", href: "/features/pipeline-management" },
-      { name: "Websites, Funnels & Forms", href: "/features/websites-funnels-forms" },
+      { name: "Unified Inbox", href: "/features/unified-inbox", section: "Leads & conversations" },
+      { name: "Business Phone", href: "/features/business-phone" },
+      {
+        name: "Pipeline Management",
+        href: "/features/pipeline-management",
+        section: "Sales & automation",
+      },
       { name: "Automation Builder", href: "/features/automation-builder" },
       { name: "Calendars & Bookings", href: "/features/calendars-bookings" },
       { name: "Quotes, Invoices & Signatures", href: "/features/quotes-invoices-signatures" },
+      {
+        name: "Websites, Funnels & Forms",
+        href: "/features/websites-funnels-forms",
+        section: "Marketing & operations",
+      },
     ],
   },
   {
@@ -72,15 +81,16 @@ export function SiteNav() {
   const location = useLocation();
   const navRef = useRef<HTMLElement>(null);
   const mobileToggleRef = useRef<HTMLButtonElement>(null);
-  const cinematicV5 =
-    location.pathname === "/";
+  const cinematicV5 = location.pathname === "/";
   // Every non-home route inherits the homepage header geometry. Light pages begin in
   // the same glass state the homepage uses after its cinematic hero.
   const lightSitePage = !cinematicV5;
   const [cinematicProgress, setCinematicProgress] = useState(0);
   const [cinematicPastHero, setCinematicPastHero] = useState(false);
   const lightGlassState = cinematicPastHero || lightSitePage;
-  const [openMenu, setOpenMenu] = useState<null | "platform" | "features" | "solutions" | "industries">(null);
+  const [openMenu, setOpenMenu] = useState<
+    null | "platform" | "features" | "solutions" | "industries"
+  >(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
@@ -198,14 +208,20 @@ export function SiteNav() {
                 >
                   <div className="rounded-2xl border border-zapla-line bg-white p-2 shadow-zapla">
                     {group.links.map((link) => (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        onClick={() => setOpenMenu(null)}
-                        className={`block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue focus-visible:outline-2 focus-visible:outline-zapla-blue ${link.href === "/industries" || link.href === "/comparison" ? "mt-2 border-t border-zapla-line pt-3" : ""} ${link.href === "/comparison" ? "min-h-11 text-zapla-blue" : ""}`}
-                      >
-                        {link.name}
-                      </a>
+                      <Fragment key={link.href}>
+                        {"section" in link && (
+                          <p className="px-3 pb-1 pt-3 text-[10px] font-semibold tracking-[0.08em] text-zapla-muted">
+                            {link.section}
+                          </p>
+                        )}
+                        <a
+                          href={link.href}
+                          onClick={() => setOpenMenu(null)}
+                          className={`block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue focus-visible:outline-2 focus-visible:outline-zapla-blue ${link.href === "/industries" || link.href === "/comparison" ? "mt-2 border-t border-zapla-line pt-3" : ""} ${link.href === "/comparison" ? "min-h-11 text-zapla-blue" : ""}`}
+                        >
+                          {link.name}
+                        </a>
+                      </Fragment>
                     ))}
                   </div>
                 </div>
@@ -280,14 +296,24 @@ export function SiteNav() {
                 </summary>
                 <div className="ml-3 grid gap-1 pb-2 text-[14px] text-zapla-muted">
                   {group.links.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className={link.href === "/comparison" ? "mt-2 flex min-h-11 items-center border-t border-zapla-line py-2 text-zapla-blue focus-visible:outline-2 focus-visible:outline-zapla-blue" : "py-1.5"}
-                    >
-                      {link.name}
-                    </a>
+                    <Fragment key={link.href}>
+                      {"section" in link && (
+                        <p className="pb-1 pt-3 text-[10px] font-semibold tracking-[0.08em] text-zapla-muted">
+                          {link.section}
+                        </p>
+                      )}
+                      <a
+                        href={link.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={
+                          link.href === "/comparison"
+                            ? "mt-2 flex min-h-11 items-center border-t border-zapla-line py-2 text-zapla-blue focus-visible:outline-2 focus-visible:outline-zapla-blue"
+                            : "py-1.5"
+                        }
+                      >
+                        {link.name}
+                      </a>
+                    </Fragment>
                   ))}
                 </div>
               </details>
