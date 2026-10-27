@@ -525,6 +525,10 @@ The owner subsequently reopened the available space and approved a compact confi
 
 The live Automation audit supplies Appointment Booked, email, appointment-relative wait and SMS evidence. Existing CRM history and custom-form mapping remain supporting context. No automatic chatbot summary, cross-channel identity match, customer self-service Reschedule button, or automatic queued-reminder recalculation/cancellation is added. Keep the five formats, native meetings/saved record, H1/final CTA, native calendar row, FAQ availability, shared architecture and `/booking`. Current verification and scoped role judgements are in `CALENDARS-BOOKING-AUTOMATIONS-20261027.md`. GitHub owns changes; Lovable remains read-only.
 
+### Booking messages at a glance, 27 October 2026
+
+The owner found the right-hand automation scene busy and unclear. This supersedes its workflow strip, nested email card, repeated confirmation, sender/avatar and timed reveal. Show one explicit event, Emma books a consultation, followed by two compact chronological rows: When booked / Confirmation email, then 1 day before / Reminder SMS. Keep the selected appointment/date/time, a short confirmation and one blue SMS bubble. Both messages are visible immediately; no animation or additional controls are needed to understand them. Keep rearranging details in the practical FAQ. Product evidence and configuration boundaries are unchanged. Exact scoped checks and assessments are appended to `CALENDARS-BOOKING-AUTOMATIONS-20261027.md`.
+
 ## Quotes, Invoices & Signatures selective-detail reset, 27 October 2026
 
 The owner rejected the page’s word and number burden and supplied a selectively detailed illustration. This supersedes the original document specimens and unmerged PR #207’s narrated signing/payment players. Preserve the H1, final CTA, verified capabilities, shared architecture, route/indexing and /booking.

@@ -487,69 +487,8 @@ function MeetingRoomScene() {
   );
 }
 
-/** A short, once-only emphasis sequence. The complete story is the SSR default;
- * hidden/offscreen time never advances playback, and small/reduced-motion
- * layouts retain that complete view. It never calls a booking or messaging API. */
+/** The booking and both configured messages stay visible at a glance. */
 function BookingAutomations({ day, time }: { day: number; time: string | null }) {
-  const sceneRef = useRef<HTMLDivElement>(null);
-  const [phase, setPhase] = useState(3);
-  const [enhanced, setEnhanced] = useState(false);
-  useEffect(() => {
-    const media = window.matchMedia(
-      "(min-width: 900px) and (min-height: 650px) and (prefers-reduced-motion: no-preference)",
-    );
-    const scene = sceneRef.current;
-    if (!scene || !time) return;
-    let frame = 0;
-    let elapsed = 0;
-    let previous = 0;
-    let visible = false;
-    let complete = false;
-    const stop = () => {
-      window.cancelAnimationFrame(frame);
-      frame = 0;
-      previous = 0;
-    };
-    const tick = (now: number) => {
-      if (previous) elapsed += now - previous;
-      previous = now;
-      setPhase(elapsed < 900 ? 0 : elapsed < 2500 ? 1 : elapsed < 4200 ? 2 : 3);
-      if (elapsed < 4200) frame = window.requestAnimationFrame(tick);
-      else {
-        complete = true;
-        stop();
-      }
-    };
-    const sync = () => {
-      stop();
-      if (!media.matches) {
-        setEnhanced(false);
-        setPhase(3);
-        return;
-      }
-      setEnhanced(true);
-      setPhase(complete ? 3 : elapsed < 900 ? 0 : elapsed < 2500 ? 1 : 2);
-      if (visible && !document.hidden && !complete) frame = window.requestAnimationFrame(tick);
-    };
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        visible = entry.isIntersecting && entry.intersectionRatio >= 0.65;
-        sync();
-      },
-      { threshold: [0, 0.65] },
-    );
-    sync();
-    observer.observe(scene);
-    media.addEventListener("change", sync);
-    document.addEventListener("visibilitychange", sync);
-    return () => {
-      stop();
-      observer.disconnect();
-      media.removeEventListener("change", sync);
-      document.removeEventListener("visibilitychange", sync);
-    };
-  }, [time]);
-
   return (
     <div className="cal-automation" id="booking-automations" aria-labelledby="cal-automation-title">
       <div className="cal-automation-copy">
@@ -559,8 +498,8 @@ function BookingAutomations({ day, time }: { day: number; time: string | null })
           Send reminders.
         </h2>
         <p>
-          Connect bookings to your automations. Send a confirmation email, then an SMS reminder
-          before the appointment, with the messages and timing you choose.
+          When a customer books, send their confirmation automatically. Follow with a reminder
+          before the appointment, using the timing and messages you choose.
         </p>
         <a className="cal-text-link" href="/features/automation-builder">
           Explore Automation Builder <ArrowRight size={17} aria-hidden="true" />
@@ -568,9 +507,6 @@ function BookingAutomations({ day, time }: { day: number; time: string | null })
       </div>
       <div
         className="cal-message-sequence"
-        ref={sceneRef}
-        data-phase={phase}
-        data-enhanced={enhanced}
         aria-label={
           time
             ? "Emma’s booking triggers a confirmation email, followed by an SMS one day before"
@@ -582,50 +518,36 @@ function BookingAutomations({ day, time }: { day: number; time: string | null })
             <div className="cal-message-booking">
               <Avatar cell={9} />
               <div>
-                <strong>Emma Wilson</strong>
+                <h3>Emma books a consultation.</h3>
                 <p>
-                  Project consultation · {dateLabel(day)} · {time}
+                  {dateLabel(day)} · {time} · Sydney
                 </p>
               </div>
             </div>
-            <ol className="cal-message-timing" aria-label="Configured booking automation">
-              <li>Booking confirmed</li>
-              <li>Confirmation email</li>
-              <li>Reminder SMS</li>
+            <ol className="cal-message-delivery" aria-label="Messages sent after Emma’s booking">
+              <li className="cal-message-email">
+                <h3>
+                  When booked
+                  <span>
+                    <Mail size={16} aria-hidden="true" />
+                    Confirmation email
+                  </span>
+                </h3>
+                <p className="cal-message-body">Your consultation with Alex is confirmed.</p>
+              </li>
+              <li className="cal-message-sms">
+                <h3>
+                  1 day before
+                  <span>
+                    <MessageSquare size={16} aria-hidden="true" />
+                    Reminder SMS
+                  </span>
+                </h3>
+                <p className="cal-message-body cal-message-bubble">
+                  Hi Emma, your consultation is tomorrow at {time}.
+                </p>
+              </li>
             </ol>
-            <div className="cal-message-delivery">
-              <article className="cal-message-email">
-                <h3>
-                  <Mail size={16} aria-hidden="true" />
-                  When booked · Email
-                </h3>
-                <div className="cal-message-body">
-                  <strong>Your consultation is booked.</strong>
-                  <p>Hi Emma, your project consultation with Alex is confirmed.</p>
-                  <p className="cal-message-appointment">
-                    {dateLabel(day)}
-                    <br />
-                    {time} · Sydney time
-                  </p>
-                  <p>Need another time? Contact our team to rearrange.</p>
-                </div>
-              </article>
-              <article className="cal-message-sms">
-                <h3>
-                  <MessageSquare size={16} aria-hidden="true" />1 day before · SMS
-                </h3>
-                <div className="cal-message-body">
-                  <div className="cal-message-sender">
-                    <Avatar />
-                    <span>Alex Chen</span>
-                  </div>
-                  <p className="cal-message-bubble">
-                    Hi Emma, a reminder of your project consultation tomorrow at {time}, Sydney
-                    time. See you then.
-                  </p>
-                </div>
-              </article>
-            </div>
           </>
         ) : (
           <p className="cal-message-pending">

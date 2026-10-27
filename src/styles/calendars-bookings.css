@@ -517,7 +517,7 @@
 }
 .cal-message-sequence {
   min-width: 0;
-  padding: 25px;
+  padding: 30px;
   border: 1px solid #dce0e4;
   border-radius: 24px;
   background: #f0f1f3;
@@ -526,123 +526,66 @@
 .cal-message-booking {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
+  padding-bottom: 27px;
 }
 .cal-message-booking > div {
   min-width: 0;
 }
-.cal-message-booking strong {
-  font-size: 14px;
-  font-weight: 600;
+.cal-message-booking h3 {
+  font-size: 25px;
+  line-height: 1.2;
 }
 .cal-message-booking p {
-  margin-top: 4px;
+  margin-top: 7px;
   color: var(--feature-muted);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.65;
-}
-.cal-message-timing {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin: 23px 0 20px;
-  padding: 0;
-  list-style: none;
-  font-size: 11px;
-  line-height: 1.65;
-}
-.cal-message-timing li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.cal-message-timing li:not(:last-child)::after {
-  content: "→";
-  color: #7c828b;
-  font-size: 16px;
 }
 .cal-message-delivery {
   display: grid;
-  grid-template-columns: 1.06fr 0.94fr;
-  align-items: start;
-  gap: 22px;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.cal-message-delivery article {
+.cal-message-delivery > li {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
   min-width: 0;
 }
 .cal-message-delivery h3 {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   font-family: Manrope, sans-serif;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1.6;
   letter-spacing: 0;
+}
+.cal-message-delivery h3 > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 6px;
+  color: var(--feature-muted);
+  font-size: 11px;
+  font-weight: 500;
 }
 .cal-message-delivery h3 svg {
   flex: 0 0 auto;
 }
 .cal-message-body {
-  margin-top: 15px;
-  transition:
-    opacity 380ms ease,
-    transform 380ms ease;
-}
-.cal-message-email {
-  padding: 19px;
-  border: 1px solid #d8dce1;
-  border-radius: 13px;
-  background: #fff;
-  box-shadow: 0 6px 18px #21263107;
-}
-.cal-message-email .cal-message-body > strong {
-  display: block;
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 1.35;
-}
-.cal-message-email p {
-  margin-top: 12px;
-  font-size: 12px;
-  line-height: 1.7;
-}
-.cal-message-email .cal-message-appointment {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.6;
-}
-.cal-message-email .cal-message-body > p:last-child {
-  color: var(--feature-muted);
-  font-size: 11px;
-}
-.cal-message-sms {
-  padding-top: 19px;
-}
-.cal-message-sender {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 12px;
-}
-.cal-message-sender .cal-avatar {
-  width: 26px;
-  height: 26px;
+  font-size: 18px;
+  line-height: 1.65;
 }
 .cal-message-bubble {
-  margin-top: 13px !important;
-  padding: 18px;
+  padding: 16px 18px;
   border-radius: 16px 16px 16px 4px;
   background: #2563ff;
   color: #fff;
-  font-size: 14px;
-  line-height: 1.75;
-}
-.cal-message-sequence[data-enhanced="true"][data-phase="0"] .cal-message-body,
-.cal-message-sequence[data-enhanced="true"][data-phase="1"] .cal-message-sms .cal-message-body {
-  opacity: 0;
-  transform: translateY(7px);
+  font-size: 16px;
+  line-height: 1.65;
 }
 .cal-message-pending {
   padding: 55px 18px;
@@ -1306,33 +1249,31 @@
   .cal-message-booking p {
     font-size: 12px;
   }
-  .cal-message-timing {
-    align-items: start;
-    gap: 9px;
-  }
-  .cal-message-timing li {
-    flex: 1;
-    gap: 6px;
-    align-items: start;
+  .cal-message-booking h3 {
+    font-size: 23px;
   }
   .cal-message-delivery {
-    grid-template-columns: 1fr;
-    gap: 22px;
+    gap: 26px;
+  }
+  .cal-message-delivery > li {
+    display: block;
   }
   .cal-message-delivery h3 {
-    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 13px;
   }
-  .cal-message-email p {
-    font-size: 14px;
+  .cal-message-delivery h3 > span {
+    margin-top: 0;
   }
-  .cal-message-email .cal-message-body > p:last-child {
-    font-size: 12px;
-  }
-  .cal-message-sms {
-    padding: 0 3px;
+  .cal-message-body {
+    margin-top: 12px !important;
+    font-size: 16px;
   }
   .cal-message-bubble {
-    font-size: 15px;
+    font-size: 16px;
   }
   .cal-business-meet {
     gap: 28px;
