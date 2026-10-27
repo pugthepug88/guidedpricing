@@ -1,5 +1,5 @@
-import { type ReactNode } from "react";
-import { FileText, Globe, Plus } from "lucide-react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Pause, Play, Plus, RotateCcw } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/ai-chatbot.css";
@@ -26,10 +26,18 @@ function Cta({ children = "Book a Call" }: { children?: ReactNode }) {
     </a>
   );
 }
-function Bubble({ children, ai = false }: { children: ReactNode; ai?: boolean }) {
+function Bubble({
+  children,
+  ai = false,
+  cell = 9,
+}: {
+  children: ReactNode;
+  ai?: boolean;
+  cell?: number;
+}) {
   return (
     <div className={`cr-message${ai ? " cr-message-ai" : ""}`}>
-      {ai ? <ZaplaPetal size={21} /> : <Avatar />}
+      {ai ? <ZaplaPetal size={21} /> : <Avatar cell={cell} />}
       <div>
         <span className="cr-sr-only">{ai ? "Zapla AI Chatbot" : "Visitor"}: </span>
         {children}
@@ -37,12 +45,12 @@ function Bubble({ children, ai = false }: { children: ReactNode; ai?: boolean })
     </div>
   );
 }
-function ChatHeader() {
+function ChatHeader({ business = "Harbour Physiotherapy" }: { business?: string }) {
   return (
     <div className="cr-chat-header">
       <ZaplaPetal size={25} />
       <div>
-        <strong>Harbour Physiotherapy</strong>
+        <strong>{business}</strong>
         <span>AI Chatbot</span>
       </div>
     </div>
@@ -64,8 +72,8 @@ function Opening() {
           </p>
           <div className="cr-actions">
             <Cta />
-            <a className="cr-link" href="#chatbot-booking">
-              See it in action
+            <a className="cr-link" href="#chatbot-enquiry">
+              See the enquiry flow
             </a>
           </div>
           <p className="cr-existing-site">Works on your existing website.</p>
@@ -111,6 +119,197 @@ function Opening() {
           <li>Collect the right enquiry details</li>
           <li>Book agreed appointments</li>
         </ul>
+      </div>
+    </section>
+  );
+}
+
+const ENQUIRY_BEATS = [
+  "Ask what the customer needs",
+  "Understand the timing",
+  "Ask for contact details",
+  "Customer shares their details",
+  "Create the contact and enquiry",
+  "Start the configured follow-up",
+] as const;
+
+function EnquiryFlow() {
+  // The complete scene is server-rendered. Only an explicit Watch action
+  // starts the prepared animation; no product API or visitor data is involved.
+  const scene = useRef<HTMLDivElement>(null);
+  const elapsed = useRef(0);
+  const [step, setStep] = useState(5);
+  const [played, setPlayed] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [tabVisible, setTabVisible] = useState(true);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), {
+      threshold: 0.2,
+    });
+    if (scene.current) observer.observe(scene.current);
+    const onVisibility = () => setTabVisible(document.visibilityState === "visible");
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!playing || !visible || !tabVisible) return;
+    let previous = performance.now();
+    let frame = 0;
+    const tick = (now: number) => {
+      elapsed.current += now - previous;
+      previous = now;
+      const next = Math.min(5, Math.floor(elapsed.current / 2400));
+      setStep(next);
+      if (next === 5) setPlaying(false);
+      else frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [playing, visible, tabVisible]);
+
+  const watch = () => {
+    if (playing) {
+      setPlaying(false);
+      return;
+    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setStep(5);
+      setPlayed(true);
+      return;
+    }
+    if (!played || step === 5) {
+      elapsed.current = 0;
+      setStep(0);
+    }
+    if (scene.current && scene.current.getBoundingClientRect().height + 130 < window.innerHeight) {
+      scene.current.scrollIntoView({ block: "center", behavior: "smooth" });
+    }
+    setPlayed(true);
+    setPlaying(true);
+  };
+  const reveal = (at: number) => `cr-flow-reveal${step < at ? " cr-flow-pending" : ""}`;
+
+  return (
+    <section
+      className="cr-section cr-enquiry"
+      id="chatbot-enquiry"
+      aria-labelledby="chatbot-enquiry-title"
+    >
+      <div className="cr-wrap">
+        <header className="cr-section-intro">
+          <h2 id="chatbot-enquiry-title">Know what they need before you reply.</h2>
+          <p>Ask useful questions, capture the contact and start the follow-up you’ve agreed.</p>
+        </header>
+        <div className="cr-enquiry-controls">
+          <button
+            className="cr-watch"
+            type="button"
+            onClick={watch}
+            aria-controls="chatbot-enquiry-sequence"
+          >
+            {playing ? (
+              <Pause size={16} aria-hidden="true" />
+            ) : played && step === 5 ? (
+              <RotateCcw size={16} aria-hidden="true" />
+            ) : (
+              <Play size={16} aria-hidden="true" />
+            )}
+            {playing
+              ? "Pause"
+              : played
+                ? step === 5
+                  ? "Watch again"
+                  : "Continue"
+                : "Watch the enquiry"}
+          </button>
+          <span role="status" aria-live="polite">
+            {played ? ENQUIRY_BEATS[step] : "Website chat, CRM and follow-up together."}
+          </span>
+          <a className="cr-link" href="/features/automation-builder">
+            Explore Automation Builder
+          </a>
+        </div>
+        <div
+          className="cr-enquiry-stage"
+          ref={scene}
+          data-step={step}
+          id="chatbot-enquiry-sequence"
+        >
+          <div
+            className="cr-enquiry-thread"
+            aria-label="Daniel shares his enquiry and contact details"
+          >
+            <ChatHeader business="Inner West Air" />
+            <div className="cr-thread">
+              <Bubble cell={5}>Do you replace ducted air conditioning in Marrickville?</Bubble>
+              <Bubble ai>Yes. Is it for your home or a business, and when do you need it?</Bubble>
+              <div className={reveal(1)} aria-hidden={step < 1}>
+                <Bubble cell={5}>Home. Ideally next week.</Bubble>
+              </div>
+              <div className={reveal(2)} aria-hidden={step < 2}>
+                <Bubble ai>What’s your name and email so our team can get in touch?</Bubble>
+              </div>
+              <div className={reveal(3)} aria-hidden={step < 3}>
+                <Bubble cell={5}>
+                  Daniel.<span className="cr-shared-detail">Email address shared</span>
+                </Bubble>
+              </div>
+            </div>
+          </div>
+          <div className="cr-enquiry-result-stage">
+            {played && step < 4 && (
+              <img
+                className="cr-enquiry-working"
+                src="/concept/features/chatbot-team-review-v3.webp"
+                alt="A service team focused on an installation plan while the chatbot collects an enquiry"
+                width="2020"
+                height="778"
+              />
+            )}
+            <div
+              className={`cr-crm-workspace${step < 4 ? " cr-result-pending" : ""}`}
+              id="chatbot-enquiry-result"
+              aria-hidden={step < 4}
+            >
+              <div className="cr-workspace-header">
+                <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="88" height="30" />
+                <span>Website enquiry</span>
+              </div>
+              <div className={reveal(4)} aria-hidden={step < 4}>
+                <div className="cr-flow-contact">
+                  <Avatar cell={5} />
+                  <div>
+                    <h3>Daniel</h3>
+                    <p>Name and email captured</p>
+                  </div>
+                </div>
+                <div className="cr-flow-stage">
+                  <span>Pipeline stage</span>
+                  <strong>New enquiry</strong>
+                </div>
+                <div className="cr-flow-request">
+                  <h4>Customer’s original request</h4>
+                  <p>“Do you replace ducted air conditioning in Marrickville?”</p>
+                  <p>“Home. Ideally next week.”</p>
+                </div>
+              </div>
+              <div className={`${reveal(5)} cr-flow-email`} aria-hidden={step < 5}>
+                <p>Configured acknowledgement email · To Daniel</p>
+                <h4>Thanks for your enquiry, Daniel.</h4>
+                <p>
+                  We’ve received your request. Our team will get in touch to discuss the
+                  replacement.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -187,106 +386,46 @@ function BusinessAnswers() {
     <section className="cr-section cr-control" aria-labelledby="chatbot-control-title">
       <div className="cr-wrap cr-control-layout">
         <div className="cr-control-copy">
-          <h2 id="chatbot-control-title">Answers from your business.</h2>
-          <p>Use your website, documents and FAQs to answer questions about your services.</p>
+          <h2 id="chatbot-control-title">Useful answers. Clear limits.</h2>
+          <p>
+            Use your service information and booking rules. Pass unusual requests to your team with
+            the conversation.
+          </p>
+          <a className="cr-link cr-control-inbox-link" href="/features/unified-inbox">
+            Explore Unified Inbox
+          </a>
         </div>
         <div className="cr-control-workspace">
           <div className="cr-knowledge-panel">
             <div className="cr-product-brand">
               <ZaplaPetal size={24} />
-              <span>Business information</span>
+              <span>Your appointment guide</span>
             </div>
-            <ul className="cr-sources">
-              <li>
-                <Globe size={18} aria-hidden="true" />
-                <div>
-                  <strong>Website pages</strong>
-                  <span>/services &nbsp; /appointments</span>
-                </div>
-              </li>
-              <li>
-                <FileText size={18} aria-hidden="true" />
-                <div>
-                  <strong>Services and fees.pdf</strong>
-                  <span>Uploaded document</span>
-                </div>
-              </li>
-              <li>
-                <FileText size={18} aria-hidden="true" />
-                <div>
-                  <strong>When to involve our team</strong>
-                  <span>Written instructions</span>
-                </div>
-              </li>
-            </ul>
+            <dl className="cr-appointment-rules">
+              <div>
+                <dt>New patients</dt>
+                <dd>Book an initial appointment</dd>
+              </div>
+              <div>
+                <dt>Returning patients</dt>
+                <dd>Book a follow-up appointment</dd>
+              </div>
+            </dl>
           </div>
           <div
             className="cr-answer-preview"
             role="region"
-            aria-label="An answer based on the business information"
+            aria-label="The chatbot uses the practice’s first-visit booking rule"
           >
             <ChatHeader />
             <div className="cr-thread">
-              <Bubble>Do you have evening appointments?</Bubble>
+              <Bubble>Can I book a follow-up if I haven’t visited before?</Bubble>
               <Bubble ai>
-                Yes. We offer evening appointments. Would you like help finding a time?
+                For your first visit, choose an initial appointment. Follow-ups are for returning
+                patients.
               </Bubble>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TeamContext() {
-  return (
-    <section className="cr-section cr-team" aria-labelledby="chatbot-team-title">
-      <div className="cr-wrap">
-        <header className="cr-section-intro">
-          <h2 id="chatbot-team-title">The right questions reach your team.</h2>
-          <p>
-            When a request needs a person, keep the original conversation available so your team can
-            take it from there.
-          </p>
-        </header>
-        <div className="cr-team-scene">
-          <div
-            className="cr-enquiry-record"
-            aria-label="Daniel’s original request available to the team in Zapla"
-          >
-            <div className="cr-product-brand">
-              <ZaplaPetal size={23} />
-              <span>Website enquiry</span>
-            </div>
-            <div className="cr-record-person">
-              <Avatar cell={5} />
-              <div>
-                <h3>Daniel</h3>
-                <span>New enquiry</span>
-              </div>
-            </div>
-            <div className="cr-record-question">
-              <p>“I’m Daniel. Can you install a unit I bought elsewhere?”</p>
-            </div>
-            <div className="cr-record-response">
-              <ZaplaPetal size={21} />
-              <p>I’ll pass your question to our team so they can confirm.</p>
-            </div>
-          </div>
-          <img
-            src="/concept/features/chatbot-team-review-v3.webp"
-            alt="A service team reviewing an installation plan together"
-            width="2020"
-            height="778"
-            loading="lazy"
-          />
-        </div>
-        <div className="cr-scene-foot">
-          <p>Connect captured enquiries to a chosen pipeline and configured follow-up.</p>
-          <a className="cr-link" href="/features/unified-inbox">
-            Explore Unified Inbox
-          </a>
         </div>
       </div>
     </section>
@@ -364,9 +503,9 @@ export function AIChatbotPage() {
   return (
     <main className="zapla-feature zapla-chatbot">
       <Opening />
+      <EnquiryFlow />
       <Booking />
       <BusinessAnswers />
-      <TeamContext />
       <SetupAndFaq />
       <section className="cr-final">
         <div className="cr-wrap">
