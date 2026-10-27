@@ -61,3 +61,12 @@ Source c7d000c261d25f15364a4dcb120d8cef18390364 passed Workers Builds and was in
 - The enquiry FAQ opens by click and closes with keyboard Enter. The final Book a Call reaches /booking and its email-arrangement heading; no email is sent or mail client opened. Existing feature links and sales destinations were checked in source.
 
 The lenses above were applied to this consecutive-page render, not isolated mockups. This fixes the rejected layout/replay pattern; it does not supply the missing authentic footage, customer proof or live scheduler. Final connected-preview verification follows delivery.
+
+
+### Final delivery and connected-preview limit
+
+Final source e3582ecb27f126dcdea4dc1ad474642ac471916c passed Workers Builds at https://18bc38da-guidedpricing.jinrcao.workers.dev/features/ai-chatbot . The final “Email captured” label was checked at 393 × 852: contact and pipeline fit side by side, with the complete request and acknowledgement below. Final wide-desktop CRM and booking proof were captured from this source; no browser error logs were returned. Temporary viewport overrides were reset. Production build, TypeScript and SEO passed again after preserving concurrent main through 5711d6d8ecacd03b0a31584e56be3162c291c551. The integration tree matched the API-created tree exactly.
+
+PR #210 merged normally as 748ed37f50fab813b6b90a8db373ed5bd869213a, without force-push, history rewriting, builder prompts or a Publish action. Lovable metadata reported ready at that merge. However, direct inspection and reload of the stable id-preview route still showed the prior replay, four chat windows and no new CRM record. A subsequent read confirmed the old DOM; the alternate previously known lovableproject.com address timed out without navigating. Therefore connected-source sync metadata is confirmed, but the connected rendered preview is **not** accepted as current. The user is given the exact-source Workers review link rather than a stale preview link. No claim that the Lovable rendering discrepancy was repaired is made.
+
+[Complete enquiry record](qa/ai-chatbot-record-rhythm-20261027.png). [Distinct booking composition](qa/ai-chatbot-booking-rhythm-20261027.png).
