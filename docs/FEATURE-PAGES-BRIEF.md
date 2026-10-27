@@ -534,3 +534,7 @@ The owner approved improving AI transformation, the form-to-CRM handoff and the 
 Show the same filled enquiry being submitted before Mia's CRM record, mapped project answers and configured acknowledgement appear together in one shared workspace. Do not invent an automatic booking or universal mapping/follow-up. Suitable desktop scenes autoplay once, pause/resume/replay, stop offscreen/hidden and hold their complete result. Phone, short-window, reduced-motion and server/static content remains complete in ordinary flow. No live AI/import/contact/email execution or automatic scrolling is introduced.
 
 Condense the website service choice, Guided Launch and FAQ wording. Retain separately quoted custom design and required, separately priced Guided Launch. Actual image provenance, role review, rendered desktop/phone coverage, tablet limitation and retained proof are appended to WEBSITES-PRODUCT-DESIGN-REVIEW-20261027.md. GitHub owns changes; Lovable stays read-only and no separate Publish action is used.
+
+## Form QR sharing, 27 October 2026
+
+The owner supplied the form settings screen showing Embed & QR and requested one small supporting container. Add a compact QR-sharing card directly beneath the Forms & CRM demonstration, with a recognisable QR graphic and one short use line. Keep it subordinate to the enquiry handoff; do not recreate the settings screen, embed code, download controls or tenant-specific QR payload. Preserve the current form flow, AI, funnel, tracking, setup and shared architecture.
