@@ -117,3 +117,15 @@ TypeScript, scoped ESLint, Prettier, SEO policy and whitespace checks pass. The 
 The working draft remains in PR #202. Main and Lovable await the previously required explicit merge authorisation; no production Publish action was performed.
 
 ![Custom field types and options, actual quick-action buttons and selected tags](qa/pipeline-clearer-tools-20261027.jpg)
+
+## Visible-grain correction, 27 October 2026
+
+The owner could barely see the grain, so the earlier description of a restrained but visible texture overstated the rendered effect. The grain is now monochrome and opaque before compositing, slightly coarser, and stronger in contrast. A 44% soft-light blend replaces the faint 19% multiply overlay. This retains the coral/gold/lavender tones and the existing smooth fade before the copy. White UI remains opaque and smooth; the surrounding website canvas stays clean.
+
+Runtime commit `daf909aa2564d8d26b276d79d4386bfd7012bb6e` passed Workers Builds. The direct [updated texture preview](https://c3ab980e-guidedpricing.jinrcao.workers.dev/features/pipeline-management#pipeline-fit) was visually inspected at 1348 by 926 and captured below. Grain is visibly perceptible at normal viewing size across all three exposed coloured areas. Computed blend/opacity are soft-light/0.44 on each card; the existing bottom fade remains, copy stays `rgb(27, 32, 33)`, and document/content widths match at 1348px. Prettier, SEO policy and whitespace checks pass. This changes three paint declarations only; no geometry, content, motion, interaction or dependencies change. The preceding responsive scene checks are not claimed as new mobile tests.
+
+Owner assessments: the stronger texture now supplies the requested material depth, while the smooth white product UI keeps the controls legible. Grain under the copy, a global website texture and colour-darkening multiply were rejected. This is a scoped visual judgement, not an independent review or measured conversion result.
+
+GitHub and Lovable status were checked separately: PR #202 remained an unmerged draft, and Lovable was synced to main `839ac4841f11b30481c03fc678d7209d16837db8`, whose Pipeline source still had the earlier white cards. That main revision's concurrent Automation and Ticketing changes are preserved with a merge parent in this review branch. The earlier automatic approval review requires explicit authorisation of the main-branch update. No main update, Lovable builder prompt or production Publish action was performed here.
+
+![Pipeline card grain visible at normal viewing size](qa/pipeline-visible-grain-20261027.jpg)
