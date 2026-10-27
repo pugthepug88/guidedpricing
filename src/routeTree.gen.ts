@@ -41,6 +41,7 @@ import { Route as ComparisonZaplaVsThryvRouteImport } from './routes/comparison.
 import { Route as ComparisonZaplaVsZohoRouteImport } from './routes/comparison.zapla-vs-zoho'
 import { Route as FeaturesAiChatbotRouteImport } from './routes/features.ai-chatbot'
 import { Route as FeaturesAutomationBuilderRouteImport } from './routes/features.automation-builder'
+import { Route as FeaturesBusinessPhoneRouteImport } from './routes/features.business-phone'
 import { Route as FeaturesCalendarsBookingsRouteImport } from './routes/features.calendars-bookings'
 import { Route as FeaturesPipelineManagementRouteImport } from './routes/features.pipeline-management'
 import { Route as FeaturesQuotesInvoicesSignaturesRouteImport } from './routes/features.quotes-invoices-signatures'
@@ -224,6 +225,11 @@ const FeaturesAutomationBuilderRoute =
     path: '/features/automation-builder',
     getParentRoute: () => rootRouteImport,
   } as any)
+const FeaturesBusinessPhoneRoute = FeaturesBusinessPhoneRouteImport.update({
+  id: '/features/business-phone',
+  path: '/features/business-phone',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FeaturesCalendarsBookingsRoute =
   FeaturesCalendarsBookingsRouteImport.update({
     id: '/features/calendars-bookings',
@@ -329,6 +335,7 @@ export interface FileRoutesByFullPath {
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
   '/features/automation-builder': typeof FeaturesAutomationBuilderRoute
+  '/features/business-phone': typeof FeaturesBusinessPhoneRoute
   '/features/calendars-bookings': typeof FeaturesCalendarsBookingsRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/quotes-invoices-signatures': typeof FeaturesQuotesInvoicesSignaturesRoute
@@ -376,6 +383,7 @@ export interface FileRoutesByTo {
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
   '/features/automation-builder': typeof FeaturesAutomationBuilderRoute
+  '/features/business-phone': typeof FeaturesBusinessPhoneRoute
   '/features/calendars-bookings': typeof FeaturesCalendarsBookingsRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/quotes-invoices-signatures': typeof FeaturesQuotesInvoicesSignaturesRoute
@@ -424,6 +432,7 @@ export interface FileRoutesById {
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
   '/features/automation-builder': typeof FeaturesAutomationBuilderRoute
+  '/features/business-phone': typeof FeaturesBusinessPhoneRoute
   '/features/calendars-bookings': typeof FeaturesCalendarsBookingsRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/quotes-invoices-signatures': typeof FeaturesQuotesInvoicesSignaturesRoute
@@ -473,6 +482,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-zoho'
     | '/features/ai-chatbot'
     | '/features/automation-builder'
+    | '/features/business-phone'
     | '/features/calendars-bookings'
     | '/features/pipeline-management'
     | '/features/quotes-invoices-signatures'
@@ -520,6 +530,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-zoho'
     | '/features/ai-chatbot'
     | '/features/automation-builder'
+    | '/features/business-phone'
     | '/features/calendars-bookings'
     | '/features/pipeline-management'
     | '/features/quotes-invoices-signatures'
@@ -567,6 +578,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-zoho'
     | '/features/ai-chatbot'
     | '/features/automation-builder'
+    | '/features/business-phone'
     | '/features/calendars-bookings'
     | '/features/pipeline-management'
     | '/features/quotes-invoices-signatures'
@@ -615,6 +627,7 @@ export interface RootRouteChildren {
   ComparisonZaplaVsZohoRoute: typeof ComparisonZaplaVsZohoRoute
   FeaturesAiChatbotRoute: typeof FeaturesAiChatbotRoute
   FeaturesAutomationBuilderRoute: typeof FeaturesAutomationBuilderRoute
+  FeaturesBusinessPhoneRoute: typeof FeaturesBusinessPhoneRoute
   FeaturesCalendarsBookingsRoute: typeof FeaturesCalendarsBookingsRoute
   FeaturesPipelineManagementRoute: typeof FeaturesPipelineManagementRoute
   FeaturesQuotesInvoicesSignaturesRoute: typeof FeaturesQuotesInvoicesSignaturesRoute
@@ -857,6 +870,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeaturesAutomationBuilderRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/features/business-phone': {
+      id: '/features/business-phone'
+      path: '/features/business-phone'
+      fullPath: '/features/business-phone'
+      preLoaderRoute: typeof FeaturesBusinessPhoneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/features/calendars-bookings': {
       id: '/features/calendars-bookings'
       path: '/features/calendars-bookings'
@@ -984,6 +1004,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComparisonZaplaVsZohoRoute: ComparisonZaplaVsZohoRoute,
   FeaturesAiChatbotRoute: FeaturesAiChatbotRoute,
   FeaturesAutomationBuilderRoute: FeaturesAutomationBuilderRoute,
+  FeaturesBusinessPhoneRoute: FeaturesBusinessPhoneRoute,
   FeaturesCalendarsBookingsRoute: FeaturesCalendarsBookingsRoute,
   FeaturesPipelineManagementRoute: FeaturesPipelineManagementRoute,
   FeaturesQuotesInvoicesSignaturesRoute: FeaturesQuotesInvoicesSignaturesRoute,
