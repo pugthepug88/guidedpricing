@@ -59,3 +59,11 @@ These are the implementation agent's distinct assessments, not independent revie
 Production build, TypeScript, targeted Ticketing ESLint, formatting, SEO policy and whitespace checks passed on source incorporating current main at `7dafba5e857c2141b53754024b2ed21d4d1e96fe`. Existing bundler/module-directive and environment warnings remain non-blocking. No dependencies changed. Only the Ticketing component/style and its review records are part of this revision.
 
 Hosted source sync and screenshot proof are recorded after merge. The revision is ready for owner review; that does not mean the owner has accepted the new visual direction. No live product-service acceptance test, exhaustive cross-browser matrix or Lovable historical-build-warning fix is implied.
+
+## Source sync and saved proof
+
+PR #208 merged as `2981eec23899dd5b05c07c7fe0f6f500dcac9605`. The connected GitHub app created the exact locally checked tree `7decaeeb58b536af3de34b273d1c78aff43a7e1a`. GitHub preserved the concurrent Automation changes when merging. Vercel reported success for both the implementation and merge commits. Lovable reported the merge SHA as its latest source and the project ready.
+
+The connected browser lost its originating context during the final hosted check. The separate preview browser reached a Lovable sign-in page; the GitHub deployment preview also required sign-in. No authentication or permission changes were made. Source sync is verified, but this turn does not claim a fresh authenticated hosted rendering. The direct review address remains `https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/ticketing`.
+
+After incorporating merged main, the actual local desktop opening and completed support sequence were captured from the supported preview, using the same Ticketing source as main. Saved proof: [opening](proof/ticketing-visual-reset-hero-20261027.jpg) and [completed request story](proof/ticketing-visual-reset-complete-20261027.jpg). The temporary local host allowance was restored again after capture. These are local render proof, not screenshots of an authenticated hosted page.
