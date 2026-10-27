@@ -267,16 +267,6 @@ function useDraftAssembly() {
     };
   }, []);
 
-  useEffect(() => {
-    // Freeze in-flight CSS transitions as well as keyframes. Keeping the
-    // current phase preserves the exact frame, including a half-finished fade.
-    const animations = rootRef.current?.getAnimations?.({ subtree: true }) ?? [];
-    for (const animation of animations) {
-      if (playback.running) animation.play();
-      else animation.pause();
-    }
-  }, [playback.running]);
-
   const select = (index: number) => {
     controls.current?.select(index);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

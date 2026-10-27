@@ -1022,9 +1022,6 @@
   box-shadow:
     0 14px 38px #00000024,
     inset 0 1px 0 #e5ebff0a;
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
 }
 .ab-ai-demo[data-phase="waiting"] .ab-ai-prompt,
 .ab-ai-demo[data-phase="typing"] .ab-ai-prompt {
@@ -1254,15 +1251,21 @@
 .ab-ai-demo[data-running="false"] .ab-ai-cursor {
   animation-play-state: paused;
 }
-.ab-ai-copy,
-.ab-ai-prompt blockquote,
-.ab-ai-workflow {
-  transition: opacity 0.22s ease;
-}
 .ab-ai-demo[data-phase="transition"] .ab-ai-copy,
 .ab-ai-demo[data-phase="transition"] .ab-ai-prompt blockquote,
 .ab-ai-demo[data-phase="transition"] .ab-ai-workflow {
-  opacity: 0;
+  animation: ab-ai-fade-out 0.22s ease both;
+}
+.ab-ai-demo[data-running="false"] * {
+  animation-play-state: paused !important;
+}
+@keyframes ab-ai-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 .ab-ai-workflow ol {
   list-style: none;
@@ -1285,9 +1288,6 @@
   height: 12px;
   background: #677086;
   transform-origin: top;
-  transition:
-    opacity 0.22s ease,
-    transform 0.28s ease;
 }
 .ab-ai-node {
   display: flex;
@@ -1301,9 +1301,6 @@
   box-shadow: inset 0 1px 0 #ffffff05;
   opacity: 1;
   transform: none;
-  transition:
-    opacity 0.28s ease,
-    transform 0.28s ease;
 }
 .ab-ai-node svg {
   flex-shrink: 0;
@@ -1355,6 +1352,32 @@
 .ab-ai-step[data-visible="false"] .ab-ai-connection {
   opacity: 0;
   transform: scaleY(0);
+}
+.ab-ai-demo[data-phase="building"] .ab-ai-step[data-visible="true"] .ab-ai-node {
+  animation: ab-ai-node-in 0.28s ease both;
+}
+.ab-ai-demo[data-phase="building"] .ab-ai-step[data-visible="true"] .ab-ai-connection {
+  animation: ab-ai-connection-in 0.28s ease both;
+}
+@keyframes ab-ai-node-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes ab-ai-connection-in {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
 }
 .ab-ai-ideas {
   padding: 0 48px 36px;
