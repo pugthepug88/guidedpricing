@@ -1,5 +1,7 @@
 # Ticketing: complete visual rebuild, 27 October 2026
 
+> Rejected by the owner. The latest instruction is to restore the first iteration; see [the restoration record](TICKETING-ORIGINAL-RESTORE-20261027.md). This document records an abandoned design, not the current direction or owner approval.
+
 ## Owner rejection and new direction
 
 The owner rejected the entire compact-board revision, then made clear that the visual design was awful. This supersedes TICKETING-PAGE-HIERARCHY-20261027.md and all preceding Ticketing composition approvals. Do not describe the rejected versions' technical checks as aesthetic approval.

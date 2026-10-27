@@ -1,6 +1,6 @@
 # Ticketing feature page, 26 October 2026
 
-> The visual composition and numeric assessments below are historical and superseded by [the 27 October visual reset](TICKETING-VISUAL-RESET-20261027.md). Capability sources and original image provenance remain applicable. The previous scores did not establish owner approval.
+> The owner requested this first iteration again on 27 October after rejecting the subsequent redesigns. Its exact component and stylesheet are restored from `89ebcd5a4cee0b03cbb4bf74bc80c3dbb89a79ec`; see [the restoration record](TICKETING-ORIGINAL-RESTORE-20261027.md). Capability sources and original image provenance remain applicable. The numeric assessments below are historical and do not establish owner approval.
 
 ## Scope and decision
 

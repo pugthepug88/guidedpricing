@@ -261,3 +261,8 @@ The owner rejected the entire compact-board composition, including its visual qu
 ## Calendar phone conversation trial, 27 October 2026
 
 The owner explicitly approved trying a compact phone in place of the booking-message card and reserved the option to revert. Use one recognisable device, readable incoming messages and a visibly conditional missed-appointment invitation; all content is present immediately. A restrained physical rim, speaker and home indicator explain the customer-facing phone surface. Avoid fake battery/time indicators, composer controls, delivery ticks, extra feature panels or timed message reveals. Preserve the saved two-row version as the rollback baseline.
+
+
+## Ticketing first-iteration restoration, 27 October 2026
+
+The owner rejected the latest rebuild and explicitly requested the first iteration again. Restore the exact Ticketing component and stylesheet from `89ebcd5a4cee0b03cbb4bf74bc80c3dbb89a79ec`, including its light stone/glass hero, original story/copy, board/table/filter and connected context. This supersedes the intervening Ticketing redesign and rejection-specific composition rules; do not reinterpret the rollback as another design revision. Preserve current shared architecture and all other feature-page work. Verification and provenance: `TICKETING-ORIGINAL-RESTORE-20261027.md`. Historical scores and technical passes are not owner aesthetic approval. GitHub owns changes; Lovable remains read only with no separate Publish action.
