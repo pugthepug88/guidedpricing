@@ -74,3 +74,15 @@ These are the implementation agent's critical assessments, not independent revie
 ## Delivery verification
 
 Build and checks, GitHub integration and hosted visual proof are recorded after validation and sync. Earlier screenshots and reviews remain historical; do not present them as this rebuild.
+
+## Verified delivery
+
+PR #217 merged as `a9b8f6f10e681816cad2d36968226a0c17367789`. The API tree exactly matched the checked local tree `c50462275455bc530216e3fbb34cf82aea92a7ed`, preserving concurrent Calendar corrections through b12f20d. Production build, TypeScript, scoped ESLint, SEO policy, Prettier and whitespace checks passed. Branch and merged-main Vercel statuses succeeded. Temporary preview configuration and the review fixture were removed before commit.
+
+The final copy-only correction changed the highlighted title and accessible relationship label from an invoice-details request to Return visit needed, making shared office/field responsibility more coherent. It is recorded in `bcbd6f26913d14c7ea31469aa1968858e1a805d0`; its tree `428ff793f259457414b66a59e91cdb8a88fa2441` also matched local source, and its hosted build succeeded. The responsive walkthrough preceded this shorter-title correction; the final hosted desktop showed the corrected title and linked label. No component behaviour or CSS changed in that last correction.
+
+Lovable reported the corrected source ready. Connected Chrome rendered the new support desk, fresh team photo, linked strip, lower board/detail section and native FAQ on the actual id-preview route. At its observed 1707 × 769 viewport, the desk measured about 713 × 498px. The old board and pressure wording were absent. No main/nested horizontal overflow was found. See how it works reached the workspace heading; the multiple-people FAQ opened by click and closed with Enter. All three sales paths remained /booking, context remained /crm and robots remained noindex/nofollow. No warning/error logs were returned in the checked read. The normal browser viewport was retained.
+
+Actual hosted proof: [new opening](proof/ticketing-rebuilt-hero-hosted-20261027.png), [staff and connected context](proof/ticketing-rebuilt-team-hosted-20261027.png), [board and ticket detail](proof/ticketing-rebuilt-workspace-hosted-20261027.png). The latter two views were captured before the final title-only correction; their visible layout/content is unchanged. These are saved viewport captures, not a claim of a hosted full-page screenshot or real-device acceptance.
+
+Review address: https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/ticketing . This is a complete implementation for owner review, not owner acceptance, independent creative approval or measured conversion improvement. No Lovable builder prompt or separate Publish action was used.
