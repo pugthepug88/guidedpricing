@@ -1,5 +1,7 @@
 # Ticketing page hierarchy, 27 October 2026
 
+> Rejected by the owner and superseded by [TICKETING-COMPLETE-VISUAL-REBUILD-20261027.md](TICKETING-COMPLETE-VISUAL-REBUILD-20261027.md). The compact board and café story below are historical.
+
 ## Superseding owner direction
 
 The owner rejected the oversized working queue and the specialist “Pressure drops during service” hero caption, then approved rebuilding after a whole-page review. This supersedes the photograph-led hero and large eight-ticket chapter in TICKETING-WORKING-QUEUE-20261027.md. Successful technical checks on that previous version were not visual acceptance.
