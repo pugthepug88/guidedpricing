@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { useLocation } from "@tanstack/react-router";
 import { INDUSTRY_LINKS } from "@/lib/industries";
+import { FEATURE_LINKS } from "@/lib/features";
 
 const NAV_GROUPS = [
   {
@@ -17,23 +18,7 @@ const NAV_GROUPS = [
   {
     id: "features",
     label: "Features",
-    links: [
-      { name: "Unified Inbox", href: "/features/unified-inbox", section: "Leads & conversations" },
-      { name: "Business Phone", href: "/features/business-phone" },
-      {
-        name: "Pipeline Management",
-        href: "/features/pipeline-management",
-        section: "Sales & automation",
-      },
-      { name: "Automation Builder", href: "/features/automation-builder" },
-      { name: "Calendars & Bookings", href: "/features/calendars-bookings" },
-      { name: "Quotes, Invoices & Signatures", href: "/features/quotes-invoices-signatures" },
-      {
-        name: "Websites, Funnels & Forms",
-        href: "/features/websites-funnels-forms",
-        section: "Marketing & operations",
-      },
-    ],
+    links: FEATURE_LINKS,
   },
   {
     id: "solutions",
