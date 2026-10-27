@@ -224,3 +224,12 @@ The owner approved replacing the heavy flat-green AI scene with a cooler ink wor
 ## Owner-requested Automation AI rotation, 27 October 2026
 
 The owner's explicit autoplay request supersedes the prior click-only/never-cycle rule for the separate Automation AI scene. Autoplay begins only with a readable request, holds each completed draft, and transitions through the eight ideas. It must never scroll or move focus automatically. Preserve manual choices, a visible Pause/Resume control, a functional up-arrow replay, offscreen/hidden-tab suspension and complete reduced-motion/static content. The workflow petal may rotate only during active construction and must freeze on pause. Keep the accepted ink palette; reserve layout space so cycling does not move the page or replace a lower phone graph while it is being read.
+
+
+## Chatbot playback and repeated composition correction, 27 October 2026
+
+The owner explicitly rejected the Chatbot play/continue control and consecutive chat-left/photo-right compositions. Remove that page’s replay, timers and hidden states rather than replacing it with autoplay. Keep the enquiry, booking and knowledge proof complete in ordinary flow. Evaluate consecutive viewports: changing the business photograph does not make the same interface composition a distinct section. Give the customer-facing widget, business record, appointment result and answer-control example different visual jobs. This supersedes earlier Chatbot playback guidance only; other pages’ explicitly approved motion remains scoped to those pages.
+
+## Calendar setup detail is supporting content, 27 October 2026
+
+The owner rejected making working-hour blocking, duration and minimum notice a major sales scene. Remove that availability panel rather than restyling it again or filling its place with another chapter. Keep those controls in the practical FAQ and calendar-provider recognition in a small supporting row beneath booking. A correct basic feature does not automatically deserve a large marketing section; judge its space by the buyer question and commercial value it adds.

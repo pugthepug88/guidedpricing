@@ -146,7 +146,7 @@ function EnquiryRecord() {
               <Avatar cell={5} />
               <div>
                 <h3>Daniel</h3>
-                <p>Name and email captured</p>
+                <p>Email captured</p>
               </div>
             </div>
             <div className="cr-record-stage">
