@@ -89,3 +89,59 @@ Source commits: `9702c9291165625e797c22cca061693d28c23784` and `6812c68825a16822
 The earlier transient lovableproject.com URL is not a durable delivery link. No separate production Publish action was used.
 
 Retained proof: `docs/qa/websites-funnel-connections-20261027.jpg` and `docs/qa/websites-cursor-heatmap-20261027.jpg`. Final stable preview reports no browser errors or document horizontal overflow. SEO policy checks also pass.
+
+## Approved AI, submission and closing refinement, 27 October 2026
+
+The owner approved the audit recommendation to preserve the builder, corrected funnel and automatic heatmap while improving AI transformation, form submission and closing copy. This supersedes the earlier AI Watch/reveal-only treatment and separate large Forms/CRM panels. The H1, final CTA, shared shell, route/indexing, funnel geometry, tracking scene and /booking destinations remain.
+
+USE the actual Zapla wordmark and supplied AI petal. ADAPT the owner's AI create/clone reference into a brief or visible source page, a send action, construction and an editable result. Retain the garden business for continuity. A single long pinned journey was considered and rejected: its complete AI output and CRM outcome would be harder to read together on a phone. Separate purposeful scenes in ordinary flow keep their results available.
+
+The AI scene now starts once when sufficiently visible on a suitable desktop viewport. A small pointer presses the blue up arrow; the working petal moves during construction; the page's navigation, hero, services and enquiry section become complete; the heading can then be edited in local state. Clone mode shows the source Courtyard page and preserves its heading and garden image in the editable result. Mode choices and replay remain usable. The old Watch button and automatic scroll/focus changes are removed. No source URL, real website, AI service or imported-site parity is fabricated as a live test.
+
+The new Forms & CRM scene is one shared workspace. The submitted enquiry visibly precedes Mia's contact, the same project answers and a configured acknowledgement email. A quiet arrow communicates the handoff. The field-picker rail and redundant separate application headers are removed. The form still explicitly shows that project answers are mapped to contact fields; the acknowledgement is configured, not a universal default. No contact, form, email, booking or external tracking API is called.
+
+One shared local playback clock controls each new scene's pointer, press, reveal and petal. Pause/Resume/Replay are available on suitable desktop windows; offscreen and hidden-tab time is excluded. Phone, short-window, reduced-motion and server/no-JavaScript defaults keep complete content in normal order. Source review covered these branches; a dedicated reduced-motion or JavaScript-disabled browser run is not claimed. The existing heatmap retains its own previously verified two-click player.
+
+The closing service choice and Guided Launch block are condensed without removing the separate quote/design or required separately priced setup terms. FAQs retain existing-site, cloning, CRM mapping, multi-page forms, domain and draft/publish scope with less explanation. At the inspected desktop size, the setup layout falls from about 572px to 266px and the complete closing chapter from about 1166px to 860px. No conversion or business-performance result is implied by that reduction.
+
+### Fresh scene asset
+
+Built-in image generation was used for a finished courtyard, giving the AI output a different visual job from the existing consultation/planning photograph. It is a prepared garden-business illustration, not an actual customer project or endorsement. No generated UI, logo or text is baked into the photograph.
+
+- Master: `/workspace/scratch/57fa194d5f72/generated_images/exec-354f79ca-e29c-41ac-ac51-c40e21637647.png`, 1536 × 1024.
+- Delivery asset: `public/concept/features/websites-finished-courtyard-20261027.webp`, 1280 × 853, 276,676 bytes; WebP quality 86. The master is retained separately; it is not served by the page.
+- The built-in output was visually inspected for coherent courtyard geometry, materials, lighting and responsive focal detail. Existing actual brand artwork is unchanged.
+
+Final generation prompt:
+
+> Use case: photorealistic-natural. Asset type: an editorial photograph inside a fictional Sydney garden-design business's website, used in a Zapla product demonstration. Primary request: show the finished result of a thoughtfully designed small contemporary courtyard garden in Sydney. No people. Human scale, inviting and believable rather than a huge luxury estate. A leafy layered garden with a mature slender tree, warm natural limestone paving, a simple pale timber outdoor dining table with two well-designed chairs, low built-in seating, and a restrained charcoal-framed contemporary home beyond. Camera at human eye level from the threshold, looking diagonally across the courtyard; depth, foliage partly framing the foreground, generous planted area, coherent buildable geometry. Editorial architectural garden photography, tactile stone, timber and leaves, natural late-afternoon sidelight, soft directional shadows, neutral whites and deep foliage greens, warm material accents. Premium, calm, lived-in but tidy. Landscape 3:2 composition, useful focal detail in central area for responsive crops. No text, no logos, no UI, no infographic, no collage, no excessive objects, no gold filter, no beige haze, no unreal vegetation, no person or implied customer testimonial.
+
+### Rendered verification and review limits
+
+The stable id-preview route was checked serving the new AI and form source, including the final content-sized heading fix. The actual standard desktop and 393 × 713 phone documents were inspected. AI create and clone were selected, the heading accepted native editing, complete source/result states were observed, and the finished photograph decoded. Desktop Replay/Pause/Resume were exercised; paused visual state remained stable across subsequent reads and work. Both scenes reached their completed hold.
+
+Phone checks covered the AI source choices and cloned output, the complete filled enquiry and the complete CRM/acknowledgement outcome. The 602px form and 548px CRM/email composition were separately framed and visibly readable. Field text, names and source/result titles remain contained; inspected phone and desktop documents have no horizontal overflow. The phone renders completed states without automatic replacement while the reader scrolls. Native AI CTA navigation reaches the connected enquiry. The closing service/setup composition was inspected on desktop. The three sales links still lead to /booking, and the stable page reports no browser errors.
+
+The Lovable embedded static preview was repeatedly refreshed or left blank while concurrent main changes arrived. Blank/stale frames and failed captures were not counted as visual checks. An actual 393px direct document was subsequently used for the retained phone proof. A fresh complete tablet visual walkthrough is not claimed for this refinement. No formal screen-reader, cross-browser, live-tenant, or conversion test is claimed.
+
+Role-based judgements by the implementing agent, not independent-agent or owner approvals:
+
+| Lens | Review |
+| --- | --- |
+| UI/UX | Complete phone reading order, usable source choices and editable heading; corrected the oversized selection box to fit its content. |
+| Brand / Creative | Actual logo and petal remain; the completed garden photo differentiates the AI result; ink CRM and white acknowledgement give the form handoff a clear hierarchy. |
+| Product Marketing / Solution | The brief/source produces an editable site, and a submission produces the same known customer details before configured follow-up. |
+| Motion | Clicks precede results; one controlled clock supports pause and a final hold; no scroll capture or automatic focus movement. |
+| Conversion / buyer | The CRM connection is more prominent; the closing decision is shorter and retains material service/setup boundaries. |
+| Technical / AI-slop | Scoped source and styles, one new compressed photograph, no new dependency or external execution; no invented customer performance or testimonials. |
+
+Production build, TypeScript, scoped ESLint, formatting, whitespace and SEO policy checks pass. Source commits: `2ae3c8147b1e8a20b05fde626ea140fb7a3b798c` and `03581f11b723ebc60a8798bcba0be574d10fc7c8`. Concurrent work on other feature pages was preserved through fresh base trees and guarded branch updates. No Lovable source prompt or separate production Publish action was used.
+
+Retained proof:
+
+- `docs/qa/websites-ai-transformation-20261027.jpg`
+- `docs/qa/websites-form-crm-transition-20261027.jpg`
+- `docs/qa/websites-ai-phone-result-20261027.jpg`
+- `docs/qa/websites-form-phone-result-20261027.jpg`
+
+Review address: `https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/websites-funnels-forms`.
