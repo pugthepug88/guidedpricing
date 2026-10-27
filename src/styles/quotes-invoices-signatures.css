@@ -493,6 +493,10 @@
   min-height: 88px;
   margin-top: 20px;
 }
+.zapla-quotes .qi-signature-field[data-entered="true"] {
+  border-style: solid;
+  border-color: #c9d4cc;
+}
 .zapla-quotes .qi-signature-field[data-active="true"] {
   border: 1px solid #2563ff;
   background: #f8faff;
@@ -542,7 +546,9 @@
   color: #315b9a;
 }
 .zapla-quotes .qi-document-action {
-  min-height: 91px;
+  display: grid;
+  align-items: center;
+  min-height: 110px;
   margin: 21px -28px 0;
   padding: 19px 28px;
   border-top: 1px solid #e2e6e0;
@@ -651,6 +657,7 @@
   color: #c5dcb9;
 }
 .zapla-quotes .qi-signer-record .qi-signer-payoff {
+  min-height: 74px;
   margin-top: 21px;
   font-size: 14px;
   color: #cbd4cc;
@@ -1512,7 +1519,7 @@
   .zapla-quotes .qi-document-action {
     margin-inline: -18px;
     padding-inline: 18px;
-    min-height: 91px;
+    min-height: 110px;
   }
   .zapla-quotes .qi-signer-record {
     padding: 0 5px;

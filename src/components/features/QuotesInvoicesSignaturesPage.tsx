@@ -399,7 +399,7 @@ function SigningScene() {
           aria-label="Your signature document record"
         >
           <p>Your document record</p>
-          <h3>See the signed result.</h3>
+          <h3>Who has signed?</h3>
           <div className="qi-signer-person">
             <Portrait />
             <div>
