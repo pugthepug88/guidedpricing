@@ -1,5 +1,7 @@
 # Ticketing visual reset, 27 October 2026
 
+> Superseded by the owner-approved whole-page rethink in [TICKETING-PAGE-HIERARCHY-20261027.md](TICKETING-PAGE-HIERARCHY-20261027.md). The oversized board and photograph-led opening below are historical.
+
 > The three-panel support scene and minimal customer/job record below are superseded by [the working-queue and substance correction](TICKETING-WORKING-QUEUE-20261027.md). The photograph-led opening and retained capability boundaries remain applicable.
 
 ## Decision and scope

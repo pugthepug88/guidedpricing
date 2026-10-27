@@ -1,5 +1,7 @@
 # Ticketing working queue and product substance, 27 October 2026
 
+> Superseded by the owner-approved whole-page rethink in [TICKETING-PAGE-HIERARCHY-20261027.md](TICKETING-PAGE-HIERARCHY-20261027.md). The oversized board and photograph-led opening below are historical.
+
 ## Owner correction and decision
 
 The owner found the Service support scene empty and the overall page short on substance. This supersedes the three large single-request story panels and the minimal customer/job record in `TICKETING-VISUAL-RESET-20261027.md`. The photograph-led opening remains useful; the support visual had been simplified too far to communicate a working queue.

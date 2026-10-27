@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
-import { Paperclip, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/ticketing.css";
 
-// Prepared marketing story. Team actions are represented, never executed.
+// Prepared marketing records, not tenant data. No ticket or service action is executed.
 function Portrait({ cell, small = false }: { cell: number; small?: boolean }) {
   return (
     <span
@@ -16,7 +15,6 @@ function Portrait({ cell, small = false }: { cell: number; small?: boolean }) {
     />
   );
 }
-
 function BookCall() {
   return (
     <a className="tk-button" href="/booking">
@@ -24,7 +22,115 @@ function BookCall() {
     </a>
   );
 }
-
+type SupportTicket = {
+  title: string;
+  customer: string;
+  priority: "High" | "Medium" | "Low";
+  people: ("Ben" | "Alex")[];
+};
+const SUPPORT_LANES: { stage: string; tickets: SupportTicket[] }[] = [
+  {
+    stage: "Open",
+    tickets: [
+      {
+        title: "Invoice question",
+        customer: "Little Oak Design",
+        priority: "Medium",
+        people: ["Ben"],
+      },
+      {
+        title: "Missing paperwork",
+        customer: "Riverside Property",
+        priority: "Low",
+        people: ["Ben"],
+      },
+    ],
+  },
+  {
+    stage: "In progress",
+    tickets: [
+      {
+        title: "Equipment repair",
+        customer: "Harbour Coffee",
+        priority: "High",
+        people: ["Ben", "Alex"],
+      },
+      {
+        title: "Warranty query",
+        customer: "Pinetree Electrical",
+        priority: "Medium",
+        people: ["Alex"],
+      },
+    ],
+  },
+  {
+    stage: "Resolved",
+    tickets: [
+      {
+        title: "Service follow-up",
+        customer: "South Lane Clinic",
+        priority: "Low",
+        people: ["Alex"],
+      },
+      { title: "Billing query", customer: "Parkside Studio", priority: "Medium", people: ["Ben"] },
+    ],
+  },
+];
+function AssignedPeople({ people }: { people: SupportTicket["people"] }) {
+  return (
+    <span
+      className="tk-ticket-people"
+      aria-label={`Assigned to ${people.map((person) => (person === "Ben" ? "Ben Walker" : "Alex Chen")).join(" and ")}`}
+    >
+      <span className="tk-ticket-portraits" aria-hidden="true">
+        {people.map((person) => (
+          <Portrait key={person} cell={person === "Ben" ? 13 : 8} small />
+        ))}
+      </span>
+      <span>{people.join(" + ")}</span>
+    </span>
+  );
+}
+function SupportOverview() {
+  return (
+    <div
+      className="tk-overview"
+      id="ticket-board"
+      role="group"
+      aria-label="Customer support board with six tickets across three stages"
+    >
+      <header className="tk-overview-header">
+        <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="87" height="27" />
+        <span>Customer support</span>
+      </header>
+      <div className="tk-board">
+        {SUPPORT_LANES.map(({ stage, tickets }) => (
+          <section className="tk-lane" key={stage} aria-label={stage}>
+            <h2 className="tk-stage">{stage}</h2>
+            <div className="tk-ticket-list">
+              {tickets.map((ticket) => (
+                <article className="tk-ticket" key={ticket.title}>
+                  <h3>{ticket.title}</h3>
+                  <p className="tk-ticket-customer">{ticket.customer}</p>
+                  <footer>
+                    <AssignedPeople people={ticket.people} />
+                    <span
+                      className="tk-priority"
+                      data-priority={ticket.priority}
+                      aria-label={`${ticket.priority} priority`}
+                    >
+                      {ticket.priority}
+                    </span>
+                  </footer>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  );
+}
 function Opening() {
   return (
     <section className="tk-hero" aria-labelledby="ticketing-title">
@@ -42,349 +148,144 @@ function Opening() {
           </p>
           <div className="tk-actions">
             <BookCall />
-            <a className="tk-text-link" href="#ticket-board">
+            <a className="tk-text-link" href="#ticket-context">
               See how it works
             </a>
           </div>
           <p className="tk-team-note">Unlimited users on both standard plans. No per-user fees.</p>
         </div>
-        <figure className="tk-hero-work">
-          <img
-            src="/concept/ticketing/service-team-20261026.webp"
-            alt="A service coordinator and technician working through a problem with a commercial espresso machine"
-            width="1200"
-            height="800"
-            fetchPriority="high"
-          />
-          <figcaption>
-            <div>
-              <span>Harbour Coffee · Service request</span>
-              <strong>Pressure drops during service</strong>
-            </div>
-            <div className="tk-hero-owner">
-              <Portrait cell={8} small />
-              <span>
-                Alex Chen<strong>In progress</strong>
-              </span>
-            </div>
-          </figcaption>
-        </figure>
+        <SupportOverview />
       </div>
     </section>
   );
 }
-
-type SupportTicket = {
-  id: string;
-  title: string;
-  customer: string;
-  stage: "Open" | "In progress" | "Resolved";
-  priority: "Urgent" | "High" | "Medium" | "Low";
-  people: ("Ben Walker" | "Alex Chen")[];
-  detail?: string;
-};
-
-// Fixed service-business records. The controls filter only this local presentation.
-const SUPPORT_TICKETS: SupportTicket[] = [
-  {
-    id: "grinder",
-    title: "Grinder stops during service",
-    customer: "West End Espresso",
-    stage: "Open",
-    priority: "Urgent",
-    people: ["Ben Walker"],
-  },
-  {
-    id: "charge",
-    title: "Incorrect service charge",
-    customer: "Little Oak Café",
-    stage: "Open",
-    priority: "High",
-    people: ["Ben Walker"],
-  },
-  {
-    id: "access",
-    title: "Missing service paperwork",
-    customer: "Riverside Deli",
-    stage: "Open",
-    priority: "Low",
-    people: ["Ben Walker"],
-  },
-  {
-    id: "harbour",
-    title: "Pressure drops during service",
-    customer: "Harbour Coffee",
-    stage: "In progress",
-    priority: "High",
-    people: ["Ben Walker", "Alex Chen"],
-    detail: "Technician checking the machine.",
-  },
-  {
-    id: "part",
-    title: "Replacement part update",
-    customer: "Northline Coffee",
-    stage: "In progress",
-    priority: "Medium",
-    people: ["Alex Chen"],
-  },
-  {
-    id: "warranty",
-    title: "Warranty cover query",
-    customer: "Pinetree Kitchen",
-    stage: "In progress",
-    priority: "Medium",
-    people: ["Ben Walker"],
-  },
-  {
-    id: "leak",
-    title: "Water leaking below machine",
-    customer: "South Lane Coffee",
-    stage: "Resolved",
-    priority: "High",
-    people: ["Alex Chen"],
-    detail: "Seal replaced and machine tested.",
-  },
-  {
-    id: "invoice",
-    title: "Invoice query clarified",
-    customer: "Parkside Bistro",
-    stage: "Resolved",
-    priority: "Low",
-    people: ["Ben Walker"],
-    detail: "Service charge explained to the customer.",
-  },
-];
-
-function AssignedPeople({ people }: { people: SupportTicket["people"] }) {
-  return (
-    <span
-      className="tk-ticket-people"
-      role="group"
-      aria-label={`Assigned to ${people.join(" and ")}`}
-    >
-      {people.map((person) => (
-        <Portrait key={person} cell={person === "Ben Walker" ? 13 : 8} small />
-      ))}
-      <span>{people.length > 1 ? "Ben + Alex" : people[0]}</span>
-    </span>
-  );
-}
-
-function SupportCard({ ticket }: { ticket: SupportTicket }) {
-  return (
-    <article
-      className="tk-support-card"
-      data-ticket={ticket.id}
-      data-featured={ticket.id === "harbour"}
-      aria-label={`${ticket.title}, ${ticket.customer}, ${ticket.priority} priority`}
-    >
-      <div className="tk-support-card-title">
-        <h4>{ticket.title}</h4>
-        <span className="tk-ticket-priority" data-priority={ticket.priority}>
-          {ticket.priority}
-        </span>
-      </div>
-      <p className="tk-ticket-customer">{ticket.customer}</p>
-      {ticket.detail && <p className="tk-ticket-detail">{ticket.detail}</p>}
-      <footer>
-        <AssignedPeople people={ticket.people} />
-      </footer>
-    </article>
-  );
-}
-
-function RequestProgress() {
-  const [urgentOnly, setUrgentOnly] = useState(false);
-  const [enhanced, setEnhanced] = useState(false);
-  useEffect(() => {
-    setEnhanced(true);
-  }, []);
-  const tickets = SUPPORT_TICKETS.filter(
-    (ticket) => !urgentOnly || ticket.priority === "Urgent" || ticket.priority === "High",
-  );
-
-  return (
-    <section className="tk-journey" id="ticket-board" aria-labelledby="ticket-journey-title">
-      <div className="tk-wrap">
-        <header className="tk-section-intro">
-          <h2 id="ticket-journey-title">
-            A clear path
-            <br />
-            to resolution.
-          </h2>
-          <p>
-            See what’s waiting, what’s being handled and what’s resolved. Give each request a
-            priority and the right people.
-          </p>
-        </header>
-        <div className="tk-progress-shell">
-          <header className="tk-progress-brand">
-            <div>
-              <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="98" height="27" />
-              <span>Service support</span>
-            </div>
-            {enhanced && (
-              <div
-                className="tk-priority-filter"
-                role="group"
-                aria-label="Filter tickets by priority"
-              >
-                <button
-                  type="button"
-                  aria-pressed={!urgentOnly}
-                  aria-controls="support-tickets"
-                  onClick={() => setUrgentOnly(false)}
-                >
-                  All tickets
-                </button>
-                <button
-                  type="button"
-                  aria-pressed={urgentOnly}
-                  aria-controls="support-tickets"
-                  onClick={() => setUrgentOnly(true)}
-                >
-                  Urgent &amp; high
-                </button>
-              </div>
-            )}
-          </header>
-          <div
-            className="tk-support-board"
-            id="support-tickets"
-            role="group"
-            aria-label="Service support tickets"
-          >
-            {(["Open", "In progress", "Resolved"] as const).map((stage) => (
-              <section className="tk-support-lane" key={stage} aria-label={stage}>
-                <h3 className="tk-stage-cap">{stage}</h3>
-                <div className="tk-ticket-list">
-                  {tickets
-                    .filter((ticket) => ticket.stage === stage)
-                    .map((ticket) => (
-                      <SupportCard key={ticket.id} ticket={ticket} />
-                    ))}
-                </div>
-              </section>
-            ))}
-          </div>
-        </div>
-        <p className="tk-sr-only" role="status" aria-live="polite">
-          {urgentOnly ? "Showing urgent and high priority tickets." : "Showing all tickets."}
-        </p>
-        <div className="tk-board-context">
-          <p>
-            <strong>Focus on what needs attention.</strong> Filter by priority, stage or assigned
-            person.
-          </p>
-          <p>
-            <strong>Keep different processes organised.</strong> Give service support, billing
-            queries and aftercare their own boards.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function LinkedContext() {
   return (
-    <section className="tk-context-section" aria-labelledby="ticket-context-heading">
-      <div className="tk-wrap tk-linked-story">
-        <div className="tk-context-copy">
-          <p className="tk-eyebrow">Connected to your CRM</p>
-          <h2 id="ticket-context-heading">
-            The customer and the job.
-            <br />
-            Still connected.
-          </h2>
+    <section
+      className="tk-context-section"
+      id="ticket-context"
+      aria-labelledby="ticket-context-heading"
+    >
+      <div className="tk-wrap">
+        <header className="tk-section-intro">
+          <div>
+            <p className="tk-eyebrow">Connected to your CRM</p>
+            <h2 id="ticket-context-heading">
+              Pick up the issue.
+              <br />
+              With the whole picture.
+            </h2>
+          </div>
           <p>
-            Keep the original request, customer and related work together, so the next person can
-            pick up the issue with the context they need.
+            Keep the request, customer and related job together. The office and the person doing the
+            work can share responsibility, with the context to see it through.
           </p>
-          <dl className="tk-context-reasons">
-            <div>
-              <dt>One issue. The right people.</dt>
-              <dd>
-                Assign the office and the technician to the same ticket. Responsibility stays
-                visible as the work progresses.
-              </dd>
-            </div>
-            <div>
-              <dt>Useful details, ready for the team.</dt>
-              <dd>
-                Add fields for equipment or site access, attach supporting files and use tags to
-                keep related requests easy to recognise.
-              </dd>
-            </div>
-          </dl>
-          <a className="tk-text-link" href="/crm">
-            Explore the connected CRM
-          </a>
-        </div>
-        <div
-          className="tk-detail-card"
-          role="group"
-          aria-label="Harbour Coffee ticket with customer, assignees and service details"
-        >
-          <header className="tk-detail-brand">
-            <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="86" height="26" />
-            <span>Ticket details</span>
-          </header>
-          <div className="tk-detail-content">
-            <div className="tk-detail-customer">
+        </header>
+        <div className="tk-case">
+          <figure className="tk-case-photo">
+            <img
+              src="/concept/ticketing/service-team-20261026.webp"
+              alt="A service coordinator and technician checking a commercial coffee machine together"
+              width="1200"
+              height="800"
+              loading="lazy"
+            />
+            <figcaption>
+              <h3>One request. A shared view of the work.</h3>
+              <p>
+                Customer details and the related installation stay with the issue as the team
+                handles the repair.
+              </p>
+              <a className="tk-text-link" href="/crm">
+                Explore the connected CRM
+              </a>
+            </figcaption>
+          </figure>
+          <article
+            className="tk-case-record"
+            aria-label="Harbour Coffee equipment repair, resolved by Alex and Ben"
+          >
+            <header>
+              <h3>Equipment repair</h3>
+              <span className="tk-resolved">Resolved</span>
+            </header>
+            <div className="tk-case-customer">
               <Portrait cell={16} />
               <div>
                 <strong>Olivia Martin</strong>
                 <span>Harbour Coffee</span>
               </div>
             </div>
-            <h3>Pressure drops during service</h3>
-            <div className="tk-detail-state">
-              <span>In progress</span>
-              <span>High priority</span>
+            <div className="tk-original-request">
+              <h4>Original request</h4>
+              <blockquote>
+                “The coffee machine is leaking. Can someone come and take a look?”
+              </blockquote>
             </div>
-            <blockquote>
-              “The espresso machine is losing pressure. Can someone take a look before we open?”
-            </blockquote>
-            <div className="tk-detail-owners">
-              <span>Assigned to</span>
+            <dl className="tk-case-context">
               <div>
-                <span>
-                  <Portrait cell={13} small />
-                  Ben Walker
-                </span>
-                <span>
-                  <Portrait cell={8} small />
-                  Alex Chen
-                </span>
-              </div>
-            </div>
-            <dl className="tk-detail-fields">
-              <div className="tk-detail-job">
                 <dt>Related job</dt>
                 <dd>Espresso machine installation</dd>
               </div>
               <div>
-                <dt>Equipment</dt>
-                <dd>Two-group espresso machine</dd>
-              </div>
-              <div>
-                <dt>Site access</dt>
-                <dd>Ask for Olivia at the counter</dd>
+                <dt>Assigned to</dt>
+                <dd>
+                  <AssignedPeople people={["Ben", "Alex"]} />
+                </dd>
               </div>
             </dl>
-            <footer className="tk-detail-supporting">
-              <span className="tk-detail-file">
-                <Paperclip size={16} aria-hidden="true" />
-                Pressure reading.jpg
-              </span>
-              <span className="tk-detail-tags" aria-label="Tags">
-                <span>Equipment</span>
-                <span>Repair</span>
-              </span>
-            </footer>
-          </div>
+            <div className="tk-case-outcome">
+              <h4>Work completed</h4>
+              <p>
+                Alex replaced the seal and tested the machine. Ben confirmed the repair with Olivia
+                and marked the ticket resolved.
+              </p>
+            </div>
+          </article>
         </div>
+      </div>
+    </section>
+  );
+}
+const PROCESSES = [
+  { name: "Service requests", stages: ["Reported", "Investigating", "Resolved"] },
+  { name: "Billing questions", stages: ["Query received", "Checking details", "Resolved"] },
+  { name: "Aftercare", stages: ["Follow-up needed", "In progress", "Complete"] },
+];
+function DifferentProcesses() {
+  return (
+    <section className="tk-process-section" aria-labelledby="ticket-process-heading">
+      <div className="tk-wrap tk-process-layout">
+        <div>
+          <h2 id="ticket-process-heading">
+            Different requests.
+            <br />
+            Your own process.
+          </h2>
+          <p>
+            Give service, billing and aftercare their own boards. Choose stages that reflect how
+            each team works.
+          </p>
+        </div>
+        <dl className="tk-processes">
+          {PROCESSES.map(({ name, stages }) => (
+            <div key={name}>
+              <dt>{name}</dt>
+              <dd>
+                {stages.map((stage, index) => (
+                  <span key={stage}>
+                    {index > 0 && (
+                      <span className="tk-stage-arrow" aria-hidden="true">
+                        →
+                      </span>
+                    )}
+                    <span>{stage}</span>
+                  </span>
+                ))}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );
@@ -392,34 +293,29 @@ function LinkedContext() {
 const FAQS = [
   [
     "Can we focus on urgent requests?",
-    "Yes. Set a ticket’s priority to Low, Medium, High or Urgent, then filter by priority, stage or assigned person. Use the board for progress or the table to scan the same requests.",
-  ],
-  [
-    "What kinds of requests can we manage?",
-    "Use tickets for customer issues that need to be tracked through a process, such as service requests, equipment problems, billing queries or aftercare. Create separate boards where teams follow different processes.",
-  ],
-  [
-    "How is this different from Unified Inbox or a sales pipeline?",
-    "Unified Inbox is where your team handles messages. A sales pipeline tracks an enquiry or opportunity. Ticketing tracks a specific issue through to resolution, with its own priority, status and assigned people. A ticket can link to the customer, a pipeline item or another ticket.",
+    "Yes. Set a ticket’s priority to Low, Medium, High or Urgent, then filter by priority, stage or assigned person. Use the board for progress or the table to scan the same requests. Search by title when you need a specific issue.",
   ],
   [
     "Can more than one person work on a ticket?",
-    "Yes. Assign multiple team members to the same ticket. Their portraits appear on the ticket, and you can filter the board by assignee when you need to focus on a person’s work.",
+    "Yes. Assign multiple team members to the same ticket. Their portraits appear on the card, and you can filter the board by assignee to focus on a person’s work.",
   ],
   [
-    "Can we customise the information on a ticket?",
-    "Yes. Add custom fields such as equipment type or site access, choose their data type and decide which boards use them. Fields can be required and shown on the card. File fields support attachments. Create tags to categorise requests, and organise your fields and tags into folders.",
+    "Can we add our own fields, files and tags?",
+    "Yes. Add custom fields for details such as equipment or site access, choose their data type and decide which boards use them. Fields can be required and shown on the card. File fields support attachments. Use tags to categorise requests, and folders to organise your fields and tags.",
+  ],
+  [
+    "How is this different from Unified Inbox or Pipeline?",
+    "Unified Inbox is where your team handles messages. Pipeline tracks enquiries and opportunities. Ticketing tracks a specific issue through to resolution, with its own priority, status and assigned people. A ticket can link to the customer, a pipeline item or another ticket.",
   ],
   [
     "Are stage and status the same thing?",
-    "They describe different things. Stages organise the board around your working process, such as Open, In progress or Waiting on customer. Status records whether the ticket is Open, Resolved or Closed. Moving a card changes its stage; update its status separately when needed.",
+    "They describe different things. Stages organise the board around your process, such as Reported, Investigating or Waiting on customer. Status records whether the ticket is Open, Resolved or Closed. Your team moves the card through its stages and updates its status separately when needed.",
   ],
   [
     "What if we already use another system?",
     "We review how requests arrive, who handles them and which tools hold the customer information. Then we agree what should move into Zapla, what should stay and which connections are available. The setup follows your process rather than assuming every tool needs replacing.",
   ],
 ];
-
 function LaunchAndQuestions() {
   return (
     <section className="tk-launch-section" aria-labelledby="ticket-launch-heading">
@@ -429,36 +325,23 @@ function LaunchAndQuestions() {
             <p className="tk-eyebrow">Guided Launch</p>
             <h2 id="ticket-launch-heading">
               Set up around the way
-              <br /> you handle requests.
+              <br />
+              you handle requests.
             </h2>
+          </div>
+          <div className="tk-launch-copy">
             <p>
               Starting with email and spreadsheets, or already using a helpdesk? We work through one
               real request with you, from how it’s recorded to how the team closes it.
             </p>
+            <p>
+              We map the boards and stages, agree who handles each type of request and set up the
+              customer details your team needs.
+            </p>
             <a className="tk-text-link" href="/booking">
               Talk through your support process
             </a>
-          </div>
-          <div className="tk-launch-plan">
-            <h3>Your ticketing setup</h3>
-            <dl>
-              <div>
-                <dt>Boards and stages</dt>
-                <dd>Agree which requests belong together and what each stage means.</dd>
-              </div>
-              <div>
-                <dt>Priorities and people</dt>
-                <dd>Define urgency and who should take responsibility for different issues.</dd>
-              </div>
-              <div>
-                <dt>Details and related work</dt>
-                <dd>
-                  Set up useful fields, tags, customer links and team access. Walk through the
-                  process before your team starts.
-                </dd>
-              </div>
-            </dl>
-            <p>
+            <p className="tk-launch-terms">
               Guided Launch is the required, separately priced initial setup for a new standard
               plan. Scope is agreed before work begins.
             </p>
@@ -485,13 +368,12 @@ function LaunchAndQuestions() {
     </section>
   );
 }
-
 export function TicketingPage() {
   return (
     <main className="zapla-feature zapla-ticketing" data-page="ticketing">
       <Opening />
-      <RequestProgress />
       <LinkedContext />
+      <DifferentProcesses />
       <LaunchAndQuestions />
       <section className="tk-final">
         <div className="tk-wrap">

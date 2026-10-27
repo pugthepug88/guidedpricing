@@ -237,3 +237,8 @@ The owner rejected making working-hour blocking, duration and minimum notice a m
 ## Document illustration density, 27 October 2026
 
 The owner rejected excessive document words/numbers on Quotes, Invoices & Signatures. For this page, use selective fidelity: keep readable tool names, Signature/Initials/Date and the meaningful signed/payment result, while secondary document text and amounts may become quiet static lines. Remove repeated records and arithmetic rather than shrinking all text. These lines represent suppressed document content, not loading placeholders or decorative accent bars; hide them from assistive technology and never shimmer them. Keep quote, signing and invoice roles distinct and preserve the separate customer/staff actions in capability claims. This is not permission to turn every feature into anonymous skeleton UI.
+
+
+## Ticketing hierarchy and selective detail, 27 October 2026
+
+The owner rejected the oversized populated board and specialist coffee-machine fault in the hero. More substance must not default to more interface. For Ticketing, use a compact queue in the opening, one connected customer issue and concise process breadth. Photography supports that lower issue rather than defining the whole feature. Remove redundant app chapters instead of merely shrinking them, and retain readable type when reducing surface size. Basic setup fields and tags belong in supporting detail unless they answer a distinct, commercially useful buyer question.
