@@ -502,6 +502,18 @@ The owner found Ticketing too detailed, visually off and boring. This supersedes
 
 The desktop scene applies once-only sequential emphasis when mostly visible, supports explicit replay and pauses offscreen/hidden. It keeps a complete final view and static phone/reduced-motion/no-JavaScript content. No real ticket action or new capability is added. Exact reference choices, rejected empty-lane alternative, rendered coverage, corrections and review limits are in `TICKETING-VISUAL-RESET-20261027.md`. The earlier high scores are not visual approval. GitHub owns changes; Lovable remains read-only, with no separate Publish action.
 
+## Ticketing working queue and substance, 27 October 2026
+
+The owner found the revised Service support scene and page empty. This supersedes the three large single-request panels and minimal two-row context, while retaining the photograph-led opening. Show eight distinct compact tickets across Open, In progress and Resolved, with meaningful priorities, customer names, assigned people and concrete completed work. One optional priority filter demonstrates focus without restoring the full application's toolbar/table tour. Remove the prior timed emphasis and Replay; all records remain complete in static rendering.
+
+Expand Harbour Coffee into one coherent ticket with the original question, Ben/Alex shared responsibility, related installation, equipment/site access fields, supporting file and useful tags. Explain their value beside the record instead of hiding every capability in FAQs or creating unrelated feature tiles. Keep the H1, final CTA, shared architecture, route/indexing and `/booking`; the customer-context link goes to `/crm`. Capability boundaries and page-specific image provenance remain. Exact reference choices, prepared-data scope, rendered checks and review limits are in `TICKETING-WORKING-QUEUE-20261027.md`. GitHub owns all source changes; Lovable remains read-only, with no separate Publish action.
+
+## Calendar content priority correction, 27 October 2026
+
+The owner rejected the availability block as basic configuration given too much sales-page space, and approved deleting it. This supersedes the rounded hours/provider-panel direction. Remove its heading, large surface, working-hours diagram and setting descriptions without adding a replacement chapter. Keep the native calendar marks and names as a compact unboxed supporting row beneath the existing booking demonstration, outside its sticky track. Consolidate working days, split ranges, time zone, duration and notice into the existing practical FAQ.
+
+Meeting Rooms and saved CRM context now flow directly into existing Guided Launch/FAQs. Preserve the hero, five formats, meeting visual and owner-confirmed recording/transcript scope, final CTA, shared shell, route/indexing and `/booking`. The code removes obsolete styles, reuses local assets and adds no motion or live behaviour. Reference decisions, scoped role judgements, rendered coverage and limits are recorded in `CALENDARS-CONTENT-PRIORITY-20261027.md`. GitHub owns changes; Lovable stays read-only, with no separate Publish action.
+
 ## Quotes, Invoices & Signatures selective-detail reset, 27 October 2026
 
 The owner rejected the page’s word and number burden and supplied a selectively detailed illustration. This supersedes the original document specimens and unmerged PR #207’s narrated signing/payment players. Preserve the H1, final CTA, verified capabilities, shared architecture, route/indexing and /booking.

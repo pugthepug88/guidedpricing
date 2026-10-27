@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { Check, Plus, RotateCcw } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Paperclip, Plus } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/ticketing.css";
@@ -74,96 +74,134 @@ function Opening() {
   );
 }
 
+type SupportTicket = {
+  id: string;
+  title: string;
+  customer: string;
+  stage: "Open" | "In progress" | "Resolved";
+  priority: "Urgent" | "High" | "Medium" | "Low";
+  people: ("Ben Walker" | "Alex Chen")[];
+  detail?: string;
+};
+
+// Fixed service-business records. The controls filter only this local presentation.
+const SUPPORT_TICKETS: SupportTicket[] = [
+  {
+    id: "grinder",
+    title: "Grinder stops during service",
+    customer: "West End Espresso",
+    stage: "Open",
+    priority: "Urgent",
+    people: ["Ben Walker"],
+  },
+  {
+    id: "charge",
+    title: "Incorrect service charge",
+    customer: "Little Oak Café",
+    stage: "Open",
+    priority: "High",
+    people: ["Ben Walker"],
+  },
+  {
+    id: "access",
+    title: "Missing service paperwork",
+    customer: "Riverside Deli",
+    stage: "Open",
+    priority: "Low",
+    people: ["Ben Walker"],
+  },
+  {
+    id: "harbour",
+    title: "Pressure drops during service",
+    customer: "Harbour Coffee",
+    stage: "In progress",
+    priority: "High",
+    people: ["Ben Walker", "Alex Chen"],
+    detail: "Technician checking the machine.",
+  },
+  {
+    id: "part",
+    title: "Replacement part update",
+    customer: "Northline Coffee",
+    stage: "In progress",
+    priority: "Medium",
+    people: ["Alex Chen"],
+  },
+  {
+    id: "warranty",
+    title: "Warranty cover query",
+    customer: "Pinetree Kitchen",
+    stage: "In progress",
+    priority: "Medium",
+    people: ["Ben Walker"],
+  },
+  {
+    id: "leak",
+    title: "Water leaking below machine",
+    customer: "South Lane Coffee",
+    stage: "Resolved",
+    priority: "High",
+    people: ["Alex Chen"],
+    detail: "Seal replaced and machine tested.",
+  },
+  {
+    id: "invoice",
+    title: "Invoice query clarified",
+    customer: "Parkside Bistro",
+    stage: "Resolved",
+    priority: "Low",
+    people: ["Ben Walker"],
+    detail: "Service charge explained to the customer.",
+  },
+];
+
+function AssignedPeople({ people }: { people: SupportTicket["people"] }) {
+  return (
+    <span
+      className="tk-ticket-people"
+      role="group"
+      aria-label={`Assigned to ${people.join(" and ")}`}
+    >
+      {people.map((person) => (
+        <Portrait key={person} cell={person === "Ben Walker" ? 13 : 8} small />
+      ))}
+      <span>{people.length > 1 ? "Ben + Alex" : people[0]}</span>
+    </span>
+  );
+}
+
+function SupportCard({ ticket }: { ticket: SupportTicket }) {
+  return (
+    <article
+      className="tk-support-card"
+      data-ticket={ticket.id}
+      data-featured={ticket.id === "harbour"}
+      aria-label={`${ticket.title}, ${ticket.customer}, ${ticket.priority} priority`}
+    >
+      <div className="tk-support-card-title">
+        <h4>{ticket.title}</h4>
+        <span className="tk-ticket-priority" data-priority={ticket.priority}>
+          {ticket.priority}
+        </span>
+      </div>
+      <p className="tk-ticket-customer">{ticket.customer}</p>
+      {ticket.detail && <p className="tk-ticket-detail">{ticket.detail}</p>}
+      <footer>
+        <AssignedPeople people={ticket.people} />
+      </footer>
+    </article>
+  );
+}
+
 function RequestProgress() {
-  const root = useRef<HTMLDivElement>(null);
-  const play = useRef<() => void>(() => {});
-  const [phase, setPhase] = useState(2);
-  const [canReplay, setCanReplay] = useState(false);
-
+  const [urgentOnly, setUrgentOnly] = useState(false);
+  const [enhanced, setEnhanced] = useState(false);
   useEffect(() => {
-    const element = root.current;
-    if (!element) return;
-    const media = window.matchMedia(
-      "(min-width: 901px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)",
-    );
-    let visible = false;
-    let started = false;
-    let running = false;
-    let frame = 0;
-    let elapsed = 0;
-    let previous = 0;
-    let lastPhase = 0;
-
-    const tick = (time: number) => {
-      frame = 0;
-      if (!running || !visible || document.hidden) {
-        previous = 0;
-        return;
-      }
-      elapsed += previous ? Math.min(time - previous, 100) : 0;
-      previous = time;
-      const next = elapsed >= 3100 ? 2 : elapsed >= 1400 ? 1 : 0;
-      if (next !== lastPhase) {
-        lastPhase = next;
-        setPhase(next);
-      }
-      if (next === 2) {
-        running = false;
-        return;
-      }
-      frame = requestAnimationFrame(tick);
-    };
-    const start = () => {
-      if (!media.matches) {
-        setPhase(2);
-        return;
-      }
-      cancelAnimationFrame(frame);
-      elapsed = 0;
-      previous = 0;
-      lastPhase = 0;
-      started = true;
-      running = true;
-      setPhase(0);
-      if (visible && !document.hidden) frame = requestAnimationFrame(tick);
-    };
-    const resume = () => {
-      if (!visible || document.hidden) {
-        cancelAnimationFrame(frame);
-        frame = 0;
-        previous = 0;
-      } else if (running && !frame) frame = requestAnimationFrame(tick);
-    };
-    const updatePreference = () => {
-      setCanReplay(media.matches);
-      if (!media.matches) {
-        running = false;
-        cancelAnimationFrame(frame);
-        frame = 0;
-        setPhase(2);
-      } else if (visible && !started) start();
-    };
-    play.current = start;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        visible = entry.isIntersecting && entry.intersectionRatio >= 0.85;
-        if (visible && !started && media.matches) start();
-        else resume();
-      },
-      { threshold: 0.85 },
-    );
-    observer.observe(element);
-    updatePreference();
-    media.addEventListener("change", updatePreference);
-    document.addEventListener("visibilitychange", resume);
-    return () => {
-      cancelAnimationFrame(frame);
-      observer.disconnect();
-      media.removeEventListener("change", updatePreference);
-      document.removeEventListener("visibilitychange", resume);
-      play.current = () => {};
-    };
+    setEnhanced(true);
   }, []);
+  const tickets = SUPPORT_TICKETS.filter(
+    (ticket) => !urgentOnly || ticket.priority === "Urgent" || ticket.priority === "High",
+  );
 
   return (
     <section className="tk-journey" id="ticket-board" aria-labelledby="ticket-journey-title">
@@ -175,85 +213,74 @@ function RequestProgress() {
             to resolution.
           </h2>
           <p>
-            Record the issue, assign the right person and keep progress visible until the work is
-            done.
+            See what’s waiting, what’s being handled and what’s resolved. Give each request a
+            priority and the right people.
           </p>
         </header>
-        <div className="tk-progress-shell" ref={root}>
+        <div className="tk-progress-shell">
           <header className="tk-progress-brand">
             <div>
               <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="98" height="27" />
               <span>Service support</span>
             </div>
-            {canReplay && (
-              <button className="tk-replay" type="button" onClick={() => play.current()}>
-                <RotateCcw size={15} aria-hidden="true" />
-                Replay
-              </button>
+            {enhanced && (
+              <div
+                className="tk-priority-filter"
+                role="group"
+                aria-label="Filter tickets by priority"
+              >
+                <button
+                  type="button"
+                  aria-pressed={!urgentOnly}
+                  aria-controls="support-tickets"
+                  onClick={() => setUrgentOnly(false)}
+                >
+                  All tickets
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={urgentOnly}
+                  aria-controls="support-tickets"
+                  onClick={() => setUrgentOnly(true)}
+                >
+                  Urgent &amp; high
+                </button>
+              </div>
             )}
           </header>
-          <div className="tk-progress-body">
-            <div
-              className="tk-story-stages"
-              aria-label="One request, from the customer’s question to resolution"
-            >
-              <article className="tk-story-stage" data-current={phase === 0}>
-                <h3 className="tk-story-cap">Open</h3>
-                <div className="tk-story-card">
-                  <div className="tk-story-person">
-                    <Portrait cell={16} />
-                    <div>
-                      <strong>Olivia Martin</strong>
-                      <span>Harbour Coffee</span>
-                    </div>
-                  </div>
-                  <blockquote>
-                    “The espresso machine is losing pressure. Can someone take a look before we
-                    open?”
-                  </blockquote>
-                  <p className="tk-stage-foot">Ben records Olivia’s request.</p>
+          <div
+            className="tk-support-board"
+            id="support-tickets"
+            role="group"
+            aria-label="Service support tickets"
+          >
+            {(["Open", "In progress", "Resolved"] as const).map((stage) => (
+              <section className="tk-support-lane" key={stage} aria-label={stage}>
+                <h3 className="tk-stage-cap">{stage}</h3>
+                <div className="tk-ticket-list">
+                  {tickets
+                    .filter((ticket) => ticket.stage === stage)
+                    .map((ticket) => (
+                      <SupportCard key={ticket.id} ticket={ticket} />
+                    ))}
                 </div>
-              </article>
-              <article
-                className="tk-story-stage"
-                data-current={phase === 1}
-                data-pending={phase < 1}
-              >
-                <h3 className="tk-story-cap">In progress</h3>
-                <div className="tk-story-card">
-                  <div className="tk-story-person">
-                    <Portrait cell={8} />
-                    <div>
-                      <strong>Alex Chen</strong>
-                      <span>Assigned to the request</span>
-                    </div>
-                  </div>
-                  <p className="tk-story-work">Checks the machine and carries out the repair.</p>
-                  <p className="tk-stage-foot">The team can see who’s handling it.</p>
-                </div>
-              </article>
-              <article
-                className="tk-story-stage"
-                data-current={phase === 2}
-                data-pending={phase < 2}
-              >
-                <h3 className="tk-story-cap">Resolved</h3>
-                <div className="tk-story-card tk-story-result">
-                  <div className="tk-repair-result">
-                    <Check size={24} aria-hidden="true" />
-                    <h4>Repair complete.</h4>
-                  </div>
-                  <p className="tk-story-work">Machine tested.</p>
-                  <p className="tk-stage-foot">Alex marks the ticket resolved.</p>
-                </div>
-              </article>
-            </div>
+              </section>
+            ))}
           </div>
         </div>
-        <p className="tk-range">
-          Service requests. Billing queries. Aftercare.
-          <span> Different processes can have their own boards.</span>
+        <p className="tk-sr-only" role="status" aria-live="polite">
+          {urgentOnly ? "Showing urgent and high priority tickets." : "Showing all tickets."}
         </p>
+        <div className="tk-board-context">
+          <p>
+            <strong>Focus on what needs attention.</strong> Filter by priority, stage or assigned
+            person.
+          </p>
+          <p>
+            <strong>Keep different processes organised.</strong> Give service support, billing
+            queries and aftercare their own boards.
+          </p>
+        </div>
       </div>
     </section>
   );
@@ -271,34 +298,92 @@ function LinkedContext() {
             Still connected.
           </h2>
           <p>
-            Link the customer and original work, so a colleague can find the context before picking
-            up the issue.
+            Keep the original request, customer and related work together, so the next person can
+            pick up the issue with the context they need.
           </p>
-          <a className="tk-text-link" href="/features/unified-inbox">
-            Explore Unified Inbox
+          <dl className="tk-context-reasons">
+            <div>
+              <dt>One issue. The right people.</dt>
+              <dd>
+                Assign the office and the technician to the same ticket. Responsibility stays
+                visible as the work progresses.
+              </dd>
+            </div>
+            <div>
+              <dt>Useful details, ready for the team.</dt>
+              <dd>
+                Add fields for equipment or site access, attach supporting files and use tags to
+                keep related requests easy to recognise.
+              </dd>
+            </div>
+          </dl>
+          <a className="tk-text-link" href="/crm">
+            Explore the connected CRM
           </a>
         </div>
         <div
-          className="tk-linked-record"
-          aria-label="Olivia’s request linked to her customer record and installation"
+          className="tk-detail-card"
+          role="group"
+          aria-label="Harbour Coffee ticket with customer, assignees and service details"
         >
-          <div className="tk-linked-customer">
-            <Portrait cell={16} />
-            <div>
-              <h3>Olivia Martin</h3>
-              <p>Harbour Coffee</p>
+          <header className="tk-detail-brand">
+            <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="86" height="26" />
+            <span>Ticket details</span>
+          </header>
+          <div className="tk-detail-content">
+            <div className="tk-detail-customer">
+              <Portrait cell={16} />
+              <div>
+                <strong>Olivia Martin</strong>
+                <span>Harbour Coffee</span>
+              </div>
             </div>
+            <h3>Pressure drops during service</h3>
+            <div className="tk-detail-state">
+              <span>In progress</span>
+              <span>High priority</span>
+            </div>
+            <blockquote>
+              “The espresso machine is losing pressure. Can someone take a look before we open?”
+            </blockquote>
+            <div className="tk-detail-owners">
+              <span>Assigned to</span>
+              <div>
+                <span>
+                  <Portrait cell={13} small />
+                  Ben Walker
+                </span>
+                <span>
+                  <Portrait cell={8} small />
+                  Alex Chen
+                </span>
+              </div>
+            </div>
+            <dl className="tk-detail-fields">
+              <div className="tk-detail-job">
+                <dt>Related job</dt>
+                <dd>Espresso machine installation</dd>
+              </div>
+              <div>
+                <dt>Equipment</dt>
+                <dd>Two-group espresso machine</dd>
+              </div>
+              <div>
+                <dt>Site access</dt>
+                <dd>Ask for Olivia at the counter</dd>
+              </div>
+            </dl>
+            <footer className="tk-detail-supporting">
+              <span className="tk-detail-file">
+                <Paperclip size={16} aria-hidden="true" />
+                Pressure reading.jpg
+              </span>
+              <span className="tk-detail-tags" aria-label="Tags">
+                <span>Equipment</span>
+                <span>Repair</span>
+              </span>
+            </footer>
           </div>
-          <dl>
-            <div>
-              <dt>Customer issue</dt>
-              <dd>Pressure drops during service</dd>
-            </div>
-            <div>
-              <dt>Related job</dt>
-              <dd>Espresso machine installation</dd>
-            </div>
-          </dl>
         </div>
       </div>
     </section>

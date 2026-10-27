@@ -1,5 +1,7 @@
 # Ticketing visual reset, 27 October 2026
 
+> The three-panel support scene and minimal customer/job record below are superseded by [the working-queue and substance correction](TICKETING-WORKING-QUEUE-20261027.md). The photograph-led opening and retained capability boundaries remain applicable.
+
 ## Decision and scope
 
 The owner found the page too detailed, visually off and boring. The previous composition and numerical assessments in `TICKETING-EVIDENCE-AND-REVIEW-20261026.md` are superseded. Passing code checks and the agent's earlier high scores did not establish visual quality or owner acceptance.

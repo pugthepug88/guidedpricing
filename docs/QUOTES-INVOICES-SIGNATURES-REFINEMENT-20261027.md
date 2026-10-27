@@ -1,5 +1,7 @@
 # Quotes, Invoices & Signatures refinement
 
+Superseded by QUOTES-INVOICES-SIGNATURES-VISUAL-RESET-20261027.md after the owner rejected the word and number burden. The following is a historical record of the earlier pending refinement, not the current page or delivery gate.
+
 27 October 2026. Supersedes the previous composition assessment, not the established capability boundaries.
 
 ## Before implementation

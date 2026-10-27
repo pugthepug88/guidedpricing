@@ -225,6 +225,10 @@ The owner approved replacing the heavy flat-green AI scene with a cooler ink wor
 
 The owner's explicit autoplay request supersedes the prior click-only/never-cycle rule for the separate Automation AI scene. Autoplay begins only with a readable request, holds each completed draft, and transitions through the eight ideas. It must never scroll or move focus automatically. Preserve manual choices, a visible Pause/Resume control, a functional up-arrow replay, offscreen/hidden-tab suspension and complete reduced-motion/static content. The workflow petal may rotate only during active construction and must freeze on pause. Keep the accepted ink palette; reserve layout space so cycling does not move the page or replace a lower phone graph while it is being read.
 
+## Calendar setup detail is supporting content, 27 October 2026
+
+The owner rejected making working-hour blocking, duration and minimum notice a major sales scene. Remove that availability panel rather than restyling it again or filling its place with another chapter. Keep those controls in the practical FAQ and calendar-provider recognition in a small supporting row beneath booking. A correct basic feature does not automatically deserve a large marketing section; judge its space by the buyer question and commercial value it adds.
+
 ## Document illustration density, 27 October 2026
 
 The owner rejected excessive document words/numbers on Quotes, Invoices & Signatures. For this page, use selective fidelity: keep readable tool names, Signature/Initials/Date and the meaningful signed/payment result, while secondary document text and amounts may become quiet static lines. Remove repeated records and arithmetic rather than shrinking all text. These lines represent suppressed document content, not loading placeholders or decorative accent bars; hide them from assistive technology and never shimmer them. Keep quote, signing and invoice roles distinct and preserve the separate customer/staff actions in capability claims. This is not permission to turn every feature into anonymous skeleton UI.

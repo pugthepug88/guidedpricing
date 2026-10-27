@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } fr
 import {
   ArrowDown,
   ArrowRight,
+  ArrowUp,
   ChevronDown,
   Columns2,
   Copy,
@@ -12,6 +13,7 @@ import {
   LayoutGrid,
   LayoutTemplate,
   Monitor,
+  Mail,
   Palette,
   Pause,
   Play,
@@ -23,6 +25,9 @@ import {
   Type,
   X,
 } from "lucide-react";
+
+import { ScenePlaybackControl, SceneCursor } from "./WebsitesScenePlayback";
+import { useScenePlayback, sceneProgress } from "./useWebsitesScenePlayback";
 
 // Prepared marketing scenes. All controls affect local React state only.
 // No site import, AI request, save, publish, submission or external tracking runs.
@@ -477,47 +482,58 @@ export function WebsiteBuilder() {
   );
 }
 
-function SitePreview({ clone = false }: { clone?: boolean }) {
+const FINISHED_GARDEN = "/concept/features/websites-finished-courtyard-20261027.webp";
+const AI_DURATION = 4800;
+
+function SitePreview({
+  elapsed,
+  heading,
+  onHeadingChange,
+}: {
+  elapsed: number;
+  heading: string;
+  onHeadingChange: (value: string) => void;
+}) {
+  const piece = (start: number) => ({ opacity: sceneProgress(elapsed, start) });
+  const editable = elapsed >= 3500;
   return (
-    <div className={"wff-site-preview" + (clone ? " wff-site-preview--clone" : "")}>
-      <div className="wff-site-preview-nav">
+    <div className="wff-site-preview">
+      <div className="wff-site-preview-nav" style={piece(1050)}>
         <strong>
           courtyard<span>GARDEN DESIGN</span>
         </strong>
         <span>Our work &nbsp; Services &nbsp; Enquire</span>
       </div>
-      <div className="wff-site-preview-hero wff-ai-piece">
+      <div className="wff-site-preview-hero" style={piece(1500)}>
         <div>
           <span>DESIGNED AROUND YOUR LIFE</span>
-          <h3>
-            {clone ? (
-              <>
-                A garden that
-                <br />
-                feels like home.
-              </>
-            ) : (
-              <>
-                Made for life
-                <br />
-                outdoors.
-              </>
-            )}
-          </h3>
+          <div className={"wff-preview-heading" + (editable ? " is-editable" : "")}>
+            <label htmlFor="wff-generated-heading">Heading</label>
+            <textarea
+              id="wff-generated-heading"
+              aria-label="Edit the AI website heading"
+              value={heading}
+              rows={3}
+              maxLength={65}
+              tabIndex={editable ? 0 : -1}
+              readOnly={!editable}
+              onChange={(event) => onHeadingChange(event.target.value)}
+            />
+          </div>
           <p>Thoughtful gardens. Beautiful everyday spaces.</p>
-          <span className="wff-mini-cta">
-            Plan your garden <ArrowRight size={12} />
-          </span>
+          <a className="wff-mini-cta" href="#connected-enquiry" tabIndex={editable ? 0 : -1}>
+            Plan my garden <ArrowRight size={12} aria-hidden="true" />
+          </a>
         </div>
         <img
-          src={PHOTO}
-          alt="Garden consultation on the newly built website"
-          width="1536"
-          height="1024"
+          src={FINISHED_GARDEN}
+          alt="A finished leafy courtyard with stone paving and an outdoor dining area"
+          width="1280"
+          height="853"
           loading="lazy"
         />
       </div>
-      <div className="wff-site-preview-services wff-ai-piece">
+      <div className="wff-site-preview-services" style={piece(2400)}>
         <strong>Good design starts with you.</strong>
         <div>
           <span>Courtyard design</span>
@@ -525,10 +541,10 @@ function SitePreview({ clone = false }: { clone?: boolean }) {
           <span>Outdoor living</span>
         </div>
       </div>
-      <div className="wff-site-preview-enquiry wff-ai-piece">
+      <div className="wff-site-preview-enquiry" style={piece(3000)}>
         <strong>Let’s talk about your space.</strong>
         <span>
-          Project enquiry <ArrowRight size={14} />
+          Project enquiry <ArrowRight size={14} aria-hidden="true" />
         </span>
       </div>
     </div>
@@ -537,26 +553,23 @@ function SitePreview({ clone = false }: { clone?: boolean }) {
 
 export function AICreation() {
   const [mode, setMode] = useState<"create" | "clone">("create");
-  const [run, setRun] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const scene = useRef<HTMLDivElement>(null);
-  const output = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const element = scene.current;
-    if (!element) return;
-    let visible = true;
-    const update = () => setPaused(!visible || document.hidden);
-    const observer = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-      update();
-    });
-    observer.observe(element);
-    document.addEventListener("visibilitychange", update);
-    return () => {
-      observer.disconnect();
-      document.removeEventListener("visibilitychange", update);
-    };
-  }, []);
+  const [heading, setHeading] = useState("Made for life outdoors.");
+  const player = useScenePlayback(AI_DURATION);
+  const t = player.elapsed;
+  const busy = t >= 900 && t < 3500;
+  const status =
+    t < 900
+      ? "Your starting point"
+      : t < 2000
+        ? "Building the layout"
+        : t < 3500
+          ? "Adding your content"
+          : "Ready to edit";
+  const choose = (next: "create" | "clone") => {
+    setMode(next);
+    setHeading(next === "create" ? "Made for life outdoors." : "Room to breathe. Space to gather.");
+    player.restart();
+  };
   return (
     <section
       className="wff-ai wff-shell wff-section"
@@ -567,120 +580,130 @@ export function AICreation() {
         <div>
           <p className="wff-eyebrow">Build with Zapla AI</p>
           <h2 id="wff-ai-title">
-            Describe it.
-            <br />
-            Build from there.
+            Your idea.
+            <br />A website you can shape.
           </h2>
         </div>
-        <p>
-          Start with an idea or an existing website. Let Zapla AI put the page together, then refine
-          the design in your visual editor.
-        </p>
+        <p>Start with a brief or clone an existing page. Refine the result in the visual editor.</p>
       </header>
-      <div
-        className="wff-ai-workspace wff-product-window"
-        ref={scene}
-        style={{ "--wff-play-state": paused ? "paused" : "running" } as CSSProperties}
-      >
+      <div className="wff-ai-workspace wff-product-window">
         <div className="wff-product-toolbar">
           <ProductBrand name="Website Builder" />
           <span className="wff-document-name">Create with AI</span>
+          <ScenePlaybackControl player={player} name="AI website creation" />
         </div>
-        <div className="wff-ai-layout">
+        <div
+          className="wff-ai-layout"
+          ref={player.ref}
+          data-playback={player.finished ? "complete" : player.paused ? "paused" : "playing"}
+        >
           <div className="wff-ai-composer">
             <div className="wff-ai-identity">
               <AIMark />
               <strong>Zapla AI</strong>
             </div>
-
             <div className="wff-ai-modes" role="group" aria-label="AI website starting point">
               <button
                 type="button"
                 aria-pressed={mode === "create"}
-                onClick={() => {
-                  setMode("create");
-                  setRun(0);
-                }}
+                onClick={() => choose("create")}
               >
-                <Plus size={17} />
-                <span>
-                  <strong>Create a new website</strong>
-                  <small>Describe what you have in mind.</small>
-                </span>
+                <Plus size={16} aria-hidden="true" /> Create a website
               </button>
-              <button
-                type="button"
-                aria-pressed={mode === "clone"}
-                onClick={() => {
-                  setMode("clone");
-                  setRun(0);
-                }}
-              >
-                <Copy size={17} />
-                <span>
-                  <strong>Clone an existing site</strong>
-                  <small>Start from a page URL.</small>
-                </span>
+              <button type="button" aria-pressed={mode === "clone"} onClick={() => choose("clone")}>
+                <Copy size={16} aria-hidden="true" /> Clone a page
               </button>
             </div>
             <div className="wff-ai-request">
-              <span>{mode === "create" ? "Your brief" : "From your existing page"}</span>
-              <p>
-                {mode === "create"
-                  ? "Create a garden design website with our services and a project enquiry form."
-                  : "Bring across our garden design page with its styles and images, ready to edit in Zapla."}
-              </p>
-              <button
-                className="wff-ai-watch"
-                type="button"
-                onClick={() => {
-                  setRun((value) => value + 1);
-                  if (window.matchMedia("(max-width: 600px)").matches) {
-                    output.current?.focus({ preventScroll: true });
-                    output.current?.scrollIntoView({
-                      block: "start",
-                      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-                        ? "instant"
-                        : "smooth",
-                    });
-                  } else if (
-                    scene.current &&
-                    scene.current.getBoundingClientRect().height < window.innerHeight - 110
-                  ) {
-                    scene.current.scrollIntoView({
-                      block: "center",
-                      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-                        ? "instant"
-                        : "smooth",
-                    });
+              <span>{mode === "create" ? "Your brief" : "Source page"}</span>
+              {mode === "create" ? (
+                <p>Build a garden design website with our services and a project enquiry form.</p>
+              ) : (
+                <div className="wff-clone-source" aria-label="Existing Courtyard website to clone">
+                  <div>
+                    <span>courtyard / Home</span>
+                  </div>
+                  <img
+                    src={FINISHED_GARDEN}
+                    alt="The courtyard image on the existing website"
+                    width="1280"
+                    height="853"
+                    loading="lazy"
+                  />
+                  <strong>
+                    Room to breathe.
+                    <br />
+                    Space to gather.
+                  </strong>
+                </div>
+              )}
+              <div className="wff-ai-request-action">
+                <span>
+                  {mode === "create" ? "Create from your brief" : "Keep the design and images"}
+                </span>
+                <button
+                  type="button"
+                  className="wff-ai-send"
+                  data-scene-target="ai-send"
+                  aria-label={
+                    mode === "create"
+                      ? "Replay building a website from the brief"
+                      : "Replay cloning the source page"
                   }
-                }}
+                  onClick={player.restart}
+                  style={{ transform: t >= 800 && t < 1050 ? "scale(.92)" : undefined }}
+                >
+                  <ArrowUp size={18} aria-hidden="true" />
+                </button>
+              </div>
+            </div>
+            <div className="wff-ai-construction" aria-live="polite">
+              <span
+                className="wff-working-petal"
+                style={{ transform: busy ? `rotate(${(t - 900) * 0.3}deg)` : undefined }}
               >
-                <Play size={14} fill="currentColor" />
-                {run
-                  ? "Watch again"
-                  : mode === "clone"
-                    ? "Watch the page take shape"
-                    : "Watch AI build the page"}
-              </button>
+                <AIMark />
+              </span>
+              <span>{status}</span>
             </div>
-            <p className="wff-ai-review">Review, refine, then publish.</p>
+            <p className="wff-ai-review">Your page. Your final edits.</p>
           </div>
-          <div
-            className="wff-ai-output"
-            ref={output}
-            tabIndex={-1}
-            role="group"
-            aria-label="Website preview"
-          >
+          <div className="wff-ai-output">
             <div className="wff-output-label">
-              <span>{mode === "clone" ? "Your page, ready to edit" : "Your starting design"}</span>
-              <Monitor size={15} />
+              <span>{mode === "clone" ? "Your page in Zapla" : "Built from your brief"}</span>
+              <Monitor size={14} aria-hidden="true" />
             </div>
-            <div key={`${mode}-${run}`} className={run ? "wff-ai-result--playing" : ""}>
-              <SitePreview clone={mode === "clone"} />
+            <div className="wff-ai-canvas">
+              <div
+                className="wff-ai-skeleton"
+                aria-hidden="true"
+                style={{ opacity: 1 - sceneProgress(t, 3000, 450) }}
+              >
+                <span />
+                <div>
+                  <i />
+                  <i />
+                </div>
+                <span />
+                <span />
+              </div>
+              <SitePreview
+                elapsed={t}
+                heading={heading}
+                onHeadingChange={(value) => {
+                  player.finish();
+                  setHeading(value);
+                }}
+              />
             </div>
           </div>
+          <SceneCursor
+            key={mode}
+            host={player.ref}
+            target="[data-scene-target='ai-send']"
+            elapsed={t}
+            clickAt={900}
+          />
         </div>
       </div>
     </section>
@@ -939,6 +962,12 @@ export function FunnelBuilder() {
 }
 
 export function FormConnection() {
+  const player = useScenePlayback(4400);
+  const t = player.elapsed;
+  const sent = t >= 1050;
+  const record = sceneProgress(t, 1500, 500);
+  const details = sceneProgress(t, 2150, 500);
+  const acknowledgement = sceneProgress(t, 3000, 650);
   return (
     <section
       className="wff-connected wff-shell wff-section"
@@ -949,115 +978,125 @@ export function FormConnection() {
         <div>
           <p className="wff-eyebrow">Forms connected to your CRM</p>
           <h2 id="wff-enquiry-title">
-            The right questions.
-            <br />A useful enquiry.
+            From enquiry form
+            <br />
+            to customer record.
           </h2>
         </div>
-        <p>
-          Build the form around what your team needs to know. Map the answers to contact fields, so
-          the details arrive with the customer.
-        </p>
+        <p>Keep the answers with the customer and acknowledge their enquiry.</p>
       </header>
-      <div className="wff-form-connection">
-        <div className="wff-form-builder wff-product-window">
-          <div className="wff-product-toolbar">
-            <ProductBrand name="Forms" />
-            <span className="wff-document-name">Project enquiry</span>
-          </div>
-          <div className="wff-form-workspace">
-            <aside className="wff-form-fields">
-              <div className="wff-panel-label">Your fields</div>
-              {[
-                { label: "Your name", type: "Text" },
-                { label: "Email", type: "Email" },
-                { label: "Project type", type: "Dropdown" },
-                { label: "Project details", type: "Long text" },
-              ].map(({ label, type }) => (
-                <div key={label}>
-                  <GripVertical size={13} />
-                  <span>
-                    <strong>{label}</strong>
-                    <small>{type}</small>
-                  </span>
-                </div>
-              ))}
-              <div className="wff-field-mapping">
-                <span>Map to contact</span>
-                <strong>
-                  Project type <ArrowRight size={12} /> Project type
-                </strong>
-              </div>
-            </aside>
-            <div className="wff-enquiry-paper">
-              <p className="wff-form-brand">
-                courtyard<span>GARDEN DESIGN</span>
-              </p>
-              <h3>Tell us about your space.</h3>
-              <dl className="wff-form-answers">
-                <div>
-                  <dt>Project type</dt>
-                  <dd>
-                    Courtyard design <ChevronDown size={13} />
-                  </dd>
-                </div>
-                <div>
-                  <dt>What do you have in mind?</dt>
-                  <dd>We’d love a leafy courtyard with space to eat outside.</dd>
-                </div>
-                <div>
-                  <dt>Your name</dt>
-                  <dd>Mia Thompson</dd>
-                </div>
-                <div>
-                  <dt>Email</dt>
-                  <dd>Email address provided</dd>
-                </div>
-              </dl>
-              <span className="wff-form-submit-text">
-                Send my enquiry <ArrowRight size={14} />
-              </span>
-            </div>
-          </div>
+      <div className="wff-enquiry-window wff-product-window">
+        <div className="wff-product-toolbar">
+          <ProductBrand name="Forms & CRM" />
+          <span className="wff-document-name">Project enquiry</span>
+          <ScenePlaybackControl player={player} name="form submission" />
         </div>
-        <div className="wff-customer-outcome">
-          <div className="wff-product-toolbar">
-            <ProductBrand name="CRM" />
-          </div>
-          <div className="wff-crm-record">
-            <p className="wff-ui-caption">After submission</p>
-            <div className="wff-contact">
-              <span className="wff-portrait" aria-hidden="true" />
-              <div>
-                <h3>Mia Thompson</h3>
-                <p>Name and email captured</p>
-              </div>
+        <div
+          className="wff-enquiry-flow"
+          ref={player.ref}
+          data-playback={player.finished ? "complete" : player.paused ? "paused" : "playing"}
+        >
+          <div className="wff-submission-form">
+            <div className="wff-submission-brand">
+              courtyard<span>GARDEN DESIGN</span>
             </div>
-            <dl className="wff-record-details">
+            <h3>Tell us about your space.</h3>
+            <dl className="wff-submission-fields">
+              <div>
+                <dt>Your name</dt>
+                <dd>Mia Thompson</dd>
+              </div>
+              <div>
+                <dt>Email</dt>
+                <dd>Email address provided</dd>
+              </div>
               <div>
                 <dt>Project type</dt>
-                <dd>Courtyard design</dd>
+                <dd>
+                  Courtyard design <ChevronDown size={13} aria-hidden="true" />
+                </dd>
               </div>
               <div>
-                <dt>Project details</dt>
+                <dt>What do you have in mind?</dt>
                 <dd>We’d love a leafy courtyard with space to eat outside.</dd>
               </div>
             </dl>
+            <span
+              className="wff-enquiry-send"
+              data-scene-target="enquiry-send"
+              style={{ transform: t >= 800 && t < 1100 ? "scale(.98)" : undefined }}
+            >
+              {sent ? "Enquiry sent" : "Send my enquiry"}
+              <ArrowRight size={15} aria-hidden="true" />
+            </span>
+            <p className="wff-submission-mapping">Project answers mapped to contact fields</p>
           </div>
-          <div className="wff-acknowledgement">
-            <span className="wff-ui-caption">Configured acknowledgement</span>
-            <h3>Thanks for getting in touch, Mia.</h3>
-            <p>
-              We’ve received your courtyard enquiry. Our team will be in touch to discuss your
-              space.
-            </p>
+          <div className="wff-enquiry-handoff" aria-hidden="true">
+            <ArrowRight size={21} />
           </div>
+          <div className="wff-customer-flow">
+            <div className="wff-customer-file">
+              <div className="wff-customer-file-title">
+                <span>CRM contact</span>
+                <span style={{ opacity: record }}>From website enquiry</span>
+              </div>
+              <div className="wff-record-person" style={{ opacity: record }}>
+                <span className="wff-portrait" aria-hidden="true" />
+                <div>
+                  <h3>Mia Thompson</h3>
+                  <p>Name and email captured</p>
+                </div>
+              </div>
+              <dl style={{ opacity: details }}>
+                <div>
+                  <dt>Project type</dt>
+                  <dd>Courtyard design</dd>
+                </div>
+                <div>
+                  <dt>Project details</dt>
+                  <dd>We’d love a leafy courtyard with space to eat outside.</dd>
+                </div>
+              </dl>
+              <div
+                className="wff-record-pending"
+                aria-hidden="true"
+                style={{ opacity: 1 - record }}
+              >
+                <i />
+                <i />
+                <i />
+              </div>
+            </div>
+            <div
+              className="wff-email-receipt"
+              style={{
+                opacity: acknowledgement,
+                transform: `translateY(${(1 - acknowledgement) * 6}px)`,
+              }}
+            >
+              <div>
+                <Mail size={15} aria-hidden="true" />
+                <span>Configured acknowledgement</span>
+              </div>
+              <p>To Mia Thompson</p>
+              <h3>Thanks for getting in touch, Mia.</h3>
+              <p>
+                We’ve received your courtyard enquiry. Our team will be in touch to discuss your
+                space.
+              </p>
+            </div>
+          </div>
+          <SceneCursor
+            host={player.ref}
+            target="[data-scene-target='enquiry-send']"
+            elapsed={t}
+            clickAt={950}
+          />
         </div>
       </div>
-      <div className="wff-enquiry-notes">
-        <a className="wff-text-link" href="/features/automation-builder">
-          Connect your follow-up <ArrowRight size={16} />
-        </a>
-      </div>
+      <a className="wff-text-link wff-enquiry-followup" href="/features/automation-builder">
+        Connect your follow-up <ArrowRight size={16} aria-hidden="true" />
+      </a>
     </section>
   );
 }
