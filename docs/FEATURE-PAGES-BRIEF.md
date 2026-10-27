@@ -535,6 +535,10 @@ Show the same filled enquiry being submitted before Mia's CRM record, mapped pro
 
 Condense the website service choice, Guided Launch and FAQ wording. Retain separately quoted custom design and required, separately priced Guided Launch. Actual image provenance, role review, rendered desktop/phone coverage, tablet limitation and retained proof are appended to WEBSITES-PRODUCT-DESIGN-REVIEW-20261027.md. GitHub owns changes; Lovable stays read-only and no separate Publish action is used.
 
+## Form QR sharing, 27 October 2026
+
+The owner supplied the form settings screen showing Embed & QR and requested one small supporting container. Add a compact QR-sharing card directly beneath the Forms & CRM demonstration, with a recognisable QR graphic and one short use line. Keep it subordinate to the enquiry handoff; do not recreate the settings screen, embed code, download controls or tenant-specific QR payload. Preserve the current form flow, AI, funnel, tracking, setup and shared architecture.
+
 ## Signature value and multiple signers, 27 October 2026
 
 The owner supplied Manage Signers and Signatures help and identified multiple signers as a meaningful feature hidden by the simplification. Bring one document/multiple people, assigned fields and individual Signed/Pending progress into the existing signature chapter. Retain the selective-detail treatment; do not restore admin forms, registers, calculators or tutorial controls. PDF/builder reuse and personal no-account signing remain concise support.

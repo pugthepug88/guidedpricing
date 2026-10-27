@@ -147,3 +147,11 @@ Retained proof:
 Review address: `https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/websites-funnels-forms`.
 
 Final entry adjustment: the new AI and submission players wait until 85% of their canvas is visible before starting or continuing. This brings the depicted send/submit action into view before construction or CRM capture. Completed phone/static content and explicit replay remain unchanged. The completed layouts in the retained proof are unaffected.
+
+## Compact form QR card, 27 October 2026
+
+The owner's supplied Form Settings screenshot explicitly shows Embed & QR, a generated QR code and Download PNG. USE this as direct evidence of form QR sharing. ADAPT it as one small white card beneath the form side of the existing demonstration, with a neutral QR symbol and concise copy. REJECT reproducing its embed script, tenant/form identifiers, settings panels or download action in the marketing page.
+
+Copy: “Share forms by QR code” / “For counters, posters and brochures.” The QR symbol is a presentational SVG illustration, not a live tenant code or scanner destination. There is no scan/download button or added endpoint. The existing automation link sits alongside the card on desktop and below it on phone. The shared form/CRM player is untouched.
+
+Rendered desktop inspection shows the card at approximately 320 × 97px, beneath the completed form/CRM composition. The 393px phone viewport reports a 342 × 97px card, with no card or document horizontal overflow. The final phone capture was stale and is not retained as visual proof. The native desktop proof is `docs/qa/websites-form-qr-sharing-20261027.jpg`. Branding, restrained white/ink styling and short copy keep the QR option subordinate to the main enquiry flow. Build, TypeScript, targeted ESLint, formatting and whitespace checks pass. Source commit: `761039f617f365c7e77a96aa32f407241c0221b4`. No new dependency, motion, service call or production Publish action was added.

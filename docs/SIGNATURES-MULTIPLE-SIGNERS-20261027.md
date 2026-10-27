@@ -22,7 +22,7 @@ An independent continuation of the existing user-authorized conversion review co
 
 ## Verification
 
-Production build, TypeScript, targeted ESLint, SEO policy, source formatting and whitespace checks passed on the runtime source uploaded as 6f0cd36f. Cloudflare and Vercel also built that exact commit successfully. Build output retains existing dependency/chunk warnings. Current main was checked again at 761039f: its intervening Forms-page change does not touch this component, stylesheet, brief or guardrails.
+Production build, TypeScript, targeted ESLint, SEO policy, source formatting and whitespace checks passed on the runtime source uploaded as 6f0cd36f. Cloudflare and Vercel also built that exact commit successfully. Build output retains existing dependency/chunk warnings. Current main was checked again at 59c739b: the intervening Forms-page change does not touch this component, stylesheet or guardrails. Both its appended QR-sharing brief section and this signature section are preserved when merging the concurrent documentation updates.
 
 Root inspected the deployed Cloudflare commit preview at desktop 1692 × 762, phone 393 × 852 (378 CSS-pixel content), tablet 834 × 1000 (819 content) and narrow phone 320 × 800 (305 content). The signer strip stays above Priya's fields, both people/statuses remain readable, fields and paper bottom remain in ordinary flow, and the following invoice chapter remains distinct. Document scroll width equals its client width on phone, tablet and narrow phone. The support paragraph resolves to the intended 13px phone size. Native FAQ keyboard expansion exposes the updated answer. No console errors were captured; robots remains noindex, nofollow. No live signing, document-send or financial action was performed.
 
