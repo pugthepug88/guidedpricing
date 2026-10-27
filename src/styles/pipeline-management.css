@@ -518,10 +518,14 @@
   line-height: 1.75;
 }
 
-/* Supporting product proof: filled Zapla colours carry readable white UI.
-   All three scenes are static and complete, including without JavaScript. */
+/* Local material depth behind three distinct, static product compositions.
+   The grain is behind the opaque UI and never carries meaning or motion. */
 .zapla-pipeline .pf-fit {
   padding: 8px 0 62px;
+  scroll-margin-top: 86px;
+}
+.zapla-pipeline #pipeline-fit-heading {
+  scroll-margin-top: 90px;
 }
 .zapla-pipeline .pf-fit-heading {
   display: grid;
@@ -547,48 +551,69 @@
   margin-top: 32px;
 }
 .zapla-pipeline .pf-fit-card {
+  position: relative;
+  isolation: isolate;
   display: grid;
-  grid-row: span 2;
-  grid-template-rows: subgrid;
+  grid-template-rows: 340px 1fr;
   min-width: 0;
-  gap: 26px;
-  padding: 26px;
+  overflow: hidden;
   border-radius: 24px;
+  background: var(--pf-fit-fill);
   color: #1b2021;
 }
+.zapla-pipeline .pf-fit-card::before,
+.zapla-pipeline .pf-fit-card::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+}
+.zapla-pipeline .pf-fit-card::before {
+  background: linear-gradient(135deg, #ffffff6b 0%, #ffffff0a 55%, #2e22300a 100%);
+}
+.zapla-pipeline .pf-fit-card::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23808080' filter='url(%23grain)' d='M0 0h160v160H0z'/%3E%3C/svg%3E");
+  opacity: 0.19;
+  mix-blend-mode: multiply;
+}
 .zapla-pipeline .pf-fit-fields {
-  background: #e97d62;
+  --pf-fit-fill: #e97d62;
 }
 .zapla-pipeline .pf-fit-actions {
-  background: #dda34b;
+  --pf-fit-fill: #dda34b;
 }
 .zapla-pipeline .pf-fit-tags {
-  background: #9b86b8;
+  --pf-fit-fill: #9b86b8;
 }
 .zapla-pipeline .pf-fit-scene {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 244px;
-  padding: 8px 0;
+  position: relative;
+  align-self: start;
+  height: 318px;
+  min-width: 0;
+  margin: 22px 18px 0;
 }
 .zapla-pipeline .pf-fit-record {
-  width: 100%;
-  max-width: 340px;
   min-width: 0;
-  padding: 20px;
-  border: 1px solid #fff;
-  border-radius: 15px;
+  padding: 18px;
+  border: 1px solid #ffffff;
+  border-radius: 13px;
   background: #ffffff;
   color: #26332f;
   box-shadow:
-    0 18px 28px -18px #30282c73,
-    0 2px 5px #30282c0d;
+    0 12px 28px -14px #362d3b66,
+    0 1px 3px #30282c0d;
+}
+.zapla-pipeline .pf-fields-record {
+  position: absolute;
+  top: 7px;
+  left: 0;
+  width: calc(100% - 18px);
 }
 .zapla-pipeline .pf-fit-record-title {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 650;
-  line-height: 1.4;
+  line-height: 1.45;
   letter-spacing: -0.025em;
 }
 .zapla-pipeline .pf-fit-person {
@@ -608,68 +633,97 @@
 .zapla-pipeline .pf-custom-values > div {
   padding: 9px 12px;
   border: 1px solid #e1e4df;
-  border-radius: 7px;
+  border-radius: 6px;
   background: #f8f9f6;
 }
 .zapla-pipeline :is(.pf-custom-values, .pf-action-settings) dt,
 .zapla-pipeline .pf-fit-ui-label {
   display: block;
   color: #59645f;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 .zapla-pipeline .pf-custom-values dd {
   margin: 3px 0 0;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   line-height: 1.4;
+}
+.zapla-pipeline .pf-field-config {
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  width: 73%;
+  padding: 14px 16px;
+}
+.zapla-pipeline .pf-field-board-state {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.zapla-pipeline .pf-field-board-state svg {
+  padding: 2px;
+  border-radius: 3px;
+  background: #2563ff;
+  color: #fff;
+}
+.zapla-pipeline .pf-action-config {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 82%;
+  padding: 16px;
 }
 .zapla-pipeline .pf-action-settings {
   display: grid;
   grid-template-columns: 1fr 1.4fr;
-  gap: 14px;
+  gap: 10px;
   margin: 0;
 }
 .zapla-pipeline .pf-action-settings > div:first-child {
   grid-column: 1 / -1;
 }
 .zapla-pipeline .pf-action-settings dd {
-  margin: 7px 0 0;
+  margin: 5px 0 0;
 }
 .zapla-pipeline .pf-action-name {
-  padding: 9px 10px;
+  padding: 8px 9px;
   border: 1px solid #dce1dc;
-  border-radius: 6px;
-  font-size: 13px;
+  border-radius: 5px;
+  font-size: 12px;
   font-weight: 600;
   line-height: 1.5;
 }
 .zapla-pipeline .pf-chosen-icon {
   display: grid;
-  width: 36px;
-  height: 34px;
+  width: 31px;
+  height: 29px;
   place-items: center;
   border: 1px solid #dce1dc;
-  border-radius: 6px;
+  border-radius: 5px;
   color: #354b60;
 }
 .zapla-pipeline .pf-action-colours {
   display: flex;
   align-items: center;
-  gap: 10px;
-  height: 34px;
+  gap: 8px;
+  height: 29px;
 }
 .zapla-pipeline .pf-action-colours > span {
   display: block;
-  width: 23px;
-  height: 23px;
+  width: 19px;
+  height: 19px;
   border-radius: 50%;
 }
 .zapla-pipeline .pf-colour-blue {
   border: 3px solid #fff;
   background: #2563ff;
-  box-shadow: 0 0 0 1.5px #2563ff;
+  box-shadow: 0 0 0 1px #2563ff;
 }
 .zapla-pipeline .pf-colour-ink {
   background: #1e2b29;
@@ -677,9 +731,16 @@
 .zapla-pipeline .pf-colour-coral {
   background: #e97d62;
 }
+.zapla-pipeline .pf-action-record {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 94%;
+  padding: 16px;
+}
 .zapla-pipeline .pf-action-result {
-  margin-top: 16px;
-  padding-top: 15px;
+  margin-top: 14px;
+  padding-top: 13px;
   border-top: 1px solid #e3e6e1;
 }
 .zapla-pipeline .pf-custom-action {
@@ -687,9 +748,9 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 39px;
-  padding: 9px 10px;
-  border-radius: 7px;
+  min-height: 37px;
+  padding: 8px 9px;
+  border-radius: 6px;
   background: #2563ff;
   color: #fff;
   font-size: 12px;
@@ -699,23 +760,29 @@
 .zapla-pipeline .pf-custom-action svg {
   flex-shrink: 0;
 }
-.zapla-pipeline .pf-opportunity-tags {
-  margin-top: 22px;
+.zapla-pipeline .pf-tag-key {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  width: max-content;
+  max-width: 100%;
+  padding: 11px 14px;
 }
 .zapla-pipeline .pf-tag-list {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 9px;
+  gap: 5px;
+  margin-top: 7px;
 }
 .zapla-pipeline .pf-tag {
   display: inline-flex;
   align-items: center;
-  min-height: 29px;
-  padding: 5px 11px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 650;
+  min-height: 24px;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
   line-height: 1.5;
 }
 .zapla-pipeline .pf-tag-urgent {
@@ -726,20 +793,64 @@
   background: #31566e;
   color: #fff;
 }
-.zapla-pipeline .pf-fit-assignee {
+.zapla-pipeline .pf-tag-vip {
+  background: #77581d;
+  color: #fff;
+}
+.zapla-pipeline .pf-tags-record {
+  position: absolute;
+  top: 96px;
+  right: -18px;
+  width: calc(100% + 5px);
+  padding: 0 18px;
+  border-radius: 12px 0 0 12px;
+}
+.zapla-pipeline .pf-tags-list-heading {
+  padding: 12px 0;
+  border-bottom: 1px solid #e3e6e1;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.zapla-pipeline .pf-tagged-opportunities {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.zapla-pipeline .pf-tagged-opportunities li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 5px 12px;
-  margin-top: 22px;
-  padding-top: 13px;
-  border-top: 1px solid #e1e4df;
-  font-size: 12px;
-  line-height: 1.5;
+  gap: 8px;
+  padding: 13px 0;
 }
-.zapla-pipeline .pf-fit-assignee .pf-fit-person {
+.zapla-pipeline .pf-tagged-opportunities li + li {
+  border-top: 1px solid #e8eae6;
+}
+.zapla-pipeline .pf-tagged-work {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+.zapla-pipeline .pf-tagged-work strong {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.zapla-pipeline .pf-tagged-work > span {
+  color: #59645f;
+  font-size: 11px;
+  line-height: 1.4;
+}
+.zapla-pipeline .pf-tagged-opportunities .pf-tag-list {
+  flex-shrink: 0;
+  justify-content: end;
+  max-width: 45%;
   margin: 0;
+}
+.zapla-pipeline .pf-fit-card-copy {
+  align-self: start;
+  padding: 22px 24px 26px;
 }
 .zapla-pipeline .pf-fit-card h3 {
   color: #1b2021;
@@ -1113,13 +1224,6 @@
   .zapla-pipeline .pf-fit-grid {
     gap: 14px;
   }
-  .zapla-pipeline .pf-fit-card {
-    gap: 20px;
-    padding: 20px;
-  }
-  .zapla-pipeline .pf-fit-record {
-    padding: 16px;
-  }
   .zapla-pipeline .pf-context-layout {
     grid-template-columns: 0.95fr 1fr;
     gap: 35px;
@@ -1328,19 +1432,6 @@
     gap: 16px;
     margin-top: 26px;
   }
-  .zapla-pipeline .pf-fit-card {
-    gap: 22px;
-    padding: 24px;
-  }
-  .zapla-pipeline .pf-fit-scene {
-    min-height: 230px;
-    padding: 0;
-  }
-  .zapla-pipeline .pf-fit-card-copy {
-    width: 100%;
-    max-width: 340px;
-    margin-inline: auto;
-  }
   .zapla-pipeline .pf-fit-card h3 {
     font-size: 22px;
   }
@@ -1490,5 +1581,81 @@
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Give detailed scenes room on tablets instead of shrinking their UI. */
+@media (min-width: 751px) and (max-width: 1050px) {
+  .zapla-pipeline .pf-fit-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .zapla-pipeline .pf-fit-card {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    grid-template-rows: auto;
+    align-items: center;
+  }
+  .zapla-pipeline .pf-fit-scene {
+    width: auto;
+    height: 318px;
+    margin: 22px 18px;
+  }
+  .zapla-pipeline .pf-fit-card-copy {
+    align-self: center;
+    padding: 30px;
+  }
+  .zapla-pipeline .pf-fit-card::before {
+    background: linear-gradient(135deg, #ffffff6b, #ffffff05 65%, #2e22300a);
+  }
+}
+@media (max-width: 750px) {
+  .zapla-pipeline .pf-fit-card {
+    grid-template-rows: 340px auto;
+    padding: 0;
+    gap: 0;
+  }
+  .zapla-pipeline .pf-fit-card-copy {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 24px;
+  }
+  .zapla-pipeline .pf-fit-scene {
+    height: 318px;
+    min-height: 0;
+    margin: 22px 18px 0;
+    padding: 0;
+  }
+}
+@media (max-width: 350px) {
+  .zapla-pipeline .pf-fit-scene {
+    margin-inline: 14px;
+  }
+  .zapla-pipeline .pf-fit-record {
+    padding: 14px;
+  }
+  .zapla-pipeline .pf-action-config {
+    width: 92%;
+  }
+  .zapla-pipeline .pf-field-config {
+    width: 85%;
+  }
+  .zapla-pipeline .pf-tags-record {
+    right: -14px;
+    padding: 0 14px;
+  }
+  .zapla-pipeline .pf-tagged-opportunities li {
+    flex-wrap: wrap;
+    gap: 7px;
+    padding-block: 10px;
+  }
+  .zapla-pipeline .pf-tagged-opportunities .pf-tag-list {
+    max-width: none;
+  }
+  .zapla-pipeline .pf-fit-tags .pf-fit-scene {
+    height: 365px;
+  }
+  .zapla-pipeline .pf-fit-tags {
+    grid-template-rows: 387px auto;
   }
 }

@@ -1,17 +1,16 @@
-import { useRef, useState, type ReactNode } from "react";
-import { ArrowDown, ArrowRight, Play, Plus } from "lucide-react";
-import { AICreation, FunnelBuilder, SiteTracking, WebsiteBuilder } from "./WebsitesProductScenes";
+import { type ReactNode } from "react";
+import { ArrowDown, ArrowRight, Plus } from "lucide-react";
+import {
+  AICreation,
+  FormConnection,
+  FunnelBuilder,
+  SiteTracking,
+  WebsiteBuilder,
+} from "./WebsitesProductScenes";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/websites-funnels-forms.css";
 
-// Prepared local illustrations. Editing changes React state only. There are no
-// service calls, submissions, sends or persisted drafts.
-const ENQUIRY = {
-  name: "Mia Thompson",
-  project: "Courtyard design",
-  details: "We’d love a leafy courtyard with space to eat outside.",
-};
 const FAQS = [
   {
     question: "Can I keep my existing website?",
@@ -55,129 +54,6 @@ function SalesLink({ children = "Book a Call" }: { children?: ReactNode }) {
     <a className="wff-button" href="/booking">
       {children}
     </a>
-  );
-}
-function MiaPortrait() {
-  return <span className="wff-portrait" aria-hidden="true" />;
-}
-function ConnectedEnquiry() {
-  const [run, setRun] = useState(0);
-  const proof = useRef<HTMLDivElement>(null);
-  const watchConnection = () => {
-    proof.current?.scrollIntoView({ block: "center", behavior: "smooth" });
-    setRun((value) => value + 1);
-  };
-  return (
-    <section
-      id="connected-enquiry"
-      className="wff-connected wff-shell"
-      aria-labelledby="wff-enquiry-title"
-    >
-      <header className="wff-section-heading">
-        <div>
-          <p className="wff-eyebrow">Forms, CRM and follow-up</p>
-          <h2 id="wff-enquiry-title">
-            Ask what you need.
-            <br />
-            Keep it with the customer.
-          </h2>
-        </div>
-        <div>
-          <p>
-            Collect the request and contact details together. Map useful answers to CRM fields, so
-            your team can follow up knowing what the person needs.
-          </p>
-          <button className="wff-watch" type="button" onClick={watchConnection}>
-            <Play size={15} fill="currentColor" aria-hidden="true" />
-            {run ? "Watch the connection again" : "Watch the connection"}
-          </button>
-        </div>
-      </header>
-      <div
-        className={"wff-enquiry-proof" + (run ? " wff-enquiry-proof--play" : "")}
-        key={run}
-        ref={proof}
-      >
-        <div className="wff-enquiry-paper">
-          <p className="wff-form-brand">
-            courtyard<span>Project enquiry</span>
-          </p>
-          <h3>Tell us about your space.</h3>
-          <dl className="wff-form-answers">
-            <div>
-              <dt>What would you like help with?</dt>
-              <dd>{ENQUIRY.project}</dd>
-            </div>
-            <div>
-              <dt>What do you have in mind?</dt>
-              <dd>{ENQUIRY.details}</dd>
-            </div>
-            <div className="wff-form-contact">
-              <div>
-                <dt>Your name</dt>
-                <dd>{ENQUIRY.name}</dd>
-              </div>
-              <div>
-                <dt>Email</dt>
-                <dd>Email address provided</dd>
-              </div>
-            </div>
-          </dl>
-          <p className="wff-form-destination">
-            After submission
-            <ArrowRight size={17} aria-hidden="true" />
-            <span>Connected to Zapla</span>
-          </p>
-        </div>
-        <div className="wff-customer-outcome">
-          <div className="wff-crm-record">
-            <p className="wff-record-brand">
-              <ZaplaPetal size={25} />
-              <span>In your Zapla CRM</span>
-            </p>
-            <div className="wff-contact wff-reveal-person">
-              <MiaPortrait />
-              <div>
-                <h3>{ENQUIRY.name}</h3>
-                <p>Name and email captured</p>
-              </div>
-            </div>
-            <dl className="wff-record-details">
-              <div className="wff-reveal-project">
-                <dt>Project type</dt>
-                <dd>{ENQUIRY.project}</dd>
-              </div>
-              <div className="wff-reveal-details">
-                <dt>Project details</dt>
-                <dd>{ENQUIRY.details}</dd>
-              </div>
-            </dl>
-          </div>
-          <div className="wff-acknowledgement">
-            <p>Configured acknowledgement email</p>
-            <h3>Thanks for getting in touch, Mia.</h3>
-            <p>
-              We’ve received your courtyard enquiry. Our team will be in touch to discuss your space
-              and the next step.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="wff-enquiry-notes">
-        <p>
-          <strong>Your questions, your form.</strong> Use required fields, dropdowns and multiple
-          pages to collect the information your team needs.
-        </p>
-        <p>
-          <strong>Your next step, configured.</strong> Use a form submission to start an agreed
-          workflow, or direct the customer to a booking page.
-        </p>
-        <a className="wff-text-link" href="/features/automation-builder">
-          Explore Automation Builder
-          <ArrowRight size={16} aria-hidden="true" />
-        </a>
-      </div>
-    </section>
   );
 }
 function LaunchAndQuestions() {
@@ -275,7 +151,7 @@ export function WebsitesFunnelsFormsPage() {
       <noscript>
         <style>
           {
-            ".wff-watch, .wff-ai-watch, .wff-editor-reset, .wff-column-handle { display: none !important; }"
+            ".wff-ai-watch, .wff-reset, .wff-column-handle, .wff-tracking-hint { display: none !important; }"
           }
         </style>
       </noscript>
@@ -297,7 +173,7 @@ export function WebsitesFunnelsFormsPage() {
             <div className="wff-hero-actions">
               <SalesLink />
               <a className="wff-text-link" href="#website-builder">
-                Try the builder <ArrowDown size={16} aria-hidden="true" />
+                Explore the builder <ArrowDown size={16} aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -317,7 +193,7 @@ export function WebsitesFunnelsFormsPage() {
       </section>
       <AICreation />
       <FunnelBuilder />
-      <ConnectedEnquiry />
+      <FormConnection />
       <SiteTracking />
       <LaunchAndQuestions />
       <section className="wff-final wff-shell" aria-labelledby="wff-final-title">

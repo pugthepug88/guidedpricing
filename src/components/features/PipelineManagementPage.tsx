@@ -1,4 +1,4 @@
-import { MessageSquare, Plus } from "lucide-react";
+import { Check, MessageSquare, Plus } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import { PipelineBoard, PipelinePortrait } from "@/components/features/PipelineBoard";
 import { PipelineRoutes } from "@/components/features/PipelineRoutes";
@@ -14,7 +14,7 @@ function BookCall() {
 }
 function PipelineFitTools() {
   return (
-    <section className="pf-fit" aria-labelledby="pipeline-fit-heading">
+    <section className="pf-fit" id="pipeline-fit" aria-labelledby="pipeline-fit-heading">
       <div className="pf-wrap">
         <header className="pf-fit-heading">
           <div>
@@ -30,7 +30,7 @@ function PipelineFitTools() {
         <div className="pf-fit-grid">
           <article className="pf-fit-card pf-fit-fields">
             <div
-              className="pf-fit-scene"
+              className="pf-fit-scene pf-fields-scene"
               aria-label="Custom job fields displayed on an opportunity"
             >
               <div className="pf-fit-record pf-fields-record">
@@ -50,6 +50,13 @@ function PipelineFitTools() {
                   </div>
                 </dl>
               </div>
+              <div className="pf-fit-record pf-field-config">
+                <span className="pf-fit-ui-label">Job address · Address field</span>
+                <span className="pf-field-board-state">
+                  <Check size={14} aria-hidden="true" />
+                  Show on board
+                </span>
+              </div>
             </div>
             <div className="pf-fit-card-copy">
               <h3>Custom fields</h3>
@@ -62,8 +69,8 @@ function PipelineFitTools() {
 
           <article className="pf-fit-card pf-fit-actions">
             <div
-              className="pf-fit-scene"
-              aria-label="A quick action with a custom name, icon and colour"
+              className="pf-fit-scene pf-actions-scene"
+              aria-label="Custom quick-action settings and the shortcut on an opportunity"
             >
               <div className="pf-fit-record pf-action-config">
                 <dl className="pf-action-settings">
@@ -87,6 +94,13 @@ function PipelineFitTools() {
                     </dd>
                   </div>
                 </dl>
+              </div>
+              <div className="pf-fit-record pf-action-record">
+                <div className="pf-fit-record-title">Hot water replacement</div>
+                <div className="pf-fit-person">
+                  <PipelinePortrait cell={9} small />
+                  <span>Mia Thompson</span>
+                </div>
                 <div className="pf-action-result">
                   <span className="pf-custom-action">
                     <MessageSquare size={17} aria-hidden="true" />
@@ -97,38 +111,55 @@ function PipelineFitTools() {
             </div>
             <div className="pf-fit-card-copy">
               <h3>Quick actions</h3>
-              <p>
-                Choose a name, icon and colour for shortcuts that keep repeated work close to the
-                record.
-              </p>
+              <p>Give repeated work its own shortcut, right on the opportunity.</p>
             </div>
           </article>
 
           <article className="pf-fit-card pf-fit-tags">
             <div
-              className="pf-fit-scene"
-              aria-label="Priority and job-type tags attached to an opportunity"
+              className="pf-fit-scene pf-tags-scene"
+              aria-label="Tags make priority and job type visible across opportunities"
             >
+              <div className="pf-fit-record pf-tag-key">
+                <span className="pf-fit-ui-label">Your tags</span>
+                <div className="pf-tag-list">
+                  <span className="pf-tag pf-tag-urgent">Urgent</span>
+                  <span className="pf-tag pf-tag-install">Install</span>
+                  <span className="pf-tag pf-tag-vip">VIP</span>
+                </div>
+              </div>
               <div className="pf-fit-record pf-tags-record">
-                <div className="pf-fit-record-title">Hot water replacement</div>
-                <div className="pf-fit-person">
-                  <PipelinePortrait cell={9} small />
-                  <span>Mia Thompson</span>
-                </div>
-                <div className="pf-opportunity-tags">
-                  <span className="pf-fit-ui-label">Tags</span>
-                  <div className="pf-tag-list">
-                    <span className="pf-tag pf-tag-urgent">Urgent</span>
-                    <span className="pf-tag pf-tag-install">Install</span>
-                  </div>
-                </div>
-                <div className="pf-fit-assignee">
-                  <span>Assigned to</span>
-                  <span className="pf-fit-person">
-                    <PipelinePortrait cell={13} small />
-                    Ben Walker
-                  </span>
-                </div>
+                <div className="pf-tags-list-heading">Opportunities</div>
+                <ul className="pf-tagged-opportunities">
+                  <li>
+                    <div className="pf-tagged-work">
+                      <strong>Hot water replacement</strong>
+                      <span>Mia Thompson</span>
+                    </div>
+                    <div className="pf-tag-list">
+                      <span className="pf-tag pf-tag-urgent">Urgent</span>
+                      <span className="pf-tag pf-tag-install">Install</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="pf-tagged-work">
+                      <strong>Office fit-out</strong>
+                      <span>Priya Shah</span>
+                    </div>
+                    <div className="pf-tag-list">
+                      <span className="pf-tag pf-tag-install">Install</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="pf-tagged-work">
+                      <strong>Annual maintenance</strong>
+                      <span>Rachel Evans</span>
+                    </div>
+                    <div className="pf-tag-list">
+                      <span className="pf-tag pf-tag-vip">VIP</span>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
             <div className="pf-fit-card-copy">

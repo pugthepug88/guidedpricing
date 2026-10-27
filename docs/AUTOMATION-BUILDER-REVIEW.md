@@ -1,13 +1,13 @@
 # Automation Builder: implementation and review
 
-**Latest revision:** “Click-to-watch AI ideas, 26 October 2026” at the end adds an explicit Watch AI build control and eight distinct examples to the separate AI section. The restored hero, photo overlay, rounded FAQ, silver frame and white nodes remain. Earlier assessments are historical, not owner approval.
+**Latest revision:** [Automation AI interface refinement, 27 October 2026](AUTOMATION-AI-INTERFACE-20261027.md) supersedes the flat-green AI player with an integrated cooler-ink composer, finer draft nodes and eight compact ideas. The restored hero, photo overlay, rounded FAQ and approved silver frame/white hero cards remain. Earlier assessments are historical, not owner approval.
 
-**Current correction, 26 October 2026:** the owner rejected the coloured rim/glow, blue message fills, pastel channel highlights and strong beige triggers. The neutral correction at the end supersedes the earlier colour/rim recommendation. All message cards must stay white in every scroll state.
+**Hero correction, 26 October 2026:** the owner rejected the coloured rim/glow, blue message fills, pastel channel highlights and strong beige triggers. The neutral correction at the end supersedes the earlier colour/rim recommendation. The hero's message cards must stay white in every scroll state. The later AI-interface approval applies only to its separate scene.
 
 **Subsequent approved scope:** a thin silver frame with faint blue/coral edge reflections, following the owner's “ok go”. The neutral cards and channel treatment stay as corrected. See the final silver-frame entry.
 
 
-**Historical record below:** the earlier dated sections describe superseded work. Current implementation and rendered evidence are in the final click-to-watch entry.
+**Historical record below:** the earlier dated sections describe superseded work. Current AI composition and rendered evidence are in the linked 27 October interface review.
 
 Reviewed **23 October 2026 (Australia/Sydney)** for `/features/automation-builder`.
 

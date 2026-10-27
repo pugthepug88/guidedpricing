@@ -59,3 +59,13 @@ The four director passes remain consistent with the earlier assessments: static 
 ![Deployed coloured Pipeline customisation cards](qa/pipeline-coloured-tools-20261027.png)
 
 Main and the Lovable preview remain unchanged pending explicit approval of that update. No Lovable builder prompt or production Publish action was used.
+
+## Superseding composition correction, 27 October 2026
+
+The owner rejected the repeated centred-panel arrangement and solid fills, then approved a more composed interior with restrained local grain and tonal depth. The outer cards stay aligned; white UI remains opaque and smooth. Fields has an offset opportunity and a compact field-display setting; Quick actions has separate configuration and opportunity shortcut panels; Tags has a label key and three readable opportunity rows. Values and labels are prepared marketing data, not actual customer records, automatic classification or evidence that a shortcut executes a particular action.
+
+Reference decision: ADAPT the supplied Clay screenshots' material depth, varied scale and purposeful UI distribution. USE Zapla's palette, type, portraits and established product surfaces. REJECT heavy noise across the website, neon competitor colours, cursors, decorative movement and invented controls. A texture-only recolour was considered and rejected because it leaves the repetitive composition intact.
+
+Runtime changes are limited to PipelineManagementPage.tsx and pipeline-management.css. The three cards contain no new handlers, effects, submissions, service calls or runtime dependencies. The configured field-display check represents a documented option; the shortcut remains static appearance. Essential content must remain legible without JavaScript or motion. Tablet scenes receive more space instead of miniature UI.
+
+Rendered verification of this new composition is pending; earlier captures do not verify it. Current main's Automation and Websites changes are incorporated without rewriting branch history. The existing PR remains a draft while the candidate is checked. Main, Lovable and production have not been updated by this correction.
