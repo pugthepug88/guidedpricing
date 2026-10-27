@@ -233,3 +233,7 @@ The owner explicitly rejected the Chatbot play/continue control and consecutive 
 ## Calendar setup detail is supporting content, 27 October 2026
 
 The owner rejected making working-hour blocking, duration and minimum notice a major sales scene. Remove that availability panel rather than restyling it again or filling its place with another chapter. Keep those controls in the practical FAQ and calendar-provider recognition in a small supporting row beneath booking. A correct basic feature does not automatically deserve a large marketing section; judge its space by the buyer question and commercial value it adds.
+
+## Document illustration density, 27 October 2026
+
+The owner rejected excessive document words/numbers on Quotes, Invoices & Signatures. For this page, use selective fidelity: keep readable tool names, Signature/Initials/Date and the meaningful signed/payment result, while secondary document text and amounts may become quiet static lines. Remove repeated records and arithmetic rather than shrinking all text. These lines represent suppressed document content, not loading placeholders or decorative accent bars; hide them from assistive technology and never shimmer them. Keep quote, signing and invoice roles distinct and preserve the separate customer/staff actions in capability claims. This is not permission to turn every feature into anonymous skeleton UI.
