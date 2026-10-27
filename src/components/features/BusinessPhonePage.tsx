@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Check, Mic, Phone, Plus, Tag, Zap } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, FileText, Mic, Plus } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/business-phone.css";
@@ -41,32 +41,40 @@ function BookCall() {
   );
 }
 
-// Prepared button illustrations. These do not tag a contact or run a workflow.
-function QuickActions({ showTypes = false }: { showTypes?: boolean }) {
+// One prepared configuration, not a fixed list of Zapla's available shortcuts.
+// These values are explanatory text, not editable controls or a live form action.
+function CustomShortcut() {
   return (
-    <ul
-      className="bp-shortcut-buttons"
-      aria-label="Custom quick action buttons: Hot lead adds a tag; Follow-up runs a configured workflow"
-    >
-      <li>
-        <span className="bp-shortcut-icon bp-shortcut-tag">
-          <Tag size={19} aria-hidden="true" />
-        </span>
-        <span>
-          <strong>Hot lead</strong>
-          {showTypes && <small>Add tag</small>}
-        </span>
-      </li>
-      <li>
-        <span className="bp-shortcut-icon bp-shortcut-workflow">
-          <Zap size={19} aria-hidden="true" />
-        </span>
-        <span>
-          <strong>Follow-up</strong>
-          {showTypes && <small>Run workflow</small>}
-        </span>
-      </li>
-    </ul>
+    <div className="bp-shortcut-settings" aria-label="Customising a phone shortcut">
+      <header className="bp-product-header">
+        <Wordmark />
+        <span>Phone quick actions</span>
+      </header>
+      <dl className="bp-shortcut-fields">
+        <div>
+          <dt>Button name</dt>
+          <dd>Open enquiry form</dd>
+        </div>
+        <div>
+          <dt>Action</dt>
+          <dd>Open form</dd>
+        </div>
+        <div>
+          <dt>Icon &amp; colours</dt>
+          <dd className="bp-shortcut-appearance">
+            <FileText size={18} aria-hidden="true" />
+            <span>Document · Blue &amp; white</span>
+          </dd>
+        </div>
+      </dl>
+      <div className="bp-shortcut-footer">
+        <p>At the bottom of the dialler</p>
+        <div className="bp-shortcut-result">
+          <FileText size={19} aria-hidden="true" />
+          <span>Open enquiry form</span>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -96,20 +104,11 @@ function BrowserCall() {
           <Portrait className="bp-call-portrait" />
           <h2>Mia Thompson</h2>
           <p>Call in progress</p>
-          <div className="bp-call-recognition" aria-hidden="true">
-            <Mic size={18} />
-            <span />
-            <Phone size={20} />
-          </div>
         </div>
         <div className="bp-call-context">
           <span>Saved contact note</span>
           <p>Kitchen pendants. Requested a callback.</p>
         </div>
-        <footer className="bp-phone-shortcuts">
-          <p>Quick actions</p>
-          <QuickActions />
-        </footer>
       </article>
     </div>
   );
@@ -187,10 +186,6 @@ function PowerDialler() {
         <span>Click-to-call mode</span>
         <p>Call now → speak → save your note → Next.</p>
       </div>
-      <footer className="bp-phone-shortcuts">
-        <p>Quick actions</p>
-        <QuickActions />
-      </footer>
     </article>
   );
 }
@@ -328,17 +323,14 @@ export function BusinessPhonePage() {
         <div className="bp-wrap bp-quick-layout">
           <div className="bp-context-copy">
             <p className="bp-eyebrow">Phone quick actions</p>
-            <h2 id="bp-context-title">Your next action. Right on the dialler.</h2>
+            <h2 id="bp-context-title">Make the buttons your own.</h2>
             <p>
-              Customise each button’s name, icon, colours and action. Open a form, add a tag or run
-              a configured workflow.
+              Choose each shortcut’s name, icon, colours and action. Open forms, run configured
+              workflows or manage tags from your browser phone or Power Dialler.
             </p>
           </div>
           <div className="bp-action-proof">
-            <div className="bp-shortcut-settings">
-              <p>Your customised quick actions</p>
-              <QuickActions showTypes />
-            </div>
+            <CustomShortcut />
             <a className="bp-text-link" href="/crm">
               Explore the customer record
             </a>
