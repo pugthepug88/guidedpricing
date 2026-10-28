@@ -1,0 +1,46 @@
+[
+  {
+    "copyLeft": 126,
+    "marker": "translateY(217.339px)",
+    "phase": "start",
+    "reached": [
+      "true",
+      "false",
+      "false"
+    ],
+    "right": 84,
+    "y": 764
+  },
+  {
+    "copyLeft": 126,
+    "marker": "translateY(825.339px)",
+    "phase": "message",
+    "reached": [
+      "true",
+      "true",
+      "false"
+    ],
+    "right": 84,
+    "y": 1372
+  },
+  {
+    "marker": "translateY(1113.78px)",
+    "phase": "reply",
+    "reached": [
+      "true",
+      "true",
+      "true"
+    ],
+    "y": 1981
+  },
+  {
+    "marker": "translateY(825.339px)",
+    "phase": "reverse",
+    "reached": [
+      "true",
+      "true",
+      "false"
+    ],
+    "y": 1372
+  }
+]
