@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { QuoteFollowUpPage } from "@/components/solutions/QuoteFollowUpPage";
 
-const TITLE = "Quote Follow-Up | Keep Quoted Work Moving | Zapla";
+const TITLE = "Quote Follow-Up Automation | Zapla";
 const DESCRIPTION =
   "Follow up on quotes by SMS or email, keep customer replies in view and give your team a clear next step. Set up around your quoting process with Zapla.";
 
