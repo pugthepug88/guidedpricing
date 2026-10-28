@@ -105,18 +105,20 @@ export function DominoFooter() {
         <div className="relative z-20 px-4 pt-[240px] sm:px-8 lg:absolute lg:inset-x-0 lg:bottom-0 lg:px-12 lg:pt-0">
           <div className="mx-auto w-full max-w-[1240px] rounded-t-[34px] border border-b-0 border-white/75 bg-[#F8F5EF]/[0.97] p-7 pb-8 shadow-[0_-18px_70px_rgba(45,37,28,.16)] backdrop-blur-[12px] sm:p-9 sm:pb-10 lg:p-10 lg:pb-12">
             <div className="grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-[220px_minmax(128px,.85fr)_minmax(0,1.35fr)_minmax(0,.95fr)_minmax(0,1.15fr)_minmax(0,.95fr)] xl:gap-x-5">
-              <div className="col-span-full min-w-0 xl:col-span-1">
-                <a href="/" className="inline-flex items-center">
-                  <img src="/concept/zapla-logo-dark.svg" alt="Zapla" className="h-9 w-auto" />
-                </a>
+              <div className="col-span-full min-w-0 sm:flex sm:items-start sm:justify-between sm:gap-8 xl:col-span-1 xl:block">
+                <div>
+                  <a href="/" className="inline-flex items-center">
+                    <img src="/concept/zapla-logo-dark.svg" alt="Zapla" className="h-9 w-auto" />
+                  </a>
 
-                <p className="mt-4 text-[15px] font-medium leading-[1.6] text-[#454C46]">
-                  You lead.
-                  <br />
-                  Zapla follows through.
-                </p>
+                  <p className="mt-4 text-[15px] font-medium leading-[1.6] text-[#454C46]">
+                    You lead.
+                    <br />
+                    Zapla follows through.
+                  </p>
+                </div>
 
-                <div className="mt-6 grid gap-3">
+                <div className="mt-6 grid gap-3 sm:mt-0 xl:mt-6">
                   <a
                     href="https://www.trustpilot.com/review/zapla.io"
                     className="inline-flex w-fit items-center gap-2 rounded-full border border-[#E2DBD1] bg-white/75 px-3.5 py-1.5 text-[13px] font-bold text-[#111318] transition-colors hover:border-[#2563FF]"
