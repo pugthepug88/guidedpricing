@@ -300,8 +300,8 @@ const FAQS = [
     "An active phone setup, a number, a computer with a microphone and speakers or headset, and reliable internet. We check permissions and calling requirements during setup.",
   ],
   [
-    "Does Power Dialler call automatically?",
-    "Click-to-call keeps Call now and Next in your hands. Optional Auto Dial advances and calls after a delay you set. You start or stop that sequence; your team still writes notes and decides the follow-up.",
+    "How do I work through the calling list?",
+    "Use Call now for the current contact and Next when you’re ready to continue. Your team saves notes and decides the follow-up.",
   ],
   [
     "How are incoming calls handled?",
@@ -362,9 +362,6 @@ export function BusinessPhonePage() {
               <p>
                 Select CRM contacts and push them to Power Dialler. Save what was agreed, then
                 continue when you’re ready.
-              </p>
-              <p className="bp-auto-option">
-                Optional Auto Dial: advance and call after a delay you set.
               </p>
             </div>
             <PowerDialler />
