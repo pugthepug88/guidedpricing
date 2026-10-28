@@ -1,0 +1,48 @@
+[
+  {
+    "copyLeft": 126,
+    "marker": "translateY(186.746px)",
+    "phase": "entry",
+    "reached": [
+      "true",
+      "false",
+      "false"
+    ],
+    "routeRight": 84,
+    "scrollY": 865
+  },
+  {
+    "copyLeft": 126,
+    "marker": "translateY(935.746px)",
+    "phase": "middle",
+    "reached": [
+      "true",
+      "true",
+      "false"
+    ],
+    "routeRight": 84,
+    "scrollY": 1614
+  },
+  {
+    "copyLeft": 126,
+    "marker": "translateY(1137.59px)",
+    "phase": "reply",
+    "reached": [
+      "true",
+      "true",
+      "true"
+    ],
+    "routeRight": 84,
+    "scrollY": 2363
+  },
+  {
+    "marker": "translateY(935.746px)",
+    "phase": "reverse",
+    "reached": [
+      "true",
+      "true",
+      "false"
+    ],
+    "scrollY": 1614
+  }
+]
