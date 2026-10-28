@@ -1,0 +1,738 @@
+/* Quote Follow-Up uses the warm paper, ink controls and local material of Zapla's feature family. */
+.zapla-quote-follow-up {
+  background: #fcfcfa;
+  --qf-muted: #59645f;
+}
+.zapla-quote-follow-up .qf-wrap {
+  width: min(1280px, 89%);
+}
+.zapla-quote-follow-up .qf-button {
+  background: #1e2b29;
+  gap: 18px;
+}
+.zapla-quote-follow-up .qf-button:hover {
+  background: #334a40;
+}
+.zapla-quote-follow-up .qf-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: #294136;
+  text-decoration: none;
+  border-bottom: 1px solid #aeb8b1;
+}
+.zapla-quote-follow-up .qf-label {
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: #59665e;
+}
+.zapla-quote-follow-up .qf-opening {
+  padding: 128px 0 55px;
+}
+.zapla-quote-follow-up .qf-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.87fr) minmax(0, 1.13fr);
+  gap: 55px;
+  align-items: center;
+}
+.zapla-quote-follow-up h1 {
+  font-size: clamp(45px, 5.2vw, 73px);
+  line-height: 1.015;
+  letter-spacing: -0.057em;
+  margin-top: 23px;
+}
+.zapla-quote-follow-up h1 span {
+  display: block;
+  margin-top: 8px;
+  color: #111318;
+}
+.zapla-quote-follow-up .qf-hero-copy > .qf-label {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.zapla-quote-follow-up .qf-hero-copy > .qf-hero-lead {
+  max-width: 430px;
+  font-size: 17px;
+  line-height: 1.8;
+  margin-top: 28px;
+}
+.zapla-quote-follow-up .qf-actions {
+  margin-top: 29px;
+  gap: 15px 24px;
+}
+.zapla-quote-follow-up .qf-hero-art {
+  position: relative;
+  isolation: isolate;
+  min-height: 620px;
+  border-radius: 36px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 13% 0%, #c8e5f8, transparent 64%),
+    linear-gradient(135deg, #86b2d4, #4f83b5 54%, #234d76);
+  box-shadow:
+    inset 0 1px 1px #ffffffbd,
+    0 22px 65px -45px #13395677;
+}
+.zapla-quote-follow-up .qf-hero-art::after,
+.zapla-quote-follow-up .qf-launch-canvas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23fff' filter='url(%23n)' opacity='.28' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+}
+.zapla-quote-follow-up .qf-art-sculpture {
+  position: absolute;
+  right: -110px;
+  top: -55px;
+  width: 470px;
+  height: 470px;
+  transform: rotate(-12deg);
+  opacity: 0.27;
+  z-index: -1;
+  filter: drop-shadow(-3px -3px 2px #e7f7ff) drop-shadow(14px 18px 12px #173f68);
+}
+.zapla-quote-follow-up .qf-art-sculpture svg {
+  width: 100%;
+  height: 100%;
+  filter: grayscale(1);
+  opacity: 0.42;
+}
+.zapla-quote-follow-up .qf-art-route {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.zapla-quote-follow-up .qf-art-route-track {
+  fill: none;
+  stroke: #163e6659;
+  stroke-width: 18;
+  stroke-linecap: round;
+}
+.zapla-quote-follow-up .qf-art-route-light {
+  fill: none;
+  stroke: #d4e9fb;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 900;
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 1px 0 #fff6);
+}
+.zapla-quote-follow-up .qf-art-quote {
+  position: absolute;
+  left: 7%;
+  top: 37px;
+  width: 60%;
+  padding: 24px 26px 21px;
+  border: 1px solid #ffffffd9;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ffffffec, #e7f0f7da);
+  box-shadow:
+    0 22px 35px -20px #163a6080,
+    inset 0 0 0 4px #ffffff25;
+  backdrop-filter: blur(16px);
+  z-index: 1;
+}
+.zapla-quote-follow-up .qf-art-quote-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #4b6277;
+}
+.zapla-quote-follow-up .qf-art-quote-head > span:last-child {
+  color: #315d50;
+}
+.zapla-quote-follow-up .qf-art-quote h2 {
+  font-size: 30px;
+  margin-top: 17px;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+}
+.zapla-quote-follow-up .qf-art-quote > p {
+  font-size: 13px;
+  margin-top: 9px;
+  color: #4c6274;
+}
+.zapla-quote-follow-up .qf-art-scope {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 18px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #4a6175;
+  margin-top: 15px;
+  padding-top: 14px;
+  border-top: 1px solid #7594af4f;
+}
+.zapla-quote-follow-up .qf-art-conductor {
+  position: absolute;
+  width: 106px;
+  height: 106px;
+  right: 7%;
+  top: 230px;
+  z-index: 2;
+  border-radius: 30px;
+  box-shadow:
+    0 18px 25px -12px #113e7580,
+    0 0 0 7px #d5e8f544;
+  transform: perspective(600px) rotateY(-12deg) rotateX(7deg);
+}
+.zapla-quote-follow-up .qf-art-conductor svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.zapla-quote-follow-up .qf-art-wait {
+  position: absolute;
+  left: 9%;
+  top: 309px;
+  display: flex;
+  gap: 10px 16px;
+  align-items: baseline;
+  color: #ecf5ff;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.zapla-quote-follow-up .qf-art-wait strong {
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+}
+.zapla-quote-follow-up .qf-art-message {
+  position: absolute;
+  left: 10%;
+  right: 6%;
+  top: 379px;
+  padding: 25px 27px 19px;
+  border: 1px solid #fffffff0;
+  border-radius: 21px;
+  background: linear-gradient(125deg, #fffffff5, #edf5f9f0);
+  box-shadow:
+    0 25px 45px -20px #0c2c5766,
+    inset 0 0 0 4px #fff4;
+  backdrop-filter: blur(14px);
+  z-index: 2;
+}
+.zapla-quote-follow-up .qf-art-message-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #5b7184;
+  padding-bottom: 17px;
+  border-bottom: 1px solid #bdcedb73;
+}
+.zapla-quote-follow-up .qf-art-message-head img {
+  width: 78px;
+  height: auto;
+}
+.zapla-quote-follow-up .qf-art-message > p {
+  font-size: 15px;
+  line-height: 1.75;
+  margin-top: 17px;
+  color: #233b50;
+}
+.zapla-quote-follow-up .qf-art-message-foot {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #577084;
+  margin-top: 17px;
+}
+.zapla-quote-follow-up .qf-opening-foot {
+  padding-top: 29px;
+  align-items: baseline;
+}
+.zapla-quote-follow-up .qf-opening-foot > span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #30483e;
+}
+.zapla-quote-follow-up .qf-opening-foot p {
+  font-size: 13px;
+  max-width: 470px;
+}
+.zapla-quote-follow-up .qf-human {
+  padding: 65px 0 90px;
+}
+.zapla-quote-follow-up .qf-human-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 75px;
+  align-items: center;
+}
+.zapla-quote-follow-up .qf-human h2 {
+  font-size: clamp(48px, 5vw, 70px);
+  margin-top: 19px;
+}
+.zapla-quote-follow-up .qf-human header > p:not(.qf-label) {
+  max-width: 410px;
+  margin-top: 24px;
+  font-size: 15px;
+}
+.zapla-quote-follow-up .qf-human-signoff {
+  display: block;
+  margin-top: 27px;
+  font-size: 16px;
+  color: #2c4f72;
+}
+.zapla-quote-follow-up .qf-human figure {
+  border-radius: 30px 80px 30px 30px;
+  overflow: hidden;
+}
+.zapla-quote-follow-up .qf-human img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1.5;
+  object-fit: cover;
+  object-position: 65% 30%;
+}
+.zapla-quote-follow-up .qf-adoption {
+  padding: 65px 0 75px;
+}
+.zapla-quote-follow-up .qf-adoption-grid {
+  display: grid;
+  grid-template-columns: 0.93fr 1.07fr;
+  gap: 75px;
+  align-items: center;
+}
+.zapla-quote-follow-up .qf-adoption h2 {
+  font-size: clamp(36px, 4.1vw, 56px);
+  margin-top: 20px;
+}
+.zapla-quote-follow-up .qf-adoption-copy > p:not(.qf-label) {
+  margin-top: 24px;
+  max-width: 430px;
+}
+.zapla-quote-follow-up .qf-fit-option {
+  margin-top: 29px;
+  padding-top: 25px;
+  border-top: 1px solid #dce1db;
+}
+.zapla-quote-follow-up .qf-fit-option h3 {
+  font-size: 23px;
+}
+.zapla-quote-follow-up .qf-fit-option p {
+  margin-top: 12px;
+  font-size: 14px;
+  max-width: 440px;
+}
+.zapla-quote-follow-up .qf-fit-option .qf-link {
+  margin-top: 10px;
+}
+.zapla-quote-follow-up .qf-launch-canvas {
+  position: relative;
+  isolation: isolate;
+  padding: 32px;
+  border-radius: 30px;
+  background:
+    radial-gradient(ellipse at 12% 0%, #f8fcff, transparent 65%),
+    linear-gradient(145deg, #dfe7ee, #b8c8d8);
+  box-shadow:
+    inset 0 0 0 1px #cad8e3,
+    inset 0 1px 2px #fff;
+}
+.zapla-quote-follow-up .qf-launch-plan {
+  padding: 30px;
+  border-radius: 21px;
+  border: 1px solid #fff;
+  background: #ffffffdc;
+  box-shadow: 0 17px 30px -17px #3c587a55;
+  backdrop-filter: blur(12px);
+}
+.zapla-quote-follow-up .qf-launch-plan header {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #d3dfe5;
+}
+.zapla-quote-follow-up .qf-launch-mark {
+  width: 40px;
+  height: 40px;
+}
+.zapla-quote-follow-up .qf-launch-plan h3 {
+  font-size: 23px;
+  margin-top: 3px;
+}
+.zapla-quote-follow-up .qf-launch-plan dl > div {
+  padding: 20px 0;
+  border-bottom: 1px solid #dbe3e6;
+}
+.zapla-quote-follow-up .qf-launch-plan dt {
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 600;
+  color: #2b4254;
+}
+.zapla-quote-follow-up .qf-launch-plan dd {
+  font-size: 13px;
+  line-height: 1.75;
+  color: #5c6e7a;
+  margin-top: 7px;
+}
+.zapla-quote-follow-up .qf-launch-plan .qf-link {
+  margin-top: 16px;
+}
+.zapla-quote-follow-up .qf-launch-canvas > .qf-terms {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #4d6274;
+  margin: 20px 4px 0;
+}
+.zapla-quote-follow-up .qf-questions-grid {
+  gap: 80px;
+}
+.zapla-quote-follow-up .qf-faq {
+  padding: 8px 30px;
+  border-radius: 24px;
+  background: #f1f4f5;
+  border: 1px solid #e3e9e9;
+}
+.zapla-quote-follow-up .qf-faq details {
+  border-top: 0;
+}
+.zapla-quote-follow-up .qf-faq details + details {
+  border-top: 1px solid #d8e0e1;
+}
+.zapla-quote-follow-up .qf-faq summary {
+  font-size: 14px;
+  font-weight: 500;
+  padding-block: 22px;
+}
+.zapla-quote-follow-up .qf-faq details > p {
+  font-size: 13px;
+  line-height: 1.85;
+}
+.zapla-quote-follow-up .qf-final {
+  padding: 65px 0 90px;
+}
+.zapla-quote-follow-up .qf-final h2 {
+  font-size: clamp(40px, 5.1vw, 68px);
+}
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .qf-art-route-light {
+    animation: qf-route-connect 1.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes qf-route-connect {
+    from {
+      stroke-dashoffset: 900;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+}
+@media (max-width: 1150px) {
+  .zapla-quote-follow-up .qf-hero-grid {
+    gap: 35px;
+    grid-template-columns: 0.88fr 1.12fr;
+  }
+  .zapla-quote-follow-up .qf-art-quote {
+    left: 6%;
+    width: 63%;
+    padding: 23px;
+  }
+  .zapla-quote-follow-up .qf-art-quote h2 {
+    font-size: 27px;
+  }
+  .zapla-quote-follow-up .qf-art-conductor {
+    right: 6%;
+    width: 94px;
+    height: 94px;
+    top: 240px;
+  }
+  .zapla-quote-follow-up .qf-art-message {
+    left: 7%;
+    right: 7%;
+    padding: 24px;
+  }
+  .zapla-quote-follow-up .qf-human-grid,
+  .zapla-quote-follow-up .qf-adoption-grid,
+  .zapla-quote-follow-up .qf-questions-grid {
+    gap: 45px;
+  }
+  .zapla-quote-follow-up .qf-launch-canvas {
+    padding: 25px;
+  }
+  .zapla-quote-follow-up .qf-launch-plan {
+    padding: 25px;
+  }
+}
+@media (max-width: 900px) {
+  .zapla-quote-follow-up .qf-opening {
+    padding-top: 110px;
+  }
+  .zapla-quote-follow-up .qf-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .zapla-quote-follow-up h1 {
+    font-size: clamp(47px, 7.6vw, 65px);
+  }
+  .zapla-quote-follow-up h1 br {
+    display: none;
+  }
+  .zapla-quote-follow-up h1 span {
+    margin-top: 4px;
+  }
+  .zapla-quote-follow-up .qf-hero-copy > .qf-hero-lead {
+    max-width: 560px;
+    font-size: 16px;
+    margin-top: 23px;
+  }
+  .zapla-quote-follow-up .qf-hero-art {
+    width: 100%;
+    max-width: 680px;
+    min-height: 620px;
+    margin: auto;
+  }
+  .zapla-quote-follow-up .qf-art-quote {
+    width: 60%;
+    top: 37px;
+    padding: 25px;
+  }
+  .zapla-quote-follow-up .qf-art-conductor {
+    right: 7%;
+    width: 106px;
+    height: 106px;
+    top: 230px;
+  }
+  .zapla-quote-follow-up .qf-art-message {
+    left: 10%;
+    right: 6%;
+    padding: 25px 27px;
+  }
+  .zapla-quote-follow-up .qf-opening-foot {
+    align-items: start;
+  }
+  .zapla-quote-follow-up .qf-human-grid {
+    gap: 35px;
+  }
+  .zapla-quote-follow-up .qf-human h2 {
+    font-size: 48px;
+  }
+  .zapla-quote-follow-up .qf-adoption-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .zapla-quote-follow-up .qf-adoption-copy > p:not(.qf-label) {
+    max-width: 570px;
+  }
+  .zapla-quote-follow-up .qf-launch-canvas {
+    max-width: 650px;
+    width: 100%;
+  }
+  .zapla-quote-follow-up .qf-questions-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .zapla-quote-follow-up .qf-human,
+  .zapla-quote-follow-up .qf-adoption,
+  .zapla-quote-follow-up .qf-questions {
+    padding-block: 50px;
+  }
+}
+@media (max-width: 600px) {
+  .zapla-quote-follow-up .qf-wrap {
+    width: calc(100% - 40px);
+  }
+  .zapla-quote-follow-up .qf-opening {
+    padding: 95px 0 34px;
+  }
+  .zapla-quote-follow-up h1 {
+    font-size: clamp(31px, 8.5vw, 47px);
+    line-height: 1.05;
+    letter-spacing: -0.05em;
+    margin-top: 18px;
+  }
+  .zapla-quote-follow-up .qf-hero-copy > .qf-hero-lead {
+    font-size: 15px;
+  }
+  .zapla-quote-follow-up .qf-actions {
+    margin-top: 23px;
+    gap: 13px 20px;
+  }
+  .zapla-quote-follow-up .qf-button {
+    font-size: 13px;
+    padding-inline: 21px;
+  }
+  .zapla-quote-follow-up .qf-link {
+    font-size: 12px;
+  }
+  .zapla-quote-follow-up .qf-hero-art {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 23px 19px;
+    border-radius: 25px;
+  }
+  .zapla-quote-follow-up .qf-art-quote,
+  .zapla-quote-follow-up .qf-art-message {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    padding: 21px;
+    flex: none;
+  }
+  .zapla-quote-follow-up .qf-art-quote h2 {
+    font-size: 27px;
+    margin-top: 15px;
+  }
+  .zapla-quote-follow-up .qf-art-route {
+    display: none;
+  }
+  .zapla-quote-follow-up .qf-art-sculpture {
+    width: 320px;
+    height: 320px;
+    top: -20px;
+    right: -110px;
+  }
+  .zapla-quote-follow-up .qf-art-conductor {
+    position: relative;
+    inset: auto;
+    transform: none;
+    width: 48px;
+    height: 48px;
+    align-self: center;
+    margin: 3px 0;
+    box-shadow:
+      0 10px 16px -7px #14365a77,
+      0 0 0 4px #d5e8f533;
+    border-radius: 14px;
+  }
+  .zapla-quote-follow-up .qf-art-wait {
+    position: static;
+    justify-content: center;
+    font-size: 11px;
+    flex-wrap: wrap;
+    gap: 7px 15px;
+  }
+  .zapla-quote-follow-up .qf-art-wait strong {
+    font-size: 12px;
+  }
+  .zapla-quote-follow-up .qf-art-message-head {
+    padding-bottom: 15px;
+  }
+  .zapla-quote-follow-up .qf-art-message > p {
+    font-size: 14px;
+    margin-top: 16px;
+  }
+  .zapla-quote-follow-up .qf-art-message-foot {
+    font-size: 10px;
+    margin-top: 15px;
+  }
+  .zapla-quote-follow-up .qf-opening-foot {
+    display: block;
+    padding-top: 23px;
+  }
+  .zapla-quote-follow-up .qf-opening-foot > span {
+    font-size: 13px;
+  }
+  .zapla-quote-follow-up .qf-opening-foot p {
+    font-size: 12px;
+    margin-top: 9px;
+  }
+  .zapla-quote-follow-up .qf-human-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .zapla-quote-follow-up .qf-human h2 {
+    font-size: 48px;
+  }
+  .zapla-quote-follow-up .qf-human h2 br {
+    display: none;
+  }
+  .zapla-quote-follow-up .qf-human header > p:not(.qf-label) {
+    font-size: 14px;
+    margin-top: 19px;
+  }
+  .zapla-quote-follow-up .qf-human figure {
+    border-radius: 24px 60px 24px 24px;
+  }
+  .zapla-quote-follow-up .qf-human-signoff {
+    font-size: 15px;
+    margin-top: 20px;
+  }
+  .zapla-quote-follow-up .qf-human,
+  .zapla-quote-follow-up .qf-adoption,
+  .zapla-quote-follow-up .qf-questions {
+    padding-block: 40px;
+  }
+  .zapla-quote-follow-up .qf-adoption h2 {
+    font-size: 35px;
+  }
+  .zapla-quote-follow-up .qf-adoption-copy > p:not(.qf-label) {
+    font-size: 15px;
+  }
+  .zapla-quote-follow-up .qf-fit-option {
+    margin-top: 25px;
+    padding-top: 23px;
+  }
+  .zapla-quote-follow-up .qf-fit-option h3 {
+    font-size: 23px;
+  }
+  .zapla-quote-follow-up .qf-launch-canvas {
+    padding: 20px;
+    border-radius: 25px;
+  }
+  .zapla-quote-follow-up .qf-launch-plan {
+    padding: 21px;
+  }
+  .zapla-quote-follow-up .qf-launch-plan h3 {
+    font-size: 21px;
+  }
+  .zapla-quote-follow-up .qf-launch-plan header {
+    gap: 12px;
+  }
+  .zapla-quote-follow-up .qf-launch-mark {
+    width: 34px;
+    height: 34px;
+  }
+  .zapla-quote-follow-up .qf-launch-plan dd {
+    font-size: 13px;
+  }
+  .zapla-quote-follow-up .qf-terms {
+    font-size: 11px;
+  }
+  .zapla-quote-follow-up .qf-faq {
+    padding: 5px 22px;
+  }
+  .zapla-quote-follow-up .qf-faq summary {
+    font-size: 14px;
+    padding-block: 20px;
+  }
+  .zapla-quote-follow-up .qf-final {
+    padding: 50px 0 65px;
+  }
+  .zapla-quote-follow-up .qf-final h2 {
+    font-size: clamp(33px, 8.5vw, 43px);
+  }
+}
+/* Timing is essential context, so give it a clear glass label over the material. */
+.zapla-quote-follow-up .qf-art-wait {
+  color: #183d56;
+  background: #f1f8ffdf;
+  border: 1px solid #ffffffa6;
+  border-radius: 7px;
+  padding: 5px 10px;
+  top: 300px;
+}
+.zapla-quote-follow-up .qf-art-wait strong {
+  color: #183d56;
+}
+@media (max-width: 600px) {
+  .zapla-quote-follow-up .qf-art-wait {
+    align-self: center;
+  }
+}

@@ -18,6 +18,20 @@ export const QUOTE_FOLLOW_SMS =
 const EMAIL_MESSAGE =
   "Hi Emma, your proposal Q-1042 covers brand identity and a website launch. If you’d like to talk through either stage or start with the brand identity, reply here and we’ll help.";
 
+function JourneyPortrait({ cell }: { cell: number }) {
+  return (
+    <span
+      className="qfj-portrait"
+      aria-hidden="true"
+      style={{
+        backgroundImage: "url('/concept/revenue/soft-autumn-portraits-v1.webp')",
+        backgroundSize: "600% 400%",
+        backgroundPosition: `${((cell % 6) / 5) * 100}% ${(Math.floor(cell / 6) / 3) * 100}%`,
+      }}
+    />
+  );
+}
+
 /**
  * Prepared configuration and customer dialogue, not a live workflow execution.
  * Quote Sent, waits and channel actions are supported building blocks. Alex's
@@ -125,6 +139,9 @@ export function QuoteFollowJourney() {
             <p className="qfj-detail">
               You decide which quotes enter the process. Zapla follows the configured steps.
             </p>
+            <a className="qfj-text-link" href="/features/quotes-invoices-signatures">
+              Explore quoting <span aria-hidden="true">→</span>
+            </a>
           </header>
           <div className="qfj-quote-scene" aria-label="Emma's quote starts the configured process">
             <div className="qfj-document">
@@ -171,6 +188,9 @@ export function QuoteFollowJourney() {
             <p className="qfj-detail">
               Explore the channel and timing here. The message below changes with your choice.
             </p>
+            <a className="qfj-text-link" href="/features/automation-builder">
+              Explore automation <span aria-hidden="true">→</span>
+            </a>
           </header>
           <div className="qfj-message-scene">
             <div className="qfj-settings">
@@ -246,6 +266,9 @@ export function QuoteFollowJourney() {
               Here, Emma asks to start with the brand identity. Alex responds and records the next
               step.
             </p>
+            <a className="qfj-text-link" href="/features/unified-inbox">
+              Explore Inbox <span aria-hidden="true">→</span>
+            </a>
           </header>
           <div
             className="qfj-inbox-scene"
@@ -256,8 +279,11 @@ export function QuoteFollowJourney() {
               <span>{channel}</span>
             </div>
             <div className="qfj-customer-heading">
-              <h3>Emma Wilson</h3>
-              <p>Brand &amp; website proposal · Q-1042</p>
+              <JourneyPortrait cell={9} />
+              <div>
+                <h3>Emma Wilson</h3>
+                <p>Brand &amp; website proposal · Q-1042</p>
+              </div>
             </div>
             <div className="qfj-thread">
               <div className="qfj-thread-outbound">
@@ -274,11 +300,14 @@ export function QuoteFollowJourney() {
               </div>
             </div>
             <div className="qfj-customer-note">
-              <span>
-                Customer note
-                <br />
-                <strong>Alex · Your team</strong>
-              </span>
+              <div className="qfj-note-person">
+                <JourneyPortrait cell={13} />
+                <span>
+                  Customer note
+                  <br />
+                  <strong>Alex · Your team</strong>
+                </span>
+              </div>
               <p>
                 Emma wants to start with the brand identity. Review the scope before preparing a
                 revised quote.

@@ -1,0 +1,233 @@
+[
+  {
+    "size": "1440,900",
+    "overflow": 0,
+    "brokenImages": [],
+    "clipped": [],
+    "art": {
+      "left": 661.125,
+      "right": 1346.625,
+      "top": -3803,
+      "bottom": -3183
+    },
+    "message": {
+      "left": 729.671875,
+      "right": 1305.5,
+      "top": -3424,
+      "bottom": -3233
+    },
+    "quote": {
+      "left": 709.109375,
+      "right": 1120.40625,
+      "top": -3766,
+      "bottom": -3537.875
+    },
+    "conductor": {
+      "left": 1192.869384765625,
+      "right": 1299.245361328125,
+      "top": -3573.0205078125,
+      "bottom": -3465.829833984375
+    },
+    "route": "true",
+    "heading": "You send the quote. Zapla follows through.",
+    "pageHeight": 6210
+  },
+  {
+    "size": "1194,834",
+    "overflow": 0,
+    "brokenImages": [],
+    "clipped": [],
+    "art": {
+      "left": 552.359375,
+      "right": 1114.140625,
+      "top": -3799,
+      "bottom": -3179
+    },
+    "message": {
+      "left": 608.53125,
+      "right": 1080.4375,
+      "top": -3420,
+      "bottom": -3202.75
+    },
+    "quote": {
+      "left": 591.671875,
+      "right": 928.734375,
+      "top": -3762,
+      "bottom": -3533.875
+    },
+    "conductor": {
+      "left": 969.056884765625,
+      "right": 1075.432861328125,
+      "top": -3569.0205078125,
+      "bottom": -3461.829833984375
+    },
+    "route": "true",
+    "heading": "You send the quote. Zapla follows through.",
+    "pageHeight": 6181
+  },
+  {
+    "size": "1100,780",
+    "overflow": 0,
+    "brokenImages": [],
+    "clipped": [],
+    "art": {
+      "left": 504.140625,
+      "right": 1025.3125,
+      "top": -3807,
+      "bottom": -3187
+    },
+    "message": {
+      "left": 540.609375,
+      "right": 988.84375,
+      "top": -3428,
+      "bottom": -3206.75
+    },
+    "quote": {
+      "left": 535.40625,
+      "right": 863.734375,
+      "top": -3770,
+      "bottom": -3547.59375
+    },
+    "conductor": {
+      "left": 900.20849609375,
+      "right": 994.5407104492188,
+      "top": -3566.97607421875,
+      "bottom": -3472.12353515625
+    },
+    "route": "true",
+    "heading": "You send the quote. Zapla follows through.",
+    "pageHeight": 6207
+  },
+  {
+    "size": "1440,700",
+    "overflow": 0,
+    "brokenImages": [],
+    "clipped": [],
+    "art": {
+      "left": 661.125,
+      "right": 1346.625,
+      "top": -3803,
+      "bottom": -3183
+    },
+    "message": {
+      "left": 729.671875,
+      "right": 1305.5,
+      "top": -3424,
+      "bottom": -3233
+    },
+    "quote": {
+      "left": 709.109375,
+      "right": 1120.40625,
+      "top": -3766,
+      "bottom": -3537.875
+    },
+    "conductor": {
+      "left": 1192.869384765625,
+      "right": 1299.245361328125,
+      "top": -3573.0205078125,
+      "bottom": -3465.829833984375
+    },
+    "route": "true",
+    "heading": "You send the quote. Zapla follows through.",
+    "pageHeight": 6210
+  },
+  {
+    "size": "834,1112",
+    "overflow": 0,
+    "brokenImages": [],
+    "clipped": [],
+    "art": {
+      "left": 69.5,
+      "right": 749.5,
+      "top": -3451.5625,
+      "bottom": -2831.5625
+    },
+    "message": {
+      "left": 137.5,
+      "right": 708.703125,
+      "top": -3072.5625,
+      "bottom": -2875.5625
+    },
+    "quote": {
+      "left": 110.296875,
+      "right": 518.296875,
+      "top": -3414.5625,
+      "bottom": -3188.15625
+    },
+    "conductor": {
+      "left": 596.135009765625,
+      "right": 702.5110473632812,
+      "top": -3221.5830078125,
+      "bottom": -3114.392333984375
+    },
+    "route": "false",
+    "heading": "You send the quote. Zapla follows through.",
+    "pageHeight": 7183
+  },
+  {
+    "size": "393,852",
+    "overflow": 0,
+    "brokenImages": [],
+    "clipped": [],
+    "art": {
+      "left": 20,
+      "right": 358,
+      "top": -3512.6875,
+      "bottom": -2883.1875
+    },
+    "message": {
+      "left": 39,
+      "right": 339,
+      "top": -3134.09375,
+      "bottom": -2906.1875
+    },
+    "quote": {
+      "left": 39,
+      "right": 339,
+      "top": -3489.6875,
+      "bottom": -3273.28125
+    },
+    "conductor": {
+      "left": 165,
+      "right": 213,
+      "top": -3252.28125,
+      "bottom": -3204.28125
+    },
+    "route": "false",
+    "heading": "You send the quote. Zapla follows through.",
+    "pageHeight": 9137
+  },
+  {
+    "size": "320,740",
+    "overflow": 0,
+    "brokenImages": [],
+    "clipped": [],
+    "art": {
+      "left": 20,
+      "right": 285,
+      "top": -3930.171875,
+      "bottom": -3221.4375
+    },
+    "message": {
+      "left": 39,
+      "right": 266,
+      "top": -3521.34375,
+      "bottom": -3244.4375
+    },
+    "quote": {
+      "left": 39,
+      "right": 266,
+      "top": -3907.171875,
+      "bottom": -3660.53125
+    },
+    "conductor": {
+      "left": 128.5,
+      "right": 176.5,
+      "top": -3639.53125,
+      "bottom": -3591.53125
+    },
+    "route": "false",
+    "heading": "You send the quote. Zapla follows through.",
+    "pageHeight": 10298
+  }
+]
