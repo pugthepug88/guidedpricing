@@ -1,0 +1,201 @@
+path,device,viewport_width,viewport_height,usable_width,scroll_width,overflow_px,page_height,broken_images,load_error,heading
+/,desktop,1440,900,1425,1425,0,19071,10,False,You lead. Zapla follows through.
+/,ipad,834,1112,819,819,0,21613,10,False,You lead. Zapla follows through.
+/,landscape,1194,834,1179,1179,0,18584,10,False,You lead. Zapla follows through.
+/,phone,393,852,378,378,0,20213,10,False,You lead. Zapla follows through.
+/,narrow,320,740,305,305,0,20170,10,False,You lead. Zapla follows through.
+/platform,desktop,1440,900,1425,1425,0,7017,2,False,One customer. One connected system.
+/platform,ipad,834,1112,819,819,0,7465,1,False,One customer. One connected system.
+/platform,landscape,1194,834,1179,1179,0,6902,2,False,One customer. One connected system.
+/platform,phone,393,852,378,378,0,9771,1,False,One customer. One connected system.
+/platform,narrow,320,740,305,305,0,10282,1,False,One customer. One connected system.
+/crm,desktop,1440,900,1425,1425,0,7857,0,False,"The CRM that keeps every customer, conversation and next step connected."
+/crm,ipad,834,1112,819,819,0,11277,0,False,"The CRM that keeps every customer, conversation and next step connected."
+/crm,landscape,1194,834,1179,1179,0,8722,0,False,"The CRM that keeps every customer, conversation and next step connected."
+/crm,phone,393,852,378,378,0,13797,0,False,"The CRM that keeps every customer, conversation and next step connected."
+/crm,narrow,320,740,305,305,0,14606,0,False,"The CRM that keeps every customer, conversation and next step connected."
+/customer-marketing,desktop,1440,900,1425,1425,0,6721,0,False,Turn the customers you already know into your next campaign.
+/customer-marketing,ipad,834,1112,819,819,0,9325,0,False,Turn the customers you already know into your next campaign.
+/customer-marketing,landscape,1194,834,1179,1179,0,6796,0,False,Turn the customers you already know into your next campaign.
+/customer-marketing,phone,393,852,378,378,0,11062,0,False,Turn the customers you already know into your next campaign.
+/customer-marketing,narrow,320,740,305,305,0,12270,0,False,Turn the customers you already know into your next campaign.
+/follow-up,desktop,1440,900,1425,1425,0,8551,0,False,The lead came in. Zapla keeps it moving.
+/follow-up,ipad,834,1112,819,819,0,11658,0,False,The lead came in. Zapla keeps it moving.
+/follow-up,landscape,1194,834,1179,1179,0,8522,0,False,The lead came in. Zapla keeps it moving.
+/follow-up,phone,393,852,378,378,0,13257,0,False,The lead came in. Zapla keeps it moving.
+/follow-up,narrow,320,740,305,368,63,14145,0,False,The lead came in. Zapla keeps it moving.
+/ai-receptionist,desktop,1440,900,1425,1425,0,7554,0,False,Your phone rings. Zapla picks up. You keep working.
+/ai-receptionist,ipad,834,1112,819,819,0,9909,0,False,Your phone rings. Zapla picks up. You keep working.
+/ai-receptionist,landscape,1194,834,1179,1179,0,7376,0,False,Your phone rings. Zapla picks up. You keep working.
+/ai-receptionist,phone,393,852,378,378,0,10091,0,False,Your phone rings. Zapla picks up. You keep working.
+/ai-receptionist,narrow,320,740,305,305,0,10368,0,False,Your phone rings. Zapla picks up. You keep working.
+/quote-follow-up,desktop,1440,900,1425,1425,0,8445,0,False,The quote is sent. The decision is not.
+/quote-follow-up,ipad,834,1112,819,819,0,12757,0,False,The quote is sent. The decision is not.
+/quote-follow-up,landscape,1194,834,1179,1179,0,8679,0,False,The quote is sent. The decision is not.
+/quote-follow-up,phone,393,852,378,378,0,14883,0,False,The quote is sent. The decision is not.
+/quote-follow-up,narrow,320,740,305,305,0,16231,0,False,The quote is sent. The decision is not.
+/reactivation,desktop,1440,900,1425,1425,0,7097,0,False,They went quiet. That doesn't mean they're gone.
+/reactivation,ipad,834,1112,819,819,0,9215,0,False,They went quiet. That doesn't mean they're gone.
+/reactivation,landscape,1194,834,1179,1179,0,7057,0,False,They went quiet. That doesn't mean they're gone.
+/reactivation,phone,393,852,378,378,0,10549,0,False,They went quiet. That doesn't mean they're gone.
+/reactivation,narrow,320,740,305,305,0,11459,0,False,They went quiet. That doesn't mean they're gone.
+/reviews,desktop,1440,900,1425,1425,0,9982,0,False,A good job should keep selling after it's done.
+/reviews,ipad,834,1112,819,819,0,13567,0,False,A good job should keep selling after it's done.
+/reviews,landscape,1194,834,1179,1179,0,10132,0,False,A good job should keep selling after it's done.
+/reviews,phone,393,852,378,378,0,14569,0,False,A good job should keep selling after it's done.
+/reviews,narrow,320,740,305,305,0,15701,0,False,A good job should keep selling after it's done.
+/booking,desktop,1440,900,1425,1425,0,1942,0,False,Let’s talk about your business.
+/booking,ipad,834,1112,819,819,0,2268,0,False,Let’s talk about your business.
+/booking,landscape,1194,834,1179,1179,0,1889,0,False,Let’s talk about your business.
+/booking,phone,393,852,378,378,0,3136,0,False,Let’s talk about your business.
+/booking,narrow,320,740,305,305,0,3234,0,False,Let’s talk about your business.
+/pricing-v2,desktop,1440,900,1425,1425,0,5951,0,False,One flat price. Unlimited users.
+/pricing-v2,ipad,834,1112,819,819,0,7388,0,False,One flat price. Unlimited users.
+/pricing-v2,landscape,1194,834,1179,1179,0,6559,0,False,One flat price. Unlimited users.
+/pricing-v2,phone,393,852,378,378,0,9897,0,False,One flat price. Unlimited users.
+/pricing-v2,narrow,320,740,305,305,0,10713,0,False,One flat price. Unlimited users.
+/Pricing-v3,desktop,1440,900,1425,1425,0,6096,0,False,One flat price. Unlimited users. Unlimited contacts.
+/Pricing-v3,ipad,834,1112,819,819,0,7952,0,False,One flat price. Unlimited users. Unlimited contacts.
+/Pricing-v3,landscape,1194,834,1179,1179,0,7081,0,False,One flat price. Unlimited users. Unlimited contacts.
+/Pricing-v3,phone,393,852,378,378,0,10263,0,False,One flat price. Unlimited users. Unlimited contacts.
+/Pricing-v3,narrow,320,740,305,305,0,11238,0,False,One flat price. Unlimited users. Unlimited contacts.
+/features/ai-chatbot,desktop,1440,900,1425,1425,0,5835,0,False,Answer the question. Capture the enquiry.
+/features/ai-chatbot,ipad,834,1112,819,819,0,7583,0,False,Answer the question. Capture the enquiry.
+/features/ai-chatbot,landscape,1194,834,1179,1179,0,5748,0,False,Answer the question. Capture the enquiry.
+/features/ai-chatbot,phone,393,852,378,378,0,8857,0,False,Answer the question. Capture the enquiry.
+/features/ai-chatbot,narrow,320,740,305,305,0,9139,0,False,Answer the question. Capture the enquiry.
+/features/unified-inbox,desktop,1440,900,1425,1425,0,7432,0,False,Every message. The whole conversation.
+/features/unified-inbox,ipad,834,1112,819,819,0,8531,0,False,Every message. The wholeconversation.
+/features/unified-inbox,landscape,1194,834,1179,1179,0,7430,0,False,Every message. The whole conversation.
+/features/unified-inbox,phone,393,852,378,378,0,11069,0,False,Every message. The whole conversation.
+/features/unified-inbox,narrow,320,740,305,305,0,11997,0,False,Every message. The whole conversation.
+/features/business-phone,desktop,1440,900,1425,1425,0,4785,0,False,Make the call. Keep the context.
+/features/business-phone,ipad,834,1112,819,819,0,5979,0,False,Make the call. Keep the context.
+/features/business-phone,landscape,1194,834,1179,1179,0,4923,0,False,Make the call. Keep the context.
+/features/business-phone,phone,393,852,378,378,0,7224,0,False,Make the call. Keep the context.
+/features/business-phone,narrow,320,740,305,305,0,7771,0,False,Make the call. Keep the context.
+/features/pipeline-management,desktop,1440,900,1425,1425,0,6304,0,False,See where every opportunity stands.
+/features/pipeline-management,ipad,834,1112,819,819,0,7052,0,False,See where every opportunity stands.
+/features/pipeline-management,landscape,1194,834,1179,1179,0,6295,0,False,See where every opportunity stands.
+/features/pipeline-management,phone,393,852,378,378,0,9604,0,False,See where every opportunity stands.
+/features/pipeline-management,narrow,320,740,305,305,0,9926,0,False,See where every opportunity stands.
+/features/automation-builder,desktop,1440,900,1425,1425,0,5925,0,False,Set the rules. Zapla handles the routine work.
+/features/automation-builder,ipad,834,1112,819,819,0,6390,0,False,Set the rules. Zapla handles the routine work.
+/features/automation-builder,landscape,1194,834,1179,1179,0,5883,0,False,Set the rules. Zapla handles the routine work.
+/features/automation-builder,phone,393,852,378,378,0,8219,0,False,Set the rules. Zapla handles the routine work.
+/features/automation-builder,narrow,320,740,305,310,5,8696,0,False,Set the rules. Zapla handles the routine work.
+/features/calendars-bookings,desktop,1440,900,1425,1425,0,6004,0,False,A good time for them. A day that works for you.
+/features/calendars-bookings,ipad,834,1112,819,819,0,6533,0,False,A good time for them. A day that works for you.
+/features/calendars-bookings,landscape,1194,834,1179,1179,0,5871,0,False,A good time for them. A day that works for you.
+/features/calendars-bookings,phone,393,852,378,378,0,9131,0,False,A good time for them. A day that works for you.
+/features/calendars-bookings,narrow,320,740,305,305,0,9801,0,False,A good time for them. A day that works for you.
+/features/quotes-invoices-signatures,desktop,1440,900,1425,1425,0,4632,0,False,Quote the work. Get it signed. Get paid.
+/features/quotes-invoices-signatures,ipad,834,1112,819,819,0,4591,0,False,Quote the work. Get it signed. Get paid.
+/features/quotes-invoices-signatures,landscape,1194,834,1179,1179,0,4479,0,False,Quote the work. Get it signed. Get paid.
+/features/quotes-invoices-signatures,phone,393,852,378,378,0,6497,0,False,Quote the work. Get it signed. Get paid.
+/features/quotes-invoices-signatures,narrow,320,740,305,305,0,6685,0,False,Quote the work. Get it signed. Get paid.
+/features/websites-funnels-forms,desktop,1440,900,1425,1425,0,7386,0,False,Build your page. Connect your enquiries.
+/features/websites-funnels-forms,ipad,834,1112,819,819,0,8735,0,False,Build your page. Connect your enquiries.
+/features/websites-funnels-forms,landscape,1194,834,1179,1179,0,7246,0,False,Build your page. Connect your enquiries.
+/features/websites-funnels-forms,phone,393,852,378,378,0,11997,0,False,Build your page. Connect your enquiries.
+/features/websites-funnels-forms,narrow,320,740,305,305,0,12820,0,False,Build your page. Connect your enquiries.
+/industries,desktop,1440,900,1425,1425,0,3191,0,False,See how Zapla works for your business.
+/industries,ipad,834,1112,819,819,0,3509,0,False,See how Zapla works for your business.
+/industries,landscape,1194,834,1179,1179,0,3061,0,False,See how Zapla works for your business.
+/industries,phone,393,852,378,378,0,5885,0,False,See how Zapla works for your business.
+/industries,narrow,320,740,305,305,0,6016,0,False,See how Zapla works for your business.
+/industries/allied-health,desktop,1440,900,1425,1425,0,6670,0,False,Keep patient enquiries moving between appointments.
+/industries/allied-health,ipad,834,1112,819,819,0,7137,0,False,Keep patient enquiries moving between appointments.
+/industries/allied-health,landscape,1194,834,1179,1179,0,6507,0,False,Keep patient enquiries moving between appointments.
+/industries/allied-health,phone,393,852,378,378,0,9975,0,False,Keep patient enquiries moving between appointments.
+/industries/allied-health,narrow,320,740,305,305,0,10810,0,False,Keep patient enquiries moving between appointments.
+/industries/cosmetic-skin-clinics,desktop,1440,900,1425,1425,0,8902,0,False,Less chasing. More time with clients.
+/industries/cosmetic-skin-clinics,ipad,834,1112,819,819,0,9581,0,False,Less chasing. More time with clients.
+/industries/cosmetic-skin-clinics,landscape,1194,834,1179,1179,0,8828,0,False,Less chasing. More time with clients.
+/industries/cosmetic-skin-clinics,phone,393,852,378,378,0,12908,0,False,Less chasing. More time with clients.
+/industries/cosmetic-skin-clinics,narrow,320,740,305,305,0,14400,0,False,Less chasing. More time with clients.
+/industries/dental,desktop,1440,900,1425,1425,0,10000,0,False,You care for patients. Zapla handles the follow-up.
+/industries/dental,ipad,834,1112,819,819,0,10946,0,False,You care for patients. Zapla handles the follow-up.
+/industries/dental,landscape,1194,834,1179,1179,0,10002,0,False,You care for patients. Zapla handles the follow-up.
+/industries/dental,phone,393,852,378,378,0,15276,0,False,You care for patients. Zapla handlesthe follow-up.
+/industries/dental,narrow,320,740,305,305,0,17055,0,False,You care for patients. Zapla handlesthe follow-up.
+/industries/mechanics,desktop,1440,900,1425,1425,0,6057,0,False,You fix the cars. Zapla follows through.
+/industries/mechanics,ipad,834,1112,819,819,0,7726,0,False,You fix the cars. Zapla follows through.
+/industries/mechanics,landscape,1194,834,1179,1179,0,5984,0,False,You fix the cars. Zapla follows through.
+/industries/mechanics,phone,393,852,378,378,0,9205,0,False,You fix the cars. Zapla follows through.
+/industries/mechanics,narrow,320,740,305,305,0,10281,0,False,You fix the cars. Zapla follows through.
+/industries/mortgage-brokers,desktop,1440,900,1425,1425,0,8541,0,False,Be the broker they come back to. And recommend.
+/industries/mortgage-brokers,ipad,834,1112,819,819,0,9340,0,False,Be the broker they come back to. And recommend.
+/industries/mortgage-brokers,landscape,1194,834,1179,1179,0,8481,0,False,Be the broker they come back to. And recommend.
+/industries/mortgage-brokers,phone,393,852,378,378,0,12993,0,False,Be the broker they come back to. And recommend.
+/industries/mortgage-brokers,narrow,320,740,305,305,0,14397,0,False,Be the broker they come back to. And recommend.
+/industries/trades,desktop,1440,900,1425,1425,0,7988,0,False,Reply to enquiries. Follow up quotes. Stay on the tools.
+/industries/trades,ipad,834,1112,819,819,0,8751,0,False,Reply to enquiries. Follow up quotes. Stay on the tools.
+/industries/trades,landscape,1194,834,1179,1179,0,7968,0,False,Reply to enquiries. Follow up quotes. Stay on the tools.
+/industries/trades,phone,393,852,378,378,0,12139,0,False,Reply to enquiries. Follow up quotes. Stay on the tools.
+/industries/trades,narrow,320,740,305,305,0,12860,0,False,Reply to enquiries. Follow up quotes. Stay on the tools.
+/comparison,desktop,1440,900,1425,1425,0,3684,0,False,See how Zapla compares.
+/comparison,ipad,834,1112,819,819,0,4535,0,False,See how Zapla compares.
+/comparison,landscape,1194,834,1179,1179,0,3635,0,False,See how Zapla compares.
+/comparison,phone,393,852,378,378,0,6699,0,False,See how Zapla compares.
+/comparison,narrow,320,740,305,305,0,7228,0,False,See how Zapla compares.
+/comparison/review,desktop,1440,900,1425,1425,0,2237,0,False,Comparison draft review
+/comparison/review,ipad,834,1112,819,819,0,2186,0,False,Comparison draft review
+/comparison/review,landscape,1194,834,1179,1179,0,2043,0,False,Comparison draft review
+/comparison/review,phone,393,852,378,378,0,2702,0,False,Comparison draft review
+/comparison/review,narrow,320,740,305,305,0,2712,0,False,Comparison draft review
+/comparison/zapla-vs-activecampaign,desktop,1440,900,1425,1425,0,7785,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-activecampaign,ipad,834,1112,819,819,0,8303,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-activecampaign,landscape,1194,834,1179,1179,0,7734,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-activecampaign,phone,393,852,378,378,0,11159,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-activecampaign,narrow,320,740,305,315,10,12388,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-creatio,desktop,1440,900,1425,1425,0,7229,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-creatio,ipad,834,1112,819,819,0,7709,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-creatio,landscape,1194,834,1179,1179,0,7160,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-creatio,phone,393,852,378,378,0,10361,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-creatio,narrow,320,740,305,315,10,11436,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-ghl,desktop,1440,900,1425,1425,0,7339,0,False,Your customer follow-up. Set up around your business.
+/comparison/zapla-vs-ghl,ipad,834,1112,819,819,0,7820,0,False,Your customer follow-up. Set up around your business.
+/comparison/zapla-vs-ghl,landscape,1194,834,1179,1179,0,7228,0,False,Your customer follow-up. Set up around your business.
+/comparison/zapla-vs-ghl,phone,393,852,378,378,0,10320,0,False,Your customer follow-up. Set up around your business.
+/comparison/zapla-vs-ghl,narrow,320,740,305,315,10,11416,0,False,Your customer follow-up. Set up around your business.
+/comparison/zapla-vs-hubspot,desktop,1440,900,1425,1425,0,7814,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-hubspot,ipad,834,1112,819,819,0,8420,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-hubspot,landscape,1194,834,1179,1179,0,7788,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-hubspot,phone,393,852,378,378,0,11664,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-hubspot,narrow,320,740,305,315,10,13127,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-keap,desktop,1440,900,1425,1425,0,7401,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-keap,ipad,834,1112,819,819,0,7853,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-keap,landscape,1194,834,1179,1179,0,7290,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-keap,phone,393,852,378,378,0,11019,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-keap,narrow,320,740,305,315,10,12098,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-monday-crm,desktop,1440,900,1425,1425,0,7256,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-monday-crm,ipad,834,1112,819,819,0,7641,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-monday-crm,landscape,1194,834,1179,1179,0,7164,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-monday-crm,phone,393,852,378,378,0,10313,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-monday-crm,narrow,320,740,305,315,10,11209,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-pipedrive,desktop,1440,900,1425,1425,0,7223,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-pipedrive,ipad,834,1112,819,819,0,7767,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-pipedrive,landscape,1194,834,1179,1179,0,7155,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-pipedrive,phone,393,852,378,378,0,10504,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-pipedrive,narrow,320,740,305,315,10,11544,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-podium,desktop,1440,900,1425,1425,0,6615,0,False,Answer enquiries. Automate what happens next.
+/comparison/zapla-vs-podium,ipad,834,1112,819,819,0,7059,0,False,Answer enquiries. Automate what happens next.
+/comparison/zapla-vs-podium,landscape,1194,834,1179,1179,0,6540,0,False,Answer enquiries. Automate what happens next.
+/comparison/zapla-vs-podium,phone,393,852,378,378,0,9636,0,False,Answer enquiries. Automate what happens next.
+/comparison/zapla-vs-podium,narrow,320,740,305,315,10,10413,0,False,Answer enquiries. Automate what happens next.
+/comparison/zapla-vs-salesforce,desktop,1440,900,1425,1425,0,7144,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-salesforce,ipad,834,1112,819,819,0,7581,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-salesforce,landscape,1194,834,1179,1179,0,7051,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-salesforce,phone,393,852,378,378,0,10392,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-salesforce,narrow,320,740,305,315,10,11517,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-thryv,desktop,1440,900,1425,1425,0,6349,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-thryv,ipad,834,1112,819,819,0,6820,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-thryv,landscape,1194,834,1179,1179,0,6266,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-thryv,phone,393,852,378,378,0,9221,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-thryv,narrow,320,740,305,315,10,10036,0,False,Your whole team. One CRM subscription.
+/comparison/zapla-vs-zoho,desktop,1440,900,1425,1425,0,7612,0,False,Your whole team. No extra seat fees.
+/comparison/zapla-vs-zoho,ipad,834,1112,819,819,0,8093,0,False,Your whole team. No extra seat fees.
+/comparison/zapla-vs-zoho,landscape,1194,834,1179,1179,0,7542,0,False,Your whole team. No extra seat fees.
+/comparison/zapla-vs-zoho,phone,393,852,378,378,0,11078,0,False,Your whole team. No extra seat fees.
+/comparison/zapla-vs-zoho,narrow,320,740,305,315,10,12065,0,False,Your whole team. No extra seat fees.

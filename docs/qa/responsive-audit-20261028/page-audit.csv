@@ -1,0 +1,41 @@
+path,desktop,ipad,landscape,phone,narrow,issues,action
+/,Missing preview assets,Missing preview assets,Missing preview assets,Missing preview assets,Missing preview assets,R03,Restore the older logo/portrait assets in the Git-built preview.
+/platform,Missing preview assets,Missing preview assets,Missing preview assets,Missing preview assets,Missing preview assets,R03,Restore the central customer illustration and sketch asset in the Git-built preview.
+/crm,Fits,Fits,Fits,Fits; small proof text,Fits; small proof text,R06,Use a concise phone-specific record/timeline with readable primary text.
+/customer-marketing,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/follow-up,Fits,Fits,Fits,Fits,Overflow +63px,R01,Constrain the problem-card grid and scale the long display words below 360px.
+/ai-receptionist,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/quote-follow-up,Fits,Fits,Fits,Fits; small proof text,Fits; small proof text,R06,"Simplify the phone quote workspace; enlarge the important name, status and next action."
+/reactivation,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/reviews,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/booking,Fits,Fits,Fits,Fits,Fits,R09,Optional: reduce the empty stretched email panel on desktop/iPad.
+/pricing-v2,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/Pricing-v3,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/features/ai-chatbot,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/features/unified-inbox,Fits,Headline word join,Fits,Fits,Fits,R04,Preserve the word space when the iPad headline line break is hidden.
+/features/business-phone,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/features/pipeline-management,Fits,Fits; board scrolls,Fits; board scrolls,Fits; board scrolls,Fits; board scrolls,R07,Optional: improve the at-a-glance stage overview on small screens; keep the readable board.
+/features/automation-builder,Fits,Fits,Fits,Fits,Overflow +5px,R05,Constrain the AI workflow figure within its phone workspace.
+/features/calendars-bookings,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/features/quotes-invoices-signatures,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/features/websites-funnels-forms,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/industries,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/industries/allied-health,Fits,Fits,Fits,Fits,Fits,R08,Optional: refine the iPad portrait photograph crop.
+/industries/cosmetic-skin-clinics,Fits,Fits,Fits,Fits,Fits,R08,Optional: refine the iPad portrait photograph crop.
+/industries/dental,Fits,Fits,Fits,Headline word join,Headline word join,R04,Preserve the space between handles and the on phones.
+/industries/mechanics,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/industries/mortgage-brokers,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/industries/trades,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/comparison,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/comparison/review,Fits,Fits,Fits,Fits,Fits,,Keep the current layout; no material fit issue found in this pass.
+/comparison/zapla-vs-activecampaign,Fits,Fits,Fits,Fits,Overflow +10px,R02,Fix the shared comparison hero/offer minimum width at 320px.
+/comparison/zapla-vs-creatio,Fits,Fits,Fits,Fits,Overflow +10px,R02,Fix the shared comparison hero/offer minimum width at 320px.
+/comparison/zapla-vs-ghl,Fits,Fits,Fits,Fits,Overflow +10px,R02,Fix the shared comparison hero/offer minimum width at 320px.
+/comparison/zapla-vs-hubspot,Fits,Fits,Fits,Fits,Overflow +10px,R02,Fix the shared comparison hero/offer minimum width at 320px.
+/comparison/zapla-vs-keap,Fits,Fits,Fits,Fits,Overflow +10px,R02,Fix the shared comparison hero/offer minimum width at 320px.
+/comparison/zapla-vs-monday-crm,Fits,Fits,Fits,Fits,Overflow +10px,R02,Fix the shared comparison hero/offer minimum width at 320px.
+/comparison/zapla-vs-pipedrive,Fits,Fits,Fits,Fits,Overflow +10px,R02,Fix the shared comparison hero/offer minimum width at 320px.
+/comparison/zapla-vs-podium,Fits,Fits,Fits,Fits,Overflow +10px,R02,Fix the shared comparison hero/offer minimum width at 320px.
+/comparison/zapla-vs-salesforce,Fits,Fits,Fits,Fits,Overflow +10px,R02,Fix the shared comparison hero/offer minimum width at 320px.
+/comparison/zapla-vs-thryv,Fits,Fits,Fits,Fits,Overflow +10px,R02,Fix the shared comparison hero/offer minimum width at 320px.
+/comparison/zapla-vs-zoho,Fits,Fits,Fits,Fits,Overflow +10px,R02,Fix the shared comparison hero/offer minimum width at 320px.
