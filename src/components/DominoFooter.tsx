@@ -22,6 +22,7 @@ const FOOTER_GROUPS = [
     label: "Solutions",
     links: [
       ["Follow-Up", "/follow-up"],
+      ["Quote Follow-Up", "/quote-follow-up"],
       ["Reactivation", "/reactivation"],
       ["Reviews & Reputation", "/reviews"],
     ],

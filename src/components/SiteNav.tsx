@@ -25,6 +25,7 @@ const NAV_GROUPS = [
     label: "Solutions",
     links: [
       { name: "Follow-Up", href: "/follow-up" },
+      { name: "Quote Follow-Up", href: "/quote-follow-up" },
       { name: "Reactivation", href: "/reactivation" },
       { name: "Reviews & Reputation", href: "/reviews" },
     ],
