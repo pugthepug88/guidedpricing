@@ -1,0 +1,38 @@
+[
+  {
+    "phase": "Quote",
+    "frontHeight": 177,
+    "opacity": ["0", "0", "0", "0"],
+    "stickyTop": 85
+  },
+  {
+    "phase": "SMS",
+    "frontHeight": 177,
+    "opacity": ["1", "0", "0", "0"],
+    "stickyTop": 85
+  },
+  {
+    "phase": "Question",
+    "frontHeight": 235,
+    "opacity": ["1", "1", "0", "0"],
+    "stickyTop": 85
+  },
+  {
+    "phase": "Team",
+    "frontHeight": 381,
+    "opacity": ["1", "1", "1", "1"],
+    "stickyTop": 85
+  },
+  {
+    "phase": "Release",
+    "frontHeight": 381,
+    "opacity": ["1", "1", "1", "1"],
+    "stickyTop": -163
+  },
+  {
+    "phase": "Question",
+    "frontHeight": 235,
+    "opacity": ["1", "1", "0", "0"],
+    "stickyTop": 85
+  }
+]
