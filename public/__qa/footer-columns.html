@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Temporary footer layout review</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 16px;
+        background: #e5e7eb;
+        font: 14px system-ui;
+      }
+      header {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+      button {
+        padding: 8px 12px;
+        cursor: pointer;
+      }
+      iframe {
+        display: block;
+        border: 1px solid #a0a0a0;
+        background: white;
+        margin: 0 auto;
+      }
+      output {
+        white-space: pre-wrap;
+        display: block;
+        margin-bottom: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>Footer viewport:</strong>
+      <button data-width="1440">1440</button>
+      <button data-width="1280">1280</button>
+      <button data-width="1024">1024</button>
+      <button data-width="834">834</button>
+      <button data-width="390">390</button>
+      <button data-width="320">320</button>
+      <button id="top">Footer start</button>
+      <button id="end">Footer end</button>
+    </header>
+    <output id="metrics">Loading the actual page…</output>
+    <iframe
+      title="Actual Zapla page at the selected viewport"
+      width="1280"
+      height="900"
+      src="/features/business-phone"
+    ></iframe>
+    <script>
+      const frame = document.querySelector("iframe");
+      const metrics = document.querySelector("output");
+      function inspect(position = "end") {
+        const win = frame.contentWindow;
+        const doc = frame.contentDocument;
+        const footer = doc.querySelector("footer");
+        if (!footer) return;
+        const groups = [...footer.querySelectorAll("nav")];
+        const clipped = [...footer.querySelectorAll("a")].filter(
+          (link) => link.scrollWidth > link.clientWidth + 1,
+        );
+        const rect = footer.getBoundingClientRect();
+        win.scrollTo(
+          0,
+          position === "end" ? doc.documentElement.scrollHeight : win.scrollY + rect.top,
+        );
+        metrics.textContent = JSON.stringify({
+          width: win.innerWidth,
+          overflow: doc.documentElement.scrollWidth > win.innerWidth,
+          groups: groups.map((group) => ({
+            label: group.getAttribute("aria-label"),
+            x: Math.round(group.getBoundingClientRect().x),
+            width: Math.round(group.getBoundingClientRect().width),
+          })),
+          clippedLinks: clipped.map((link) => link.textContent.trim()),
+        });
+      }
+      frame.addEventListener("load", () => frame.contentDocument.fonts.ready.then(() => inspect()));
+      document.querySelectorAll("[data-width]").forEach((button) =>
+        button.addEventListener("click", () => {
+          frame.width = button.dataset.width;
+          requestAnimationFrame(() => inspect());
+        }),
+      );
+      document.querySelector("#top").addEventListener("click", () => inspect("top"));
+      document.querySelector("#end").addEventListener("click", () => inspect("end"));
+    </script>
+  </body>
+</html>

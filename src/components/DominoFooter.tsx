@@ -15,6 +15,10 @@ const FOOTER_GROUPS = [
     ],
   },
   {
+    label: "Features",
+    links: FEATURE_LINKS.map(({ name, href }) => [name, href] as const),
+  },
+  {
     label: "Solutions",
     links: [
       ["Follow-Up", "/follow-up"],
@@ -100,8 +104,8 @@ export function DominoFooter() {
 
         <div className="relative z-20 px-4 pt-[240px] sm:px-8 lg:absolute lg:inset-x-0 lg:bottom-0 lg:px-12 lg:pt-0">
           <div className="mx-auto w-full max-w-[1240px] rounded-t-[34px] border border-b-0 border-white/75 bg-[#F8F5EF]/[0.97] p-7 pb-8 shadow-[0_-18px_70px_rgba(45,37,28,.16)] backdrop-blur-[12px] sm:p-9 sm:pb-10 lg:p-10 lg:pb-12">
-            <div className="grid gap-9 sm:grid-cols-2 lg:grid-cols-[1.25fr_.8fr_1.05fr_1.2fr_.95fr] lg:gap-6 xl:gap-9">
-              <div className="sm:col-span-2 lg:col-span-1">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-[200px_minmax(0,.85fr)_minmax(0,1.35fr)_minmax(0,.95fr)_minmax(0,1.15fr)_minmax(0,.95fr)] xl:gap-x-5">
+              <div className="col-span-full min-w-0 xl:col-span-1">
                 <a href="/" className="inline-flex items-center">
                   <img src="/concept/zapla-logo-dark.svg" alt="Zapla" className="h-9 w-auto" />
                 </a>
@@ -133,7 +137,11 @@ export function DominoFooter() {
               </div>
 
               {FOOTER_GROUPS.map((group) => (
-                <div key={group.label}>
+                <nav
+                  key={group.label}
+                  aria-label={`${group.label} footer links`}
+                  className="min-w-0"
+                >
                   <div className="text-[10px] font-black uppercase tracking-[0.16em] text-[#20241F]">
                     {group.label}
                   </div>
@@ -142,34 +150,17 @@ export function DominoFooter() {
                       <a
                         key={label}
                         href={href}
-                        className={`text-[13px] font-medium text-[#676B65] transition-colors hover:text-[#2563FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF]/40 focus-visible:ring-offset-4 focus-visible:ring-offset-[#F8F5EF] ${href === "/comparison" ? "flex min-h-11 items-center" : ""}`}
+                        className={`text-[13px] font-medium leading-relaxed text-[#676B65] transition-colors hover:text-[#2563FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF]/40 focus-visible:ring-offset-4 focus-visible:ring-offset-[#F8F5EF] ${href === "/comparison" ? "flex min-h-11 items-center" : ""}`}
                       >
                         {label}
                       </a>
                     ))}
                   </div>
-                </div>
+                </nav>
               ))}
             </div>
 
-            <nav aria-label="Feature pages" className="mt-8 border-t border-[#DED8CF] pt-6">
-              <div className="text-[10px] font-black uppercase tracking-[0.16em] text-[#20241F]">
-                Features
-              </div>
-              <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-1 sm:grid-cols-4 lg:gap-x-8">
-                {FEATURE_LINKS.map(({ name, href }) => (
-                  <a
-                    key={href}
-                    href={href}
-                    className="flex min-h-11 items-center py-1.5 text-[13px] font-medium leading-relaxed text-[#676B65] transition-colors hover:text-[#2563FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF]/40 focus-visible:ring-offset-4 focus-visible:ring-offset-[#F8F5EF]"
-                  >
-                    {name}
-                  </a>
-                ))}
-              </div>
-            </nav>
-
-            <div className="mt-6 border-t border-[#DED8CF] pt-5 text-[12px] text-[#888C85]">
+            <div className="mt-8 border-t border-[#DED8CF] pt-5 text-[12px] text-[#888C85]">
               © {new Date().getFullYear()} Zapla. All rights reserved.
             </div>
           </div>
