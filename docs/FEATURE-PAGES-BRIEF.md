@@ -668,3 +668,8 @@ The owner also rejected spread-out Power Dialler detail and the large empty numb
 ### Global footer: Features as a peer column, 28 October 2026
 
 The owner rejected the separate full-width Features band and asked for Features to sit with the other navigation columns. Move the existing eight-feature catalog into the main footer grid after Platform, retaining the header catalog and every destination. Give the long feature names enough width, wrap the groups appropriately on smaller screens and remove the redundant band/divider. Preserve the shared logo, review links, background video/poster and its existing behaviour. This supersedes earlier instructions for a compact Features row. Source review, rendered checks and exact limits: GLOBAL-FOOTER-FEATURE-COLUMN-20261028.md. GitHub only; Lovable read-only.
+
+
+### Quote Follow-Up: concrete customer story, 28 October 2026
+
+The owner reopened `/quote-follow-up` for a full reassessment and redesign. Replace the historical nine-section ledger/process/card composition with a fresh cabinetry workshop, configured SMS follow-up, the same customer’s scope question and deliberate staff reply, a readable CRM work list, consolidated setup/FAQ and a focused CTA. Keep real HTML, aligned surfaces and normal mobile flow. No automatic reply pause/cancellation, acceptance or quoting-system parity is established. Preserve draft indexing and the shared shell. Add Quote Follow-Up to the existing header/footer Solutions lists to close the preceding navigation omission. Source evidence, director review passes and rendered limits: `QUOTE-FOLLOW-UP-REDESIGN-20261028.md`. GitHub owns changes; Lovable is read-only.
