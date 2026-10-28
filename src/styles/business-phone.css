@@ -402,18 +402,27 @@
   margin: 54px 44px;
   width: 320px;
   overflow: hidden;
-  border: 1px solid #ffffffbf;
+  border: 1px solid #ffffffd9;
   border-radius: 18px;
   background: #ffffffed;
   box-shadow:
-    0 18px 52px #101a2638,
-    inset 0 0 0 1px #fff;
-  backdrop-filter: blur(18px);
+    0 18px 52px #101a262e,
+    inset 0 1px 0 #ffffffe6;
+  -webkit-backdrop-filter: blur(24px) saturate(115%);
+  backdrop-filter: blur(24px) saturate(115%);
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .zapla-phone .bp-browser-call {
+    background: linear-gradient(135deg, #ffffffdb, #ffffffc7);
+  }
 }
 .zapla-phone .bp-browser-call .bp-product-header {
   min-height: 61px;
   padding: 17px 22px;
   background: transparent;
+}
+.zapla-phone .bp-browser-call .bp-product-header > span {
+  color: #465163;
 }
 .zapla-phone .bp-call-person {
   display: grid;
@@ -427,7 +436,7 @@
   align-items: center;
   gap: 6px;
   margin-bottom: 18px;
-  color: #2452ca;
+  color: #1d43a8;
   font-size: 12px;
 }
 .zapla-phone .bp-call-portrait {
@@ -442,7 +451,7 @@
 }
 .zapla-phone .bp-call-person > p:not(.bp-call-direction) {
   font-size: 12px;
-  color: #697384;
+  color: #465163;
   margin-top: 5px;
 }
 .zapla-phone .bp-call-context {
@@ -451,7 +460,7 @@
   border-top: 1px solid #d8dee7;
 }
 .zapla-phone .bp-call-context > span {
-  color: #6b7280;
+  color: #465163;
   font-size: 11px;
 }
 .zapla-phone .bp-call-context p {
@@ -493,6 +502,7 @@
     border: 0;
     border-radius: 0;
     box-shadow: none;
+    -webkit-backdrop-filter: none;
     backdrop-filter: none;
     background: #fff;
   }

@@ -2,6 +2,14 @@
 
 Date: 27 October 2026. Scope: human calling. This is documentary and public-client verification, not a completed live telephony acceptance test or a promise of inclusion in every plan.
 
+## Owner-scoped hero refinement, 28 October 2026
+
+The owner narrowed the proposed opening revision to one sentence appended to the existing subheadline: “Work through selected contacts with Power Dialler and use your own quick actions to move the enquiry forward.” Spelling and product-name capitalisation are corrected; the existing browser-calling and customer-note sentences remain. The owner then explicitly requested the discussed glass treatment on the call panel over the hero photograph.
+
+The hero panel retains its existing dimensions, photograph, customer, note and position. Its frosted white fill changes from about 93% opacity to a supported-filter gradient of 86%–78%, with 24px blur, restrained saturation, a fine white border and a softer shadow. Small labels and the outgoing-call label are darkened for contrast: at the darkest possible 78%-white backdrop, the muted labels have about 4.75:1 contrast and the blue label exceeds 5:1. Browsers without backdrop-filter support retain the more opaque fallback. At 960px and below the existing solid white panel still follows the photograph in normal flow; both filter prefixes are disabled there. The glass is static and introduces no motion.
+
+The broader generated page concepts and expanded Power Dialler explanation are not implemented. No new controls or capabilities, changes to the second section or shared website components. The added sentence describes the selected-contact calling list and custom quick actions already established by owner-supplied queue/action screenshots and existing evidence. It adds no automatic-dialling, AI or unrestricted-automation claim.
+
 ## Auto Dial claim removed, 28 October 2026
 
 The owner requested removal of “Optional Auto Dial: advance and call after a delay you set.” after clarifying that this wording was inferred from publicly served supplier application JavaScript, rather than a published website/help statement or owner-supplied evidence. Remove the standalone sentence and the same automatic-dialling claim from the FAQ. The FAQ now explains the existing person-controlled Call now / Next sequence. Earlier client-code observations remain an internal research record, not permission to restore this marketing claim. Reintroduction requires suitable website/help or owner-provided evidence. No other product scene, styling, route or shared navigation change is part of this correction.

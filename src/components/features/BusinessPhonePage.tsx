@@ -333,7 +333,8 @@ export function BusinessPhonePage() {
             </h1>
             <p className="bp-lead">
               Make and receive customer calls from your browser. Return enquiries with the
-              customer’s notes close at hand.
+              customer’s notes close at hand. Work through selected contacts with Power Dialler and
+              use your own quick actions to move the enquiry forward.
             </p>
             <div className="bp-hero-actions">
               <BookCall />
