@@ -16,10 +16,12 @@ import { Route as BookingRouteImport } from './routes/booking'
 import { Route as CrmRouteImport } from './routes/crm'
 import { Route as CustomerMarketingRouteImport } from './routes/customer-marketing'
 import { Route as FollowUpRouteImport } from './routes/follow-up'
+import { Route as FollowUpV2RouteImport } from './routes/follow-up-v2'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as PlatformRouteImport } from './routes/platform'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as QuoteFollowUpRouteImport } from './routes/quote-follow-up'
+import { Route as QuoteFollowUpV2RouteImport } from './routes/quote-follow-up-v2'
 import { Route as ReactivationRouteImport } from './routes/reactivation'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
@@ -91,6 +93,11 @@ const FollowUpRoute = FollowUpRouteImport.update({
   path: '/follow-up',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FollowUpV2Route = FollowUpV2RouteImport.update({
+  id: '/follow-up-v2',
+  path: '/follow-up-v2',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
@@ -109,6 +116,11 @@ const PricingV2Route = PricingV2RouteImport.update({
 const QuoteFollowUpRoute = QuoteFollowUpRouteImport.update({
   id: '/quote-follow-up',
   path: '/quote-follow-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuoteFollowUpV2Route = QuoteFollowUpV2RouteImport.update({
+  id: '/quote-follow-up-v2',
+  path: '/quote-follow-up-v2',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReactivationRoute = ReactivationRouteImport.update({
@@ -311,10 +323,12 @@ export interface FileRoutesByFullPath {
   '/crm': typeof CrmRoute
   '/customer-marketing': typeof CustomerMarketingRoute
   '/follow-up': typeof FollowUpRoute
+  '/follow-up-v2': typeof FollowUpV2Route
   '/mcp': typeof McpRoute
   '/platform': typeof PlatformRoute
   '/pricing-v2': typeof PricingV2Route
   '/quote-follow-up': typeof QuoteFollowUpRoute
+  '/quote-follow-up-v2': typeof QuoteFollowUpV2Route
   '/reactivation': typeof ReactivationRoute
   '/reviews': typeof ReviewsRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -359,10 +373,12 @@ export interface FileRoutesByTo {
   '/crm': typeof CrmRoute
   '/customer-marketing': typeof CustomerMarketingRoute
   '/follow-up': typeof FollowUpRoute
+  '/follow-up-v2': typeof FollowUpV2Route
   '/mcp': typeof McpRoute
   '/platform': typeof PlatformRoute
   '/pricing-v2': typeof PricingV2Route
   '/quote-follow-up': typeof QuoteFollowUpRoute
+  '/quote-follow-up-v2': typeof QuoteFollowUpV2Route
   '/reactivation': typeof ReactivationRoute
   '/reviews': typeof ReviewsRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -408,10 +424,12 @@ export interface FileRoutesById {
   '/crm': typeof CrmRoute
   '/customer-marketing': typeof CustomerMarketingRoute
   '/follow-up': typeof FollowUpRoute
+  '/follow-up-v2': typeof FollowUpV2Route
   '/mcp': typeof McpRoute
   '/platform': typeof PlatformRoute
   '/pricing-v2': typeof PricingV2Route
   '/quote-follow-up': typeof QuoteFollowUpRoute
+  '/quote-follow-up-v2': typeof QuoteFollowUpV2Route
   '/reactivation': typeof ReactivationRoute
   '/reviews': typeof ReviewsRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -458,10 +476,12 @@ export interface FileRouteTypes {
     | '/crm'
     | '/customer-marketing'
     | '/follow-up'
+    | '/follow-up-v2'
     | '/mcp'
     | '/platform'
     | '/pricing-v2'
     | '/quote-follow-up'
+    | '/quote-follow-up-v2'
     | '/reactivation'
     | '/reviews'
     | '/robots.txt'
@@ -506,10 +526,12 @@ export interface FileRouteTypes {
     | '/crm'
     | '/customer-marketing'
     | '/follow-up'
+    | '/follow-up-v2'
     | '/mcp'
     | '/platform'
     | '/pricing-v2'
     | '/quote-follow-up'
+    | '/quote-follow-up-v2'
     | '/reactivation'
     | '/reviews'
     | '/robots.txt'
@@ -554,10 +576,12 @@ export interface FileRouteTypes {
     | '/crm'
     | '/customer-marketing'
     | '/follow-up'
+    | '/follow-up-v2'
     | '/mcp'
     | '/platform'
     | '/pricing-v2'
     | '/quote-follow-up'
+    | '/quote-follow-up-v2'
     | '/reactivation'
     | '/reviews'
     | '/robots.txt'
@@ -603,10 +627,12 @@ export interface RootRouteChildren {
   CrmRoute: typeof CrmRoute
   CustomerMarketingRoute: typeof CustomerMarketingRoute
   FollowUpRoute: typeof FollowUpRoute
+  FollowUpV2Route: typeof FollowUpV2Route
   McpRoute: typeof McpRoute
   PlatformRoute: typeof PlatformRoute
   PricingV2Route: typeof PricingV2Route
   QuoteFollowUpRoute: typeof QuoteFollowUpRoute
+  QuoteFollowUpV2Route: typeof QuoteFollowUpV2Route
   ReactivationRoute: typeof ReactivationRoute
   ReviewsRoute: typeof ReviewsRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
@@ -695,6 +721,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FollowUpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/follow-up-v2': {
+      id: '/follow-up-v2'
+      path: '/follow-up-v2'
+      fullPath: '/follow-up-v2'
+      preLoaderRoute: typeof FollowUpV2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mcp': {
       id: '/mcp'
       path: '/mcp'
@@ -721,6 +754,13 @@ declare module '@tanstack/react-router' {
       path: '/quote-follow-up'
       fullPath: '/quote-follow-up'
       preLoaderRoute: typeof QuoteFollowUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quote-follow-up-v2': {
+      id: '/quote-follow-up-v2'
+      path: '/quote-follow-up-v2'
+      fullPath: '/quote-follow-up-v2'
+      preLoaderRoute: typeof QuoteFollowUpV2RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reactivation': {
@@ -979,10 +1019,12 @@ const rootRouteChildren: RootRouteChildren = {
   CrmRoute: CrmRoute,
   CustomerMarketingRoute: CustomerMarketingRoute,
   FollowUpRoute: FollowUpRoute,
+  FollowUpV2Route: FollowUpV2Route,
   McpRoute: McpRoute,
   PlatformRoute: PlatformRoute,
   PricingV2Route: PricingV2Route,
   QuoteFollowUpRoute: QuoteFollowUpRoute,
+  QuoteFollowUpV2Route: QuoteFollowUpV2Route,
   ReactivationRoute: ReactivationRoute,
   ReviewsRoute: ReviewsRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
