@@ -83,51 +83,18 @@
   mix-blend-mode: soft-light;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23fff' filter='url(%23n)' opacity='.28' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
 }
-.zapla-quote-follow-up .qf-art-sculpture {
+.zapla-quote-follow-up .qf-art-dominoes {
   position: absolute;
-  right: -110px;
-  top: -55px;
-  width: 470px;
-  height: 470px;
-  transform: rotate(-12deg);
-  opacity: 0.27;
-  z-index: -1;
-  filter: drop-shadow(-3px -3px 2px #e7f7ff) drop-shadow(14px 18px 12px #173f68);
-}
-.zapla-quote-follow-up .qf-art-sculpture svg {
-  width: 100%;
-  height: 100%;
-  filter: grayscale(1);
-  opacity: 0.42;
-}
-.zapla-quote-follow-up .qf-art-route {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
+  top: 267px;
+  left: 7%;
+  width: 86%;
   pointer-events: none;
-}
-.zapla-quote-follow-up .qf-art-route-track {
-  fill: none;
-  stroke: #163e6659;
-  stroke-width: 18;
-  stroke-linecap: round;
-}
-.zapla-quote-follow-up .qf-art-route-light {
-  fill: none;
-  stroke: #d4e9fb;
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-dasharray: 900;
-  stroke-dashoffset: 0;
-  filter: drop-shadow(0 1px 0 #fff6);
 }
 .zapla-quote-follow-up .qf-art-quote {
   position: absolute;
   left: 7%;
-  top: 37px;
-  width: 60%;
+  top: 31px;
+  width: 86%;
   padding: 24px 26px 21px;
   border: 1px solid #ffffffd9;
   border-radius: 18px;
@@ -171,28 +138,10 @@
   padding-top: 14px;
   border-top: 1px solid #7594af4f;
 }
-.zapla-quote-follow-up .qf-art-conductor {
-  position: absolute;
-  width: 106px;
-  height: 106px;
-  right: 7%;
-  top: 230px;
-  z-index: 2;
-  border-radius: 30px;
-  box-shadow:
-    0 18px 25px -12px #113e7580,
-    0 0 0 7px #d5e8f544;
-  transform: perspective(600px) rotateY(-12deg) rotateX(7deg);
-}
-.zapla-quote-follow-up .qf-art-conductor svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
 .zapla-quote-follow-up .qf-art-wait {
   position: absolute;
   left: 9%;
-  top: 309px;
+  top: 267px;
   display: flex;
   gap: 10px 16px;
   align-items: baseline;
@@ -419,19 +368,6 @@
 .zapla-quote-follow-up .qf-final h2 {
   font-size: clamp(40px, 5.1vw, 68px);
 }
-@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
-  .qf-art-route-light {
-    animation: qf-route-connect 1.3s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-  @keyframes qf-route-connect {
-    from {
-      stroke-dashoffset: 900;
-    }
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-}
 @media (max-width: 1150px) {
   .zapla-quote-follow-up .qf-hero-grid {
     gap: 35px;
@@ -439,18 +375,13 @@
   }
   .zapla-quote-follow-up .qf-art-quote {
     left: 6%;
-    width: 63%;
+    width: 86%;
     padding: 23px;
   }
   .zapla-quote-follow-up .qf-art-quote h2 {
     font-size: 27px;
   }
-  .zapla-quote-follow-up .qf-art-conductor {
-    right: 6%;
-    width: 94px;
-    height: 94px;
-    top: 240px;
-  }
+
   .zapla-quote-follow-up .qf-art-message {
     left: 7%;
     right: 7%;
@@ -497,16 +428,11 @@
     margin: auto;
   }
   .zapla-quote-follow-up .qf-art-quote {
-    width: 60%;
-    top: 37px;
+    width: 86%;
+    top: 31px;
     padding: 25px;
   }
-  .zapla-quote-follow-up .qf-art-conductor {
-    right: 7%;
-    width: 106px;
-    height: 106px;
-    top: 230px;
-  }
+
   .zapla-quote-follow-up .qf-art-message {
     left: 10%;
     right: 6%;
@@ -589,27 +515,22 @@
     font-size: 27px;
     margin-top: 15px;
   }
-  .zapla-quote-follow-up .qf-art-route {
-    display: none;
-  }
-  .zapla-quote-follow-up .qf-art-sculpture {
-    width: 320px;
-    height: 320px;
-    top: -20px;
-    right: -110px;
-  }
-  .zapla-quote-follow-up .qf-art-conductor {
+
+  .zapla-quote-follow-up .qf-art-dominoes {
     position: relative;
     inset: auto;
-    transform: none;
-    width: 48px;
-    height: 48px;
-    align-self: center;
-    margin: 3px 0;
-    box-shadow:
-      0 10px 16px -7px #14365a77,
-      0 0 0 4px #d5e8f533;
-    border-radius: 14px;
+    width: 100%;
+    order: 2;
+    margin-block: -8px;
+  }
+  .zapla-quote-follow-up .qf-art-quote {
+    order: 0;
+  }
+  .zapla-quote-follow-up .qf-art-wait {
+    order: 1;
+  }
+  .zapla-quote-follow-up .qf-art-message {
+    order: 3;
   }
   .zapla-quote-follow-up .qf-art-wait {
     position: static;
@@ -726,7 +647,7 @@
   border: 1px solid #ffffffa6;
   border-radius: 7px;
   padding: 5px 10px;
-  top: 300px;
+  top: 267px;
 }
 .zapla-quote-follow-up .qf-art-wait strong {
   color: #183d56;

@@ -1,5 +1,7 @@
 import { ArrowDown, ArrowRight, Plus } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { QuoteFollowJourney, ZaplaJourneyMark, QUOTE_FOLLOW_SMS } from "./QuoteFollowJourney";
+import { QuoteDominoTrail } from "./QuoteDominoTrail";
 import "@/styles/quote-follow-up.css";
 import "@/styles/quote-follow-dna.css";
 
@@ -21,29 +23,51 @@ function TextLink({ href, children }: { href: string; children: string }) {
 }
 // Prepared explanatory records, not customer testimonials or executed workflows.
 function QuoteOverview() {
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const scene = sceneRef.current;
+    if (!scene) return;
+    const media = window.matchMedia("(prefers-reduced-motion: no-preference)");
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      if (!media.matches) {
+        setProgress(0);
+        return;
+      }
+      const documentTop = scene.getBoundingClientRect().top + window.scrollY;
+      const start = Math.max(0, documentTop - window.innerHeight * 0.18);
+      setProgress(Math.max(0, Math.min(1, (window.scrollY - start) / (window.innerHeight * 0.35))));
+    };
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    const observer = new ResizeObserver(schedule);
+    observer.observe(scene);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule, { passive: true });
+    media.addEventListener("change", schedule);
+    schedule();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      media.removeEventListener("change", schedule);
+      window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
   return (
     <div
       className="qf-hero-art"
+      ref={sceneRef}
       aria-label="Quote Q-1042 connects to a configured check-in two days later"
     >
-      <div className="qf-art-sculpture" aria-hidden="true">
-        <ZaplaJourneyMark />
+      <div className="qf-art-dominoes" aria-hidden="true">
+        <QuoteDominoTrail variant="hero" progress={progress} />
       </div>
-      <svg
-        className="qf-art-route"
-        viewBox="0 0 600 620"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <path
-          className="qf-art-route-track"
-          d="M340 181H480Q510 181 510 211V300Q510 340 470 340H150Q115 340 115 375V410"
-        />
-        <path
-          className="qf-art-route-light"
-          d="M340 181H480Q510 181 510 211V300Q510 340 470 340H150Q115 340 115 375V410"
-        />
-      </svg>
       <article className="qf-art-quote">
         <div className="qf-art-quote-head">
           <span>Quote Q-1042</span>
@@ -59,9 +83,6 @@ function QuoteOverview() {
           Brand identity<span>Website launch</span>
         </div>
       </article>
-      <div className="qf-art-conductor" aria-hidden="true">
-        <ZaplaJourneyMark />
-      </div>
       <div className="qf-art-wait">
         <span>Quote Sent</span>
         <strong>2 days later</strong>

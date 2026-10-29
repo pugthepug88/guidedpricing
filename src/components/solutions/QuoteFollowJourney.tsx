@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { QuoteDominoTrail } from "./QuoteDominoTrail";
 import "@/styles/quote-follow-journey.css";
 
 type Channel = "SMS" | "Email";
@@ -41,18 +42,12 @@ export function QuoteFollowJourney() {
   const [channel, setChannel] = useState<Channel>("SMS");
   const [waitDays, setWaitDays] = useState<WaitDays>(2);
   const flowRef = useRef<HTMLDivElement>(null);
-  const railRef = useRef<HTMLDivElement>(null);
-  const markerRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef<HTMLSpanElement>(null);
+  const [course, setCourse] = useState({ top: 0, height: 1, progress: 0 });
 
   useEffect(() => {
     const flow = flowRef.current;
-    const rail = railRef.current;
-    const marker = markerRef.current;
-    const progress = progressRef.current;
-    if (!flow || !rail || !marker || !progress) return;
+    if (!flow) return;
     const checkpoints = Array.from(flow.querySelectorAll<HTMLElement>(".qfj-checkpoint"));
-    const chapters = Array.from(flow.querySelectorAll<HTMLElement>(".qfj-chapter"));
     const media = window.matchMedia(
       "(min-width: 1000px) and (prefers-reduced-motion: no-preference)",
     );
@@ -67,11 +62,13 @@ export function QuoteFollowJourney() {
       if (disposed || !media.matches) return;
       const top = flow.getBoundingClientRect().top;
       const position = Math.max(first, Math.min(last, window.innerHeight * 0.43 - top));
-      marker.style.transform = `translateY(${position - first}px)`;
-      progress.style.transform = `scaleY(${(position - first) / Math.max(1, last - first)})`;
-      chapters.forEach((chapter, index) => {
-        chapter.dataset.reached = String(position >= positions[index] - 1);
-      });
+      const height = Math.max(1, last - first);
+      const progress = (position - first) / height;
+      setCourse((previous) =>
+        previous.top === first && previous.height === height && previous.progress === progress
+          ? previous
+          : { top: first, height, progress },
+      );
     };
     const schedule = () => {
       if (!disposed && !frame) frame = window.requestAnimationFrame(update);
@@ -80,7 +77,6 @@ export function QuoteFollowJourney() {
       if (disposed) return;
       flow.dataset.motion = String(media.matches);
       if (!media.matches) {
-        chapters.forEach((chapter) => delete chapter.dataset.reached);
         return;
       }
       const top = flow.getBoundingClientRect().top;
@@ -90,8 +86,6 @@ export function QuoteFollowJourney() {
       });
       first = positions[0] ?? 0;
       last = positions.at(-1) ?? first + 1;
-      rail.style.top = `${first}px`;
-      rail.style.height = `${Math.max(1, last - first)}px`;
       flow.dataset.routeReady = "true";
       schedule();
     };
@@ -118,11 +112,8 @@ export function QuoteFollowJourney() {
   return (
     <section className="qfj" id="quote-follow-through" aria-label="Follow a quote through Zapla">
       <div className="qfj-flow" ref={flowRef}>
-        <div className="qfj-rail" ref={railRef} aria-hidden="true">
-          <span className="qfj-rail-progress" ref={progressRef} />
-          <div className="qfj-traveller" ref={markerRef}>
-            <ZaplaJourneyMark />
-          </div>
+        <div className="qfj-dominoes" style={{ top: course.top }} aria-hidden="true">
+          <QuoteDominoTrail variant="journey" height={course.height} progress={course.progress} />
         </div>
 
         <article className="qfj-chapter" id="qfj-start" aria-labelledby="qfj-start-title">
