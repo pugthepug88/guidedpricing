@@ -1,5 +1,6 @@
 import { ArrowDown, ArrowRight, Plus } from "lucide-react";
 import type { ReactNode } from "react";
+import { ZaplaPetal } from "@/components/ZaplaPetal";
 import { FollowThroughTrack } from "./FollowThroughTrack";
 import "@/styles/follow-through.css";
 
@@ -112,8 +113,9 @@ function EnquiryScene() {
 
 function Opening() {
   return (
-    <section className="ft-opening" aria-labelledby="ft-title">
-      <div className="ft-opening-copy">
+    <section className="ft-opening" data-ft-waypoint aria-labelledby="ft-title">
+      <span className="ft-origin" data-ft-origin aria-hidden="true" />
+      <div className="ft-opening-copy" data-ft-content>
         <p className="ft-label">Customer follow-up</p>
         <h1 id="ft-title">
           You lead. <br />
@@ -130,7 +132,7 @@ function Opening() {
           </a>
         </div>
       </div>
-      <div className="ft-hero-wrap">
+      <div className="ft-hero-wrap" data-ft-content data-ft-occluder>
         <EnquiryScene />
       </div>
       <p className="ft-opening-note">
@@ -146,7 +148,6 @@ function QuoteScene() {
       className="ft-scene ft-quote"
       id="ft-quote"
       data-ft-waypoint
-      data-ft-cross="after"
       aria-labelledby="ft-quote-title"
     >
       <div className="ft-content ft-two-column">
@@ -166,7 +167,7 @@ function QuoteScene() {
           </p>
           <TextLink href="/quote-follow-up-v2">Explore Quote Follow-Up</TextLink>
         </header>
-        <div className="ft-quote-stage">
+        <div className="ft-quote-stage" data-ft-cross="through" data-ft-occluder>
           <div className="ft-proposal-strip">
             <div>
               <span>Quote Q-1042 · Sent</span>
@@ -263,7 +264,6 @@ function ReconnectMoment() {
     <section
       className="ft-scene ft-reconnect-moment"
       data-ft-waypoint
-      data-ft-cross="after"
       aria-labelledby="ft-reconnect-title"
     >
       <div className="ft-content">
@@ -278,7 +278,7 @@ function ReconnectMoment() {
             contact, when to reach out and what the message should say.
           </p>
         </header>
-        <div className="ft-reconnect-canvas">
+        <div className="ft-reconnect-canvas" data-ft-cross="through" data-ft-occluder>
           <div className="ft-reconnect-customer">
             <Portrait cell={9} />
             <h3>Emma Wilson</h3>
@@ -419,8 +419,16 @@ function Setup() {
 
 function FinalCall() {
   return (
-    <section className="ft-scene ft-final" data-ft-waypoint aria-labelledby="ft-final-title">
+    <section
+      className="ft-scene ft-final"
+      data-ft-waypoint
+      data-ft-exit
+      aria-labelledby="ft-final-title"
+    >
       <div className="ft-content">
+        <div className="ft-final-petal" aria-hidden="true">
+          <ZaplaPetal size={34} />
+        </div>
         <p className="ft-label">You lead. Zapla follows through.</p>
         <h2 id="ft-final-title">
           What should happen <br />
@@ -439,17 +447,17 @@ function FinalCall() {
 export function FollowThroughPage() {
   return (
     <main className="zapla-follow-through" data-page="follow-up-v2">
-      <Opening />
-      <div className="ft-proof">
-        <FollowThroughTrack>
+      <FollowThroughTrack>
+        <Opening />
+        <div className="ft-proof">
           <BookingMoment />
           <QuoteScene />
           <ReconnectMoment />
           <HumanJudgment />
           <Setup />
           <FinalCall />
-        </FollowThroughTrack>
-      </div>
+        </div>
+      </FollowThroughTrack>
     </main>
   );
 }

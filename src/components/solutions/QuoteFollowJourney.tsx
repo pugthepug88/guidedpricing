@@ -40,7 +40,8 @@ function JourneyPortrait({ cell }: { cell: number }) {
  */
 export function QuoteFollowJourney({
   endAtSceneBottom = false,
-}: { endAtSceneBottom?: boolean } = {}) {
+  pageTrack = false,
+}: { endAtSceneBottom?: boolean; pageTrack?: boolean } = {}) {
   const [channel, setChannel] = useState<Channel>("SMS");
   const [waitDays, setWaitDays] = useState<WaitDays>(2);
   const flowRef = useRef<HTMLDivElement>(null);
@@ -48,7 +49,7 @@ export function QuoteFollowJourney({
 
   useEffect(() => {
     const flow = flowRef.current;
-    if (!flow) return;
+    if (!flow || pageTrack) return;
     const checkpoints = Array.from(flow.querySelectorAll<HTMLElement>(".qfj-checkpoint"));
     const media = window.matchMedia(
       "(min-width: 1000px) and (prefers-reduced-motion: no-preference)",
@@ -110,7 +111,7 @@ export function QuoteFollowJourney({
       media.removeEventListener("change", measure);
       window.cancelAnimationFrame(frame);
     };
-  }, [endAtSceneBottom]);
+  }, [endAtSceneBottom, pageTrack]);
 
   const message = channel === "SMS" ? QUOTE_FOLLOW_SMS : EMAIL_MESSAGE;
   const days = `${waitDays} ${waitDays === 1 ? "day" : "days"}`;
@@ -118,11 +119,19 @@ export function QuoteFollowJourney({
   return (
     <section className="qfj" id="quote-follow-through" aria-label="Follow a quote through Zapla">
       <div className="qfj-flow" ref={flowRef}>
-        <div className="qfj-dominoes" style={{ top: course.top }} aria-hidden="true">
-          <QuoteDominoTrail variant="journey" height={course.height} progress={course.progress} />
-        </div>
+        {!pageTrack && (
+          <div className="qfj-dominoes" style={{ top: course.top }} aria-hidden="true">
+            <QuoteDominoTrail variant="journey" height={course.height} progress={course.progress} />
+          </div>
+        )}
 
-        <article className="qfj-chapter" id="qfj-start" aria-labelledby="qfj-start-title">
+        <article
+          className="qfj-chapter"
+          data-ft-waypoint={pageTrack || undefined}
+          data-ft-content={pageTrack || undefined}
+          id="qfj-start"
+          aria-labelledby="qfj-start-title"
+        >
           <header className="qfj-copy">
             <p className="qfj-label">
               <span className="qfj-checkpoint" aria-hidden="true" />
@@ -140,7 +149,12 @@ export function QuoteFollowJourney({
               Explore quoting <span aria-hidden="true">→</span>
             </a>
           </header>
-          <div className="qfj-quote-scene" aria-label="Emma's quote starts the configured process">
+          <div
+            className="qfj-quote-scene"
+            data-ft-cross={pageTrack ? "through" : undefined}
+            data-ft-occluder={pageTrack || undefined}
+            aria-label="Emma's quote starts the configured process"
+          >
             <div className="qfj-document">
               <div className="qfj-document-top">
                 <span>Quote Q-1042</span>
@@ -171,7 +185,13 @@ export function QuoteFollowJourney({
           </div>
         </article>
 
-        <article className="qfj-chapter" id="qfj-message" aria-labelledby="qfj-message-title">
+        <article
+          className="qfj-chapter"
+          data-ft-waypoint={pageTrack || undefined}
+          data-ft-content={pageTrack || undefined}
+          id="qfj-message"
+          aria-labelledby="qfj-message-title"
+        >
           <header className="qfj-copy">
             <p className="qfj-label">
               <span className="qfj-checkpoint" aria-hidden="true" />
@@ -248,7 +268,13 @@ export function QuoteFollowJourney({
           </div>
         </article>
 
-        <article className="qfj-chapter" id="qfj-reply" aria-labelledby="qfj-reply-title">
+        <article
+          className="qfj-chapter"
+          data-ft-waypoint={pageTrack || undefined}
+          data-ft-content={pageTrack || undefined}
+          id="qfj-reply"
+          aria-labelledby="qfj-reply-title"
+        >
           <header className="qfj-copy">
             <p className="qfj-label">
               <span className="qfj-checkpoint" aria-hidden="true" />

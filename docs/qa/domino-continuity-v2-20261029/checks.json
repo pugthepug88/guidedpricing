@@ -1,0 +1,508 @@
+{
+  "follow": [
+    {
+      "page": "follow-up-v2",
+      "width": 1440,
+      "content": 1425,
+      "height": 900,
+      "overflow": 0,
+      "scroll": 0,
+      "h1": "You lead. Zapla follows through.",
+      "h2": 7,
+      "track": {
+        "ftActive": "true",
+        "ftProgress": "0.0000"
+      },
+      "tiles": 271,
+      "oldTracks": 0,
+      "petal": 1,
+      "missingImages": [],
+      "fonts": "loaded",
+      "clip": [],
+      "sizes": ["1"],
+      "first": {
+        "x": 61.65999984741211,
+        "y": 244.52999877929688,
+        "width": 77.34999084472656,
+        "height": 46.220001220703125,
+        "top": 244.52999877929688,
+        "right": 139.00999069213867,
+        "bottom": 290.75,
+        "left": 61.65999984741211
+      },
+      "footerCamera": "100% 62%",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 1152,
+      "content": 1137,
+      "height": 900,
+      "overflow": 0,
+      "scroll": 0,
+      "h1": "You lead. Zapla follows through.",
+      "h2": 7,
+      "track": {
+        "ftActive": "true",
+        "ftProgress": "0.0000"
+      },
+      "tiles": 255,
+      "oldTracks": 0,
+      "petal": 1,
+      "missingImages": [],
+      "fonts": "loaded",
+      "clip": [],
+      "sizes": ["1"],
+      "first": {
+        "x": 5.25,
+        "y": 244.8300018310547,
+        "width": 77.38999938964844,
+        "height": 45.63999938964844,
+        "top": 244.8300018310547,
+        "right": 82.63999938964844,
+        "bottom": 290.4700012207031,
+        "left": 5.25
+      },
+      "footerCamera": "100% 62%",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 1100,
+      "content": 1085,
+      "height": 900,
+      "overflow": 0,
+      "scroll": 0,
+      "h1": "You lead. Zapla follows through.",
+      "h2": 7,
+      "track": {
+        "ftActive": "true",
+        "ftProgress": "0.0000"
+      },
+      "tiles": 251,
+      "oldTracks": 0,
+      "petal": 1,
+      "missingImages": [],
+      "fonts": "loaded",
+      "clip": [],
+      "sizes": ["1"],
+      "first": {
+        "x": 5.260000228881836,
+        "y": 244.85000610351562,
+        "width": 77.38999938964844,
+        "height": 45.600006103515625,
+        "top": 244.85000610351562,
+        "right": 82.64999961853027,
+        "bottom": 290.45001220703125,
+        "left": 5.260000228881836
+      },
+      "footerCamera": "100% 62%",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 834,
+      "content": 819,
+      "height": 900,
+      "overflow": 0,
+      "scroll": 0,
+      "h1": "You lead. Zapla follows through.",
+      "h2": 7,
+      "track": {
+        "ftActive": "false"
+      },
+      "tiles": 0,
+      "oldTracks": 0,
+      "petal": 1,
+      "missingImages": [],
+      "fonts": "loaded",
+      "clip": [],
+      "sizes": [],
+      "footerCamera": "50% 62%",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 393,
+      "content": 378,
+      "height": 900,
+      "overflow": 0,
+      "scroll": 0,
+      "h1": "You lead. Zapla follows through.",
+      "h2": 7,
+      "track": {
+        "ftActive": "false"
+      },
+      "tiles": 0,
+      "oldTracks": 0,
+      "petal": 1,
+      "missingImages": [],
+      "fonts": "loaded",
+      "clip": [],
+      "sizes": [],
+      "footerCamera": "50% 62%",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 320,
+      "content": 305,
+      "height": 900,
+      "overflow": 0,
+      "scroll": 0,
+      "h1": "You lead. Zapla follows through.",
+      "h2": 7,
+      "track": {
+        "ftActive": "false"
+      },
+      "tiles": 0,
+      "oldTracks": 0,
+      "petal": 1,
+      "missingImages": [],
+      "fonts": "loaded",
+      "clip": [],
+      "sizes": [],
+      "footerCamera": "50% 62%",
+      "robots": "noindex, nofollow"
+    }
+  ],
+  "quote": [
+    {
+      "page": "quote-follow-up-v2",
+      "width": 1440,
+      "content": 1425,
+      "height": 900,
+      "overflow": 0,
+      "scroll": 0,
+      "h1": "Keep the conversation going after the quote.",
+      "h2": 8,
+      "track": {
+        "ftActive": "true",
+        "ftProgress": "0.0000"
+      },
+      "tiles": 277,
+      "oldTracks": 0,
+      "petal": 1,
+      "missingImages": [],
+      "fonts": "loaded",
+      "clip": [],
+      "sizes": ["1"],
+      "first": {
+        "x": 61.65999984741211,
+        "y": 264.5299987792969,
+        "width": 77.34999084472656,
+        "height": 46.220001220703125,
+        "top": 264.5299987792969,
+        "right": 139.00999069213867,
+        "bottom": 310.75,
+        "left": 61.65999984741211
+      },
+      "footerCamera": "100% 62%",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 1152,
+      "content": 1137,
+      "height": 900,
+      "overflow": 0,
+      "scroll": 0,
+      "h1": "Keep the conversation going after the quote.",
+      "h2": 8,
+      "track": {
+        "ftActive": "true",
+        "ftProgress": "0.0000"
+      },
+      "tiles": 268,
+      "oldTracks": 0,
+      "petal": 1,
+      "missingImages": [],
+      "fonts": "loaded",
+      "clip": [],
+      "sizes": ["1"],
+      "first": {
+        "x": 5.21999979019165,
+        "y": 264.75,
+        "width": 77.37999725341797,
+        "height": 45.79998779296875,
+        "top": 264.75,
+        "right": 82.59999704360962,
+        "bottom": 310.54998779296875,
+        "left": 5.21999979019165
+      },
+      "footerCamera": "100% 62%",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 1100,
+      "content": 1085,
+      "height": 900,
+      "overflow": 0,
+      "scroll": 0,
+      "h1": "Keep the conversation going after the quote.",
+      "h2": 8,
+      "track": {
+        "ftActive": "true",
+        "ftProgress": "0.0000"
+      },
+      "tiles": 264,
+      "oldTracks": 0,
+      "petal": 1,
+      "missingImages": [],
+      "fonts": "loaded",
+      "clip": [],
+      "sizes": ["1"],
+      "first": {
+        "x": 5.21999979019165,
+        "y": 264.75,
+        "width": 77.37999725341797,
+        "height": 45.79998779296875,
+        "top": 264.75,
+        "right": 82.59999704360962,
+        "bottom": 310.54998779296875,
+        "left": 5.21999979019165
+      },
+      "footerCamera": "100% 62%",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 834,
+      "content": 819,
+      "height": 900,
+      "overflow": 0,
+      "scroll": 0,
+      "h1": "Keep the conversation going after the quote.",
+      "h2": 8,
+      "track": {
+        "ftActive": "false"
+      },
+      "tiles": 0,
+      "oldTracks": 0,
+      "petal": 1,
+      "missingImages": [],
+      "fonts": "loaded",
+      "clip": [],
+      "sizes": [],
+      "footerCamera": "50% 62%",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 393,
+      "content": 378,
+      "height": 900,
+      "overflow": 0,
+      "scroll": 0,
+      "h1": "Keep the conversation going after the quote.",
+      "h2": 8,
+      "track": {
+        "ftActive": "false"
+      },
+      "tiles": 0,
+      "oldTracks": 0,
+      "petal": 1,
+      "missingImages": [],
+      "fonts": "loaded",
+      "clip": [],
+      "sizes": [],
+      "footerCamera": "50% 62%",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 320,
+      "content": 305,
+      "height": 900,
+      "overflow": 0,
+      "scroll": 0,
+      "h1": "Keep the conversation going after the quote.",
+      "h2": 8,
+      "track": {
+        "ftActive": "false"
+      },
+      "tiles": 0,
+      "oldTracks": 0,
+      "petal": 1,
+      "missingImages": [],
+      "fonts": "loaded",
+      "clip": [],
+      "sizes": [],
+      "footerCamera": "50% 62%",
+      "robots": "noindex, nofollow"
+    }
+  ],
+  "wide": {
+    "page": "follow-up-v2",
+    "width": 2048,
+    "content": 2033,
+    "height": 900,
+    "overflow": 0,
+    "scroll": 4579,
+    "h1": "You lead. Zapla follows through.",
+    "h2": 7,
+    "track": {
+      "ftActive": "true",
+      "ftProgress": "0.9861"
+    },
+    "tiles": 282,
+    "oldTracks": 0,
+    "petal": 1,
+    "missingImages": [],
+    "fonts": "loaded",
+    "clip": [],
+    "sizes": ["1"],
+    "first": {
+      "x": 365.6600036621094,
+      "y": -4334.47021484375,
+      "width": 77.35000610351562,
+      "height": 46.22021484375,
+      "top": -4334.47021484375,
+      "right": 443.010009765625,
+      "bottom": -4288.25,
+      "left": 365.6600036621094
+    },
+    "footerCamera": "100% 62%",
+    "robots": "noindex, nofollow"
+  },
+  "static": [
+    {
+      "page": "follow-up-v2",
+      "width": 1280,
+      "content": 1265,
+      "height": 900,
+      "overflow": 0,
+      "scroll": 0,
+      "h1": "You lead. Zapla follows through.",
+      "h2": 7,
+      "track": {},
+      "tiles": 0,
+      "oldTracks": 0,
+      "petal": 1,
+      "missingImages": [],
+      "fonts": "loaded",
+      "clip": [],
+      "sizes": [],
+      "footerCamera": "100% 62%",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 1280,
+      "content": 1265,
+      "height": 900,
+      "overflow": 0,
+      "scroll": 0,
+      "h1": "Keep the conversation going after the quote.",
+      "h2": 8,
+      "track": {},
+      "tiles": 0,
+      "oldTracks": 0,
+      "petal": 1,
+      "missingImages": [],
+      "fonts": "loaded",
+      "clip": [],
+      "sizes": [],
+      "footerCamera": "100% 62%",
+      "robots": "noindex, nofollow"
+    }
+  ],
+  "motion": [
+    {
+      "scroll": 0,
+      "progress": "0.0000",
+      "overflow": 0,
+      "clip": []
+    },
+    {
+      "scroll": 40,
+      "progress": "0.0044",
+      "overflow": 0,
+      "clip": []
+    },
+    {
+      "scroll": 100,
+      "progress": "0.0102",
+      "overflow": 0,
+      "clip": []
+    },
+    {
+      "scroll": 1600,
+      "progress": "0.2646",
+      "overflow": 0,
+      "clip": []
+    },
+    {
+      "scroll": 2420,
+      "progress": "0.5270",
+      "overflow": 0,
+      "clip": []
+    },
+    {
+      "scroll": 4300,
+      "progress": "0.9414",
+      "overflow": 0,
+      "clip": []
+    },
+    {
+      "scroll": 2420,
+      "progress": "0.5270",
+      "overflow": 0,
+      "clip": []
+    },
+    {
+      "scroll": 100,
+      "progress": "0.0102",
+      "overflow": 0,
+      "clip": []
+    },
+    {
+      "scroll": 0,
+      "progress": "0.0000",
+      "overflow": 0,
+      "clip": []
+    }
+  ],
+  "phone": {
+    "page": "quote-follow-up-v2",
+    "width": 393,
+    "content": 378,
+    "height": 900,
+    "overflow": 0,
+    "scroll": 2140,
+    "h1": "Keep the conversation going after the quote.",
+    "h2": 8,
+    "track": {
+      "ftActive": "false"
+    },
+    "tiles": 0,
+    "oldTracks": 0,
+    "petal": 1,
+    "missingImages": [],
+    "fonts": "loaded",
+    "clip": [],
+    "sizes": [],
+    "footerCamera": "50% 62%",
+    "robots": "noindex, nofollow"
+  },
+  "originalQuote": {
+    "page": "quote-follow-up",
+    "width": 1440,
+    "content": 1425,
+    "height": 900,
+    "overflow": 0,
+    "scroll": 0,
+    "h1": "You send the quote. Zapla follows through.",
+    "h2": 8,
+    "tiles": 0,
+    "oldTracks": 1,
+    "petal": 0,
+    "missingImages": [],
+    "fonts": "loaded",
+    "clip": [],
+    "sizes": [],
+    "footerCamera": "50% 62%",
+    "robots": "noindex, nofollow"
+  }
+}
