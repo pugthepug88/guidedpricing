@@ -1,4 +1,14 @@
 /* The focused quote story shares the flagship's paper, ink, pearl and blue. */
+.zapla-quote-follow-up-v2 .qfv-final-petal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 20px;
+  background: #111214;
+  border-radius: 50%;
+}
 .zapla-quote-follow-up-v2 .qf-opening {
   padding-top: 128px;
 }
@@ -247,5 +257,24 @@
   }
   .zapla-quote-follow-up-v2 .qfv-next {
     padding: 17px 18px;
+  }
+}
+
+/* A single shared domino camera/scale runs from the opening through the CTA. */
+.zapla-quote-follow-up-v2 .qf-opening {
+  position: relative;
+}
+.zapla-quote-follow-up-v2 .qfv-origin {
+  top: 320px;
+}
+@media (min-width: 1100px) {
+  .zapla-quote-follow-up-v2 .qf-wrap {
+    width: min(1120px, calc(100% - 208px));
+  }
+  .zapla-quote-follow-up-v2 .qfj {
+    width: min(1120px, calc(100% - 144px));
+  }
+  .zapla-quote-follow-up-v2 .qfj-flow {
+    padding-left: 0;
   }
 }

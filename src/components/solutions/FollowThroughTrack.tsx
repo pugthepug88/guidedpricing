@@ -14,13 +14,23 @@ type Tile = {
   index: number;
   base: Point;
   distance: number;
+  size: number;
   width: Point;
   upright: Point;
   fallen: Point;
   standing: Projection;
   settled: Projection;
 };
-type Course = { width: number; height: number; length: number; tiles: Tile[]; signature: string };
+type Occlusion = { x: number; y: number; width: number; height: number };
+type Course = {
+  width: number;
+  height: number;
+  length: number;
+  originY: number;
+  tiles: Tile[];
+  occlusions: Occlusion[];
+  signature: string;
+};
 type Binding = {
   node: SVGGElement;
   back: SVGPolygonElement;
@@ -44,7 +54,7 @@ const polygon = (points: Point[]) =>
   points.map((point) => `${point.x.toFixed(2)},${point.y.toFixed(2)}`).join(" ");
 
 function project(
-  tile: Pick<Tile, "base" | "width" | "upright" | "fallen">,
+  tile: Pick<Tile, "base" | "width" | "upright" | "fallen" | "size">,
   angle: number,
 ): Projection {
   const radians = (angle * Math.PI) / 180;
@@ -60,7 +70,7 @@ function project(
   const topLeft = (showBack ? back : front)[3];
   const shadowStart = add(tile.base, { x: 2, y: 3 });
   const shadowWidth = scale(tile.width, 0.56);
-  const shadowLength = scale(tile.fallen, 0.78 + sine * 0.18);
+  const shadowLength = scale(tile.fallen, tile.size > 1 ? 0.46 + sine * 0.16 : 0.78 + sine * 0.18);
 
   return {
     back: polygon(back),
@@ -91,29 +101,53 @@ function measureCourse(root: HTMLElement): Course | null {
   ).filter((scene, index, all) => all.indexOf(scene) === index);
   if (scenes.length < 2 || bounds.width < 200) return null;
 
-  const content = scenes.map((scene) =>
-    (scene.querySelector<HTMLElement>(".ft-content") ?? scene).getBoundingClientRect(),
+  const contentNodes = Array.from(
+    root.querySelectorAll<HTMLElement>(".ft-content, [data-ft-content]"),
   );
+  const content = contentNodes.map((node) => node.getBoundingClientRect());
+  if (!content.length) return null;
   const leftEdge = Math.min(...content.map((rect) => rect.left - bounds.left));
   const rightEdge = Math.max(...content.map((rect) => rect.right - bounds.left));
-  // The page reserves 64–72px gutters. Hinge ± footprint stays outside content.
+  // Both pages use these exact physical dimensions. Gutters give the ordinary
+  // 20px-wide tile room to meander without changing its scale or camera.
   const left = Math.max(24, leftEdge - 32);
   const right = Math.min(bounds.width - 24, rightEdge + 32);
-  const start = Math.max(24, content[0].top - bounds.top + 12);
-  const end = Math.min(bounds.height - 8, content.at(-1)!.bottom - bounds.top + 32);
-  if (right - left < 200 || end - start < 150) return null;
+  const originBounds = root.querySelector<HTMLElement>("[data-ft-origin]")?.getBoundingClientRect();
+  const origin = originBounds
+    ? {
+        x: originBounds.left - bounds.left + originBounds.width / 2,
+        y: originBounds.top - bounds.top + originBounds.height / 2,
+      }
+    : { x: left, y: Math.max(80, content[0].top - bounds.top) };
+  const end = bounds.height - 12;
+  if (right - left < 200 || end - origin.y < 300) return null;
 
-  const crossings: { start: number; end: number }[] = [];
-  scenes.forEach((scene, index) => {
-    if (scene.dataset.ftCross !== "after" || !content[index + 1] || crossings.length >= 2) return;
-    const before = content[index].bottom - bounds.top;
-    const after = content[index + 1].top - bounds.top;
-    // Never route a tile through content to manufacture an S. An unreserved
-    // gap simply keeps the course on its current side.
-    if (after - before >= 72) crossings.push({ start: before + 28, end: after - 28 });
+  const crossings = Array.from(root.querySelectorAll<HTMLElement>('[data-ft-cross="through"]'))
+    .slice(0, 2)
+    .map((node) => {
+      const rect = node.getBoundingClientRect();
+      const top = rect.top - bounds.top;
+      const height = Math.min(500, Math.max(180, rect.height - 40));
+      const middle = top + rect.height / 2;
+      return { start: middle - height / 2, end: middle + height / 2 };
+    });
+
+  // The route can pass through an opaque scene, but never through its copy.
+  // The SVG mask also shields transparent editorial wrappers, so a future
+  // background/style change cannot expose a diagonal run behind readable text.
+  const occlusions = Array.from(
+    new Set([...contentNodes, ...root.querySelectorAll<HTMLElement>("[data-ft-occluder]")]),
+  ).map((node) => {
+    const rect = node.getBoundingClientRect();
+    return {
+      x: rect.left - bounds.left - 10,
+      y: rect.top - bounds.top - 10,
+      width: rect.width + 20,
+      height: rect.height + 20,
+    };
   });
 
-  const samples: Point[] = [{ x: left, y: start }];
+  const samples: Point[] = [origin];
   let current = samples[0];
   let side = left;
   const line = (destination: Point) => {
@@ -131,38 +165,66 @@ function measureCourse(root: HTMLElement): Course | null {
     }
     current = d;
   };
+  const driftTo = (y: number) => {
+    while (current.y < y - 0.1) {
+      const nextY = Math.min(y, current.y + 380);
+      const span = nextY - current.y;
+      const next = { x: side + Math.sin(nextY / 470) * 8, y: nextY };
+      curve(
+        current,
+        { x: current.x, y: current.y + span * 0.35 },
+        { x: next.x, y: nextY - span * 0.35 },
+        next,
+        Math.max(12, Math.ceil(span / 12)),
+      );
+    }
+  };
+
+  // Only this short opening sequence changes size. It is a physical starter,
+  // not a replacement logo in the headline, and it never loops on its own.
+  const starterEnd = Math.min(origin.y + 340, crossings[0]?.start - 60 || origin.y + 340);
+  curve(
+    current,
+    { x: origin.x - 8, y: origin.y + 90 },
+    { x: left - 8, y: starterEnd - 90 },
+    { x: left, y: starterEnd },
+    40,
+  );
   crossings.forEach((crossing) => {
-    if (crossing.start <= current.y || crossing.end >= end) return;
-    line({ x: side, y: crossing.start });
+    if (crossing.start <= current.y + 35 || crossing.end >= end - 350) return;
+    driftTo(crossing.start);
     const other = side === left ? right : left;
-    const direction = other > side ? 1 : -1;
     const span = crossing.end - crossing.start;
-    const middleRise = Math.min(32, span * 0.28);
-    const radius = (span - middleRise) / 2;
-    const handle = radius * 0.5522848;
-    // Two round shoulders, rather than one huge flattened cubic whose first
-    // tile would have to turn almost 90 degrees. A slight diagonal between
-    // them keeps Y monotonic so native scroll can traverse the whole sweep.
-    const firstTurn = { x: side + direction * radius, y: crossing.start + radius };
+    // A deep diagonal passes behind the scene. Its hidden middle has enough
+    // vertical travel to avoid the old exposed, rapidly sweeping crossbar.
     curve(
       current,
-      { x: side, y: crossing.start + handle },
-      { x: firstTurn.x - direction * handle, y: firstTurn.y },
-      firstTurn,
-      20,
-    );
-    const secondTurn = { x: other - direction * radius, y: crossing.end - radius };
-    line(secondTurn);
-    curve(
-      current,
-      { x: secondTurn.x + direction * handle, y: secondTurn.y },
-      { x: other, y: crossing.end - handle },
+      { x: current.x, y: crossing.start + span * 0.46 },
+      { x: other, y: crossing.end - span * 0.46 },
       { x: other, y: crossing.end },
-      20,
+      100,
     );
     side = other;
   });
-  line({ x: side, y: end });
+
+  const exitBounds = root.querySelector<HTMLElement>("[data-ft-exit]")?.getBoundingClientRect();
+  if (exitBounds) {
+    const exitY = Math.max(current.y + 70, exitBounds.top - bounds.top + 60);
+    const outside = -75;
+    driftTo(Math.min(exitY, end - 360));
+    curve(
+      current,
+      { x: current.x, y: current.y + 65 },
+      { x: outside + 35, y: current.y + 90 },
+      { x: outside, y: current.y + 165 },
+      30,
+    );
+    // The course completes beyond the left crop. The V2 footer introduces the
+    // film's foreground dominoes from that same edge; no floating paper stub.
+    line({ x: outside, y: end });
+  } else {
+    driftTo(end);
+  }
 
   const distances = [0];
   for (let index = 1; index < samples.length; index++) {
@@ -175,13 +237,12 @@ function measureCourse(root: HTMLElement): Course | null {
     );
   }
   const length = distances.at(-1)!;
-  const count = Math.max(3, Math.ceil(length / 24) + 1);
-  const pitch = length / (count - 1);
+  const starterSizes = originBounds ? [3.2, 2.6, 2.15, 1.78, 1.48, 1.23, 1.08] : [];
+  const sizeAt = (index: number) => starterSizes[index] ?? 1;
   const tiles: Tile[] = [];
   let cursor = 1;
 
-  for (let index = 0; index < count; index++) {
-    const distance = index * pitch;
+  for (let index = 0, distance = 0; distance <= length; index++) {
     while (cursor < distances.length - 1 && distances[cursor] < distance) cursor++;
     const a = samples[cursor - 1];
     const b = samples[cursor];
@@ -190,31 +251,41 @@ function measureCourse(root: HTMLElement): Course | null {
     const base = mix(a, b, clamp((distance - distances[cursor - 1]) / span));
     // Width and fall axes follow the LOCAL tangent, including both broad bends.
     // Elevation stays fixed in the shared oblique overhead camera.
-    const width = { x: tangent.y * 20 - tangent.x * 3, y: -tangent.x * 20 - tangent.y * 3 };
+    const size = sizeAt(index);
+    const width = scale(
+      { x: tangent.y * 20 - tangent.x * 3, y: -tangent.x * 20 - tangent.y * 3 },
+      size,
+    );
     const tile = {
       index,
       base,
       distance,
+      size,
       width,
-      upright: { x: 4, y: -13 },
-      fallen: scale(tangent, 28),
+      upright: scale({ x: 4, y: -13 }, size),
+      fallen: scale(tangent, 28 * size),
     };
     tiles.push({ ...tile, standing: project(tile, 0), settled: project(tile, 78) });
+    distance += (24 * (sizeAt(index) + sizeAt(index + 1))) / 2;
   }
 
   return {
     width: bounds.width,
     height: bounds.height,
     length,
+    originY: origin.y,
     tiles,
+    occlusions,
     signature: [
       bounds.width,
       bounds.height,
       left,
       right,
-      start,
+      origin.x,
+      origin.y,
       end,
       ...crossings.flatMap((crossing) => [crossing.start, crossing.end]),
+      ...occlusions.flatMap((rect) => [rect.x, rect.y, rect.width, rect.height]),
     ]
       .map((value) => value.toFixed(1))
       .join("/"),
@@ -231,10 +302,10 @@ function applyProjection(binding: Binding, projection: Projection) {
 }
 
 /**
- * Shared follow-through brand course. The page owns its content and reserves
- * desktop gutters plus a clear gap after up to two data-ft-cross="after" scenes.
- * Mark scenes with data-ft-waypoint (or .ft-scene), with their readable content
- * inside .ft-content. Everything remains ordinary, complete document flow.
+ * Shared follow-through brand course for both V2 pages. All normal tiles use
+ * one size and camera. An optional hero origin introduces a short larger
+ * starter; two marked product scenes can conceal broad diagonal side changes.
+ * Readable content is masked, and native scrolling remains ordinary page flow.
  *
  * Geometry is measured only after layout changes. Native scroll updates SVG
  * attributes for visible tiles; React never re-renders the course on scroll.
@@ -251,6 +322,7 @@ export function FollowThroughTrack({
   const scheduleRef = useRef<(() => void) | null>(null);
   const [course, setCourse] = useState<Course | null>(null);
   const markId = `ftd-mark-${useId().replace(/:/g, "")}`;
+  const maskId = `${markId}-occlusion`;
 
   useEffect(() => {
     const root = rootRef.current;
@@ -266,9 +338,14 @@ export function FollowThroughTrack({
     const update = () => {
       frame = 0;
       if (disposed || !media.matches || !geometry) return;
+      const activeCourse = geometry;
       const top = root.getBoundingClientRect().top;
-      const target = window.innerHeight * 0.47 - top;
-      const tiles = geometry.tiles;
+      const documentTop = top + window.scrollY;
+      // At the page top the first physical domino is standing. The same native
+      // scroll then advances its contact point through the measured course;
+      // there is no load-time cascade, timer or delayed catch-up animation.
+      const target = activeCourse.originY + Math.max(0, window.scrollY - documentTop);
+      const tiles = activeCourse.tiles;
       let low = 0;
       let high = tiles.length - 1;
       while (low < high) {
@@ -278,12 +355,16 @@ export function FollowThroughTrack({
       }
       const previous = Math.max(0, low - 1);
       const ySpan = Math.max(0.01, tiles[low].base.y - tiles[previous].base.y);
+      const lead = 1.25 * clamp((target - activeCourse.originY) / 80);
       const front =
         target <= tiles[0].base.y
           ? 0
-          : target >= tiles.at(-1)!.base.y + 34
-            ? tiles.length + 1.5
-            : previous + clamp((target - tiles[previous].base.y) / ySpan) + 1.25;
+          : target >= tiles.at(-1)!.base.y
+            ? Math.min(
+                tiles.length + 1.5,
+                tiles.length - 1 + lead + (target - tiles.at(-1)!.base.y) / 24,
+              )
+            : previous + clamp((target - tiles[previous].base.y) / ySpan) + lead;
       root.dataset.ftProgress = clamp(front / (tiles.length + 1.5)).toFixed(4);
       const nextVisible = new Set<number>();
 
@@ -310,8 +391,10 @@ export function FollowThroughTrack({
         const distanceFromContact = Math.abs(tile.index - (front - 1.25));
         const focus = 1 - clamp((distanceFromContact - 1.25) / 1.5);
         const restingOpacity = 0.17 + phase * 0.05;
-        const tailFade = clamp((tiles.at(-1)!.base.y - tile.base.y) / 130);
-        const opacity = (restingOpacity + (1 - restingOpacity) * focus) * tailFade;
+        const tailFade = clamp((activeCourse.length - tile.distance) / 95);
+        const starterPresence = tile.size > 1 ? 0.45 + clamp((tile.size - 1) / 2.2) * 0.45 : 0;
+        const opacity =
+          Math.max(restingOpacity + (1 - restingOpacity) * focus, starterPresence) * tailFade;
         if (Math.abs(opacity - binding.opacity) > 0.005) {
           binding.node.setAttribute("opacity", opacity.toFixed(3));
           binding.opacity = opacity;
@@ -384,49 +467,69 @@ export function FollowThroughTrack({
             <symbol id={markId} viewBox="0 0 512 512" overflow="hidden">
               <image href="/concept/zapla-logo-dark.svg" width="1743" height="512" />
             </symbol>
-          </defs>
-          {course.tiles.map((tile) => (
-            <g
-              className="ftd-tile"
-              key={tile.index}
-              data-ft-tile={tile.index}
-              ref={(node) => {
-                if (!node) {
-                  bindings.current.delete(tile.index);
-                  return;
-                }
-                bindings.current.set(tile.index, {
-                  node,
-                  back: node.querySelector<SVGPolygonElement>(".ftd-back")!,
-                  edgeLeft: node.querySelector<SVGPolygonElement>(".ftd-edge-left")!,
-                  edgeRight: node.querySelector<SVGPolygonElement>(".ftd-edge-right")!,
-                  crown: node.querySelector<SVGPolygonElement>(".ftd-crown")!,
-                  face: node.querySelector<SVGGElement>(".ftd-face-plane")!,
-                  shadow: node.querySelector<SVGPolygonElement>(".ftd-shadow")!,
-                  angle: -1,
-                  opacity: -1,
-                });
-              }}
+            <mask
+              id={maskId}
+              maskUnits="userSpaceOnUse"
+              x="0"
+              y="0"
+              width={course.width}
+              height={course.height}
             >
-              <polygon className="ftd-shadow" points={tile.standing.shadow} />
-              <polygon className="ftd-back" points={tile.standing.back} />
-              <polygon className="ftd-edge ftd-edge-left" points={tile.standing.edgeLeft} />
-              <polygon className="ftd-edge ftd-edge-right" points={tile.standing.edgeRight} />
-              <polygon className="ftd-crown" points={tile.standing.crown} />
-              <g className="ftd-face-plane" transform={tile.standing.face}>
-                <rect className="ftd-face" width="1" height="1" rx="0.17" />
-                <use href={`#${markId}`} x="0.015" y="0.015" width="0.97" height="0.97" />
-                <rect
-                  className="ftd-rim"
-                  x="0.015"
-                  y="0.015"
-                  width="0.97"
-                  height="0.97"
-                  rx="0.26"
+              <rect width={course.width} height={course.height} fill="white" />
+              {course.occlusions.map((rect, index) => (
+                <rect key={index} {...rect} rx="12" fill="black" />
+              ))}
+            </mask>
+          </defs>
+          <g mask={`url(#${maskId})`}>
+            {course.tiles.map((tile) => (
+              <g
+                className="ftd-tile"
+                key={tile.index}
+                data-ft-tile={tile.index}
+                data-ft-size={tile.size}
+                ref={(node) => {
+                  if (!node) {
+                    bindings.current.delete(tile.index);
+                    return;
+                  }
+                  bindings.current.set(tile.index, {
+                    node,
+                    back: node.querySelector<SVGPolygonElement>(".ftd-back")!,
+                    edgeLeft: node.querySelector<SVGPolygonElement>(".ftd-edge-left")!,
+                    edgeRight: node.querySelector<SVGPolygonElement>(".ftd-edge-right")!,
+                    crown: node.querySelector<SVGPolygonElement>(".ftd-crown")!,
+                    face: node.querySelector<SVGGElement>(".ftd-face-plane")!,
+                    shadow: node.querySelector<SVGPolygonElement>(".ftd-shadow")!,
+                    angle: -1,
+                    opacity: -1,
+                  });
+                }}
+              >
+                <polygon
+                  className="ftd-shadow"
+                  points={tile.standing.shadow}
+                  style={tile.size > 1 ? { opacity: 0.045 } : undefined}
                 />
+                <polygon className="ftd-back" points={tile.standing.back} />
+                <polygon className="ftd-edge ftd-edge-left" points={tile.standing.edgeLeft} />
+                <polygon className="ftd-edge ftd-edge-right" points={tile.standing.edgeRight} />
+                <polygon className="ftd-crown" points={tile.standing.crown} />
+                <g className="ftd-face-plane" transform={tile.standing.face}>
+                  <rect className="ftd-face" width="1" height="1" rx="0.17" />
+                  <use href={`#${markId}`} x="0.015" y="0.015" width="0.97" height="0.97" />
+                  <rect
+                    className="ftd-rim"
+                    x="0.015"
+                    y="0.015"
+                    width="0.97"
+                    height="0.97"
+                    rx="0.26"
+                  />
+                </g>
               </g>
-            </g>
-          ))}
+            ))}
+          </g>
         </svg>
       )}
       <div className="ft-track-body">{children}</div>

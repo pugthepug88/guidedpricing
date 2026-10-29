@@ -1,4 +1,6 @@
 import { ArrowDown, ArrowRight, Plus } from "lucide-react";
+import { ZaplaPetal } from "@/components/ZaplaPetal";
+import { FollowThroughTrack } from "./FollowThroughTrack";
 import { QuoteFollowJourney, ZaplaJourneyMark, QUOTE_FOLLOW_SMS } from "./QuoteFollowJourney";
 import "@/styles/quote-follow-up.css";
 import "@/styles/quote-follow-dna.css";
@@ -23,7 +25,11 @@ function TextLink({ href, children }: { href: string; children: string }) {
 // Prepared explanatory records, not customer testimonials or executed workflows.
 function QuoteOverview() {
   return (
-    <article className="qfv-conversation" aria-label="Emma's quote and follow-up conversation">
+    <article
+      className="qfv-conversation"
+      data-ft-occluder
+      aria-label="Emma's quote and follow-up conversation"
+    >
       <header className="qfv-conversation-heading">
         <img src="/concept/zapla-logo-dark.svg" width="88" height="26" alt="Zapla" />
         <span>
@@ -57,8 +63,9 @@ function QuoteOverview() {
 }
 function Opening() {
   return (
-    <section className="qf-opening" aria-labelledby="qf-title">
-      <div className="qf-wrap qf-hero-grid">
+    <section className="qf-opening" data-ft-waypoint aria-labelledby="qf-title">
+      <span className="ft-origin qfv-origin" data-ft-origin aria-hidden="true" />
+      <div className="qf-wrap qf-hero-grid" data-ft-content>
         <div className="qf-hero-copy">
           <nav className="qfv-breadcrumb" aria-label="Breadcrumb">
             <a href="/follow-up-v2">Follow-Up</a>
@@ -89,8 +96,8 @@ function Opening() {
 }
 function HumanContext() {
   return (
-    <section className="qf-human" aria-labelledby="qf-human-title">
-      <div className="qf-wrap qf-human-grid">
+    <section className="qf-human" data-ft-waypoint aria-labelledby="qf-human-title">
+      <div className="qf-wrap qf-human-grid" data-ft-content>
         <header>
           <p className="qf-label">You lead.</p>
           <h2 id="qf-human-title">
@@ -119,8 +126,8 @@ function HumanContext() {
 }
 function GuidedLaunch() {
   return (
-    <section className="qf-adoption" aria-labelledby="qf-launch-title">
-      <div className="qf-wrap qf-adoption-grid">
+    <section className="qf-adoption" data-ft-waypoint aria-labelledby="qf-launch-title">
+      <div className="qf-wrap qf-adoption-grid" data-ft-content>
         <div className="qf-adoption-copy">
           <p className="qf-label">Your process. Our help making it happen.</p>
           <h2 id="qf-launch-title">
@@ -146,7 +153,7 @@ function GuidedLaunch() {
             </p>
           </div>
         </div>
-        <div className="qf-launch-canvas">
+        <div className="qf-launch-canvas" data-ft-cross="through" data-ft-occluder>
           <article className="qf-launch-plan">
             <header>
               <ZaplaJourneyMark className="qf-launch-mark" />
@@ -214,8 +221,12 @@ const FAQS = [
 ] as const;
 function Questions() {
   return (
-    <section className="qf-questions qf-section" aria-labelledby="qf-questions-title">
-      <div className="qf-wrap qf-questions-grid">
+    <section
+      className="qf-questions qf-section"
+      data-ft-waypoint
+      aria-labelledby="qf-questions-title"
+    >
+      <div className="qf-wrap qf-questions-grid" data-ft-content>
         <header>
           <p className="qf-label">A few practical questions</p>
           <h2 id="qf-questions-title">
@@ -242,27 +253,37 @@ function Questions() {
 export function QuoteFollowUpPageV2() {
   return (
     <main className="zapla-quote-follow-up zapla-quote-follow-up-v2" data-page="quote-follow-up-v2">
-      <Opening />
-      <QuoteFollowJourney endAtSceneBottom />
-      <HumanContext />
-      <GuidedLaunch />
-      <Questions />
-      <section className="qf-final" aria-labelledby="qf-final-title">
-        <div className="qf-wrap">
-          <p className="qf-label">You lead. Zapla follows through.</p>
-          <h2 id="qf-final-title">
-            Let’s map what happens
-            <br />
-            after your next quote.
-          </h2>
-          <p>
-            Bring your current quoting process. We’ll work through where follow-up starts, what
-            customers should receive and where your team steps in.
-          </p>
-          <CallLink />
-          <TextLink href="/follow-up-v2">Explore follow-up across your business</TextLink>
-        </div>
-      </section>
+      <FollowThroughTrack>
+        <Opening />
+        <QuoteFollowJourney pageTrack />
+        <HumanContext />
+        <GuidedLaunch />
+        <Questions />
+        <section
+          className="qf-final"
+          data-ft-waypoint
+          data-ft-exit
+          aria-labelledby="qf-final-title"
+        >
+          <div className="qf-wrap" data-ft-content>
+            <div className="qfv-final-petal" aria-hidden="true">
+              <ZaplaPetal size={34} />
+            </div>
+            <p className="qf-label">You lead. Zapla follows through.</p>
+            <h2 id="qf-final-title">
+              Let’s map what happens
+              <br />
+              after your next quote.
+            </h2>
+            <p>
+              Bring your current quoting process. We’ll work through where follow-up starts, what
+              customers should receive and where your team steps in.
+            </p>
+            <CallLink />
+            <TextLink href="/follow-up-v2">Explore follow-up across your business</TextLink>
+          </div>
+        </section>
+      </FollowThroughTrack>
     </main>
   );
 }
