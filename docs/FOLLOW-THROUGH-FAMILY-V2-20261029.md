@@ -4,45 +4,47 @@
 
 ## Scope and preservation
 
-Owner authorised a coherent Follow-Up / Quote Follow-Up family after visual inspection of Wispr Flow, then explicitly required a new Follow-Up V2 instead of overwriting the original. Both rebuilds are separate review routes: `/follow-up-v2` and `/quote-follow-up-v2`. Original route/page styles, shared header/footer, navigation and production search-page list are unchanged. V2 routes are noindex/nofollow and excluded from the sitemap; they are not added to global menus.
+The approved A treatment lives on separate `/follow-up-v2` and `/quote-follow-up-v2` review routes. The original Follow-Up and Quote Follow-Up pages, shared navigation, header and footer defaults remain unchanged. V2 routes retain noindex/nofollow, sitemap exclusion and no global-menu entry.
 
-`QuoteFollowJourney` retains its default behavior for the original page. Quote V2 opts into `pageTrack`, which suppresses the old internal guide so one shared `FollowThroughTrack` owns the entire V2 page. No duplicate scroll listener or second trail mounts there.
+Quote V2 opts into `QuoteFollowJourney`'s `pageTrack` prop, suppressing its older internal guide so one shared `FollowThroughTrack` owns the page. The original page retains the default guide. Desktop V2 alone uses the existing footer film's right crop to favor the foreground course at left; mobile and original pages keep the centered camera. This is an offscreen editorial handoff, not a literal collision or synchronized video seam. The film itself is unchanged.
 
-## Product and visual decisions
+## Page family and product story
 
-The broader page owns “You lead. Zapla follows through.” Quote Follow-Up is one focused proof point, linked as a child with a return breadcrumb. The alternative of merging both pages was rejected: distinct breadth and depth jobs justify retaining both, provided the hierarchy and material are shared.
+The broader page owns “You lead. Zapla follows through.” Quote Follow-Up is a focused child proof point, linked with a return breadcrumb. Both use warm paper, ink typography and controls, the native blue mark, pearl product records, a local ink scene and warm human photography. Final CTAs retain the canonical `ZaplaPetal size={34}` inside the 52px ink circle.
 
-Adapt Wispr's recurring product-relevant visual thread, not its colours, typography or layout. Use Zapla warm paper, ink type and controls, exact blue mark, pearl product records, one local ink scene and warm human photography. The native logo domino course now carries both V2 pages from the hero, with two relaxed side changes concealed behind product surfaces. It exits the left edge near the final CTA. A detached returning SVG fragment was rejected after actual contact-state review. Desktop V2 alone shifts the existing footer camera to the right crop, favoring its foreground course on the left; original pages and mobile keep the centered camera. This is an offscreen editorial handoff, not a literal physical collision or synchronised video seam. No footer film or tile scaling was added.
+- Broad page: enquiry → configured automatic SMS with booking link → Emma explicitly books → confirmation/reminder → quote check-in → optional later reconnect. Reconnect remains a separate agreed workflow, not an inevitable repeat sale.
+- Quote page: Quote Sent → chosen wait and SMS/email → customer question → Alex reviews scope and replies. No automatic acceptance, revised quote or task creation is implied.
+- The people supply judgment and skilled work; configured product messages supply follow-through. Native event/wait/channel building blocks demonstrate configuration, not measured delivery or conversion results. No fabricated metrics or testimonials were added.
+- Messaging/usage and separately priced required Guided Launch remain visible. Supported-tool compatibility, audience, reply handling and exit behavior are agreed before setup. Capability references remain `AUTOMATION-BUILDER-EVIDENCE.md`, `CALENDARS-BOOKING-AUTOMATIONS-20261027.md` and the earlier quote audit.
 
-The old quote hero's two large records on a blue plate are replaced by one customer conversation, containing compact quote context, the actual prepared check-in, Emma's scope question and the team's deliberate next step. A restrained physical starter sits beside the hero copy: seven pieces taper from 3.2× to the regular size. It begins upright and tips only with native scrolling; there is no autoplay hero loop or row between product records. Starter shadows are shorter and softer so they do not form pale rectangular backplates. Final CTAs reuse the existing `ZaplaPetal size={34}` in the canonical 52px ink circle.
+## A — from the follow-up
 
-## Story and capability gate
+The origin is the native flat 32px Zapla mark beside the automatic message's sender/timing row inside each hero product interface. It begins as an ordinary flat sender mark. Scrolling reveals shallow rounded depth, lifts the mark and tips it into two bridge pieces of 24px and 20px. The main course remains hidden until this first contact, then passes behind the hero surface and emerges at its opposite shoulder. The sender column reserves clear space throughout; the motion does not cross the message or headline.
 
-- Broad page: enquiry → automatic configured SMS with booking link → Emma explicitly makes her booking → confirmation/reminder → quote check-in → optional later reconnect. The repeat campaign is a separate business choice, not an inevitable next step or won job.
-- Quote page: Quote Sent → chosen wait/SMS or email → customer question → Alex reviews scope and replies. No automatic acceptance, revised quote or task creation is implied.
-- Photography supplies the human role; configured messages supply the system role. Scope, price and sensitive decisions remain with people.
-- Native event/wait/channel building blocks are configuration evidence, not proof of delivery, conversion or measured customer results. No fabricated metrics/testimonials were added. Capability references are `AUTOMATION-BUILDER-EVIDENCE.md`, `CALENDARS-BOOKING-AUTOMATIONS-20261027.md` and the earlier quote audit.
-- Messaging/usage and separately priced required Guided Launch are visible. Supported-tool compatibility and reply/exit handling are agreed before setup.
+`followThroughGeometry.ts` uses the native logo corner ratio `142.2 / 508` for the complete projected object: front perimeter, rear plane, continuous extrusion and shadow. Curved SVG paths replace square rear/side polygons. The face transform does not reverse the white mark through the edge-on moment. Front, rear and depth therefore share the same rounded silhouette rather than placing a rounded face on a square body.
 
-## Motion implementation
+Every regular course piece retains the same geometry on both pages: 20px width basis, upright vector `(4, −13)`, 28px fall and 24px pitch. All regular pieces expose size `1`; only the flat origin and two contact bridges differ in size. There is no enlarged side starter or separate hero loop.
 
-`FollowThroughTrack` measures real content edges and two marked opaque scenes. It projects fixed hinges along local tangents with the same regular geometry on both V2 pages: width vector based on20px, upright vector(4,−13), fall28px and pitch24px. Only the seven opening pieces are larger. Reserved desktop hero gutters prevent the enlarged starter touching the text at1100/1152px. Regular tile size is unchanged.
+## Course and runtime behavior
 
-The side courses drift gently. Diagonal crossings use180–500px of vertical travel behind product surfaces, instead of crossing the open page width in a short whitespace gap. An SVG mask shields all readable content wrappers and explicit product occluders. The final course completes beyond the left crop.
+The shared tracker measures the actual content edges, hero surface and three marked opaque product scenes. Each scene permits a relaxed diagonal side change over 200–500px of vertical travel, concealed behind its surface. The broad page crosses behind booking, quote and reconnect; the quote page crosses behind the three journey steps. Content wrappers, explicit occluders and opening footnotes are masked. Side runs drift gently instead of using exposed horizontal crossbars.
 
-Native passive scrolling advances the contact through RAF, updating visible SVG attributes rather than rendering React per scroll. Standing/settled projections are cached. Future/settled material stays quiet; saturation follows the contact. At scroll0 the first piece is upright, and reversing to a measured position restores the same progress.
+The left departure starts during the preceding section and develops over at least 480px of vertical travel. It completes beyond the left crop before the final CTA rather than making a tight hook around that CTA. There is no detached returning SVG fragment.
 
-No wheel capture, scroll snapping, loop or content gating. Under1100px and reduced motion omit the long course. No-JavaScript retains all product content in normal flow. The original Quote page keeps its existing guide and centered footer camera.
+Passive native scroll advances contact through `requestAnimationFrame`, updating visible SVG attributes without a React render per scroll. Standing and settled projections are cached. Future and settled pieces stay quiet; saturation follows contact. Resize and font readiness remeasure the course. No wheel capture, snapping, autoplay loop or content gating is used.
 
-## Validation and review
+Motion mounts only at widths of at least 1100px, heights of at least 650px and `prefers-reduced-motion: no-preference`. Smaller screens, short windows and reduced-motion preferences retain the flat sender mark and omit both motion SVGs. Scripts-disabled rendering also retains the complete product content and flat mark. The DOM mark hides only after an eligible moving replacement is ready.
 
-The original family review and evidence remain in `docs/qa/follow-through-family-v2-20261029/`. The continuity revision adds `docs/qa/domino-continuity-v2-20261029/checks.json`.
+## Validation
 
-- Both routes tested at1440,1152,1100,834,393 and320px frame widths (content1425,1137,1085,819,378,305): zero document overflow or flagged text clipping; loaded fonts and images; noindex/nofollow retained. Extra2048px parent layout check also passed. The narrow desktop starter physical face stays inside the viewport with clear copy gutters.
-- All tiles after index6 expose the same regular size1 on both routes; first hero shapes also match. Initial progress0; native forward progression0→0.0044→0.0102→0.2646→0.5270→0.9414. Reverse returned exactly0.5270→0.0102→0.0000.
-- Actual scripts-disabled iframe checks retain7/8 h2 headings and the full content, with no domino SVG mounted. Source media gating covers reduced motion; an OS-level reduced-motion run was not performed.
-- Quote Email/five-day choices update both preview and matching Inbox on393px, with no clipping or overflow. The original Quote page still mounts its old guide and keeps footer camera50%62%; V2 desktop alone uses100%62%.
-- Independent visual review approved the hidden crossing and canonical lotus, identified starter shadow backplates (fixed), and rejected the paper return stub (removed). This is qualitative design review, not measured conversion or owner acceptance.
-- Scoped ESLint, TypeScript noEmit, formatting, production build, SEO policy and whitespace checks passed. Physical Safari/device use, screen reader operation and field performance remain unmeasured.
+Earlier family evidence remains in `docs/qa/follow-through-family-v2-20261029/` and `docs/qa/domino-continuity-v2-20261029/`. Current origin-A checks cover:
 
-All source goes through GitHub; Lovable is read only, with no separate Publish action.
+- Both pages rendered at frame widths 1440, 1152, 1100, 834, 393 and 320px, height 900px: no document overflow, flagged text clipping or missing images; fonts loaded and noindex/nofollow retained. Regular pieces use size `1` on eligible desktops; tablet/phone retain the flat mark without motion SVGs.
+- Flat, lift, contact and handoff states on both pages: no overlap with sender labels or message text. Independent visual review approved both origins.
+- Both pages at 1280×600 and scripts-disabled 1280×900: flat mark retained, no motion SVG mounted, complete content with seven/eight second-level headings.
+- Both page routes and early left departures visually checked; neither crosses message content or the lotus CTA. Quote intro reverses through handoff, tip, lift and flat with no sender/message collision. Mobile Email / 5 days example verified.
+- Rounded geometry: 172 projection cases and 504 silhouette cases passed, including finite edge-on output and continuous rounded perimeters.
+
+An OS-level reduced-motion run, physical Safari/device use, screen-reader operation, field performance and conversion results remain unmeasured. Source media gating covers reduced motion. Production build, TypeScript, scoped ESLint, formatting and SEO policy checks passed for this source. CI and live sync are checked at delivery. Current rendered checks are saved in `docs/qa/follow-through-origin-a-20261029/checks.json`.
+
+All source changes go through GitHub; Lovable is read only, with no separate Publish action.

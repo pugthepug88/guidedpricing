@@ -209,7 +209,11 @@ export function QuoteFollowJourney({
               Explore automation <span aria-hidden="true">→</span>
             </a>
           </header>
-          <div className="qfj-message-scene">
+          <div
+            data-ft-cross={pageTrack ? "through" : undefined}
+            data-ft-occluder={pageTrack || undefined}
+            className="qfj-message-scene"
+          >
             <div className="qfj-settings">
               <div className="qfj-setting">
                 <span id="qfj-channel-label">Selected channel</span>
@@ -294,6 +298,8 @@ export function QuoteFollowJourney({
             </a>
           </header>
           <div
+            data-ft-cross={pageTrack ? "through" : undefined}
+            data-ft-occluder={pageTrack || undefined}
             className="qfj-inbox-scene"
             aria-label="Emma's conversation and Alex's customer note"
           >

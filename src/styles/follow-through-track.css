@@ -18,19 +18,33 @@
   pointer-events: none;
   user-select: none;
 }
-.ft-origin {
-  position: absolute;
-  top: 300px;
-  left: max(36px, calc((100% - 1120px) / 2 - 60px));
-  display: none;
-  width: 1px;
-  height: 1px;
-  pointer-events: none;
+.ft-seed {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  overflow: hidden;
+  vertical-align: middle;
 }
-@media (min-width: 1100px) and (prefers-reduced-motion: no-preference) {
-  .ft-origin {
-    display: block;
-  }
+.ft-seed-mark {
+  display: block;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+}
+.ft-track[data-ft-active="true"][data-ft-ready="true"] .ft-seed-mark {
+  opacity: 0;
+}
+.ft-seed-visual {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
 }
 .ft-track .ftd-tile {
   visibility: hidden;
@@ -47,16 +61,10 @@
   stroke-width: 0.4;
   stroke-linejoin: round;
 }
-.ft-track .ftd-edge {
-  fill: #084ca9;
-  stroke: #084ca9;
-  stroke-width: 0.4;
-  stroke-linejoin: round;
-}
-.ft-track .ftd-crown {
-  fill: #69a9ff;
-  stroke: #8cbdff;
-  stroke-width: 0.4;
+.ft-track .ftd-side {
+  fill: #0b5cc8;
+  stroke: #0c5dc5;
+  stroke-width: 0.25;
   stroke-linejoin: round;
 }
 .ft-track .ftd-face {
@@ -67,8 +75,9 @@
   stroke: #ffffff57;
   stroke-width: 0.014;
 }
-@media (max-width: 1099px), (prefers-reduced-motion: reduce) {
-  .ft-track-visual {
+@media (max-width: 1099px), (max-height: 649px), (prefers-reduced-motion: reduce) {
+  .ft-track-visual,
+  .ft-seed-visual {
     display: none;
   }
 }

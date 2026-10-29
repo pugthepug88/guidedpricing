@@ -214,8 +214,17 @@
   border-radius: 14px 14px 4px 14px;
   background: #244d77;
 }
-.ft-message--configured > span {
+.ft-configured-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 7px;
+}
+.ft-configured-heading > span:last-child {
   color: #cbd8e5;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.5;
 }
 .zapla-follow-through .ft-message--configured p {
   color: #fff;
@@ -1147,8 +1156,12 @@
 .ft-opening {
   position: relative;
 }
-@media (min-width: 1100px) {
-  .ft-opening-copy {
-    width: min(1040px, calc(100% - 208px));
+
+@media (min-width: 1100px) and (min-height: 650px) and (prefers-reduced-motion: no-preference) {
+  .ft-configured-heading {
+    gap: 14px;
+  }
+  .ft-message--configured > p {
+    margin-left: 46px;
   }
 }

@@ -27,6 +27,7 @@ function QuoteOverview() {
   return (
     <article
       className="qfv-conversation"
+      data-ft-origin-surface
       data-ft-occluder
       aria-label="Emma's quote and follow-up conversation"
     >
@@ -49,7 +50,14 @@ function QuoteOverview() {
         <p>Brand identity + website launch</p>
       </div>
       <div className="qfv-thread">
-        <p className="qfv-timing">Configured check-in · 2 days after quote sent</p>
+        <p className="qfv-timing">
+          <span className="ft-seed" data-ft-seed aria-hidden="true">
+            <svg className="ft-seed-mark" viewBox="0 0 512 512" focusable="false">
+              <image href="/concept/zapla-logo-dark.svg" width="1743" height="512" />
+            </svg>
+          </span>
+          <span>Configured check-in · 2 days after quote sent</span>
+        </p>
         <p className="qfv-outbound">{QUOTE_FOLLOW_SMS}</p>
         <span className="qfv-sender">Emma</span>
         <p className="qfv-inbound">Could we start with the brand identity?</p>
@@ -64,7 +72,6 @@ function QuoteOverview() {
 function Opening() {
   return (
     <section className="qf-opening" data-ft-waypoint aria-labelledby="qf-title">
-      <span className="ft-origin qfv-origin" data-ft-origin aria-hidden="true" />
       <div className="qf-wrap qf-hero-grid" data-ft-content>
         <div className="qf-hero-copy">
           <nav className="qfv-breadcrumb" aria-label="Breadcrumb">
@@ -87,7 +94,7 @@ function Opening() {
         </div>
         <QuoteOverview />
       </div>
-      <div className="qf-wrap qf-opening-foot">
+      <div className="qf-wrap qf-opening-foot" data-ft-occluder>
         <span>From the quote to the conversation.</span>
         <p>Your messages. Your timing. The customer context stays connected.</p>
       </div>
@@ -153,7 +160,7 @@ function GuidedLaunch() {
             </p>
           </div>
         </div>
-        <div className="qf-launch-canvas" data-ft-cross="through" data-ft-occluder>
+        <div className="qf-launch-canvas" data-ft-occluder>
           <article className="qf-launch-plan">
             <header>
               <ZaplaJourneyMark className="qf-launch-mark" />
