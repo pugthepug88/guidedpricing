@@ -1,0 +1,51 @@
+/* Physical tiles, not a stroke/rail. Geometry is controlled by the parent’s
+   native scroll progress; no CSS animation or transition can delay that state. */
+.qdt {
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+  user-select: none;
+  isolation: isolate;
+}
+.qdt--hero {
+  width: 100%;
+  height: auto;
+}
+.qdt--journey {
+  width: 48px;
+  max-width: none;
+  flex: none;
+}
+.qdt .qdt-tile {
+  transition: none;
+  animation: none;
+}
+.qdt .qdt-shadow {
+  fill: #173e65;
+}
+.qdt .qdt-back {
+  fill: #1263ce;
+  stroke: #0853ba;
+  stroke-width: 0.45;
+  stroke-linejoin: round;
+}
+.qdt .qdt-edge {
+  fill: #084ca9;
+  stroke: #084ca9;
+  stroke-width: 0.4;
+  stroke-linejoin: round;
+}
+.qdt .qdt-crown {
+  fill: #69a9ff;
+  stroke: #8cbdff;
+  stroke-width: 0.45;
+  stroke-linejoin: round;
+}
+.qdt .qdt-face {
+  fill: #1078ff;
+}
+.qdt .qdt-rim {
+  fill: none;
+  stroke: #ffffff57;
+  stroke-width: 0.014;
+}

@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-29",
+  "css_viewport_widths": [
+    1425,
+    1085,
+    819,
+    378,
+    305
+  ],
+  "document_overflow_px": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "flagged_text_clips": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "missing_loaded_images": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "hero_full_fall_clearance_px": {
+    "desktop": 3.3972,
+    "tablet": 4.2609,
+    "narrow_phone": 9.7919
+  },
+  "forward_reverse_progress": [
+    0.1948,
+    0.6112,
+    1,
+    0.6112
+  ],
+  "gutter_to_copy_clearance_px": 30,
+  "email_and_five_day_controls": "passed",
+  "phone_gutter_display": "none",
+  "reduced_motion": "source reviewed; not OS-emulated",
+  "no_js": "complete source retained; no fresh browser run"
+}
