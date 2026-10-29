@@ -18,7 +18,8 @@
   pointer-events: none;
   user-select: none;
 }
-.ft-seed {
+.ft-seed,
+.ft-sender-mark {
   display: inline-flex;
   width: 32px;
   height: 32px;
@@ -26,13 +27,14 @@
   overflow: hidden;
   vertical-align: middle;
 }
-.ft-seed-mark {
+.ft-seed-mark,
+.ft-sender-glyph {
   display: block;
   width: 32px;
   height: 32px;
   overflow: hidden;
 }
-.ft-track[data-ft-active="true"][data-ft-ready="true"] .ft-seed-mark {
+.ft-track[data-ft-active="true"][data-ft-ready="true"] .ft-seed .ft-seed-mark {
   opacity: 0;
 }
 .ft-seed-visual {
@@ -90,5 +92,23 @@
     > div
     > :is(img, video) {
     object-position: right 62%;
+  }
+}
+
+/* The approved A origin is visible at the product edge, before any scroll. */
+.ft-hero-origin {
+  display: none;
+}
+@media (min-width: 1100px) and (min-height: 650px) and (prefers-reduced-motion: no-preference) {
+  .ft-hero-origin {
+    position: absolute;
+    display: block;
+    width: 64px;
+    height: 64px;
+    z-index: 2;
+  }
+  .ft-hero-origin .ft-seed-mark {
+    width: 100%;
+    height: 100%;
   }
 }

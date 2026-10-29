@@ -51,8 +51,8 @@ function QuoteOverview() {
       </div>
       <div className="qfv-thread">
         <p className="qfv-timing">
-          <span className="ft-seed" data-ft-seed aria-hidden="true">
-            <svg className="ft-seed-mark" viewBox="0 0 512 512" focusable="false">
+          <span className="ft-sender-mark" aria-hidden="true">
+            <svg className="ft-sender-glyph" viewBox="0 0 512 512" focusable="false">
               <image href="/concept/zapla-logo-dark.svg" width="1743" height="512" />
             </svg>
           </span>
@@ -92,7 +92,14 @@ function Opening() {
             </a>
           </div>
         </div>
-        <QuoteOverview />
+        <div className="qfv-hero-stage">
+          <QuoteOverview />
+          <span className="ft-seed ft-hero-origin" data-ft-seed aria-hidden="true">
+            <svg className="ft-seed-mark" viewBox="0 0 512 512" focusable="false">
+              <image href="/concept/zapla-logo-dark.svg" width="1743" height="512" />
+            </svg>
+          </span>
+        </div>
       </div>
       <div className="qf-wrap qf-opening-foot" data-ft-occluder>
         <span>From the quote to the conversation.</span>
@@ -260,7 +267,7 @@ function Questions() {
 export function QuoteFollowUpPageV2() {
   return (
     <main className="zapla-quote-follow-up zapla-quote-follow-up-v2" data-page="quote-follow-up-v2">
-      <FollowThroughTrack>
+      <FollowThroughTrack variant="quote">
         <Opening />
         <QuoteFollowJourney pageTrack />
         <HumanContext />

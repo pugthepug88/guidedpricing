@@ -72,8 +72,8 @@ function EnquiryScene() {
             </div>
             <div className="ft-message ft-message--configured">
               <div className="ft-configured-heading">
-                <span className="ft-seed" data-ft-seed aria-hidden="true">
-                  <svg className="ft-seed-mark" viewBox="0 0 512 512" focusable="false">
+                <span className="ft-sender-mark" aria-hidden="true">
+                  <svg className="ft-sender-glyph" viewBox="0 0 512 512" focusable="false">
                     <image href="/concept/zapla-logo-dark.svg" width="1743" height="512" />
                   </svg>
                 </span>
@@ -141,6 +141,11 @@ function Opening() {
       </div>
       <div className="ft-hero-wrap" data-ft-content data-ft-occluder>
         <EnquiryScene />
+        <span className="ft-seed ft-hero-origin" data-ft-seed aria-hidden="true">
+          <svg className="ft-seed-mark" viewBox="0 0 512 512" focusable="false">
+            <image href="/concept/zapla-logo-dark.svg" width="1743" height="512" />
+          </svg>
+        </span>
       </div>
       <p className="ft-opening-note" data-ft-occluder>
         A useful first response. A clear way for the customer to take the next step.
@@ -454,7 +459,7 @@ function FinalCall() {
 export function FollowThroughPage() {
   return (
     <main className="zapla-follow-through" data-page="follow-up-v2">
-      <FollowThroughTrack>
+      <FollowThroughTrack variant="follow">
         <Opening />
         <div className="ft-proof">
           <BookingMoment />
