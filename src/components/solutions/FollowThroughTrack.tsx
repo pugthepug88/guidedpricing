@@ -8,6 +8,8 @@ import {
 import "@/styles/follow-through-track.css";
 
 type Projection = RoundedDominoProjection;
+type Variant = "follow" | "quote";
+type HeroPiece = Pick<Tile, "base" | "width" | "upright" | "fallen">;
 type Tile = {
   index: number;
   base: Point;
@@ -20,14 +22,20 @@ type Tile = {
   settled: Projection;
 };
 type Box = { x: number; y: number; width: number; height: number };
+type Corner = { x: number; y: number };
+type Occlusion = Box & {
+  corners: [Corner, Corner, Corner, Corner];
+  kind: "surface" | "text";
+};
 type Course = {
   width: number;
   height: number;
   length: number;
   seed: Box;
+  bridges: HeroPiece[];
   originY: number;
   tiles: Tile[];
-  occlusions: Box[];
+  occlusions: Occlusion[];
   signature: string;
 };
 type Binding = {
@@ -69,13 +77,13 @@ function project(
 }
 
 /** The sender mark stays inside its own clear column and tips away from text. */
-function projectSeed(seed: Box, progress: number): Projection {
+function projectSeed(seed: Box, progress: number, variant: Variant): Projection {
   const lift = ease(progress / 0.38);
-  const tip = ease((progress - 0.28) / 0.6);
+  const tip = ease((progress - 0.2) / 0.4);
   const angle = tip * Math.PI * 0.44;
   const width = seed.width;
   const standing = mix({ x: 0, y: -seed.height }, { x: width * 0.2, y: -seed.height * 0.65 }, lift);
-  const fall = { x: width * 0.09, y: width * 1.4 };
+  const fall = { x: width * 0.09 * (variant === "follow" ? 1 : -1), y: width * 1.4 };
   return projectRoundedDomino({
     base: { x: seed.x + width / 2, y: seed.y + seed.height - lift * 18 * (1 - tip) },
     width: { x: width, y: -width * 0.15 * lift },
@@ -85,21 +93,139 @@ function projectSeed(seed: Box, progress: number): Projection {
   });
 }
 
-function bridgeTile(seed: Box, index: number) {
-  const size = index === 0 ? 1.2 : 1;
-  return {
-    base: { x: seed.x + seed.width / 2 + index, y: seed.y + seed.height + 26 + index * 24 },
-    width: { x: 20 * size, y: -3 * size },
-    upright: { x: 4 * size, y: -13 * size },
-    fallen: { x: 2 * size, y: 28 * size },
-  };
+function heroBridges(seed: Box, variant: Variant, width: number): HeroPiece[] {
+  const direction = variant === "follow" ? 1 : -1;
+  const sizes = [48, 34, 24, 20];
+  const offsets = [62, 108, 146, 178];
+  return sizes.map((size, index) => ({
+    base: {
+      x: Math.max(30, Math.min(width - 30, seed.x + seed.width / 2 + direction * (4 + index * 12))),
+      y: seed.y + seed.height + offsets[index],
+    },
+    width: { x: size, y: -size * 0.15 },
+    upright: { x: size * 0.2, y: -size * 0.65 },
+    fallen: { x: direction * size * 0.18, y: size * 1.4 },
+  }));
 }
 
 function cubic(a: Point, b: Point, c: Point, d: Point, t: number): Point {
   return mix(mix(mix(a, b, t), mix(b, c, t), t), mix(mix(b, c, t), mix(c, d, t), t), t);
 }
 
-function measureCourse(root: HTMLElement): Course | null {
+/** Painted surfaces and copy columns interrupt the course; transparent grid gutters stay open. */
+function measureOcclusions(root: HTMLElement, bounds: DOMRect): Occlusion[] {
+  const scopes = Array.from(
+    root.querySelectorAll<HTMLElement>(
+      ".ft-content, [data-ft-content], [data-ft-origin-surface], [data-ft-occluder]",
+    ),
+  );
+  const candidates = new Set<HTMLElement>();
+  scopes.forEach((scope) => {
+    candidates.add(scope);
+    scope.querySelectorAll<HTMLElement>("*").forEach((node) => candidates.add(node));
+  });
+  const painted = [...candidates].filter((node) => {
+    if (!(node instanceof HTMLElement) || node.closest("[data-ft-seed]")) return false;
+    const style = getComputedStyle(node);
+    if (style.display === "none" || style.visibility === "hidden" || Number(style.opacity) === 0)
+      return false;
+    const rect = node.getBoundingClientRect();
+    if (rect.width < 1 || rect.height < 1) return false;
+    const color = style.backgroundColor;
+    const background = color !== "transparent" && !/rgba\([^)]*,\s*0\s*\)$/.test(color);
+    const radius = parseFloat(style.borderTopLeftRadius);
+    const borderedCard =
+      radius > 0 &&
+      [
+        style.borderTopWidth,
+        style.borderRightWidth,
+        style.borderBottomWidth,
+        style.borderLeftWidth,
+      ].some((width) => parseFloat(width) > 0);
+    return (
+      background ||
+      style.backgroundImage !== "none" ||
+      borderedCard ||
+      /^(IMG|VIDEO|CANVAS)$/.test(node.tagName)
+    );
+  });
+  // An opaque card already protects its descendants; avoid hundreds of redundant masks.
+  const surfaces = painted.filter(
+    (node) => !painted.some((other) => other !== node && other.contains(node)),
+  );
+  const occlusions: Occlusion[] = surfaces.map((node) => {
+    const rect = node.getBoundingClientRect();
+    const style = getComputedStyle(node);
+    const corner = (value: string): Corner => {
+      const [horizontal, vertical = horizontal] = value.split(/\s+/);
+      const dimension = (token: string, size: number) =>
+        Math.max(0, Math.min(size / 2, parseFloat(token) * (token.endsWith("%") ? size / 100 : 1)));
+      return { x: dimension(horizontal, rect.width), y: dimension(vertical, rect.height) };
+    };
+    return {
+      x: rect.left - bounds.left,
+      y: rect.top - bounds.top,
+      width: rect.width,
+      height: rect.height,
+      corners: [
+        style.borderTopLeftRadius,
+        style.borderTopRightRadius,
+        style.borderBottomRightRadius,
+        style.borderBottomLeftRadius,
+      ].map(corner) as Occlusion["corners"],
+      kind: "surface",
+    };
+  });
+  const copyNodes = Array.from(
+    root.querySelectorAll<HTMLElement>(
+      ".ft-copy, .ft-opening-copy, .qf-hero-copy, .qfj-copy, .qf-human-grid > header, .qf-adoption-copy, .qf-questions-grid > header, .ft-final > .ft-content, .qf-final > .qf-wrap",
+    ),
+  ).filter((node) => !surfaces.some((surface) => surface.contains(node)));
+  const standalone = [...candidates].filter(
+    (node) =>
+      node instanceof HTMLElement &&
+      node.matches("p, h1, h2, h3, h4, a, button, dt, dd, summary, legend") &&
+      !node.closest("[data-ft-seed]") &&
+      !surfaces.some((surface) => surface.contains(node)) &&
+      !copyNodes.some((copy) => copy.contains(node)),
+  );
+  const copy = copyNodes.map((node) => ({ node, wholeBlock: true }));
+  standalone
+    .filter((node) => !standalone.some((other) => other !== node && other.contains(node)))
+    .forEach((node) => copy.push({ node, wholeBlock: false }));
+  for (const { node, wholeBlock } of copy) {
+    const style = getComputedStyle(node);
+    if (style.visibility === "hidden" || Number(style.opacity) === 0) continue;
+    let rect = node.getBoundingClientRect();
+    if (!wholeBlock && !node.matches("button, summary")) {
+      const range = document.createRange();
+      range.selectNodeContents(node);
+      rect = range.getBoundingClientRect();
+    }
+    if (rect.width < 1 || rect.height < 1) continue;
+    occlusions.push({
+      x: rect.left - bounds.left - 8,
+      y: rect.top - bounds.top - 8,
+      width: rect.width + 16,
+      height: rect.height + 16,
+      corners: Array.from({ length: 4 }, () => ({ x: 5, y: 5 })) as Occlusion["corners"],
+      kind: "text",
+    });
+  }
+  return occlusions;
+}
+
+function occlusionPath({ x, y, width, height, corners: [tl, tr, br, bl] }: Occlusion): string {
+  return [
+    `M${x + tl.x},${y}`,
+    `H${x + width - tr.x}Q${x + width},${y} ${x + width},${y + tr.y}`,
+    `V${y + height - br.y}Q${x + width},${y + height} ${x + width - br.x},${y + height}`,
+    `H${x + bl.x}Q${x},${y + height} ${x},${y + height - bl.y}`,
+    `V${y + tl.y}Q${x},${y} ${x + tl.x},${y}Z`,
+  ].join(" ");
+}
+
+function measureCourse(root: HTMLElement, variant: Variant): Course | null {
   const bounds = root.getBoundingClientRect();
   const seedNode = root.querySelector<HTMLElement>("[data-ft-seed]");
   const surfaceNode = root.querySelector<HTMLElement>("[data-ft-origin-surface]");
@@ -125,27 +251,26 @@ function measureCourse(root: HTMLElement): Course | null {
     bounds.width - 24,
     Math.max(...content.map((rect) => rect.x + rect.width)) + 32,
   );
-  const origin = { x: seed.x + seed.width / 2, y: seed.y + seed.height + 72 };
+  const bridges = heroBridges(seed, variant, bounds.width);
+  const contact = bridges.at(-1)!;
+  const origin = { x: contact.base.x, y: contact.base.y + 24 };
   const end = bounds.height - 12;
   if (right - left < 200 || end - origin.y < 300) return null;
-  const crossings = Array.from(root.querySelectorAll<HTMLElement>('[data-ft-cross="through"]'))
-    .slice(0, 3)
-    .map((node) => {
-      const rect = relativeBox(node);
-      const depth = Math.min(500, Math.max(200, rect.height - 36));
-      const middle = rect.y + rect.height / 2;
-      return { start: middle - depth / 2, end: middle + depth / 2 };
-    });
-  const occlusions = Array.from(
-    new Set([
-      ...contentNodes,
-      surfaceNode,
-      ...root.querySelectorAll<HTMLElement>("[data-ft-occluder]"),
-    ]),
-  ).map((node) => relativeBox(node, 10));
+  const crossingNodes = Array.from(root.querySelectorAll<HTMLElement>('[data-ft-cross="through"]'));
+  const launchSurface = root.querySelector<HTMLElement>(".qf-launch-canvas");
+  if (variant === "quote" && launchSurface && !crossingNodes.includes(launchSurface))
+    crossingNodes.push(launchSurface);
+  const crossings = crossingNodes.slice(0, variant === "quote" ? 4 : 3).map((node) => {
+    const rect = relativeBox(node);
+    const depth = Math.min(500, Math.max(200, rect.height - 36));
+    const middle = rect.y + rect.height / 2;
+    return { start: middle - depth / 2, end: middle + depth / 2 };
+  });
+  const occlusions = measureOcclusions(root, bounds);
   const samples: Point[] = [origin];
   let current = origin;
-  let side = right;
+  let side =
+    variant === "follow" ? right : Math.max(left + 80, Math.min(right - 80, origin.x - 24));
   const line = (destination: Point) => {
     const steps = Math.max(
       1,
@@ -174,24 +299,28 @@ function measureCourse(root: HTMLElement): Course | null {
     }
   };
 
-  // First contact goes beneath the hero surface and emerges at the far shoulder.
-  // It never crosses the headline, CTA, customer copy or open page as a crossbar.
-  const emergeY = Math.max(origin.y + 180, surface.y + surface.height + 48);
-  curve(
-    { x: origin.x - 45, y: origin.y + 65 },
-    { x: right, y: emergeY - 115 },
-    { x: right, y: emergeY },
-    100,
+  // Follow starts at the outside shoulder; Quote starts in the open center gutter.
+  // The hero's visible taper supplies the handoff before the first full-size course piece.
+  const emergeY = Math.max(
+    origin.y + 70,
+    Math.min(origin.y + 180, surface.y + surface.height + 48),
   );
-  crossings.forEach((crossing) => {
-    if (crossing.start <= current.y + 30 || crossing.end >= end - 650) return;
-    driftTo(crossing.start);
-    const other = side === left ? right : left;
-    const span = crossing.end - crossing.start;
+  curve(
+    { x: origin.x + (variant === "follow" ? 10 : -22), y: origin.y + 25 },
+    { x: side, y: emergeY - 35 },
+    { x: side, y: emergeY },
+    40,
+  );
+  crossings.forEach((crossing, index) => {
+    if (crossing.end <= current.y + 90 || crossing.end >= end - 650) return;
+    const start = Math.max(crossing.start, current.y + 30);
+    driftTo(start);
+    const other = variant === "quote" && index === 0 ? right : side === left ? right : left;
+    const span = Math.max(180, crossing.end - start);
     curve(
-      { x: current.x, y: crossing.start + span * 0.46 },
-      { x: other, y: crossing.end - span * 0.46 },
-      { x: other, y: crossing.end },
+      { x: current.x, y: start + span * (variant === "follow" ? 0.38 : 0.55) },
+      { x: other, y: start + span * (variant === "follow" ? 0.68 : 0.48) },
+      { x: other, y: start + span },
       100,
     );
     side = other;
@@ -244,6 +373,7 @@ function measureCourse(root: HTMLElement): Course | null {
     width: bounds.width,
     height: bounds.height,
     seed,
+    bridges,
     originY: origin.y,
     length,
     tiles,
@@ -258,7 +388,13 @@ function measureCourse(root: HTMLElement): Course | null {
       seed.width,
       seed.height,
       ...crossings.flatMap((c) => [c.start, c.end]),
-      ...occlusions.flatMap((r) => [r.x, r.y, r.width, r.height]),
+      ...occlusions.flatMap((r) => [
+        r.x,
+        r.y,
+        r.width,
+        r.height,
+        ...r.corners.flatMap((corner) => [corner.x, corner.y]),
+      ]),
     ]
       .map((value) => value.toFixed(1))
       .join("/"),
@@ -304,13 +440,15 @@ function DominoShape({ projection, markId }: { projection: Projection; markId: s
   );
 }
 
-/** A single passive-scroll course; the message's native flat mark supplies its origin. */
+/** A passive-scroll course emerging from the hero product edge. */
 export function FollowThroughTrack({
   children,
   className = "",
+  variant = "follow",
 }: {
   children: ReactNode;
   className?: string;
+  variant?: Variant;
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const bindings = useRef(new Map<number, Binding>());
@@ -342,7 +480,7 @@ export function FollowThroughTrack({
       const launchScroll = Math.max(0, seedCentre - window.innerHeight * 0.68);
       const travel = Math.max(0, window.scrollY - launchScroll);
       const intro = clamp(travel / 180);
-      const reveal = ease((travel - 145) / 60);
+      const contactFocus = ease((travel - 165) / 65);
       const target = active.originY + Math.max(0, travel - 180);
       const tiles = active.tiles;
       let low = 0;
@@ -368,25 +506,20 @@ export function FollowThroughTrack({
       root.dataset.ftSeedState =
         intro === 0 ? "flat" : intro < 0.35 ? "lifting" : intro < 0.9 ? "tipping" : "handed-off";
       const seed = seedBinding.current;
-      applyProjection(seed, projectSeed(active.seed, intro));
-      const seedOpacity = 1 - ease((intro - 0.83) / 0.17);
+      applyProjection(seed, projectSeed(active.seed, intro, variant));
+      const seedOpacity = 1 - ease((intro - 0.8) / 0.2) * 0.78;
       seed.node.setAttribute("opacity", seedOpacity.toFixed(3));
       seed.node.style.visibility = seedOpacity > 0.001 ? "visible" : "hidden";
       seed.shadow.style.opacity = (ease(intro / 0.38) * 0.045).toFixed(3);
       seed.back.style.opacity = ease(intro / 0.38).toFixed(3);
       seed.side.style.opacity = ease(intro / 0.38).toFixed(3);
-      for (let index = 0; index < 2; index++) {
+      for (let index = 0; index < active.bridges.length; index++) {
         const bridge = bridgeBindings.current.get(index);
         if (!bridge) continue;
-        const phase = ease((intro - (index === 0 ? 0.58 : 0.74)) / 0.24);
-        applyProjection(bridge, project(bridgeTile(active.seed, index), phase * 78));
-        const revealBridge = ease((intro - 0.14 - index * 0.06) / 0.18);
-        const fadeBridge = 1 - ease((intro - 0.9) / 0.1);
-        const focus = index === 0 ? ease((intro - 0.45) / 0.15) : ease((intro - 0.65) / 0.15);
-        bridge.node.setAttribute(
-          "opacity",
-          (revealBridge * fadeBridge * (0.22 + focus * 0.78)).toFixed(3),
-        );
+        const phase = ease((intro - 0.42 - index * 0.13) / 0.18);
+        applyProjection(bridge, project(active.bridges[index], phase * 78));
+        const focus = 1 - clamp(Math.abs(intro - (0.51 + index * 0.13)) / 0.18);
+        bridge.node.setAttribute("opacity", (0.2 + focus * 0.8).toFixed(3));
       }
       root.dataset.ftReady = "true";
       const nextVisible = new Set<number>();
@@ -408,7 +541,8 @@ export function FollowThroughTrack({
         const focus = 1 - clamp((Math.abs(tile.index - (front - 1.25)) - 1.25) / 1.5);
         const resting = 0.17 + phase * 0.05;
         const opacity =
-          (resting + (1 - resting) * focus) * reveal * clamp((active.length - tile.distance) / 95);
+          (resting + (1 - resting) * focus * contactFocus) *
+          clamp((active.length - tile.distance) / 95);
         if (Math.abs(opacity - binding.opacity) > 0.005) {
           binding.node.setAttribute("opacity", opacity.toFixed(3));
           binding.opacity = opacity;
@@ -435,7 +569,7 @@ export function FollowThroughTrack({
         setCourse(null);
         return;
       }
-      const next = measureCourse(root);
+      const next = measureCourse(root, variant);
       if (next?.signature !== geometry?.signature) {
         geometry = next;
         visible = new Set();
@@ -464,13 +598,13 @@ export function FollowThroughTrack({
       media.removeEventListener("change", measure);
       window.cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [variant]);
   useEffect(() => {
     scheduleRef.current?.();
   }, [course]);
 
   return (
-    <div className={`ft-track ${className}`.trim()} ref={rootRef}>
+    <div className={`ft-track ${className}`.trim()} ref={rootRef} data-ft-variant={variant}>
       {course && (
         <>
           <svg
@@ -493,8 +627,13 @@ export function FollowThroughTrack({
                 height={course.height}
               >
                 <rect width={course.width} height={course.height} fill="white" />
-                {course.occlusions.map((rect, i) => (
-                  <rect key={i} {...rect} rx="12" fill="black" />
+                {course.occlusions.map((occlusion, i) => (
+                  <path
+                    key={i}
+                    d={occlusionPath(occlusion)}
+                    data-ft-mask-kind={occlusion.kind}
+                    fill="black"
+                  />
                 ))}
               </mask>
             </defs>
@@ -505,6 +644,8 @@ export function FollowThroughTrack({
                   key={tile.index}
                   data-ft-tile={tile.index}
                   data-ft-size={tile.size}
+                  data-ft-base-x={tile.base.x.toFixed(1)}
+                  data-ft-base-y={tile.base.y.toFixed(1)}
                   ref={(node) => {
                     if (!node) {
                       bindings.current.delete(tile.index);
@@ -528,22 +669,42 @@ export function FollowThroughTrack({
           >
             <defs>
               <MarkSymbol id={seedMarkId} />
-              <clipPath id={`${seedMarkId}-clip`}>
-                <rect
-                  x={course.seed.x - 4}
-                  y={course.seed.y - 10}
-                  width={course.seed.width + 14}
-                  height={course.seed.height + 100}
-                  rx="3"
-                />
-              </clipPath>
+              <mask
+                id={`${seedMarkId}-mask`}
+                maskUnits="userSpaceOnUse"
+                x="0"
+                y="0"
+                width={course.width}
+                height={course.height}
+              >
+                <rect width={course.width} height={course.height} fill="white" />
+                {course.occlusions.map((occlusion, i) => (
+                  <path key={i} d={occlusionPath(occlusion)} fill="black" />
+                ))}
+              </mask>
+              <mask
+                id={`${seedMarkId}-text`}
+                maskUnits="userSpaceOnUse"
+                x="0"
+                y="0"
+                width={course.width}
+                height={course.height}
+              >
+                <rect width={course.width} height={course.height} fill="white" />
+                {course.occlusions
+                  .filter((occlusion) => occlusion.kind === "text")
+                  .map((occlusion, i) => (
+                    <path key={i} d={occlusionPath(occlusion)} fill="black" />
+                  ))}
+              </mask>
             </defs>
-            <g clipPath={`url(#${seedMarkId}-clip)`}>
-              {[1, 0].map((index) => (
+            <g mask={`url(#${seedMarkId}-mask)`}>
+              {[3, 2, 1, 0].map((index) => (
                 <g
                   key={index}
                   data-ft-bridge={index}
-                  opacity="0"
+                  data-ft-bridge-width={course.bridges[index].width.x}
+                  opacity="0.2"
                   ref={(node) => {
                     if (!node) {
                       bridgeBindings.current.delete(index);
@@ -552,21 +713,19 @@ export function FollowThroughTrack({
                     bridgeBindings.current.set(index, makeBinding(node));
                   }}
                 >
-                  <DominoShape
-                    projection={project(bridgeTile(course.seed, index), 0)}
-                    markId={seedMarkId}
-                  />
+                  <DominoShape projection={project(course.bridges[index], 0)} markId={seedMarkId} />
                 </g>
               ))}
-              <g
-                className="ftd-seed"
-                data-ft-seed-tile
-                ref={(node) => {
-                  seedBinding.current = node ? makeBinding(node) : null;
-                }}
-              >
-                <DominoShape projection={projectSeed(course.seed, 0)} markId={seedMarkId} />
-              </g>
+            </g>
+            <g
+              className="ftd-seed"
+              data-ft-seed-tile
+              mask={`url(#${seedMarkId}-text)`}
+              ref={(node) => {
+                seedBinding.current = node ? makeBinding(node) : null;
+              }}
+            >
+              <DominoShape projection={projectSeed(course.seed, 0, variant)} markId={seedMarkId} />
             </g>
           </svg>
         </>
