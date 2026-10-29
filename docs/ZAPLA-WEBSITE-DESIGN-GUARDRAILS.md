@@ -305,3 +305,7 @@ The owner rejected the flat document-like visual system and requested continued 
 ## Quote Follow-Up domino continuation, 29 October 2026
 
 The owner rejected the travelling logo/rail and hero conduit, and proposed the existing footer's domino idea from above. This supersedes the conduit/guide treatment on `/quote-follow-up`. Use physical exact-logo tiles with a fixed hinge, close contact spacing and a slight overhead view. Native scroll moves the tipping front; no loop or scroll capture. Keep settled gutter tiles subdued so the scene is not a bright blue zipper. Preserve readable quote, wait and message context, deliberate staff actions, the complete static/mobile story and the shared footer. Review: `QUOTE-FOLLOW-UP-DOMINO-MOTION-20261029.md`.
+
+## Quote Follow-Up hero motion removal, 29 October 2026
+
+The owner rejected the hero domino row while liking the chapter trail. Remove the hero dominoes entirely and rebalance the static quote/timing/message composition. This supersedes the preceding hero domino direction only. The proposed full-page S curve and seamless footer connection are being evaluated, not approved implementation scope. Preserve the existing chapter animation and shared footer. Review: `QUOTE-FOLLOW-UP-HERO-STATIC-20261029.md`.
