@@ -141,11 +141,6 @@ function Opening() {
       </div>
       <div className="ft-hero-wrap" data-ft-content data-ft-occluder>
         <EnquiryScene />
-        <span className="ft-seed ft-hero-origin" data-ft-seed aria-hidden="true">
-          <svg className="ft-seed-mark" viewBox="0 0 512 512" focusable="false">
-            <image href="/concept/zapla-logo-dark.svg" width="1743" height="512" />
-          </svg>
-        </span>
       </div>
       <p className="ft-opening-note" data-ft-occluder>
         A useful first response. A clear way for the customer to take the next step.

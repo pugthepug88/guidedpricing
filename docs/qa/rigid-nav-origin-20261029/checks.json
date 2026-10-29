@@ -1,0 +1,349 @@
+{
+  "renderedCases": [
+    {
+      "page": "/follow-up-v2",
+      "width": 1100,
+      "height": 900,
+      "scroll": 0,
+      "overflow": 0,
+      "track": {
+        "ftVariant": "follow",
+        "ftActive": "true",
+        "ftIntro": "0.0000",
+        "ftProgress": "0.0000",
+        "ftSeedState": "flat",
+        "ftReady": "true"
+      },
+      "navHref": "/",
+      "navViewBox": "0 0 1085 900",
+      "seed": {
+        "ftSeedTile": "true",
+        "ftPhysicalSize": "32.000",
+        "ftProjectedWidth": "32.000",
+        "ftProjectedHeight": "32.000"
+      },
+      "seedOpacity": "0.000",
+      "oldHeroSeeds": 0,
+      "bridgeWidths": [20, 24, 28],
+      "count": 317,
+      "sizes": ["1"],
+      "h2": 7,
+      "clip": [],
+      "missing": [],
+      "robots": "noindex, nofollow",
+      "playSamples": 0
+    },
+    {
+      "page": "/follow-up-v2",
+      "width": 393,
+      "height": 900,
+      "scroll": 0,
+      "overflow": 0,
+      "track": {
+        "ftVariant": "follow",
+        "ftActive": "false",
+        "ftReady": "false"
+      },
+      "navHref": "/",
+      "oldHeroSeeds": 0,
+      "bridgeWidths": [],
+      "count": 0,
+      "sizes": [],
+      "h2": 7,
+      "clip": [],
+      "missing": [],
+      "robots": "noindex, nofollow",
+      "playSamples": 0
+    },
+    {
+      "page": "/follow-up-v2",
+      "width": 320,
+      "height": 900,
+      "scroll": 0,
+      "overflow": 0,
+      "track": {
+        "ftVariant": "follow",
+        "ftActive": "false",
+        "ftReady": "false"
+      },
+      "navHref": "/",
+      "oldHeroSeeds": 0,
+      "bridgeWidths": [],
+      "count": 0,
+      "sizes": [],
+      "h2": 7,
+      "clip": [],
+      "missing": [],
+      "robots": "noindex, nofollow",
+      "playSamples": 0
+    },
+    {
+      "page": "/quote-follow-up-v2",
+      "width": 1100,
+      "height": 900,
+      "scroll": 0,
+      "overflow": 0,
+      "track": {
+        "ftVariant": "quote",
+        "ftActive": "true",
+        "ftIntro": "0.0000",
+        "ftProgress": "0.0000",
+        "ftSeedState": "flat",
+        "ftReady": "true"
+      },
+      "navHref": "/",
+      "navViewBox": "0 0 1085 900",
+      "seed": {
+        "ftSeedTile": "true",
+        "ftPhysicalSize": "32.000",
+        "ftProjectedWidth": "32.000",
+        "ftProjectedHeight": "32.000"
+      },
+      "seedOpacity": "0.000",
+      "oldHeroSeeds": 0,
+      "bridgeWidths": [20, 24, 28],
+      "count": 332,
+      "sizes": ["1"],
+      "h2": 8,
+      "clip": [],
+      "missing": [],
+      "robots": "noindex, nofollow",
+      "playSamples": 0
+    },
+    {
+      "page": "/quote-follow-up-v2",
+      "width": 393,
+      "height": 900,
+      "scroll": 0,
+      "overflow": 0,
+      "track": {
+        "ftVariant": "quote",
+        "ftActive": "false",
+        "ftReady": "false"
+      },
+      "navHref": "/",
+      "oldHeroSeeds": 0,
+      "bridgeWidths": [],
+      "count": 0,
+      "sizes": [],
+      "h2": 8,
+      "clip": [],
+      "missing": [],
+      "robots": "noindex, nofollow",
+      "playSamples": 0
+    },
+    {
+      "page": "/quote-follow-up-v2",
+      "width": 320,
+      "height": 900,
+      "scroll": 0,
+      "overflow": 0,
+      "track": {
+        "ftVariant": "quote",
+        "ftActive": "false",
+        "ftReady": "false"
+      },
+      "navHref": "/",
+      "oldHeroSeeds": 0,
+      "bridgeWidths": [],
+      "count": 0,
+      "sizes": [],
+      "h2": 8,
+      "clip": [],
+      "missing": [],
+      "robots": "noindex, nofollow",
+      "playSamples": 0
+    },
+    {
+      "page": "/quote-follow-up-v2",
+      "width": 1280,
+      "height": 800,
+      "scroll": 35,
+      "overflow": 0,
+      "track": {
+        "ftVariant": "quote",
+        "ftActive": "true",
+        "ftIntro": "0.3889",
+        "ftProgress": "0.0000",
+        "ftSeedState": "tipping",
+        "ftReady": "true"
+      },
+      "navHref": "/",
+      "navViewBox": "0 0 1265 800",
+      "seed": {
+        "ftSeedTile": "true",
+        "ftPhysicalSize": "32.000",
+        "ftProjectedWidth": "32.000",
+        "ftProjectedHeight": "32.047"
+      },
+      "seedOpacity": "1.000",
+      "oldHeroSeeds": 0,
+      "bridgeWidths": [20, 24, 28],
+      "count": 357,
+      "sizes": ["1"],
+      "h2": 8,
+      "clip": [],
+      "missing": [],
+      "robots": "noindex, nofollow",
+      "playSamples": 0
+    },
+    {
+      "page": "/follow-up-v2",
+      "width": 1280,
+      "height": 900,
+      "scroll": 0,
+      "overflow": 0,
+      "track": {
+        "ftVariant": "follow"
+      },
+      "navHref": "/",
+      "oldHeroSeeds": 0,
+      "bridgeWidths": [],
+      "count": 0,
+      "sizes": [],
+      "h2": 7,
+      "clip": [],
+      "missing": [],
+      "robots": "noindex, nofollow",
+      "playSamples": 0
+    },
+    {
+      "page": "/quote-follow-up-v2",
+      "width": 1280,
+      "height": 900,
+      "scroll": 0,
+      "overflow": 0,
+      "track": {
+        "ftVariant": "quote"
+      },
+      "navHref": "/",
+      "oldHeroSeeds": 0,
+      "bridgeWidths": [],
+      "count": 0,
+      "sizes": [],
+      "h2": 8,
+      "clip": [],
+      "missing": [],
+      "robots": "noindex, nofollow",
+      "playSamples": 0
+    },
+    {
+      "page": "/follow-up-v2",
+      "width": 1280,
+      "height": 600,
+      "scroll": 0,
+      "overflow": 0,
+      "track": {
+        "ftVariant": "follow",
+        "ftActive": "false",
+        "ftReady": "false"
+      },
+      "navHref": "/",
+      "oldHeroSeeds": 0,
+      "bridgeWidths": [],
+      "count": 0,
+      "sizes": [],
+      "h2": 7,
+      "clip": [],
+      "missing": [],
+      "robots": "noindex, nofollow",
+      "playSamples": 0
+    },
+    {
+      "page": "/quote-follow-up-v2",
+      "width": 1280,
+      "height": 600,
+      "scroll": 0,
+      "overflow": 0,
+      "track": {
+        "ftVariant": "quote",
+        "ftActive": "false",
+        "ftReady": "false"
+      },
+      "navHref": "/",
+      "oldHeroSeeds": 0,
+      "bridgeWidths": [],
+      "count": 0,
+      "sizes": [],
+      "h2": 8,
+      "clip": [],
+      "missing": [],
+      "robots": "noindex, nofollow",
+      "playSamples": 0
+    },
+    {
+      "page": "/quote-follow-up-v2",
+      "width": 1280,
+      "height": 900,
+      "scroll": 0,
+      "overflow": 0,
+      "track": {
+        "ftVariant": "quote",
+        "ftActive": "true",
+        "ftIntro": "0.0000",
+        "ftProgress": "0.0000",
+        "ftSeedState": "flat",
+        "ftReady": "true"
+      },
+      "navHref": "/",
+      "navViewBox": "0 0 1265 900",
+      "seed": {
+        "ftSeedTile": "true",
+        "ftPhysicalSize": "32.000",
+        "ftProjectedWidth": "32.000",
+        "ftProjectedHeight": "32.000"
+      },
+      "seedOpacity": "0.000",
+      "oldHeroSeeds": 0,
+      "bridgeWidths": [20, 24, 28],
+      "count": 357,
+      "sizes": ["1"],
+      "h2": 8,
+      "clip": [],
+      "missing": [],
+      "robots": "noindex, nofollow",
+      "playSamples": 0
+    }
+  ],
+  "rigidGeometry": {
+    "sampledCases": 2412,
+    "passed": true,
+    "maxHeightRatio": 1.0049875080537238,
+    "maxWidthError": 0,
+    "physicalDepthRatio": 0.1
+  },
+  "timedScrollRuns": {
+    "pages": ["follow-up-v2", "quote-follow-up-v2"],
+    "durationMillisecondsEach": 6000,
+    "scrollFrom": 0,
+    "scrollTo": 450,
+    "sampleCountEach": 7,
+    "handoffCompleted": true,
+    "nativeBrandWidthAndTopVariation": 0,
+    "limit": "Cloud browser RAF was throttled; this does not establish physical-device60fps performance."
+  },
+  "stateRestoration": {
+    "standingOpacity": 1,
+    "standingSaturation": 1,
+    "farSettledOpacity": 0.38,
+    "farSettledSaturation": 0.35,
+    "regularWidth": 20,
+    "regularPitch": 24,
+    "nativeOriginSize": 32,
+    "bridgeWidths": [28, 24, 20]
+  },
+  "visualChecks": [
+    "navigation origin in both hero gutters",
+    "no oversized source badges",
+    "rigid lift and return",
+    "grey-blue settled / bright blue standing",
+    "quote hairpin removed",
+    "body gutter remains visible"
+  ],
+  "preserved": [
+    "original routes",
+    "global navigation source and logo link",
+    "footer film",
+    "page copy"
+  ]
+}
