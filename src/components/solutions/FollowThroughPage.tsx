@@ -49,6 +49,7 @@ function EnquiryScene() {
   return (
     <div
       className="ft-enquiry-stage"
+      data-ft-origin-surface
       aria-label="Emma enquires, receives a configured booking link and makes a consultation booking"
     >
       <div className="ft-enquiry-workspace">
@@ -70,7 +71,14 @@ function EnquiryScene() {
               <p>Hi, I’m Emma Wilson. Can we talk about a brand and website project?</p>
             </div>
             <div className="ft-message ft-message--configured">
-              <span>Automatic SMS response</span>
+              <div className="ft-configured-heading">
+                <span className="ft-seed" data-ft-seed aria-hidden="true">
+                  <svg className="ft-seed-mark" viewBox="0 0 512 512" focusable="false">
+                    <image href="/concept/zapla-logo-dark.svg" width="1743" height="512" />
+                  </svg>
+                </span>
+                <span>Automatic SMS response</span>
+              </div>
               <p>
                 Thanks, Emma. You can choose a project consultation time through our booking link.
               </p>
@@ -114,7 +122,6 @@ function EnquiryScene() {
 function Opening() {
   return (
     <section className="ft-opening" data-ft-waypoint aria-labelledby="ft-title">
-      <span className="ft-origin" data-ft-origin aria-hidden="true" />
       <div className="ft-opening-copy" data-ft-content>
         <p className="ft-label">Customer follow-up</p>
         <h1 id="ft-title">
@@ -135,7 +142,7 @@ function Opening() {
       <div className="ft-hero-wrap" data-ft-content data-ft-occluder>
         <EnquiryScene />
       </div>
-      <p className="ft-opening-note">
+      <p className="ft-opening-note" data-ft-occluder>
         A useful first response. A clear way for the customer to take the next step.
       </p>
     </section>
@@ -213,7 +220,7 @@ function BookingMoment() {
       aria-labelledby="ft-booking-title"
     >
       <div className="ft-content ft-booking-layout">
-        <div className="ft-booking-communications">
+        <div className="ft-booking-communications" data-ft-cross="through" data-ft-occluder>
           <div className="ft-booking-source">
             <Portrait cell={9} />
             <div>
