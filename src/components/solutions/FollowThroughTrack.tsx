@@ -1,4 +1,6 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
+import { getNavOriginPose, projectNavOrigin } from "./navOriginGeometry";
 import {
   projectRoundedDomino,
   UNIT_ROUNDED_PATH,
@@ -30,6 +32,7 @@ type Occlusion = Box & {
 type Course = {
   width: number;
   height: number;
+  viewportHeight: number;
   length: number;
   seed: Box;
   bridges: HeroPiece[];
@@ -46,6 +49,7 @@ type Binding = {
   shadow: SVGPathElement;
   angle: number;
   opacity: number;
+  quiet: number;
 };
 
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
@@ -71,40 +75,22 @@ function project(
     base: tile.base,
     width: tile.width,
     rise: add(scale(tile.upright, cosine), scale(tile.fallen, sine)),
-    thickness: add(scale(tile.fallen, -cosine * 0.09), scale(tile.upright, sine * 0.09)),
-    shadowVector: scale(tile.fallen, 0.7 + sine * 0.16),
+    thickness: add(scale(tile.fallen, -cosine * 0.135), scale(tile.upright, sine * 0.135)),
+    shadowVector: scale(tile.fallen, 0.78 + sine * 0.18),
   });
 }
 
-/** The sender mark stays inside its own clear column and tips away from text. */
-function projectSeed(seed: Box, progress: number, variant: Variant): Projection {
-  const lift = ease(progress / 0.38);
-  const tip = ease((progress - 0.2) / 0.4);
-  const angle = tip * Math.PI * 0.44;
-  const width = seed.width;
-  const standing = mix({ x: 0, y: -seed.height }, { x: width * 0.2, y: -seed.height * 0.65 }, lift);
-  const fall = { x: width * 0.09 * (variant === "follow" ? 1 : -1), y: width * 1.4 };
-  return projectRoundedDomino({
-    base: { x: seed.x + width / 2, y: seed.y + seed.height - lift * 18 * (1 - tip) },
-    width: { x: width, y: -width * 0.15 * lift },
-    rise: add(scale(standing, Math.cos(angle)), scale(fall, Math.sin(angle))),
-    thickness: { x: -width * 0.085 * lift, y: width * 0.055 * lift },
-    shadowVector: { x: -width * 0.5 * lift, y: width * 0.2 * lift },
-  });
-}
-
-function heroBridges(seed: Box, variant: Variant, width: number): HeroPiece[] {
+/** A short taper from the native nav mark into the unchanged regular pieces. */
+function heroBridges(seed: Box, variant: Variant): HeroPiece[] {
   const direction = variant === "follow" ? 1 : -1;
-  const sizes = [48, 34, 24, 20];
-  const offsets = [62, 108, 146, 178];
-  return sizes.map((size, index) => ({
+  return [28, 24, 20].map((size, index) => ({
     base: {
-      x: Math.max(30, Math.min(width - 30, seed.x + seed.width / 2 + direction * (4 + index * 12))),
-      y: seed.y + seed.height + offsets[index],
+      x: seed.x + seed.width / 2 + direction * (12 + index * 16),
+      y: seed.y + seed.height + 44 + index * 28,
     },
     width: { x: size, y: -size * 0.15 },
     upright: { x: size * 0.2, y: -size * 0.65 },
-    fallen: { x: direction * size * 0.18, y: size * 1.4 },
+    fallen: { x: direction * size * 0.1, y: size * 1.4 },
   }));
 }
 
@@ -178,7 +164,7 @@ function measureOcclusions(root: HTMLElement, bounds: DOMRect): Occlusion[] {
   });
   const copyNodes = Array.from(
     root.querySelectorAll<HTMLElement>(
-      ".ft-copy, .ft-opening-copy, .qf-hero-copy, .qfj-copy, .qf-human-grid > header, .qf-adoption-copy, .qf-questions-grid > header, .ft-final > .ft-content, .qf-final > .qf-wrap",
+      ".ft-copy, .qf-hero-copy, .qfj-copy, .qf-human-grid > header, .qf-adoption-copy, .qf-questions-grid > header, .ft-final > .ft-content, .qf-final > .qf-wrap",
     ),
   ).filter((node) => !surfaces.some((surface) => surface.contains(node)));
   const standalone = [...candidates].filter(
@@ -227,12 +213,14 @@ function occlusionPath({ x, y, width, height, corners: [tl, tr, br, bl] }: Occlu
 
 function measureCourse(root: HTMLElement, variant: Variant): Course | null {
   const bounds = root.getBoundingClientRect();
-  const seedNode = root.querySelector<HTMLElement>("[data-ft-seed]");
+  const navLogo = document.querySelector<HTMLImageElement>(
+    'nav[aria-label="Main navigation"] a[href="/"] img',
+  );
   const surfaceNode = root.querySelector<HTMLElement>("[data-ft-origin-surface]");
   const contentNodes = Array.from(
     root.querySelectorAll<HTMLElement>(".ft-content, [data-ft-content]"),
   );
-  if (!seedNode || !surfaceNode || contentNodes.length < 2 || bounds.width < 200) return null;
+  if (!navLogo || !surfaceNode || contentNodes.length < 2 || bounds.width < 200) return null;
   const relativeBox = (node: HTMLElement, padding = 0): Box => {
     const rect = node.getBoundingClientRect();
     return {
@@ -242,7 +230,16 @@ function measureCourse(root: HTMLElement, variant: Variant): Course | null {
       height: rect.height + padding * 2,
     };
   };
-  const seed = relativeBox(seedNode);
+  const navRect = navLogo.getBoundingClientRect();
+  const documentTop = bounds.top + window.scrollY;
+  const seed = {
+    x: navRect.left - bounds.left,
+    y: navRect.top,
+    width: navRect.height,
+    height: navRect.height,
+  };
+  // The header is fixed. Its source measurement must not acquire scrollY on remeasure.
+  const courseSeed = { ...seed, y: seed.y - documentTop };
   if (seed.width < 4 || seed.height < 4) return null;
   const surface = relativeBox(surfaceNode);
   const content = contentNodes.map((node) => relativeBox(node));
@@ -251,7 +248,7 @@ function measureCourse(root: HTMLElement, variant: Variant): Course | null {
     bounds.width - 24,
     Math.max(...content.map((rect) => rect.x + rect.width)) + 32,
   );
-  const bridges = heroBridges(seed, variant, bounds.width);
+  const bridges = heroBridges(courseSeed, variant);
   const contact = bridges.at(-1)!;
   const origin = { x: contact.base.x, y: contact.base.y + 24 };
   const end = bounds.height - 12;
@@ -299,18 +296,50 @@ function measureCourse(root: HTMLElement, variant: Variant): Course | null {
     }
   };
 
-  // Follow starts at the outside shoulder; Quote starts in the open center gutter.
-  // The hero's visible taper supplies the handoff before the first full-size course piece.
-  const emergeY = Math.max(
-    origin.y + 70,
-    Math.min(origin.y + 180, surface.y + surface.height + 48),
-  );
-  curve(
-    { x: origin.x + (variant === "follow" ? 10 : -22), y: origin.y + 25 },
-    { x: side, y: emergeY - 35 },
-    { x: side, y: emergeY },
-    40,
-  );
+  // Navigation-origin routes use the open hero gutters; the large product surface
+  // conceals the long side change. Neither route crosses the headline or CTA.
+  if (variant === "follow") {
+    const heading = root.querySelector<HTMLElement>("h1");
+    const headingRange = document.createRange();
+    if (heading) headingRange.selectNodeContents(heading);
+    const headingLeft = heading
+      ? headingRange.getBoundingClientRect().left - bounds.left
+      : left + 120;
+    const shoulder = Math.max(left, Math.min(left + 120, headingLeft - 38));
+    curve(
+      { x: current.x + 35, y: current.y + 70 },
+      { x: shoulder, y: surface.y - 100 },
+      { x: shoulder, y: surface.y - 35 },
+      60,
+    );
+    curve(
+      { x: shoulder, y: surface.y + 100 },
+      { x: right, y: surface.y + surface.height - 160 },
+      { x: right, y: surface.y + surface.height - 35 },
+      100,
+    );
+    side = right;
+  } else {
+    const lane = Math.max(26, Math.min(left, seed.x - 22));
+    const heroCopy = root.querySelector<HTMLElement>(".qf-hero-copy");
+    const copyBottom = heroCopy
+      ? relativeBox(heroCopy).y + relativeBox(heroCopy).height
+      : surface.y + surface.height - 100;
+    curve(
+      { x: lane, y: current.y + 100 },
+      { x: lane, y: copyBottom - 100 },
+      { x: lane, y: copyBottom + 24 },
+      80,
+    );
+    const gutter = Math.max(lane + 100, surface.x - 30);
+    curve(
+      { x: lane + 100, y: copyBottom + 65 },
+      { x: gutter, y: surface.y + surface.height + 25 },
+      { x: gutter, y: surface.y + surface.height + 70 },
+      90,
+    );
+    side = gutter;
+  }
   crossings.forEach((crossing, index) => {
     if (crossing.end <= current.y + 90 || crossing.end >= end - 650) return;
     const start = Math.max(crossing.start, current.y + 30);
@@ -372,6 +401,7 @@ function measureCourse(root: HTMLElement, variant: Variant): Course | null {
   return {
     width: bounds.width,
     height: bounds.height,
+    viewportHeight: window.innerHeight,
     seed,
     bridges,
     originY: origin.y,
@@ -381,6 +411,7 @@ function measureCourse(root: HTMLElement, variant: Variant): Course | null {
     signature: [
       bounds.width,
       bounds.height,
+      window.innerHeight,
       left,
       right,
       seed.x,
@@ -416,6 +447,7 @@ function makeBinding(node: SVGGElement): Binding {
     shadow: node.querySelector<SVGPathElement>(".ftd-shadow")!,
     angle: -1,
     opacity: -1,
+    quiet: -1,
   };
 }
 function MarkSymbol({ id }: { id: string }) {
@@ -440,7 +472,7 @@ function DominoShape({ projection, markId }: { projection: Projection; markId: s
   );
 }
 
-/** A passive-scroll course emerging from the hero product edge. */
+/** One navigation-origin cascade; the actual fixed brand stays intact. */
 export function FollowThroughTrack({
   children,
   className = "",
@@ -470,18 +502,30 @@ export function FollowThroughTrack({
     let frame = 0;
     let disposed = false;
     let visible = new Set<number>();
-    const update = () => {
+    let introNow = 0;
+    let previousTime = 0;
+    const update = (now: number) => {
       frame = 0;
       if (disposed || !media.matches || !geometry || !seedBinding.current) return;
       const active = geometry;
       const top = root.getBoundingClientRect().top;
-      const documentTop = top + window.scrollY;
-      const seedCentre = documentTop + active.seed.y + active.seed.height / 2;
-      const launchScroll = Math.max(0, seedCentre - window.innerHeight * 0.68);
-      const travel = Math.max(0, window.scrollY - launchScroll);
-      const intro = clamp(travel / 180);
-      const contactFocus = ease((travel - 165) / 65);
-      const target = active.originY + Math.max(0, travel - 180);
+      const travel = Math.max(0, window.scrollY);
+      const introTarget = clamp(travel / 90);
+      const delta = previousTime ? Math.min(1000, now - previousTime) : 16;
+      previousTime = now;
+      introNow += (introTarget - introNow) * (1 - Math.exp(-delta / 100));
+      if (Math.abs(introTarget - introNow) < 0.001) introNow = introTarget;
+      const intro = introNow;
+      const catchup = ease((travel - 90) / 360);
+      const firstVisible = travel + active.seed.y + active.seed.height + 30;
+      const target =
+        intro < 0.98
+          ? active.originY
+          : mix(
+              { x: 0, y: Math.max(active.originY, firstVisible) },
+              { x: 0, y: travel + window.innerHeight * 0.54 },
+              catchup,
+            ).y;
       const tiles = active.tiles;
       let low = 0;
       let high = tiles.length - 1;
@@ -493,7 +537,7 @@ export function FollowThroughTrack({
       const previous = Math.max(0, low - 1);
       const ySpan = Math.max(0.01, tiles[low].base.y - tiles[previous].base.y);
       const front =
-        travel <= 180
+        intro < 0.98
           ? 0
           : target >= tiles.at(-1)!.base.y
             ? Math.min(
@@ -506,20 +550,27 @@ export function FollowThroughTrack({
       root.dataset.ftSeedState =
         intro === 0 ? "flat" : intro < 0.35 ? "lifting" : intro < 0.9 ? "tipping" : "handed-off";
       const seed = seedBinding.current;
-      applyProjection(seed, projectSeed(active.seed, intro, variant));
-      const seedOpacity = 1 - ease((intro - 0.8) / 0.2) * 0.78;
+      const pose = getNavOriginPose(
+        { left: active.seed.x, top: active.seed.y, size: active.seed.width },
+        intro,
+        variant === "follow" ? 1 : -1,
+      );
+      applyProjection(seed, pose.projection);
+      const seedOpacity = ease(intro / 0.07) * (1 - ease((travel - 120) / 60));
       seed.node.setAttribute("opacity", seedOpacity.toFixed(3));
       seed.node.style.visibility = seedOpacity > 0.001 ? "visible" : "hidden";
-      seed.shadow.style.opacity = (ease(intro / 0.38) * 0.045).toFixed(3);
-      seed.back.style.opacity = ease(intro / 0.38).toFixed(3);
-      seed.side.style.opacity = ease(intro / 0.38).toFixed(3);
+      seed.node.dataset.ftPhysicalSize = pose.physicalSize.toFixed(3);
+      seed.node.dataset.ftProjectedWidth = pose.bounds.width.toFixed(3);
+      seed.node.dataset.ftProjectedHeight = pose.bounds.height.toFixed(3);
+      seed.shadow.style.opacity = (ease(intro / 0.36) * 0.1).toFixed(3);
       for (let index = 0; index < active.bridges.length; index++) {
         const bridge = bridgeBindings.current.get(index);
         if (!bridge) continue;
-        const phase = ease((intro - 0.42 - index * 0.13) / 0.18);
+        const phase = ease((intro - 0.3 - index * 0.2) / 0.3);
         applyProjection(bridge, project(active.bridges[index], phase * 78));
-        const focus = 1 - clamp(Math.abs(intro - (0.51 + index * 0.13)) / 0.18);
-        bridge.node.setAttribute("opacity", (0.2 + focus * 0.8).toFixed(3));
+        const quiet = clamp((front + active.bridges.length - index - 4) / 2.5);
+        bridge.node.setAttribute("opacity", (1 - quiet * 0.62).toFixed(3));
+        bridge.node.style.filter = `saturate(${1 - quiet * 0.65})`;
       }
       root.dataset.ftReady = "true";
       const nextVisible = new Set<number>();
@@ -538,11 +589,17 @@ export function FollowThroughTrack({
           );
           binding.angle = angle;
         }
-        const focus = 1 - clamp((Math.abs(tile.index - (front - 1.25)) - 1.25) / 1.5);
-        const resting = 0.17 + phase * 0.05;
-        const opacity =
-          (resting + (1 - resting) * focus * contactFocus) *
-          clamp((active.length - tile.distance) / 95);
+        // Preserve the original trail: standing pieces stay blue; only pieces
+        // already behind the contact settle into the quieter grey-blue state.
+        const quiet = clamp((front - tile.index - 4) / 2.5);
+        const opacity = (1 - quiet * 0.62) * clamp((active.length - tile.distance) / 95);
+        const state = phase === 0 ? "standing" : phase < 1 ? "contact" : "settled";
+        if (binding.node.dataset.ftState !== state) binding.node.dataset.ftState = state;
+        if (Math.abs(quiet - binding.quiet) > 0.005) {
+          binding.node.style.filter = `saturate(${(1 - quiet * 0.65).toFixed(3)})`;
+          binding.node.dataset.ftQuiet = quiet.toFixed(3);
+          binding.quiet = quiet;
+        }
         if (Math.abs(opacity - binding.opacity) > 0.005) {
           binding.node.setAttribute("opacity", opacity.toFixed(3));
           binding.opacity = opacity;
@@ -555,6 +612,7 @@ export function FollowThroughTrack({
         }
       });
       visible = nextVisible;
+      if (Math.abs(introTarget - introNow) > 0.001) schedule();
     };
     const schedule = () => {
       if (!disposed && !frame) frame = window.requestAnimationFrame(update);
@@ -580,7 +638,7 @@ export function FollowThroughTrack({
     scheduleRef.current = schedule;
     const observer = new ResizeObserver(measure);
     observer.observe(root);
-    const seed = root.querySelector<HTMLElement>("[data-ft-seed]");
+    const seed = document.querySelector<HTMLElement>('nav[aria-label="Main navigation"]');
     const surface = root.querySelector<HTMLElement>("[data-ft-origin-surface]");
     if (seed) observer.observe(seed);
     if (surface) observer.observe(surface);
@@ -682,29 +740,14 @@ export function FollowThroughTrack({
                   <path key={i} d={occlusionPath(occlusion)} fill="black" />
                 ))}
               </mask>
-              <mask
-                id={`${seedMarkId}-text`}
-                maskUnits="userSpaceOnUse"
-                x="0"
-                y="0"
-                width={course.width}
-                height={course.height}
-              >
-                <rect width={course.width} height={course.height} fill="white" />
-                {course.occlusions
-                  .filter((occlusion) => occlusion.kind === "text")
-                  .map((occlusion, i) => (
-                    <path key={i} d={occlusionPath(occlusion)} fill="black" />
-                  ))}
-              </mask>
             </defs>
             <g mask={`url(#${seedMarkId}-mask)`}>
-              {[3, 2, 1, 0].map((index) => (
+              {[2, 1, 0].map((index) => (
                 <g
                   key={index}
                   data-ft-bridge={index}
                   data-ft-bridge-width={course.bridges[index].width.x}
-                  opacity="0.2"
+                  opacity="1"
                   ref={(node) => {
                     if (!node) {
                       bridgeBindings.current.delete(index);
@@ -717,19 +760,40 @@ export function FollowThroughTrack({
                 </g>
               ))}
             </g>
+          </svg>
+        </>
+      )}
+      {course &&
+        createPortal(
+          <svg
+            className="ft-nav-emitter"
+            viewBox={`0 0 ${course.width} ${course.viewportHeight}`}
+            width={course.width}
+            height={course.viewportHeight}
+            aria-hidden="true"
+            focusable="false"
+          >
+            <defs>
+              <MarkSymbol id={`${seedMarkId}-nav`} />
+            </defs>
             <g
               className="ftd-seed"
               data-ft-seed-tile
-              mask={`url(#${seedMarkId}-text)`}
               ref={(node) => {
                 seedBinding.current = node ? makeBinding(node) : null;
               }}
             >
-              <DominoShape projection={projectSeed(course.seed, 0, variant)} markId={seedMarkId} />
+              <DominoShape
+                projection={projectNavOrigin(
+                  { left: course.seed.x, top: course.seed.y, size: course.seed.width },
+                  0,
+                )}
+                markId={`${seedMarkId}-nav`}
+              />
             </g>
-          </svg>
-        </>
-      )}
+          </svg>,
+          document.body,
+        )}
       <div className="ft-track-body">{children}</div>
     </div>
   );
