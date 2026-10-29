@@ -38,7 +38,9 @@ function JourneyPortrait({ cell }: { cell: number }) {
  * Quote Sent, waits and channel actions are supported building blocks. Alex's
  * reply and customer note are deliberate staff work; no reply-stop is implied.
  */
-export function QuoteFollowJourney() {
+export function QuoteFollowJourney({
+  endAtSceneBottom = false,
+}: { endAtSceneBottom?: boolean } = {}) {
   const [channel, setChannel] = useState<Channel>("SMS");
   const [waitDays, setWaitDays] = useState<WaitDays>(2);
   const flowRef = useRef<HTMLDivElement>(null);
@@ -86,6 +88,10 @@ export function QuoteFollowJourney() {
       });
       first = positions[0] ?? 0;
       last = positions.at(-1) ?? first + 1;
+      if (endAtSceneBottom) {
+        const reply = flow.querySelector<HTMLElement>("#qfj-reply");
+        if (reply) last = reply.getBoundingClientRect().bottom - top - 35;
+      }
       flow.dataset.routeReady = "true";
       schedule();
     };
@@ -104,7 +110,7 @@ export function QuoteFollowJourney() {
       media.removeEventListener("change", measure);
       window.cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [endAtSceneBottom]);
 
   const message = channel === "SMS" ? QUOTE_FOLLOW_SMS : EMAIL_MESSAGE;
   const days = `${waitDays} ${waitDays === 1 ? "day" : "days"}`;

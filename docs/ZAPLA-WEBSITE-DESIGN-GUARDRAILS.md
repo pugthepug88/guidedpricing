@@ -309,3 +309,7 @@ The owner rejected the travelling logo/rail and hero conduit, and proposed the e
 ## Quote Follow-Up hero motion removal, 29 October 2026
 
 The owner rejected the hero domino row while liking the chapter trail. Remove the hero dominoes entirely and rebalance the static quote/timing/message composition. This supersedes the preceding hero domino direction only. The proposed full-page S curve and seamless footer connection are being evaluated, not approved implementation scope. Preserve the existing chapter animation and shared footer. Review: `QUOTE-FOLLOW-UP-HERO-STATIC-20261029.md`.
+
+## Follow-through family V2, 29 October 2026
+
+Owner approved a coherent rebuild, then explicitly required preserving the original Follow-Up page. Keep both current pages and global menus unchanged. Review new work only at `/follow-up-v2` and `/quote-follow-up-v2`, linked together and noindex. The broader page owns the brand promise and lifecycle breadth; the quote page proves one configured process. Use shared warm paper/ink/pearl/blue material, exact physical dominoes, two restrained turns in reserved space, readable records and deliberate human decisions. The quote V2 hero is one quote-linked conversation with no hero animation. Extend its guide past the complete reply scene. Do not interpret a domino route as automatic conversion or inevitable customer progression. The shared footer is an unchanged brand echo, not a claimed seamless physical join. Scope and evidence: `FOLLOW-THROUGH-FAMILY-V2-20261029.md`.
