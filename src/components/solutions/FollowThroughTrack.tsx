@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { getStarterSpec } from "./followThroughStarter";
 import {
   buildVisibleSectionTimeline,
   sampleScrollTimeline,
@@ -38,6 +39,7 @@ type Course = {
   viewportHeight: number;
   length: number;
   timeline: ScrollTimeline;
+  originMode: "page" | "message";
   tiles: Tile[];
   occlusions: Occlusion[];
   signature: string;
@@ -68,6 +70,7 @@ const mix = (a: Point, b: Point, amount: number) => add(scale(a, 1 - amount), sc
 function project(
   tile: Pick<Tile, "base" | "width" | "upright" | "fallen">,
   angle: number,
+  depth = 1,
 ): Projection {
   const radians = (angle * Math.PI) / 180;
   const cosine = Math.cos(radians);
@@ -76,7 +79,10 @@ function project(
     base: tile.base,
     width: tile.width,
     rise: add(scale(tile.upright, cosine), scale(tile.fallen, sine)),
-    thickness: add(scale(tile.fallen, -cosine * 0.135), scale(tile.upright, sine * 0.135)),
+    thickness: scale(
+      add(scale(tile.fallen, -cosine * 0.135), scale(tile.upright, sine * 0.135)),
+      depth,
+    ),
     shadowVector: scale(tile.fallen, 0.78 + sine * 0.18),
   });
 }
@@ -164,7 +170,8 @@ function measureOcclusions(root: HTMLElement, bounds: DOMRect): Occlusion[] {
     scope.querySelectorAll<HTMLElement>("*").forEach((node) => candidates.add(node));
   });
   const painted = [...candidates].filter((node) => {
-    if (!(node instanceof HTMLElement) || node.closest("[data-ft-seed]")) return false;
+    if (!(node instanceof HTMLElement) || node.closest("[data-ft-seed], [data-ft-starter]"))
+      return false;
     const style = getComputedStyle(node);
     if (style.display === "none" || style.visibility === "hidden" || Number(style.opacity) === 0)
       return false;
@@ -224,7 +231,7 @@ function measureOcclusions(root: HTMLElement, bounds: DOMRect): Occlusion[] {
     (node) =>
       node instanceof HTMLElement &&
       node.matches("p, h1, h2, h3, h4, a, button, dt, dd, summary, legend") &&
-      !node.closest("[data-ft-seed]") &&
+      !node.closest("[data-ft-seed], [data-ft-starter]") &&
       !surfaces.some((surface) => surface.contains(node)) &&
       !copyNodes.some((copy) => copy.contains(node)),
   );
@@ -281,6 +288,7 @@ function measureCourse(root: HTMLElement, variant: Variant): Course | null {
   };
   const documentTop = bounds.top + window.scrollY;
   const seed = relativeBox(starter);
+  const originMode = starter.dataset.ftOriginMode === "message" ? "message" : "page";
   if (seed.width < 4 || seed.height < 4) return null;
   const surface = relativeBox(surfaceNode);
   const content = contentNodes.map((node) => relativeBox(node));
@@ -289,7 +297,7 @@ function measureCourse(root: HTMLElement, variant: Variant): Course | null {
     bounds.width - 24,
     Math.max(...content.map((rect) => rect.x + rect.width)) + 32,
   );
-  const origin = { x: seed.x + seed.width / 2, y: seed.y + 27 };
+  const origin = { x: seed.x + seed.width / 2, y: seed.y + seed.height - 5 };
   const end = bounds.height - 12;
   if (right - left < 200 || end - origin.y < 300) return null;
   const crossingNodes = Array.from(root.querySelectorAll<HTMLElement>('[data-ft-cross="through"]'));
@@ -338,15 +346,41 @@ function measureCourse(root: HTMLElement, variant: Variant): Course | null {
   // One page-anchored upright starter. Its next pieces follow the same route,
   // camera and clock; there is no fixed-header copy or separate handoff.
   if (variant === "follow") {
-    const shoulderY = Math.max(current.y + 170, surface.y + 60);
+    const shoulderY = Math.max(current.y + 170, surface.y + 80);
+    const insetY = Math.max(shoulderY + 120, surface.y + surface.height * 0.64);
+    const insetX = right - 200;
+    const exitY = Math.max(insetY + 140, surface.y + surface.height + 40);
     curve(
       { x: current.x + 8, y: current.y + 48 },
-      { x: right, y: shoulderY - 110 },
+      { x: right, y: shoulderY - 100 },
       { x: right, y: shoulderY },
       70,
     );
+    curve(
+      { x: right, y: shoulderY + 80 },
+      { x: insetX, y: insetY - 80 },
+      { x: insetX, y: insetY },
+      60,
+    );
+    curve({ x: insetX, y: insetY + 80 }, { x: right, y: exitY - 80 }, { x: right, y: exitY }, 70);
     side = right;
-    driftTo(Math.max(shoulderY + 1, surface.y + surface.height - 15));
+  } else if (originMode === "message") {
+    const gutter = surface.x - 32;
+    const turnY = current.y + 160;
+    const exitY = Math.max(turnY + 54, surface.y + surface.height - 6);
+    curve(
+      { x: current.x, y: current.y + 50 },
+      { x: current.x, y: turnY - 50 },
+      { x: current.x, y: turnY },
+      55,
+    );
+    curve(
+      { x: current.x, y: turnY + 18 },
+      { x: gutter, y: exitY - 18 },
+      { x: gutter, y: exitY },
+      90,
+    );
+    side = gutter;
   } else {
     const gutter = Math.max(left + 100, Math.min(surface.x - 35, origin.x + 200));
     const landing = Math.max(origin.y + 210, surface.y + surface.height + 80);
@@ -403,23 +437,29 @@ function measureCourse(root: HTMLElement, variant: Variant): Course | null {
     const b = samples[cursor];
     const span = Math.max(0.001, distances[cursor] - distances[cursor - 1]);
     const tangent = { x: (b.x - a.x) / span, y: (b.y - a.y) / span };
-    const size = index === 0 ? 1.6 : 1;
+    const spec = getStarterSpec(index);
+    const size = spec.size;
     const tile = {
       index,
       distance,
       size,
       base: mix(a, b, clamp((distance - distances[cursor - 1]) / span)),
       width: scale({ x: tangent.y * 20 - tangent.x * 3, y: -tangent.x * 20 - tangent.y * 3 }, size),
-      upright: scale(index === 0 ? { x: 3, y: -18 } : { x: 4, y: -13 }, size),
+      upright: spec.upright,
       fallen: scale(tangent, 28 * size),
     };
-    tiles.push({ ...tile, standing: project(tile, 0), settled: project(tile, 78) });
-    distance += index === 0 ? 32 : 24;
+    tiles.push({
+      ...tile,
+      standing: project(tile, 0, originMode === "message" && index === 0 ? 0 : 1),
+      settled: project(tile, 78),
+    });
+    distance += spec.pitch;
   }
   return {
     width: bounds.width,
     height: bounds.height,
     viewportHeight: window.innerHeight,
+    originMode,
     timeline: buildVisibleSectionTimeline(
       tiles.map((tile) => ({
         distance: tile.distance,
@@ -566,6 +606,8 @@ export function FollowThroughTrack({
       root.dataset.ftDistance = distanceNow.toFixed(2);
       root.dataset.ftTarget = targetDistance.toFixed(2);
       root.dataset.ftSeedState = front === 0 ? "upright" : front < 2.5 ? "tipping" : "handed-off";
+      root.dataset.ftOriginMode = active.originMode;
+      root.dataset.ftSendCue = front < 0.35 ? "ready" : "sent";
       root.dataset.ftReady = "true";
       const nextVisible = new Set<number>();
       tiles.forEach((tile) => {
@@ -579,10 +621,20 @@ export function FollowThroughTrack({
         if (Math.abs(angle - binding.angle) > 0.005) {
           applyProjection(
             binding,
-            phase === 0 ? tile.standing : phase === 1 ? tile.settled : project(tile, angle),
+            phase === 0
+              ? tile.standing
+              : phase === 1
+                ? tile.settled
+                : project(
+                    tile,
+                    angle,
+                    active.originMode === "message" && tile.index === 0 ? ease(front / 0.35) : 1,
+                  ),
           );
           binding.angle = angle;
         }
+        if (active.originMode === "message" && tile.index === 0)
+          binding.shadow.style.opacity = (0.06 * ease(front / 0.35)).toFixed(3);
         // Preserve the original trail: standing pieces stay blue; only pieces
         // already behind the contact settle into the quieter grey-blue state.
         const quiet = clamp((front - tile.index - 4) / 2.5);

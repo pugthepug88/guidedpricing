@@ -1,5 +1,15 @@
 # Follow-through family — separate V2 review pages
 
+## Current update — tapered starters and message-origin preview, 30 October 2026
+
+The first four bodies now measure 56, 44, 32 and 24px before joining the unchanged 20px course on both V2 pages. These are separate, fixed-size pieces; tipping never grows the face. Spacing and upright poses also taper, preserving rounded logo geometry and clearance between resting bodies. Standing/contact pieces remain blue and fallen pieces retain the muted grey-blue material.
+
+Follow-Up still starts after “through.” Its opening route now bends inward behind the opaque product preview and returns to the right gutter below it, breaking up the previous long straight descent. The section-aligned clock and visibility logic are unchanged.
+
+Quote V2 also has an isolated `?origin=message` review variant. A flat 56px sender mark sits immediately to the right of the conversation, aligned with the configured outbound message. Scrolling reveals its depth and tips it into the same tapered course. A single send cue changes from “Ready to send” to “Follow-up sent”; the reply appears after handoff and resets when scrolling back. This represents configured sending, not AI thinking. The default quote review URL retains its CTA-area origin. Smaller screens, short windows, reduced-motion preferences and no-JavaScript rendering retain the complete static conversation.
+
+The starter check passes 4,445 assertions. Desktop browser sweeps at 1100, 1280 and 1536px widths found no overflow or missing images; all modes retained the 56/44/32/24/20 prefix and 20px regular pieces. Maximum concealed-contact intervals were 50–56px before the intentional final left exit. The message preview's intermediate tip clears the narrow desktop edge, and ready/sent/reply/reverse states were inspected directly. Evidence is in `docs/qa/tapered-origin-20261030/`. The cloud browser's limited frame rate cannot establish normal-device fluidity. Original routes, shared navigation, footer and product copy remain unchanged. Older sections below describe superseded treatments.
+
 ## Current correction — headline origin and section continuity, 30 October 2026
 
 The follow-up starter now sits 20px beyond the actual “Zapla follows through.” headline span, near its baseline. The former gap below the CTA was chosen for clearance rather than a meaningful connection to the promise; that placement is retired. The initial bend leads into the right gutter. The first piece remains 32px and regular pieces remain 20px on both V2 pages. Headline masking measures text nodes so the positioned starter cannot enlarge its own occlusion mask.

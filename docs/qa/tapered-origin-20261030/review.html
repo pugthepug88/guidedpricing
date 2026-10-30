@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><title>Starter motion review</title
+  ><style>
+    body {
+      margin: 0;
+      background: #ddd;
+      font: 13px system-ui;
+    }
+    form {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      background: #fff;
+    }
+    input {
+      width: 65px;
+    }
+    iframe {
+      display: block;
+      border: 0;
+      margin: auto;
+      background: white;
+    }
+    pre {
+      max-height: 160px;
+      overflow: auto;
+      background: #122019;
+      color: #cef1dc;
+      margin: 0;
+      padding: 8px;
+    }
+    body.clean form,
+    body.clean pre {
+      display: none;
+    }
+  </style>
+  <form onsubmit="return false;">
+    <label
+      >Page
+      <select id="page">
+        <option>follow-up-v2</option>
+        <option>quote-follow-up-v2</option>
+        <option>quote-follow-up-v2?origin=message</option>
+      </select></label
+    ><label>Width <input id="width" value="1280" /></label
+    ><label>Height <input id="height" value="900" /></label
+    ><label>Case <input id="case" value="initial" /></label><button id="load">Load</button
+    ><label>Scroll <input id="scroll" value="0" /></label><button id="move">Move</button
+    ><button id="sweep">Sweep</button><button id="clean">Clean</button>
+  </form>
+  <pre id="result">pending</pre>
+  <iframe title="Page preview" id="frame" width="1280" height="900"></iframe>
+  <script type="module">
+    import { sampleScrollTimeline } from "/src/components/solutions/followThroughMotion.ts";
+    const $ = (id) => document.getElementById(id),
+      f = $("frame");
+    const d = () => f.contentDocument,
+      w = () => f.contentWindow;
+    function points() {
+      return [...d().querySelectorAll("[data-ft-tile]")].map((n) => ({
+        i: +n.dataset.ftTile,
+        distance: +n.dataset.ftDistance,
+        x: +n.dataset.ftBaseX,
+        y: +n.dataset.ftBaseY,
+        exposed: n.dataset.ftExposed === "true",
+      }));
+    }
+    function contacts(ps, distance, scroll) {
+      let i = ps.findIndex((p) => p.distance >= distance);
+      if (i < 0) i = ps.length - 1;
+      const prev = Math.max(0, i - 1),
+        a = ps[prev],
+        b = ps[i];
+      const front = prev + (distance - a.distance) / Math.max(0.01, b.distance - a.distance);
+      return ps
+        .filter((p) => front - p.i > 0 && front - p.i < 2.5)
+        .map((p) => ({
+          ...p,
+          screenY: p.y - scroll,
+          inView: p.y - scroll > 75 && p.y - scroll < w().innerHeight - 25,
+        }));
+    }
+    function audit() {
+      const doc = d(),
+        win = w(),
+        r = doc.querySelector(".ft-track"),
+        ps = points(),
+        nodes = [...doc.querySelectorAll("[data-ft-tile]")];
+      return {
+        page: $("page").value,
+        width: win.innerWidth,
+        height: win.innerHeight,
+        scroll: win.scrollY,
+        root: r?.dataset,
+        rootWidth: r?.getBoundingClientRect().width,
+        overflow: doc.documentElement.scrollWidth > win.innerWidth,
+        starter: doc.querySelector("[data-ft-starter]")?.getBoundingClientRect().toJSON(),
+        prefixWidths: nodes.slice(0, 5).map((n) => +n.dataset.ftPhysicalWidth),
+        regularWidths: [...new Set(nodes.slice(4).map((n) => n.dataset.ftPhysicalWidth))],
+        firstFace: nodes[0]?.querySelector(".ftd-face")?.getBoundingClientRect().toJSON(),
+        firstSolidRight: nodes[0]
+          ? Math.max(
+              ...[...nodes[0].querySelectorAll(".ftd-face,.ftd-back,.ftd-side")].map(
+                (n) => n.getBoundingClientRect().right,
+              ),
+            )
+          : null,
+        replyOpacity: doc.querySelector(".qfv-inbound")
+          ? win.getComputedStyle(doc.querySelector(".qfv-inbound")).opacity
+          : null,
+        missing: [...doc.images].filter((n) => n.complete && !n.naturalWidth).length,
+        contact: ps.length ? contacts(ps, +r.dataset.ftDistance, win.scrollY) : [],
+      };
+    }
+    function finish(extra = {}) {
+      $("result").textContent = JSON.stringify({ ...audit(), ...extra }, null, 2);
+      $("result").dataset.status = $("case").value;
+    }
+    $("load").onclick = () => {
+      $("result").dataset.status = "pending";
+      f.width = $("width").value;
+      f.height = $("height").value;
+      f.onload = () => {
+        let tries = 0;
+        function ready() {
+          const r = d().querySelector(".ft-track");
+          if (
+            (r?.dataset.ftReady === "true" || r?.dataset.ftActive === "false") &&
+            d().fonts.status === "loaded"
+          )
+            finish();
+          else if (tries++ < 80) setTimeout(ready, 100);
+        }
+        ready();
+      };
+      const page = $("page").value;
+      f.src =
+        "/" + page + (page.includes("?") ? "&" : "?") + "qa=" + encodeURIComponent($("case").value);
+    };
+    $("move").onclick = () => {
+      $("result").dataset.status = "pending";
+      w().scrollTo({ top: +$("scroll").value, behavior: "instant" });
+      setTimeout(() => finish(), 1250);
+    };
+    $("sweep").onclick = () => {
+      const ps = points(),
+        meta = d().querySelector("[data-ft-clock]");
+      if (!meta) {
+        finish({ sweep: null });
+        return;
+      }
+      const clock = JSON.parse(meta.textContent);
+      const last = ps.filter((p) => p.exposed).at(-1);
+      let run = 0,
+        maxHidden = 0,
+        hiddenStart = 0,
+        worst = null,
+        count = 0;
+      for (
+        let scroll = Math.max(0, clock.startScroll + 2);
+        scroll <= clock.endScroll;
+        scroll += 2
+      ) {
+        const distance = sampleScrollTimeline(clock, scroll);
+        if (distance > last.distance + 60) break;
+        const cs = contacts(ps, distance, scroll);
+        if (!cs.some((p) => p.exposed && p.inView)) {
+          if (run === 0) hiddenStart = scroll;
+          run += 2;
+          if (run > maxHidden) {
+            maxHidden = run;
+            worst = { start: hiddenStart, end: scroll, contacts: cs };
+          }
+        } else run = 0;
+        count++;
+      }
+      finish({ sweep: { count, maxHiddenScrollPx: maxHidden, worst } });
+    };
+    $("clean").onclick = () => document.body.classList.toggle("clean");
+    $("load").click();
+  </script>
+</html>

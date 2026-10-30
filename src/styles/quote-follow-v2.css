@@ -306,9 +306,115 @@
     display: block;
     position: absolute;
     top: calc(100% + 28px);
-    left: calc(70% - 16px);
-    width: 32px;
-    height: 32px;
+    left: calc(70% - 28px);
+    width: 56px;
+    height: 56px;
     pointer-events: none;
+  }
+}
+
+/* Isolated ?origin=message study: the send event launches the page's course. */
+.zapla-quote-follow-up-v2 .qfv-message-starter {
+  display: none;
+}
+@media (min-width: 1100px) and (min-height: 650px) and (prefers-reduced-motion: no-preference) {
+  .qfv-message-origin-preview .ft-track[data-ft-ready="true"] .qfv-timing .ft-sender-mark {
+    visibility: hidden;
+  }
+  .qfv-message-origin-preview .ft-track[data-ft-ready="true"] :is(.qfv-sender, .qfv-inbound) {
+    opacity: 0;
+    transition: none;
+  }
+  .qfv-message-origin-preview
+    .ft-track[data-ft-seed-state="handed-off"]
+    :is(.qfv-sender, .qfv-inbound) {
+    opacity: 1;
+    transition: opacity 180ms ease;
+  }
+  .zapla-quote-follow-up-v2 .qfv-message-starter {
+    display: block;
+    position: absolute;
+    top: calc(62% - 28px);
+    left: calc(100% + clamp(0px, (100vw - 1100px) * 0.025, 4px));
+    width: 56px;
+    height: 56px;
+    pointer-events: none;
+  }
+  .qfv-message-starter::before {
+    content: "";
+    position: absolute;
+    top: 28px;
+    right: 100%;
+    width: clamp(0px, (100vw - 1100px) * 0.025, 4px);
+    height: 1px;
+    background: #bccbd5;
+  }
+  .qfv-message-starter::after {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border: 1px solid #1078ff55;
+    border-radius: 20px;
+    opacity: 0;
+  }
+  .qfv-send-cue {
+    position: absolute;
+    top: auto;
+    bottom: calc(100% + 8px);
+    right: 0;
+    display: grid;
+    color: #607588;
+    font-size: 10px;
+    line-height: 1.5;
+    white-space: nowrap;
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
+  }
+  .qfv-send-cue > span {
+    grid-area: 1 / 1;
+  }
+  .qfv-send-cue-sent {
+    opacity: 0;
+  }
+  .ft-track[data-ft-origin-mode="message"][data-ft-send-cue="sent"] .qfv-send-cue-ready {
+    opacity: 0;
+  }
+  .ft-track[data-ft-origin-mode="message"][data-ft-send-cue="sent"] .qfv-send-cue-sent {
+    opacity: 1;
+  }
+  .ft-track[data-ft-origin-mode="message"][data-ft-send-cue="sent"] .qfv-message-starter::after {
+    animation: qfv-send-confirm 360ms ease-out 1 both;
+  }
+  .ft-track[data-ft-origin-mode="message"][data-ft-seed-state="handed-off"] .qfv-send-cue {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  .ft-track[data-ft-origin-mode="message"][data-ft-seed-state="handed-off"]
+    .qfv-message-starter::before {
+    opacity: 0;
+  }
+}
+@keyframes qfv-send-confirm {
+  from {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+
+@media (min-width: 1100px) and (min-height: 650px) and (prefers-reduced-motion: no-preference) {
+  .qfv-message-starter > span,
+  .qfv-message-starter::before,
+  .qfv-message-starter::after {
+    visibility: hidden;
+  }
+  .ft-track[data-ft-ready="true"] .qfv-message-starter > span,
+  .ft-track[data-ft-ready="true"] .qfv-message-starter::before,
+  .ft-track[data-ft-ready="true"] .qfv-message-starter::after {
+    visibility: visible;
   }
 }
