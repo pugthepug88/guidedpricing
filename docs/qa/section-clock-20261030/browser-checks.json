@@ -1,0 +1,482 @@
+{
+  "date": "2026-10-30",
+  "desktop": [
+    {
+      "page": "follow-up-v2",
+      "width": 1280,
+      "height": 900,
+      "overflow": false,
+      "active": "true",
+      "starter": {
+        "x": 1029.109375,
+        "y": 290.71875,
+        "width": 32,
+        "height": 32,
+        "top": 290.71875,
+        "right": 1061.109375,
+        "bottom": 322.71875,
+        "left": 1029.109375
+      },
+      "regular": ["20"],
+      "missing": 0,
+      "maxHidden": 52,
+      "sections": [
+        {
+          "id": "ft-title",
+          "scroll": 0,
+          "active": 0,
+          "ys": []
+        },
+        {
+          "id": "ft-booking",
+          "scroll": 936.625,
+          "active": 2,
+          "ys": [193.57500000000005, 217.57500000000005]
+        },
+        {
+          "id": "ft-quote",
+          "scroll": 1468.65625,
+          "active": 2,
+          "ys": [179.54375000000005, 202.64374999999995]
+        },
+        {
+          "id": "ft-reconnect-title",
+          "scroll": 2065.6875,
+          "active": 2,
+          "ys": [273.6125000000002, 297.6125000000002]
+        },
+        {
+          "id": "ft-human-title",
+          "scroll": 2855.09375,
+          "active": 2,
+          "ys": [278.2062500000002, 302.2062500000002]
+        },
+        {
+          "id": "ft-setup-title",
+          "scroll": 3454.09375,
+          "active": 2,
+          "ys": [278.8062500000001, 302.6062499999998]
+        },
+        {
+          "id": "ft-final-title",
+          "scroll": 4149.125,
+          "active": 0,
+          "ys": [362.47500000000036, 386.47500000000036, 410.47500000000036]
+        }
+      ]
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 1280,
+      "height": 900,
+      "overflow": false,
+      "active": "true",
+      "starter": {
+        "x": 390.390625,
+        "y": 683.484375,
+        "width": 32,
+        "height": 32,
+        "top": 683.484375,
+        "right": 422.390625,
+        "bottom": 715.484375,
+        "left": 390.390625
+      },
+      "regular": ["20"],
+      "missing": 0,
+      "maxHidden": 50,
+      "sections": [
+        {
+          "id": "qf-title",
+          "scroll": 0,
+          "active": 0,
+          "ys": []
+        },
+        {
+          "id": "qfj-start",
+          "scroll": 714.875,
+          "active": 2,
+          "ys": [310.125, 328.0250000000001]
+        },
+        {
+          "id": "qfj-message",
+          "scroll": 1203.09375,
+          "active": 1,
+          "ys": [485.90625, 490.70624999999995, 495.60625000000005]
+        },
+        {
+          "id": "qfj-reply",
+          "scroll": 1723.09375,
+          "active": 2,
+          "ys": [281.90625, 301.70624999999995]
+        },
+        {
+          "id": "qf-human-title",
+          "scroll": 2460.328125,
+          "active": 3,
+          "ys": [419.5718750000001, 443.5718750000001, 467.5718750000001]
+        },
+        {
+          "id": "qf-launch-title",
+          "scroll": 3021.984375,
+          "active": 3,
+          "ys": [265.515625, 288.3156250000002, 309.9156250000001]
+        },
+        {
+          "id": "qf-questions-title",
+          "scroll": 3885.890625,
+          "active": 0,
+          "ys": [423.8093749999998, 446.9093750000002]
+        },
+        {
+          "id": "qf-final-title",
+          "scroll": 4437.234375,
+          "active": 0,
+          "ys": [436.9656249999998, 460.9656249999998, 484.9656249999998]
+        }
+      ]
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 1100,
+      "height": 900,
+      "overflow": false,
+      "active": "true",
+      "starter": {
+        "x": 886.1875,
+        "y": 267.5625,
+        "width": 32,
+        "height": 32,
+        "top": 267.5625,
+        "right": 918.1875,
+        "bottom": 299.5625,
+        "left": 886.1875
+      },
+      "regular": ["20"],
+      "missing": 0,
+      "maxHidden": 52,
+      "sections": [
+        {
+          "id": "ft-title",
+          "scroll": 0,
+          "active": 0,
+          "ys": []
+        },
+        {
+          "id": "ft-booking",
+          "scroll": 913.46875,
+          "active": 2,
+          "ys": [207.23125000000005, 231.1312499999999]
+        },
+        {
+          "id": "ft-quote",
+          "scroll": 1431.59375,
+          "active": 3,
+          "ys": [159.90625, 183.8062500000001, 207.20624999999995]
+        },
+        {
+          "id": "ft-reconnect-title",
+          "scroll": 2028.625,
+          "active": 3,
+          "ys": [244.57499999999982, 268.5749999999998, 292.5749999999998]
+        },
+        {
+          "id": "ft-human-title",
+          "scroll": 2804.125,
+          "active": 3,
+          "ys": [238.67500000000018, 262.6750000000002, 286.5749999999998]
+        },
+        {
+          "id": "ft-setup-title",
+          "scroll": 3403.125,
+          "active": 3,
+          "ys": [239.375, 263.2750000000001, 287.1750000000002]
+        },
+        {
+          "id": "ft-final-title",
+          "scroll": 4085.375,
+          "active": 0,
+          "ys": [362.22500000000036, 386.22500000000036]
+        }
+      ]
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 1100,
+      "height": 900,
+      "overflow": false,
+      "active": "true",
+      "starter": {
+        "x": 341.6875,
+        "y": 675.921875,
+        "width": 32,
+        "height": 32,
+        "top": 675.921875,
+        "right": 373.6875,
+        "bottom": 707.921875,
+        "left": 341.6875
+      },
+      "regular": ["20"],
+      "missing": 0,
+      "maxHidden": 54,
+      "sections": [
+        {
+          "id": "qf-title",
+          "scroll": 0,
+          "active": 0,
+          "ys": []
+        },
+        {
+          "id": "qfj-start",
+          "scroll": 740.0625,
+          "active": 2,
+          "ys": [193.9375, 217.73749999999995]
+        },
+        {
+          "id": "qfj-message",
+          "scroll": 1219.640625,
+          "active": 1,
+          "ys": [484.859375, 490.4593749999999]
+        },
+        {
+          "id": "qfj-reply",
+          "scroll": 1739.640625,
+          "active": 2,
+          "ys": [346.359375, 363.2593750000001]
+        },
+        {
+          "id": "qf-human-title",
+          "scroll": 2552.46875,
+          "active": 3,
+          "ys": [408.03125, 432.03125, 456.03125]
+        },
+        {
+          "id": "qf-launch-title",
+          "scroll": 3094.6875,
+          "active": 3,
+          "ys": [273.6125000000002, 296.8125, 319.1125000000002]
+        },
+        {
+          "id": "qf-questions-title",
+          "scroll": 3980.09375,
+          "active": 0,
+          "ys": [417.80624999999964, 441.00625000000036, 464.1062499999998]
+        },
+        {
+          "id": "qf-final-title",
+          "scroll": 4531.4375,
+          "active": 0,
+          "ys": [455.3625000000002, 479.3625000000002]
+        }
+      ]
+    }
+  ],
+  "wide": [
+    {
+      "page": "follow-up-v2",
+      "width": 1536,
+      "height": 864,
+      "overflow": false,
+      "active": "true",
+      "starter": {
+        "x": 1192.484375,
+        "y": 306.15625,
+        "width": 32,
+        "height": 32,
+        "top": 306.15625,
+        "right": 1224.484375,
+        "bottom": 338.15625,
+        "left": 1192.484375
+      },
+      "regular": ["20"],
+      "missing": 0,
+      "maxHidden": 52,
+      "sections": [
+        {
+          "id": "ft-title",
+          "scroll": 0,
+          "active": 0,
+          "ys": []
+        },
+        {
+          "id": "ft-booking",
+          "scroll": 952.0625,
+          "active": 2,
+          "ys": [213.13750000000005, 237.0374999999999]
+        },
+        {
+          "id": "ft-quote",
+          "scroll": 1493.15625,
+          "active": 2,
+          "ys": [166.34375, 190.04375000000005]
+        },
+        {
+          "id": "ft-reconnect-title",
+          "scroll": 2090.1875,
+          "active": 3,
+          "ys": [284.1125000000002, 308.1125000000002, 332.1125000000002]
+        },
+        {
+          "id": "ft-human-title",
+          "scroll": 2888.65625,
+          "active": 3,
+          "ys": [279.34375, 303.34375, 327.34375]
+        },
+        {
+          "id": "ft-setup-title",
+          "scroll": 3487.65625,
+          "active": 3,
+          "ys": [279.34375, 302.5437499999998, 325.4437499999999]
+        },
+        {
+          "id": "ft-final-title",
+          "scroll": 4189.3125,
+          "active": 0,
+          "ys": [363.78750000000036, 387.78750000000036]
+        }
+      ]
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 1536,
+      "height": 864,
+      "overflow": false,
+      "active": "true",
+      "starter": {
+        "x": 518.390625,
+        "y": 697.078125,
+        "width": 32,
+        "height": 32,
+        "top": 697.078125,
+        "right": 550.390625,
+        "bottom": 729.078125,
+        "left": 518.390625
+      },
+      "regular": ["20"],
+      "missing": 0,
+      "maxHidden": 50,
+      "sections": [
+        {
+          "id": "qf-title",
+          "scroll": 0,
+          "active": 0,
+          "ys": []
+        },
+        {
+          "id": "qfj-start",
+          "scroll": 714.875,
+          "active": 2,
+          "ys": [323.32500000000005, 340.82500000000005]
+        },
+        {
+          "id": "qfj-message",
+          "scroll": 1205.953125,
+          "active": 2,
+          "ys": [231.4468750000001, 255.34687499999995]
+        },
+        {
+          "id": "qfj-reply",
+          "scroll": 1725.953125,
+          "active": 2,
+          "ys": [287.6468749999999, 306.9468750000001]
+        },
+        {
+          "id": "qf-human-title",
+          "scroll": 2463.1875,
+          "active": 2,
+          "ys": [402.3125, 426.3125]
+        },
+        {
+          "id": "qf-launch-title",
+          "scroll": 3037.8125,
+          "active": 2,
+          "ys": [259.3874999999998, 282.4875000000002]
+        },
+        {
+          "id": "qf-questions-title",
+          "scroll": 3901.71875,
+          "active": 3,
+          "ys": [400.38125000000036, 420.4812499999998, 440.4812499999998]
+        },
+        {
+          "id": "qf-final-title",
+          "scroll": 4453.0625,
+          "active": 0,
+          "ys": [453.9375, 477.9375]
+        }
+      ]
+    }
+  ],
+  "fallbacks": [
+    {
+      "page": "follow-up-v2",
+      "width": 393,
+      "height": 900,
+      "overflow": false,
+      "active": "false",
+      "starter": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "regular": [],
+      "missing": 0
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 393,
+      "height": 900,
+      "overflow": false,
+      "active": "false",
+      "starter": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "regular": [],
+      "missing": 0
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 1280,
+      "height": 600,
+      "overflow": false,
+      "active": "false",
+      "starter": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "regular": [],
+      "missing": 0
+    }
+  ],
+  "criticalQuoteProgress": [
+    {
+      "scroll": 1336,
+      "distance": 2236.12,
+      "exposedContact": [91, 92]
+    },
+    {
+      "scroll": 1635,
+      "distance": 2844.55,
+      "exposedContact": [117, 118]
+    }
+  ],
+  "gate": "At every 2px of scrolling, derive current contact from distance and check base exposure and viewport bounds. The final offscreen departure to the left is excluded.",
+  "limit": "The cloud browser was frame-rate limited. Normal-device fluidity remains unverified."
+}

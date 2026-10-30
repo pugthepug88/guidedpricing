@@ -1,5 +1,13 @@
 # Follow-through family — separate V2 review pages
 
+## Current correction — headline origin and section continuity, 30 October 2026
+
+The follow-up starter now sits 20px beyond the actual “Zapla follows through.” headline span, near its baseline. The former gap below the CTA was chosen for clearance rather than a meaningful connection to the promise; that placement is retired. The initial bend leads into the right gutter. The first piece remains 32px and regular pieces remain 20px on both V2 pages. Headline masking measures text nodes so the positioned starter cannot enlarge its own occlusion mask.
+
+The previous global arc-distance clock is also retired: its two endpoints could leave the contact above the current section. The current clock places anchors on exposed runs at their actual section positions, joins them monotonically with continuous velocity, and gives concealed passages 60px of scrolling. A lone exposed domino receives a finite tipping window. Concealed handoffs are shifted away from section reading landmarks. The response is 40ms with a maximum lag of one 24px pitch; idle and geometry resets remain explicit.
+
+Measured desktop sweeps at 1100, 1280 and 1536px widths found maximum concealed-contact intervals of 50–54px before the intentional offscreen exit. The follow-up quote entrance and the subsequent gap both showed exposed active pieces in direct browser inspection. Mobile and short-window fallbacks retain complete content. These checks establish section alignment and visibility; the cloud browser's limited frame rate does not establish normal-device fluidity. Original routes, copy, shared navigation and footer are unchanged. The older notes below are historical.
+
 ## Current implementation — option 1, 30 October 2026
 
 This update supersedes the navigation-origin treatment documented below. Both V2 pages now begin with one already-upright, page-anchored 32px Zapla domino in the hero. Regular dominos remain 20px across both pages. There is no flat-to-lift transformation, fixed navigation copy, portal or separate opening handoff.
