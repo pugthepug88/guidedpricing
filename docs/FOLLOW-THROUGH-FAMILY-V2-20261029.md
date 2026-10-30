@@ -1,5 +1,19 @@
 # Follow-through family — separate V2 review pages
 
+## Current implementation — option 1, 30 October 2026
+
+This update supersedes the navigation-origin treatment documented below. Both V2 pages now begin with one already-upright, page-anchored 32px Zapla domino in the hero. Regular dominos remain 20px across both pages. There is no flat-to-lift transformation, fixed navigation copy, portal or separate opening handoff.
+
+The starter and the rest of the chain share one clock. Progress is measured uniformly in distance along the route, rather than by searching for a matching vertical position. Horizontal stretches therefore receive the same scroll budget per unit of track as vertical stretches. A 105ms elapsed-time response smooths the whole cascade and continues requesting frames until it settles. The idle clock resets after settling, so the first wheel step after a pause is smoothed too. Geometry changes and motion reactivation initialize from the current scroll position instead of an old course position. The timing also allows the final pieces to complete their contact window.
+
+The two pages retain different routes. Crossings now use broader descending bends, with a minimum 440px span and measured crossing depth capped at 760px. Painted surfaces still conceal crossings while genuine blank gutters remain visible. The existing blue standing/contact state and muted grey-blue fallen state are preserved, along with the rounded Zapla body, early left departure and V2 footer crop.
+
+The original pages, shared navigation and footer defaults, product dialogue and copy remain unchanged. Mobile, short-window and reduced-motion layouts retain their static content and sender icons.
+
+The focused motion check passes 6,276 cases, covering uniform arc-distance timing, reversal, finite values and damping across different frame intervals. Browser inspection is recorded separately at delivery. The available cloud browser has previously sampled motion at approximately 1Hz; neither those observations nor the pure checks establish 60fps smoothness on a normal device.
+
+## Historical treatment — 29 October 2026
+
 29 October 2026, Australia/Sydney.
 
 ## Scope and preservation

@@ -91,6 +91,7 @@ function Opening() {
               <ArrowDown size={16} aria-hidden="true" />
             </a>
           </div>
+          <span className="qfv-opening-starter" data-ft-starter aria-hidden="true" />
         </div>
         <div className="qfv-hero-stage">
           <QuoteOverview />

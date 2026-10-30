@@ -292,3 +292,23 @@
   position: relative;
   min-width: 0;
 }
+
+.zapla-quote-follow-up-v2 .qfv-opening-starter {
+  display: none;
+}
+@media (min-width: 1100px) and (min-height: 650px) and (prefers-reduced-motion: no-preference) {
+  .zapla-quote-follow-up-v2 .qf-hero-copy {
+    position: relative;
+    margin-bottom: 72px;
+  }
+  /* Outside the copy box, so the route can begin below the actions unmasked. */
+  .zapla-quote-follow-up-v2 .qfv-opening-starter {
+    display: block;
+    position: absolute;
+    top: calc(100% + 28px);
+    left: calc(70% - 16px);
+    width: 32px;
+    height: 32px;
+    pointer-events: none;
+  }
+}

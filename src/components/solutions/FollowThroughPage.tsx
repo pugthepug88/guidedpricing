@@ -139,6 +139,7 @@ function Opening() {
           </a>
         </div>
       </div>
+      <span className="ft-opening-starter" data-ft-starter aria-hidden="true" />
       <div className="ft-hero-wrap" data-ft-content data-ft-occluder>
         <EnquiryScene />
       </div>
