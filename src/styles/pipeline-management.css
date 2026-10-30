@@ -518,19 +518,21 @@
   line-height: 1.75;
 }
 
-
-/* Secondary controls stay compact: useful proof without turning Pipeline into
-   a catalogue of settings. */
+/* Local material depth behind three distinct, static product compositions.
+   The grain is behind the opaque UI and never carries meaning or motion. */
 .zapla-pipeline .pf-fit {
-  padding: 8px 0 82px;
+  padding: 8px 0 62px;
+  scroll-margin-top: 86px;
+}
+.zapla-pipeline #pipeline-fit-heading {
+  scroll-margin-top: 90px;
 }
 .zapla-pipeline .pf-fit-heading {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
   align-items: end;
   gap: 80px;
-  padding-top: 42px;
-  border-top: 1px solid #d9e0d8;
+  padding-top: 24px;
 }
 .zapla-pipeline .pf-fit-heading h2 {
   max-width: 620px;
@@ -545,141 +547,354 @@
 .zapla-pipeline .pf-fit-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 30px;
+  gap: 18px;
+  margin-top: 32px;
 }
 .zapla-pipeline .pf-fit-card {
-  display: flex;
-  min-height: 292px;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 28px;
-  padding: 25px;
-  border: 1px solid #dce2dd;
-  border-radius: 17px;
-  background: #fff;
-  box-shadow: 0 12px 34px -28px #21382a5c;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-rows: 340px 1fr;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--pf-fit-fill);
+  color: #1b2021;
 }
-.zapla-pipeline .pf-fit-label {
-  display: inline-block;
-  margin-bottom: 12px;
-  color: #6b756e;
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 1.5;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.zapla-pipeline .pf-fit-card::before,
+.zapla-pipeline .pf-fit-card::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  content: "";
 }
-.zapla-pipeline .pf-fit-card h3 {
-  max-width: 300px;
-  color: #17231e;
-  font-size: 20px;
+.zapla-pipeline .pf-fit-card::before {
+  background: linear-gradient(135deg, #ffffff6b 0%, #ffffff0a 55%, #ffffff00 100%);
 }
-.zapla-pipeline .pf-fit-card-copy > p {
-  margin-top: 11px;
-  font-size: 13px;
-  line-height: 1.72;
+.zapla-pipeline .pf-fit-card::after {
+  bottom: auto;
+  height: 340px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.58' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='2.2' intercept='-.6'/%3E%3CfeFuncG type='linear' slope='2.2' intercept='-.6'/%3E%3CfeFuncB type='linear' slope='2.2' intercept='-.6'/%3E%3CfeFuncA type='linear' slope='0' intercept='1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Cpath fill='%23808080' filter='url(%23grain)' d='M0 0h160v160H0z'/%3E%3C/svg%3E");
+  opacity: 0.44;
+  mix-blend-mode: soft-light;
+  mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
 }
-.zapla-pipeline .pf-field-preview,
-.zapla-pipeline .pf-action-preview {
+.zapla-pipeline .pf-fit-fields {
+  --pf-fit-fill: #e97d62;
+}
+.zapla-pipeline .pf-fit-actions {
+  --pf-fit-fill: #dda34b;
+}
+.zapla-pipeline .pf-fit-tags {
+  --pf-fit-fill: #9b86b8;
+}
+.zapla-pipeline .pf-fit-scene {
+  position: relative;
+  align-self: start;
+  height: 318px;
+  min-width: 0;
+  margin: 22px 18px 0;
+}
+.zapla-pipeline .pf-fit-record {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid #ffffff;
+  border-radius: 13px;
+  background: #ffffff;
+  color: #26332f;
+  box-shadow:
+    0 12px 28px -14px #362d3b66,
+    0 1px 3px #30282c0d;
+}
+.zapla-pipeline .pf-fit-record-title {
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.45;
+  letter-spacing: -0.025em;
+}
+.zapla-pipeline .pf-fit-person {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  min-height: 70px;
-  padding: 14px 15px;
-  border: 1px solid #e0e5e1;
-  border-radius: 11px;
-  background: #fbfcfb;
-}
-.zapla-pipeline .pf-field-preview > div,
-.zapla-pipeline .pf-action-preview > div {
-  min-width: 0;
-}
-.zapla-pipeline .pf-field-preview div > span,
-.zapla-pipeline .pf-action-preview div > span {
-  display: block;
-  color: #778078;
-  font-size: 10px;
-  line-height: 1.4;
-}
-.zapla-pipeline .pf-field-preview strong,
-.zapla-pipeline .pf-action-preview strong {
-  display: block;
-  margin-top: 3px;
-  color: #26372e;
+  gap: 7px;
+  margin-top: 7px;
+  color: #59645f;
   font-size: 12px;
-  line-height: 1.45;
+  line-height: 1.5;
 }
-.zapla-pipeline .pf-field-state {
-  flex: 0 0 auto;
-  padding: 5px 8px;
-  border-radius: 999px;
-  background: #e9f1ec;
-  color: #315840;
-  font-size: 9px;
+.zapla-pipeline .pf-fit-ui-label {
+  display: block;
+  color: #59645f;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.zapla-pipeline .pf-tool-picker-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
   font-weight: 650;
+  line-height: 1.5;
+}
+.zapla-pipeline .pf-tool-picker-title svg {
+  flex-shrink: 0;
+}
+.zapla-pipeline .pf-field-type-picker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 16px);
+  padding: 14px;
+}
+.zapla-pipeline .pf-field-types {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 10px;
+}
+.zapla-pipeline .pf-field-types > span {
+  display: flex;
+  min-width: 0;
+  min-height: 43px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 5px 2px;
+  border: 1px solid #e1e5df;
+  border-radius: 6px;
+  background: #fafbfa;
+  color: #44504a;
+  font-size: 11px;
   line-height: 1.4;
 }
-.zapla-pipeline .pf-action-preview {
-  justify-content: flex-start;
-}
-.zapla-pipeline .pf-action-icon {
-  display: grid;
-  flex: 0 0 34px;
-  width: 34px;
-  height: 34px;
-  place-items: center;
-  border-radius: 9px;
-  background: #354a63;
+.zapla-pipeline .pf-field-types > .pf-field-type-selected {
+  border-color: #2563ff;
+  background: #2563ff;
   color: #fff;
-  font-size: 15px;
-  font-weight: 700;
 }
-.zapla-pipeline .pf-action-preview > div {
-  flex: 1;
+.zapla-pipeline .pf-field-editor {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 90%;
+  padding: 14px;
 }
-.zapla-pipeline .pf-action-swatch {
-  flex: 0 0 18px;
-  width: 18px;
-  height: 18px;
-  border: 4px solid #fff;
-  border-radius: 50%;
-  background: #3b82f6;
-  box-shadow: 0 0 0 1px #cfd7d1;
+.zapla-pipeline .pf-field-editor dl {
+  display: grid;
+  gap: 10px;
+  margin: 0;
 }
-.zapla-pipeline .pf-tag-preview {
+.zapla-pipeline .pf-field-editor dt {
+  color: #59645f;
+  font-size: 11px;
+  line-height: 1.4;
+}
+.zapla-pipeline .pf-field-editor dd {
+  margin: 5px 0 0;
+}
+.zapla-pipeline .pf-field-name-value {
+  padding: 7px 10px;
+  border: 1px solid #dce1dc;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.zapla-pipeline .pf-field-options {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  min-height: 70px;
-  align-content: center;
-  padding: 14px 15px;
-  border: 1px solid #e0e5e1;
-  border-radius: 11px;
-  background: #fbfcfb;
+  gap: 5px;
+}
+.zapla-pipeline .pf-field-options > span {
+  padding: 5px 8px;
+  border: 1px solid #e0e4df;
+  border-radius: 4px;
+  background: #f0f2ef;
+  font-size: 11px;
+  line-height: 1.4;
+}
+.zapla-pipeline .pf-action-record {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 10px);
+  padding: 16px;
+}
+.zapla-pipeline .pf-shortcut-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #e3e6e1;
+}
+.zapla-pipeline .pf-shortcut {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 35px;
+  padding: 6px 9px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.zapla-pipeline .pf-shortcut svg {
+  flex-shrink: 0;
+}
+.zapla-pipeline .pf-shortcut-form {
+  border-color: #d8ded8;
+  background: #fff;
+  color: #35473e;
+}
+.zapla-pipeline .pf-shortcut-workflow {
+  background: #2563ff;
+  color: #fff;
+}
+.zapla-pipeline .pf-shortcut-tag {
+  background: #af432e;
+  color: #fff;
+}
+.zapla-pipeline .pf-action-type-picker {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 72%;
+  padding: 10px 12px;
+}
+.zapla-pipeline .pf-action-type-list {
+  display: grid;
+  gap: 3px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.zapla-pipeline .pf-action-type-list li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 7px;
+  border-radius: 5px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.zapla-pipeline .pf-action-type-list li > svg {
+  flex-shrink: 0;
+}
+.zapla-pipeline .pf-action-type-selected {
+  background: #eef3ff;
+  color: #174dbd;
+}
+.zapla-pipeline .pf-action-type-selected > svg:last-child {
+  margin-left: auto;
+}
+.zapla-pipeline .pf-tag-key {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  width: max-content;
+  max-width: 100%;
+  padding: 11px 14px;
+}
+.zapla-pipeline .pf-tag-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 7px;
 }
 .zapla-pipeline .pf-tag {
   display: inline-flex;
   align-items: center;
-  min-height: 28px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 1.4;
-}
-.zapla-pipeline .pf-tag-vip {
-  background: #d85c3c;
-  color: #fff;
+  min-height: 24px;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
 }
 .zapla-pipeline .pf-tag-urgent {
-  background: #f2d39b;
-  color: #684615;
+  background: #af432e;
+  color: #fff;
 }
 .zapla-pipeline .pf-tag-install {
-  background: #dceaf5;
-  color: #31566e;
+  background: #31566e;
+  color: #fff;
+}
+.zapla-pipeline .pf-tag-vip {
+  background: #77581d;
+  color: #fff;
+}
+.zapla-pipeline .pf-tags-record {
+  position: absolute;
+  top: 96px;
+  right: -18px;
+  width: calc(100% + 5px);
+  padding: 0 18px;
+  border-radius: 12px 0 0 12px;
+}
+.zapla-pipeline .pf-tags-list-heading {
+  padding: 12px 0;
+  border-bottom: 1px solid #e3e6e1;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.zapla-pipeline .pf-tagged-opportunities {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.zapla-pipeline .pf-tagged-opportunities li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 13px 0;
+}
+.zapla-pipeline .pf-tagged-opportunities li + li {
+  border-top: 1px solid #e8eae6;
+}
+.zapla-pipeline .pf-tagged-work {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+.zapla-pipeline .pf-tagged-work strong {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.zapla-pipeline .pf-tagged-work > span {
+  color: #59645f;
+  font-size: 11px;
+  line-height: 1.4;
+}
+.zapla-pipeline .pf-tagged-opportunities .pf-tag-list {
+  flex-shrink: 0;
+  justify-content: end;
+  max-width: 45%;
+  margin: 0;
+}
+.zapla-pipeline .pf-fit-card-copy {
+  align-self: start;
+  padding: 22px 24px 26px;
+}
+.zapla-pipeline .pf-fit-card h3 {
+  color: #1b2021;
+  font-size: 23px;
+  line-height: 1.25;
+}
+.zapla-pipeline .pf-fit-card-copy > p {
+  margin-top: 10px;
+  color: #1b2021;
+  font-size: 14px;
+  line-height: 1.65;
 }
 
 /* An open human context scene follows the darker route demonstration. */
@@ -1040,10 +1255,7 @@
     gap: 42px;
   }
   .zapla-pipeline .pf-fit-grid {
-    gap: 11px;
-  }
-  .zapla-pipeline .pf-fit-card {
-    padding: 21px;
+    gap: 14px;
   }
   .zapla-pipeline .pf-context-layout {
     grid-template-columns: 0.95fr 1fr;
@@ -1250,16 +1462,11 @@
   }
   .zapla-pipeline .pf-fit-grid {
     grid-template-columns: 1fr;
-    gap: 10px;
-    margin-top: 23px;
-  }
-  .zapla-pipeline .pf-fit-card {
-    min-height: 0;
-    gap: 22px;
-    padding: 21px;
+    gap: 16px;
+    margin-top: 26px;
   }
   .zapla-pipeline .pf-fit-card h3 {
-    max-width: 420px;
+    font-size: 22px;
   }
   .zapla-pipeline .pf-context {
     padding-top: 0;
@@ -1408,4 +1615,91 @@
     transition: none !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Give detailed scenes room on tablets instead of shrinking their UI. */
+@media (min-width: 751px) and (max-width: 1050px) {
+  .zapla-pipeline .pf-fit-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .zapla-pipeline .pf-fit-card {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    grid-template-rows: auto;
+    align-items: center;
+  }
+  .zapla-pipeline .pf-fit-scene {
+    width: auto;
+    height: 318px;
+    margin: 22px 18px;
+  }
+  .zapla-pipeline .pf-fit-card-copy {
+    align-self: center;
+    padding: 30px;
+  }
+  .zapla-pipeline .pf-fit-card::before {
+    background: linear-gradient(135deg, #ffffff6b, #ffffff05 65%, #ffffff00);
+  }
+  .zapla-pipeline .pf-fit-card::after {
+    width: 56.522%;
+    height: 100%;
+    mask-image: linear-gradient(to right, #000 72%, transparent 100%);
+  }
+}
+@media (max-width: 750px) {
+  .zapla-pipeline .pf-fit-card {
+    grid-template-rows: 340px auto;
+    padding: 0;
+    gap: 0;
+  }
+  .zapla-pipeline .pf-fit-card-copy {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 24px;
+  }
+  .zapla-pipeline .pf-fit-scene {
+    height: 318px;
+    min-height: 0;
+    margin: 22px 18px 0;
+    padding: 0;
+  }
+}
+@media (max-width: 350px) {
+  .zapla-pipeline .pf-fit-scene {
+    margin-inline: 14px;
+  }
+  .zapla-pipeline .pf-fit-record {
+    padding: 14px;
+  }
+  .zapla-pipeline .pf-action-type-picker {
+    padding: 10px 12px;
+  }
+  .zapla-pipeline .pf-tags-record {
+    right: -14px;
+    padding: 0 14px;
+  }
+  .zapla-pipeline .pf-tagged-opportunities li {
+    flex-wrap: wrap;
+    gap: 7px;
+    padding-block: 10px;
+  }
+  .zapla-pipeline .pf-tagged-opportunities .pf-tag-list {
+    max-width: none;
+  }
+  .zapla-pipeline .pf-fit-tags .pf-fit-scene {
+    height: 365px;
+  }
+  .zapla-pipeline .pf-fit-tags {
+    grid-template-rows: 387px auto;
+  }
+}
+
+.zapla-pipeline .pf-tag-picker-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.zapla-pipeline .pf-tag-key .pf-tag {
+  gap: 4px;
 }

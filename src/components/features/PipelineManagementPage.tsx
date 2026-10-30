@@ -1,4 +1,16 @@
-import { Plus } from "lucide-react";
+import {
+  CalendarDays,
+  Check,
+  ChevronDown,
+  FileText,
+  Hash,
+  MapPin,
+  Paperclip,
+  Plus,
+  Tag,
+  Type,
+  Workflow,
+} from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import { PipelineBoard, PipelinePortrait } from "@/components/features/PipelineBoard";
 import { PipelineRoutes } from "@/components/features/PipelineRoutes";
@@ -12,11 +24,9 @@ function BookCall() {
     </a>
   );
 }
-
-
 function PipelineFitTools() {
   return (
-    <section className="pf-fit" aria-labelledby="pipeline-fit-heading">
+    <section className="pf-fit" id="pipeline-fit" aria-labelledby="pipeline-fit-heading">
       <div className="pf-wrap">
         <header className="pf-fit-heading">
           <div>
@@ -30,56 +40,181 @@ function PipelineFitTools() {
         </header>
 
         <div className="pf-fit-grid">
-          <article className="pf-fit-card">
-            <div className="pf-fit-card-copy">
-              <span className="pf-fit-label">Custom fields</span>
-              <h3>Track the details that matter to the job.</h3>
-              <p>
-                Add your own fields, choose which pipeline types use them and decide whether a value
-                should appear directly on the board card.
-              </p>
-            </div>
-            <div className="pf-field-preview" aria-label="Custom field shown on a pipeline card">
-              <div>
-                <span>Job address</span>
-                <strong>24 King Street</strong>
+          <article className="pf-fit-card pf-fit-fields">
+            <div
+              className="pf-fit-scene pf-fields-scene"
+              aria-label="Add a custom field: choose its type, name it and define dropdown options"
+            >
+              <div className="pf-fit-record pf-field-type-picker">
+                <div className="pf-tool-picker-title">
+                  <Plus size={15} aria-hidden="true" /> Add custom field
+                </div>
+                <div className="pf-field-types" aria-label="Available custom field types">
+                  <span>
+                    <Type size={18} aria-hidden="true" />
+                    Text
+                  </span>
+                  <span>
+                    <Hash size={18} aria-hidden="true" />
+                    Number
+                  </span>
+                  <span>
+                    <CalendarDays size={18} aria-hidden="true" />
+                    Date
+                  </span>
+                  <span className="pf-field-type-selected">
+                    <ChevronDown size={18} aria-hidden="true" />
+                    Dropdown
+                  </span>
+                  <span>
+                    <MapPin size={18} aria-hidden="true" />
+                    Address
+                  </span>
+                  <span>
+                    <Paperclip size={18} aria-hidden="true" />
+                    File
+                  </span>
+                </div>
               </div>
-              <span className="pf-field-state">Visible on card</span>
+              <div className="pf-fit-record pf-field-editor">
+                <dl>
+                  <div>
+                    <dt>Field name</dt>
+                    <dd className="pf-field-name-value">System type</dd>
+                  </div>
+                  <div>
+                    <dt>Dropdown options</dt>
+                    <dd className="pf-field-options">
+                      <span>Heat pump</span>
+                      <span>Gas</span>
+                      <span>Electric</span>
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+            <div className="pf-fit-card-copy">
+              <h3>Custom fields</h3>
+              <p>Keep the job details your team needs, in fields you define.</p>
             </div>
           </article>
 
-          <article className="pf-fit-card">
-            <div className="pf-fit-card-copy">
-              <span className="pf-fit-label">Quick actions</span>
-              <h3>Keep repeated actions one click closer.</h3>
-              <p>
-                Create custom quick-action buttons with the name, icon and colour your team
-                recognises, so common work is easier to reach from the record.
-              </p>
-            </div>
-            <div className="pf-action-preview" aria-label="Custom quick action button">
-              <span className="pf-action-icon" aria-hidden="true">↗</span>
-              <div>
-                <span>Quick action</span>
-                <strong>Follow up customer</strong>
+          <article className="pf-fit-card pf-fit-actions">
+            <div
+              className="pf-fit-scene pf-actions-scene"
+              aria-label="Custom buttons on an opportunity open a job form, run follow-up or add an urgent tag"
+            >
+              <div className="pf-fit-record pf-action-record">
+                <div className="pf-fit-record-title">Hot water replacement</div>
+                <div className="pf-fit-person">
+                  <PipelinePortrait cell={9} small />
+                  <span>Mia Thompson</span>
+                </div>
+                <div className="pf-shortcut-toolbar" aria-label="Custom quick-action buttons">
+                  <span className="pf-shortcut pf-shortcut-form">
+                    <FileText size={15} aria-hidden="true" />
+                    Job form
+                  </span>
+                  <span className="pf-shortcut pf-shortcut-workflow">
+                    <Workflow size={15} aria-hidden="true" />
+                    Follow up
+                  </span>
+                  <span className="pf-shortcut pf-shortcut-tag">
+                    <Tag size={15} aria-hidden="true" />
+                    Mark urgent
+                  </span>
+                </div>
               </div>
-              <span className="pf-action-swatch" aria-hidden="true" />
+              <div className="pf-fit-record pf-action-type-picker">
+                <div className="pf-tool-picker-title">
+                  <Plus size={14} aria-hidden="true" />
+                  Add button
+                </div>
+                <ul className="pf-action-type-list">
+                  <li>
+                    <FileText size={15} aria-hidden="true" />
+                    <span>Open form</span>
+                  </li>
+                  <li className="pf-action-type-selected">
+                    <Workflow size={15} aria-hidden="true" />
+                    <span>Run workflow</span>
+                    <Check size={13} aria-hidden="true" />
+                  </li>
+                  <li>
+                    <Tag size={15} aria-hidden="true" />
+                    <span>Add tag</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="pf-fit-card-copy">
+              <h3>Quick actions</h3>
+              <p>Open a form, run a workflow or apply a tag from the opportunity.</p>
             </div>
           </article>
 
-          <article className="pf-fit-card">
-            <div className="pf-fit-card-copy">
-              <span className="pf-fit-label">Tags</span>
-              <h3>Make priority and type visible at a glance.</h3>
-              <p>
-                Add colour-coded tags to pipeline items so the team can quickly recognise the work
-                that needs a different kind of attention.
-              </p>
+          <article className="pf-fit-card pf-fit-tags">
+            <div
+              className="pf-fit-scene pf-tags-scene"
+              aria-label="Tags make priority and job type visible across opportunities"
+            >
+              <div className="pf-fit-record pf-tag-key">
+                <span className="pf-fit-ui-label pf-tag-picker-title">
+                  <Plus size={12} aria-hidden="true" />
+                  Add tags
+                </span>
+                <div className="pf-tag-list">
+                  <span className="pf-tag pf-tag-urgent">
+                    <Check size={11} aria-hidden="true" />
+                    Urgent
+                  </span>
+                  <span className="pf-tag pf-tag-install">
+                    <Check size={11} aria-hidden="true" />
+                    Install
+                  </span>
+                  <span className="pf-tag pf-tag-vip">VIP</span>
+                </div>
+              </div>
+              <div className="pf-fit-record pf-tags-record">
+                <div className="pf-tags-list-heading">Opportunities</div>
+                <ul className="pf-tagged-opportunities">
+                  <li>
+                    <div className="pf-tagged-work">
+                      <strong>Hot water replacement</strong>
+                      <span>Mia Thompson</span>
+                    </div>
+                    <div className="pf-tag-list">
+                      <span className="pf-tag pf-tag-urgent">Urgent</span>
+                      <span className="pf-tag pf-tag-install">Install</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="pf-tagged-work">
+                      <strong>Office fit-out</strong>
+                      <span>Priya Shah</span>
+                    </div>
+                    <div className="pf-tag-list">
+                      <span className="pf-tag pf-tag-install">Install</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="pf-tagged-work">
+                      <strong>Annual maintenance</strong>
+                      <span>Rachel Evans</span>
+                    </div>
+                    <div className="pf-tag-list">
+                      <span className="pf-tag pf-tag-vip">VIP</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div className="pf-tag-preview" aria-label="Tags on a pipeline opportunity">
-              <span className="pf-tag pf-tag-vip">VIP</span>
-              <span className="pf-tag pf-tag-urgent">Urgent</span>
-              <span className="pf-tag pf-tag-install">Install</span>
+            <div className="pf-fit-card-copy">
+              <h3>Tags</h3>
+              <p>
+                Label opportunities by priority or job type, so the right work is easier to spot at
+                a glance.
+              </p>
             </div>
           </article>
         </div>

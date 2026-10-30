@@ -463,6 +463,10 @@ The two businesses, dialogues and masked contact are prepared marketing content.
 
 The owner rejected the prominence given to widget colour. This supersedes the appearance controls and “Your look” copy above. Remove the swatches, state and appearance pitch. The section’s single buyer question is whether the chatbot can answer questions about their business. Keep concise website/document/instruction sources beside a relevant answer, under “Answers from your business.” Do not turn minor setup settings into headline benefits merely because a competitor demonstrates them. Existing website installation remains in the FAQ without a colour/customisation pitch.
 
+## Pipeline supporting tools visual correction, 26 October 2026
+
+The owner rejected the plain white three-card section. Replace it in place with filled coral Custom fields, gold Quick actions and lavender Tags cards. Each leads with substantial white UI: job-specific field values, name/icon/colour configuration and button appearance, or tags visibly attached to an opportunity. Short capability headings and concise copy support the visuals. Keep the row secondary to the stage board and route chapter, use existing portraits and preserve the rest of the page. The quick-action label is not proof of an underlying executable behaviour. Adapt ActiveCampaign's visual scale and coloured-surface/white-UI contrast, not its page theme, claims or decorative assets. Scoped director/buyer assessments, responsive correction and limits are recorded in `PIPELINE-FIT-VISUAL-REVIEW-20261026.md`. GitHub remains the source of truth and Lovable stays read-only, without a production Publish action.
+
 ## Automation AI interface refinement, 27 October 2026
 
 The owner rejected the flat green AI player and approved a more cohesive interface after the supplied AC recording was rechecked. Replace the oversized white example tiles/green player with one contained cooler-ink workspace. A compact prompt includes the real Watch AI build action, a brief construction response precedes finer connected nodes, and the eight existing ideas sit inside the same canvas. Preserve the restored nurture hero, silver frame/white hero cards, photo overlay, FAQ, final CTA, shared architecture and route policy.
@@ -483,6 +487,10 @@ Actual standard/wide desktop, full phone walkthrough, key tablet scenes, editing
 ## Websites funnel logic, copy and tracking follow-up, 27 October 2026
 
 The owner requested corrected connector endpoints, a coherent enquiry/thank-you sequence, removal of the AI usage sentence and form-explainer paragraph, and an automatic mouse-click heatmap. Show offer A or B leading to the same enquiry page, then the thank-you page only after form submission. Keep the submit action and clear acknowledgement inside the visual; remove the unrelated consultation prompt and long explanatory caption. Measure connectors against card bounds at each layout. On phone/tablet, keep A/B parallel before the shared form. The tracking scene uses a small cursor, two causal click events and matching spots/counts, then holds; it pauses offscreen and respects reduced motion. Provenance stays in the internal review. GitHub remains authoritative, Lovable read-only, with no separate Publish action.
+
+## Pipeline supporting-scene composition, 27 October 2026
+
+The owner approved retaining the three aligned outer cards while replacing their repeated centred white panels with distinct compositions and subtle local material depth. Custom fields uses a larger offset opportunity plus field-display setting; Quick actions relates a compact name/icon/colour configuration to the opportunity shortcut; Tags shows several named opportunities carrying different labels. The supplied reference is Clay. Adapt meaningful white-surface hierarchy and distributed UI, not neon colours, decorative hands, arbitrary connections or unsupported product functions. Keep all essential content readable, native and static; texture belongs behind the UI inside this section. Preserve stages, routes, shared architecture, existing route/indexing and /booking. The updated draft remains in PR #202 until the shared main update is explicitly authorised. Scoped review: PIPELINE-FIT-VISUAL-REVIEW-20261026.md.
 
 ## Automation AI entry autoplay and controls, 27 October 2026
 
