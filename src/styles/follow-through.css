@@ -1169,3 +1169,20 @@
 .ft-hero-wrap {
   position: relative;
 }
+
+/* The first upright piece belongs to the page, in the open hero band. */
+.ft-opening-starter {
+  display: none;
+}
+@media (min-width: 1100px) and (min-height: 650px) and (prefers-reduced-motion: no-preference) {
+  .ft-opening-starter {
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 24px auto 0;
+    pointer-events: none;
+  }
+  .ft-hero-wrap {
+    margin-top: 52px;
+  }
+}

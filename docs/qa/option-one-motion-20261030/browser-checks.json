@@ -1,0 +1,185 @@
+{
+  "testedAt": "2026-10-30",
+  "audits": [
+    {
+      "page": "quote-follow-up-v2",
+      "width": 1280,
+      "height": 900,
+      "overflow": false,
+      "active": "true",
+      "starterWidth": 32,
+      "tiles": 317,
+      "regularWidths": [
+        "20"
+      ],
+      "missing": 0,
+      "portal": 0
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 393,
+      "height": 900,
+      "overflow": false,
+      "active": "false",
+      "starterWidth": 0,
+      "tiles": 0,
+      "regularWidths": [],
+      "missing": 0,
+      "portal": 0
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 393,
+      "height": 900,
+      "overflow": false,
+      "active": "false",
+      "starterWidth": 0,
+      "tiles": 0,
+      "regularWidths": [],
+      "missing": 0,
+      "portal": 0
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 1100,
+      "height": 900,
+      "overflow": false,
+      "active": "true",
+      "starterWidth": 32,
+      "tiles": 289,
+      "regularWidths": [
+        "20"
+      ],
+      "missing": 0,
+      "portal": 0
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 1100,
+      "height": 900,
+      "overflow": false,
+      "active": "true",
+      "starterWidth": 32,
+      "tiles": 293,
+      "regularWidths": [
+        "20"
+      ],
+      "missing": 0,
+      "portal": 0
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 1280,
+      "height": 600,
+      "overflow": false,
+      "active": "false",
+      "starterWidth": 0,
+      "tiles": 0,
+      "regularWidths": [],
+      "missing": 0,
+      "portal": 0
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 1280,
+      "height": 600,
+      "overflow": false,
+      "active": "false",
+      "starterWidth": 0,
+      "tiles": 0,
+      "regularWidths": [],
+      "missing": 0,
+      "portal": 0
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 320,
+      "height": 900,
+      "overflow": false,
+      "active": "false",
+      "starterWidth": 0,
+      "tiles": 0,
+      "regularWidths": [],
+      "missing": 0,
+      "portal": 0
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 320,
+      "height": 900,
+      "overflow": false,
+      "active": "false",
+      "starterWidth": 0,
+      "tiles": 0,
+      "regularWidths": [],
+      "missing": 0,
+      "portal": 0
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 1280,
+      "height": 900,
+      "overflow": false,
+      "active": "true",
+      "starterWidth": 32,
+      "tiles": 312,
+      "regularWidths": [
+        "20"
+      ],
+      "missing": 0,
+      "portal": 0
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 1280,
+      "height": 900,
+      "overflow": false,
+      "active": "true",
+      "starterWidth": 32,
+      "tiles": 312,
+      "regularWidths": [
+        "20"
+      ],
+      "missing": 0,
+      "portal": 0
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 1280,
+      "height": 900,
+      "overflow": false,
+      "active": "true",
+      "starterWidth": 32,
+      "tiles": 312,
+      "regularWidths": [
+        "20"
+      ],
+      "missing": 0,
+      "portal": 0
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 1280,
+      "height": 900,
+      "overflow": false,
+      "active": "true",
+      "starterWidth": 32,
+      "tiles": 317,
+      "regularWidths": [
+        "20"
+      ],
+      "missing": 0,
+      "portal": 0
+    }
+  ],
+  "reverse": {
+    "follow": true,
+    "quote": true
+  },
+  "motionCapture": {
+    "followSamples": 8,
+    "quoteSamples": 9,
+    "maxIntervalMs": 1033.1,
+    "limit": "Cloud browser was frame-rate limited; normal-device smoothness is unverified."
+  }
+}

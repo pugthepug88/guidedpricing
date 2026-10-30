@@ -18,7 +18,6 @@
   pointer-events: none;
   user-select: none;
 }
-.ft-seed,
 .ft-sender-mark {
   display: inline-flex;
   width: 32px;
@@ -27,59 +26,43 @@
   overflow: hidden;
   vertical-align: middle;
 }
-.ft-seed-mark,
 .ft-sender-glyph {
   display: block;
   width: 32px;
   height: 32px;
   overflow: hidden;
 }
-.ft-track[data-ft-active="true"][data-ft-ready="true"] .ft-seed .ft-seed-mark {
-  opacity: 0;
-}
-.ft-seed-visual {
-  position: absolute;
-  z-index: 2;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  overflow: hidden;
-  pointer-events: none;
-  user-select: none;
-}
-:is(.ft-track, .ft-nav-emitter) .ftd-tile {
+.ft-track .ftd-tile {
   visibility: hidden;
   transition: none;
   animation: none;
 }
-:is(.ft-track, .ft-nav-emitter) .ftd-shadow {
+.ft-track .ftd-shadow {
   fill: #173e65;
   opacity: 0.11;
 }
-:is(.ft-track, .ft-nav-emitter) .ftd-back {
+.ft-track .ftd-back {
   fill: #1263ce;
   stroke: #0853ba;
   stroke-width: 0.4;
   stroke-linejoin: round;
 }
-:is(.ft-track, .ft-nav-emitter) .ftd-side {
+.ft-track .ftd-side {
   fill: #084ca9;
   stroke: #0c5dc5;
   stroke-width: 0.25;
   stroke-linejoin: round;
 }
-:is(.ft-track, .ft-nav-emitter) .ftd-face {
+.ft-track .ftd-face {
   fill: #1078ff;
 }
-:is(.ft-track, .ft-nav-emitter) .ftd-rim {
+.ft-track .ftd-rim {
   fill: none;
   stroke: #ffffff57;
   stroke-width: 0.014;
 }
 @media (max-width: 1099px), (max-height: 649px), (prefers-reduced-motion: reduce) {
-  .ft-track-visual,
-  .ft-seed-visual {
+  .ft-track-visual {
     display: none;
   }
 }
@@ -95,18 +78,7 @@
   }
 }
 
-.ft-nav-emitter {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  user-select: none;
-}
-@media (max-width: 1099px), (max-height: 649px), (prefers-reduced-motion: reduce) {
-  .ft-nav-emitter {
-    display: none;
-  }
+.ft-track [data-ft-starter-piece="true"] .ftd-shadow {
+  opacity: 0.06;
+  filter: blur(1.4px);
 }
