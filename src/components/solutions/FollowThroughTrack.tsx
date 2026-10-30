@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import {
-  buildScrollTimeline,
+  buildVisibleSectionTimeline,
   sampleScrollTimeline,
   dampMotion,
   type ScrollTimeline,
@@ -86,6 +86,72 @@ function cubic(a: Point, b: Point, c: Point, d: Point, t: number): Point {
 }
 
 /** Painted surfaces and copy columns interrupt the course; transparent grid gutters stay open. */
+function textBounds(node: HTMLElement): DOMRect {
+  const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+  const rects: DOMRect[] = [];
+  while (walker.nextNode()) {
+    const text = walker.currentNode;
+    if (!text.textContent?.trim() || text.parentElement?.closest("[data-ft-starter]")) continue;
+    const range = document.createRange();
+    range.selectNodeContents(text);
+    const rect = range.getBoundingClientRect();
+    if (rect.width > 0 && rect.height > 0) rects.push(rect);
+  }
+  if (!rects.length) return node.getBoundingClientRect();
+  const left = Math.min(...rects.map((r) => r.left));
+  const top = Math.min(...rects.map((r) => r.top));
+  return new DOMRect(
+    left,
+    top,
+    Math.max(...rects.map((r) => r.right)) - left,
+    Math.max(...rects.map((r) => r.bottom)) - top,
+  );
+}
+
+function pointCovered(point: Point, box: Occlusion): boolean {
+  if (
+    point.x < box.x ||
+    point.x > box.x + box.width ||
+    point.y < box.y ||
+    point.y > box.y + box.height
+  )
+    return false;
+  const [tl, tr, br, bl] = box.corners;
+  const corners = [
+    {
+      x: box.x + tl.x,
+      y: box.y + tl.y,
+      r: tl,
+      inside: point.x < box.x + tl.x && point.y < box.y + tl.y,
+    },
+    {
+      x: box.x + box.width - tr.x,
+      y: box.y + tr.y,
+      r: tr,
+      inside: point.x > box.x + box.width - tr.x && point.y < box.y + tr.y,
+    },
+    {
+      x: box.x + box.width - br.x,
+      y: box.y + box.height - br.y,
+      r: br,
+      inside: point.x > box.x + box.width - br.x && point.y > box.y + box.height - br.y,
+    },
+    {
+      x: box.x + bl.x,
+      y: box.y + box.height - bl.y,
+      r: bl,
+      inside: point.x < box.x + bl.x && point.y > box.y + box.height - bl.y,
+    },
+  ];
+  return !corners.some(
+    (c) =>
+      c.inside &&
+      c.r.x > 0 &&
+      c.r.y > 0 &&
+      ((point.x - c.x) / c.r.x) ** 2 + ((point.y - c.y) / c.r.y) ** 2 > 1,
+  );
+}
+
 function measureOcclusions(root: HTMLElement, bounds: DOMRect): Occlusion[] {
   const scopes = Array.from(
     root.querySelectorAll<HTMLElement>(
@@ -171,9 +237,7 @@ function measureOcclusions(root: HTMLElement, bounds: DOMRect): Occlusion[] {
     if (style.visibility === "hidden" || Number(style.opacity) === 0) continue;
     let rect = node.getBoundingClientRect();
     if (!wholeBlock && !node.matches("button, summary")) {
-      const range = document.createRange();
-      range.selectNodeContents(node);
-      rect = range.getBoundingClientRect();
+      rect = textBounds(node);
     }
     if (rect.width < 1 || rect.height < 1) continue;
     occlusions.push({
@@ -274,19 +338,15 @@ function measureCourse(root: HTMLElement, variant: Variant): Course | null {
   // One page-anchored upright starter. Its next pieces follow the same route,
   // camera and clock; there is no fixed-header copy or separate handoff.
   if (variant === "follow") {
+    const shoulderY = Math.max(current.y + 170, surface.y + 60);
     curve(
-      { x: current.x, y: current.y + 28 },
-      { x: current.x - 70, y: surface.y + 20 },
-      { x: current.x - 110, y: surface.y + 115 },
-      50,
-    );
-    curve(
-      { x: current.x + 55, y: current.y + 130 },
-      { x: right, y: surface.y + surface.height - 180 },
-      { x: right, y: surface.y + surface.height - 15 },
-      90,
+      { x: current.x + 8, y: current.y + 48 },
+      { x: right, y: shoulderY - 110 },
+      { x: right, y: shoulderY },
+      70,
     );
     side = right;
+    driftTo(Math.max(shoulderY + 1, surface.y + surface.height - 15));
   } else {
     const gutter = Math.max(left + 100, Math.min(surface.x - 35, origin.x + 200));
     const landing = Math.max(origin.y + 210, surface.y + surface.height + 80);
@@ -360,11 +420,22 @@ function measureCourse(root: HTMLElement, variant: Variant): Course | null {
     width: bounds.width,
     height: bounds.height,
     viewportHeight: window.innerHeight,
-    timeline: buildScrollTimeline(
-      [...tiles, { distance: length + 60, base: { y: end + 60 } }],
-      window.innerHeight,
-      Math.max(0, documentTop + origin.y - window.innerHeight * 0.68),
-      documentTop + end - window.innerHeight * 0.54,
+    timeline: buildVisibleSectionTimeline(
+      tiles.map((tile) => ({
+        distance: tile.distance,
+        base: tile.base,
+        exposed:
+          tile.base.x > 8 &&
+          tile.base.x < bounds.width - 8 &&
+          !occlusions.some((box) => pointCovered(tile.base, box)),
+      })),
+      documentTop,
+      Math.min(window.innerHeight * 0.52, origin.y),
+      documentTop + end - window.innerHeight * 0.52,
+      length + 60,
+      Array.from(root.querySelectorAll<HTMLElement>("[data-ft-waypoint]")).map(
+        (node) => documentTop + relativeBox(node).y - window.innerHeight * 0.2,
+      ),
     ),
     length,
     tiles,
@@ -475,7 +546,7 @@ export function FollowThroughTrack({
       if (initialPosition) {
         distanceNow = targetDistance;
         initialPosition = false;
-      } else distanceNow = dampMotion(distanceNow, targetDistance, delta, 105);
+      } else distanceNow = dampMotion(distanceNow, targetDistance, delta, 40, 24);
       if (Math.abs(targetDistance - distanceNow) < 0.03) distanceNow = targetDistance;
       const tiles = active.tiles;
       let low = 0;
@@ -602,6 +673,9 @@ export function FollowThroughTrack({
             focusable="false"
             data-ft-tile-count={course.tiles.length}
           >
+            {import.meta.env.DEV && (
+              <metadata data-ft-clock>{JSON.stringify(course.timeline)}</metadata>
+            )}
             <defs>
               <MarkSymbol id={markId} />
               <mask
@@ -632,6 +706,13 @@ export function FollowThroughTrack({
                   data-ft-size={tile.size}
                   data-ft-physical-width={20 * tile.size}
                   data-ft-distance={tile.distance}
+                  data-ft-exposed={
+                    tile.base.x > 8 &&
+                    tile.base.x < course.width - 8 &&
+                    !course.occlusions.some((box) => pointCovered(tile.base, box))
+                      ? "true"
+                      : "false"
+                  }
                   data-ft-starter-piece={tile.index === 0 ? "true" : undefined}
                   data-ft-base-x={tile.base.x.toFixed(1)}
                   data-ft-base-y={tile.base.y.toFixed(1)}

@@ -126,7 +126,10 @@ function Opening() {
         <p className="ft-label">Customer follow-up</p>
         <h1 id="ft-title">
           You lead. <br />
-          <span>Zapla follows through.</span>
+          <span className="ft-headline-follow">
+            Zapla follows through.
+            <span className="ft-opening-starter" data-ft-starter aria-hidden="true" />
+          </span>
         </h1>
         <p className="ft-intro">
           Automate the next check-in by SMS or email, from first enquiry to repeat business. Your
@@ -139,7 +142,6 @@ function Opening() {
           </a>
         </div>
       </div>
-      <span className="ft-opening-starter" data-ft-starter aria-hidden="true" />
       <div className="ft-hero-wrap" data-ft-content data-ft-occluder>
         <EnquiryScene />
       </div>
