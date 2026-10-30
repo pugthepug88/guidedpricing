@@ -69,7 +69,7 @@ function QuoteOverview() {
     </article>
   );
 }
-function Opening() {
+function Opening({ originMode }: { originMode?: "message" }) {
   return (
     <section className="qf-opening" data-ft-waypoint aria-labelledby="qf-title">
       <div className="qf-wrap qf-hero-grid" data-ft-content>
@@ -91,10 +91,25 @@ function Opening() {
               <ArrowDown size={16} aria-hidden="true" />
             </a>
           </div>
-          <span className="qfv-opening-starter" data-ft-starter aria-hidden="true" />
+          {originMode !== "message" && (
+            <span className="qfv-opening-starter" data-ft-starter aria-hidden="true" />
+          )}
         </div>
         <div className="qfv-hero-stage">
           <QuoteOverview />
+          {originMode === "message" && (
+            <span
+              className="qfv-message-starter"
+              data-ft-starter
+              data-ft-origin-mode="message"
+              aria-hidden="true"
+            >
+              <span className="qfv-send-cue">
+                <span className="qfv-send-cue-ready">Ready to send</span>
+                <span className="qfv-send-cue-sent">Follow-up sent</span>
+              </span>
+            </span>
+          )}
         </div>
       </div>
       <div className="qf-wrap qf-opening-foot" data-ft-occluder>
@@ -260,11 +275,14 @@ function Questions() {
     </section>
   );
 }
-export function QuoteFollowUpPageV2() {
+export function QuoteFollowUpPageV2({ originMode }: { originMode?: "message" }) {
   return (
-    <main className="zapla-quote-follow-up zapla-quote-follow-up-v2" data-page="quote-follow-up-v2">
-      <FollowThroughTrack variant="quote">
-        <Opening />
+    <main
+      className={`zapla-quote-follow-up zapla-quote-follow-up-v2${originMode === "message" ? " qfv-message-origin-preview" : ""}`}
+      data-page="quote-follow-up-v2"
+    >
+      <FollowThroughTrack key={originMode ?? "page"} variant="quote">
+        <Opening originMode={originMode} />
         <QuoteFollowJourney pageTrack />
         <HumanContext />
         <GuidedLaunch />

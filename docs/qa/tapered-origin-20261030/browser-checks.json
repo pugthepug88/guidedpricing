@@ -1,0 +1,187 @@
+{
+  "date": "2026-10-30",
+  "desktop": [
+    {
+      "page": "follow-up-v2",
+      "width": 1280,
+      "height": 900,
+      "overflow": false,
+      "prefix": [56, 44, 32, 24, 20],
+      "regular": ["20"],
+      "missing": 0,
+      "maxHidden": 52,
+      "face": {
+        "x": 1030.525390625,
+        "y": 257.5753173828125,
+        "width": 61.56787109375,
+        "height": 69.88677978515625,
+        "top": 257.5753173828125,
+        "right": 1092.09326171875,
+        "bottom": 327.46209716796875,
+        "left": 1030.525390625
+      }
+    },
+    {
+      "page": "quote-follow-up-v2",
+      "width": 1280,
+      "height": 900,
+      "overflow": false,
+      "prefix": [56, 44, 32, 24, 20],
+      "regular": ["20"],
+      "missing": 0,
+      "maxHidden": 50,
+      "face": {
+        "x": 378.510498046875,
+        "y": 679.1510009765625,
+        "width": 64.1602783203125,
+        "height": 60.2667236328125,
+        "top": 679.1510009765625,
+        "right": 442.6707763671875,
+        "bottom": 739.417724609375,
+        "left": 378.510498046875
+      }
+    },
+    {
+      "page": "quote-follow-up-v2?origin=message",
+      "width": 1280,
+      "height": 900,
+      "overflow": false,
+      "prefix": [56, 44, 32, 24, 20],
+      "regular": ["20"],
+      "missing": 0,
+      "maxHidden": 50,
+      "face": {
+        "x": 1196.5,
+        "y": 490.1343994140625,
+        "width": 64.4000244140625,
+        "height": 58.79998779296875,
+        "top": 490.1343994140625,
+        "right": 1260.9000244140625,
+        "bottom": 548.9343872070312,
+        "left": 1196.5
+      }
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 1100,
+      "height": 900,
+      "overflow": false,
+      "prefix": [56, 44, 32, 24, 20],
+      "regular": ["20"],
+      "missing": 0,
+      "maxHidden": 56,
+      "face": {
+        "x": 887.5390625,
+        "y": 234.5968017578125,
+        "width": 61.69683837890625,
+        "height": 69.53140258789062,
+        "top": 234.5968017578125,
+        "right": 949.2359008789062,
+        "bottom": 304.1282043457031,
+        "left": 887.5390625
+      }
+    },
+    {
+      "page": "quote-follow-up-v2?origin=message",
+      "width": 1100,
+      "height": 900,
+      "overflow": false,
+      "prefix": [56, 44, 32, 24, 20],
+      "regular": ["20"],
+      "missing": 0,
+      "maxHidden": 56,
+      "face": {
+        "x": 1013,
+        "y": 505.7594299316406,
+        "width": 64.4000244140625,
+        "height": 58.800018310546875,
+        "top": 505.7594299316406,
+        "right": 1077.4000244140625,
+        "bottom": 564.5594482421875,
+        "left": 1013
+      }
+    },
+    {
+      "page": "quote-follow-up-v2?origin=message",
+      "width": 1536,
+      "height": 864,
+      "overflow": false,
+      "prefix": [56, 44, 32, 24, 20],
+      "regular": ["20"],
+      "missing": 0,
+      "maxHidden": 50,
+      "face": {
+        "x": 1324.5,
+        "y": 490.1343994140625,
+        "width": 64.4000244140625,
+        "height": 58.79998779296875,
+        "top": 490.1343994140625,
+        "right": 1388.9000244140625,
+        "bottom": 548.9343872070312,
+        "left": 1324.5
+      }
+    }
+  ],
+  "fallbacks": [
+    {
+      "page": "follow-up-v2",
+      "width": 1280,
+      "height": 650,
+      "active": "true",
+      "overflow": false,
+      "prefix": [56, 44, 32, 24, 20],
+      "maxHidden": 52,
+      "reply": null,
+      "missing": 0
+    },
+    {
+      "page": "quote-follow-up-v2?origin=message",
+      "width": 1100,
+      "height": 650,
+      "active": "true",
+      "overflow": false,
+      "prefix": [56, 44, 32, 24, 20],
+      "maxHidden": 56,
+      "reply": "0",
+      "missing": 0
+    },
+    {
+      "page": "follow-up-v2",
+      "width": 320,
+      "height": 900,
+      "active": "false",
+      "overflow": false,
+      "prefix": [],
+      "reply": null,
+      "missing": 0
+    },
+    {
+      "page": "quote-follow-up-v2?origin=message",
+      "width": 393,
+      "height": 900,
+      "active": "false",
+      "overflow": false,
+      "prefix": [],
+      "reply": "1",
+      "missing": 0
+    }
+  ],
+  "states": {
+    "tipping": {
+      "cue": "sent",
+      "replyOpacity": 0,
+      "physicalWidths": [56, 44, 32, 24, 20],
+      "solidRight": 1077.159,
+      "rootWidth": 1085
+    },
+    "handedOff": {
+      "cue": "sent",
+      "replyOpacity": 1
+    },
+    "reversed": {
+      "cue": "ready",
+      "replyOpacity": 0
+    }
+  },
+  "limit": "Cloud browser frame rate limits normal-device fluidity verification."
+}

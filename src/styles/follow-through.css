@@ -1170,7 +1170,7 @@
   position: relative;
 }
 
-/* The phrase is the origin; the 32px starter sits beyond its actual text edge. */
+/* The phrase is the origin; the 56px starter sits beyond its actual text edge. */
 .ft-opening h1 .ft-headline-follow {
   position: relative;
 }
@@ -1187,8 +1187,8 @@
     position: absolute;
     left: calc(100% + 20px);
     bottom: 8px;
-    width: 32px;
-    height: 32px;
+    width: 56px;
+    height: 56px;
     pointer-events: none;
   }
 }
